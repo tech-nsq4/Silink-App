@@ -1,4 +1,4 @@
-package com.example.app_base
+package com.silink.app
 
 import io.flutter.embedding.android.FlutterActivity
 

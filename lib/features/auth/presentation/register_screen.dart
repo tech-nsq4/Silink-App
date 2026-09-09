@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:app_base/core/extensions/extensions.dart';
-import 'package:app_base/core/utils/app_images.dart';
-import 'package:app_base/core/widgets/app_text.dart';
+import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_images.dart';
+import 'package:Silink/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

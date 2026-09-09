@@ -1,4 +1,4 @@
-import 'package:app_base/features/auth/data/models/user_model.dart';
+import 'package:Silink/features/auth/data/models/user_model.dart';
 
 class AppConstants {
   AppConstants._();

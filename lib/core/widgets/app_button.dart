@@ -1,7 +1,7 @@
-import 'package:app_base/core/extensions/extensions.dart';
-import 'package:app_base/core/utils/app_colors.dart';
-import 'package:app_base/core/widgets/app_text.dart';
-import 'package:app_base/core/widgets/custom_loading_widget.dart';
+import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/widgets/app_text.dart';
+import 'package:Silink/core/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
