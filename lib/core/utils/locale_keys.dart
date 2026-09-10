@@ -36,12 +36,31 @@ abstract class LocaleKeys {
   static const String onboarding_skip = 'onboarding.skip';
   static const String onboarding_next = 'onboarding.next';
   static const String onboarding_getStarted = 'onboarding.get_started';
-  static const String onboarding_slide1_title = 'onboarding.slide1_title';
-  static const String onboarding_slide1_subtitle = 'onboarding.slide1_subtitle';
-  static const String onboarding_slide2_title = 'onboarding.slide2_title';
-  static const String onboarding_slide2_subtitle = 'onboarding.slide2_subtitle';
-  static const String onboarding_slide3_title = 'onboarding.slide3_title';
-  static const String onboarding_slide3_subtitle = 'onboarding.slide3_subtitle';
+  static const String onboarding_authHaveAccount = 'onboarding.auth_haveAccount';
+  static const String onboarding_slide1_title =
+      'onboarding.onboarding_slide1_title';
+  static const String onboarding_slide1_subtitle =
+      'onboarding.onboarding_slide1_subtitle';
+  static const String onboarding_slide1_desc = 'onboarding.slide1_desc';
+  static const String onboarding_slide2_title =
+      'onboarding.onboarding_slide2_title';
+  static const String onboarding_slide2_subtitle =
+      'onboarding.onboarding_slide2_subtitle';
+  static const String onboarding_slide2_desc = 'onboarding.slide2_desc';
+  static const String onboarding_slide3_title =
+      'onboarding.onboarding_slide3_title';
+  static const String onboarding_slide3_subtitle =
+      'onboarding.onboarding_slide3_subtitle';
+  static const String onboarding_slide3_desc = 'onboarding.slide3_desc';
+
+  // ─── Role ─────────────────────────────────────────────────────────────────
+  static const String role_title = 'role.title';
+  static const String role_subTitle = 'role.subTitle';
+  static const String role_personalTitle = 'role.role_personalTitle';
+  static const String role_personalDesc = 'role.role_personalDesc';
+  static const String role_teamTitle = 'role.role_teamTitle';
+  static const String role_teamDesc = 'role.role_teamDesc';
+  static const String role_footerHint = 'role.role_footerHint';
 
   // ─── Navigation ───────────────────────────────────────────────────────────
   static const String nav_home = 'nav.home';
@@ -49,6 +68,10 @@ abstract class LocaleKeys {
 
   // ─── Home ─────────────────────────────────────────────────────────────────
   static const String home_welcome = 'home.welcome';
+
+  // ─── Splash ───────────────────────────────────────────────────────────────
+  static const String splash_subtitle = 'splash.subtitle';
+  static const String splash_loading = 'splash.loading';
 
   // ─── More ─────────────────────────────────────────────────────────────────
   static const String more_title = 'more.title';

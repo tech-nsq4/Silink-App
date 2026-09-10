@@ -17,13 +17,26 @@
   "onboarding": {
     "skip": "Skip",
     "next": "Next",
-    "get_started": "Start",
-    "slide1_title": "",
-    "slide1_subtitle": "",
-    "slide2_title": "Explore the App",
-    "slide2_subtitle": "Everything you need, organized in one place.",
-    "slide3_title": "Get Started",
-    "slide3_subtitle": "Create an account and start using the app."
+    "get_started": "Start your trial for free",
+    "auth_haveAccount": "I have an account — Log in",
+    "onboarding_slide1_title": "Share your professional identity with a single touch.",
+    "onboarding_slide1_subtitle": "Bring any phone close to your card to instantly share your professional profile—no app or link required.",
+    "slide1_desc": "Instant sharing",
+    "onboarding_slide2_title": "Your complete professional profile in one place",
+    "onboarding_slide2_subtitle": "Add your information, links, and services, and update them at any time without reprinting.",
+    "slide2_desc": "Your digital identity",
+    "onboarding_slide3_title": "Build relationships and gain new customers.",
+    "onboarding_slide3_subtitle": "Track who visits your profile and automatically collect client data to grow your professional network.",
+    "slide3_desc": "Network of relationships"
+  },
+  "role": {
+    "title": "How do you want to use Silink?",
+    "subTitle": "Choose the experience that suits you; you can change it later from your account.",
+    "role_personalTitle": "Personal",
+    "role_personalDesc": "Create your personal card and share your information and services with ease",
+    "role_teamTitle": "Team or Company",
+    "role_teamDesc": "Manage your team members and cards and grow your company from one place",
+    "role_footerHint": "The «Personal» route starts as a guest or sign up"
   },
   "nav": {
     "home": "Home",
@@ -40,6 +53,10 @@
     "search": "Search",
     "retry": "Retry",
     "confirm": "Confirm"
+  },
+  "splash": {
+    "subtitle": "Your personal digital wallet",
+    "loading": "Loading..."
   },
   "home": {
     "welcome": "Welcome"

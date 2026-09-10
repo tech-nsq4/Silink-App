@@ -5,18 +5,24 @@ import 'package:photo_view/photo_view.dart';
 import '../../utils/app_images.dart';
 
 class CustomImage extends StatelessWidget {
-  const CustomImage(
-      {super.key,
-      required this.image,
-      this.radius,
-      this.fit,
-      this.width,
-      this.height});
+  const CustomImage({
+    super.key,
+    required this.image,
+    this.radius,
+    this.fit,
+    this.width,
+    this.height,
+  });
+
   final String image;
   final double? radius;
   final double? width;
   final double? height;
   final BoxFit? fit;
+
+  bool get _isNetwork =>
+      image.startsWith('http://') || image.startsWith('https://');
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -24,19 +30,33 @@ class CustomImage extends StatelessWidget {
       width: width,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius ?? 0),
-        child: Image.network(
-          image,
-          fit: fit ?? BoxFit.cover,
-          errorBuilder: (context, error, v) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(radius ?? 0),
-              child: Image.asset(
-                AppImages.holder,
-                fit: BoxFit.cover,
+        child: _isNetwork
+            ? Image.network(
+                image,
+                fit: fit ?? BoxFit.cover,
+                errorBuilder: (context, error, v) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(radius ?? 0),
+                    child: Image.asset(
+                      AppImages.holder,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+              )
+            : Image.asset(
+                image,
+                fit: fit ?? BoxFit.cover,
+                errorBuilder: (context, error, v) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(radius ?? 0),
+                    child: Image.asset(
+                      AppImages.holder,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }

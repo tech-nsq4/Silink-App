@@ -1,3 +1,4 @@
+import 'package:Silink/features/role/presentation/role_selection.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
@@ -27,9 +28,11 @@ class RouteGenerator {
         return _pageRoute(const RegisterScreen());
 
       case Routes.layoutScreen:
-        return _pageRoute(LayoutScreen(
-          currentPage: arguments?['currentPage'] ?? 0,
-        ));
+        return _pageRoute(
+            LayoutScreen(currentPage: arguments?['currentPage'] ?? 0));
+
+      case Routes.roleSelectionScreen:
+        return _pageRoute(const RoleSelection());
 
       default:
         return _pageRoute(const _UndefinedScreen());

@@ -1,3 +1,4 @@
+import 'package:Silink/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppText extends StatelessWidget {
@@ -31,10 +32,10 @@ class AppText extends StatelessWidget {
       overflow: overflow,
       style: TextStyle(
         height: height,
-        fontFamily: 'Cairo',
+        fontFamily: 'Tajawal',
         fontSize: fontSize ?? 14,
         fontWeight: fontWeight ?? FontWeight.w400,
-        color: color ?? Colors.black,
+        color: color ?? AppColors.textPrimaryColor.themeColor,
       ),
     );
   }

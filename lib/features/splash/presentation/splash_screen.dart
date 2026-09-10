@@ -1,11 +1,17 @@
 import 'dart:async';
 
+import 'package:Silink/app/router/routes.dart';
+import 'package:Silink/core/di/injection.dart';
+import 'package:Silink/core/storage/local_storage.dart';
+import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/utils/locale_keys.dart';
+import 'package:Silink/core/widgets/app_text.dart';
+import 'package:Silink/core/widgets/custom_loading_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gif/gif.dart';
 
-import '../../../app/router/routes.dart';
-import '../../../core/di/injection.dart';
-import '../../../core/storage/local_storage.dart';
 import '../../../core/utils/app_images.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -52,14 +58,58 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SizedBox.expand(
-        child: Gif(
-          controller: _gifController,
-          autostart: Autostart.loop,
-          image: const AssetImage(AppImages.introGif),
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage(AppImages.splash),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 200.w,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: Color(0xff3A4150),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Image.asset(AppImages.logoApp),
+                  ),
+                  16.verticalSpace,
+                  AppText(
+                    LocaleKeys.splash_subtitle.tr(),
+                    fontSize: 12.sp,
+                    color: AppColors.white.themeColor,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 32.h,
+              left: 0,
+              right: 0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomLoadingWidget(),
+                  8.verticalSpace,
+                  AppText(
+                    LocaleKeys.splash_loading.tr(),
+                    fontSize: 12.sp,
+                    color: AppColors.white.themeColor,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

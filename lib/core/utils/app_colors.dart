@@ -1,4 +1,5 @@
 import 'package:Silink/app/router/navigation_services.dart';
+import 'package:Silink/core/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 
 class ColorModel {
@@ -46,12 +47,12 @@ class AppColors {
   );
 
   static const ColorModel textPrimaryColor = ColorModel(
-    lightColor: Color(0xff1A1A1A),
+    lightColor: Color(0xFF111827),
     darkColor: Color(0xffFFFFFF),
   );
 
   static const ColorModel textSecondaryColor = ColorModel(
-    lightColor: Color(0xff757575),
+    lightColor: Color(0xFF64748b),
     darkColor: Color(0xffB0B0B0),
   );
 
@@ -79,10 +80,29 @@ class AppColors {
     lightColor: Color(0xffFFFFFF),
     darkColor: Color(0xff2C2C2C),
   );
-
+  static const ColorModel white = ColorModel(
+    lightColor: Color(0xffFFFFFF),
+    darkColor: Color(0xff121212),
+  );
+  static const ColorModel black = ColorModel(
+    lightColor: Color(0xff000000),
+    darkColor: Color(0xffFFFFFF),
+  );
   /// Golden accent — used for the final onboarding CTA button.
   static const ColorModel accentGold = ColorModel(
     lightColor: Color(0xFFD4A843),
     darkColor: Color(0xFFD4A843),
   );
+
+  // ─── Generated palette ────────────────────────────────────────────────────
+  static const ColorModel mint = ColorModel(
+    lightColor: Color(0xff2C9092),
+    darkColor: Color(0xff2C9092),
+  );
+
+  static const ColorModel blue = ColorModel(
+    lightColor: Color(0xff2368E2),
+    darkColor: Color(0xff2368E2),
+  );
+
 }
