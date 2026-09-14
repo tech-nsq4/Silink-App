@@ -1,4 +1,7 @@
+import 'package:Silink/features/role/presentation/onboarding_flow_screen.dart';
 import 'package:Silink/features/role/presentation/role_selection.dart';
+import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
+import 'package:Silink/features/store/presentation/store_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
@@ -33,6 +36,12 @@ class RouteGenerator {
 
       case Routes.roleSelectionScreen:
         return _pageRoute(const RoleSelection());
+      case Routes.onboardingFlowScreen:
+        return _pageRoute(const OnboardingFlowScreen());
+      case Routes.statisticsScreen:
+        return _pageRoute(const StatisticsScreen());
+      case Routes.storeScreen:
+        return _pageRoute(const StoreScreen());
 
       default:
         return _pageRoute(const _UndefinedScreen());

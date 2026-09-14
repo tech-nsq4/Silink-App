@@ -10,6 +10,7 @@ class AppText extends StatelessWidget {
   final int? maxLines;
   final double? height;
   final TextOverflow? overflow;
+  final TextDecoration? decoration;
 
   const AppText(
     this.text, {
@@ -21,6 +22,7 @@ class AppText extends StatelessWidget {
     this.textAlign,
     this.maxLines,
     this.overflow,
+    this.decoration,
   });
 
   @override
@@ -36,6 +38,9 @@ class AppText extends StatelessWidget {
         fontSize: fontSize ?? 14,
         fontWeight: fontWeight ?? FontWeight.w400,
         color: color ?? AppColors.textPrimaryColor.themeColor,
+        decoration: decoration ?? TextDecoration.none,
+        decorationColor: AppColors.textPrimaryColor.themeColor,
+        decorationThickness: 3,
       ),
     );
   }

@@ -63,7 +63,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void _finish() {
     getIt<LocalStorage>().setOnboardingSeen();
     Navigator.pushNamedAndRemoveUntil(
-        context, Routes.roleSelectionScreen, (_) => false);
+        context, Routes.loginScreen, (_) => false);
   }
 
   @override
@@ -89,6 +89,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onPageChanged: (i) => setState(() => _currentPage = i),
               onSkip: _finish,
             ),
+
             Expanded(
               flex: 3,
               child: Container(

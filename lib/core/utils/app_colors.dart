@@ -1,5 +1,4 @@
 import 'package:Silink/app/router/navigation_services.dart';
-import 'package:Silink/core/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 
 class ColorModel {
@@ -37,7 +36,7 @@ class AppColors {
   );
 
   static const ColorModel backgroundColor = ColorModel(
-    lightColor: Color(0xffFFFFFF),
+    lightColor: Color(0xFFF5F7FA),
     darkColor: Color(0xff121212),
   );
 
@@ -62,7 +61,7 @@ class AppColors {
   );
 
   static const ColorModel successColor = ColorModel(
-    lightColor: Color(0xff388E3C),
+    lightColor: Color(0xFF0d9488),
     darkColor: Color(0xff66BB6A),
   );
 
@@ -88,10 +87,17 @@ class AppColors {
     lightColor: Color(0xff000000),
     darkColor: Color(0xffFFFFFF),
   );
+  static const Color fieldFill = Color(0xFFF1F5F9);
+
   /// Golden accent — used for the final onboarding CTA button.
   static const ColorModel accentGold = ColorModel(
     lightColor: Color(0xFFD4A843),
     darkColor: Color(0xFFD4A843),
+  );
+
+  static ColorModel borderColor = ColorModel(
+    lightColor: Colors.black.withValues(alpha: 0.14),
+    darkColor: Colors.white,
   );
 
   // ─── Generated palette ────────────────────────────────────────────────────
@@ -99,10 +105,38 @@ class AppColors {
     lightColor: Color(0xff2C9092),
     darkColor: Color(0xff2C9092),
   );
+  static const ColorModel darkSlate = ColorModel(
+    lightColor: Color(0xFF3A4150),
+    darkColor: Color(0xFF3A4150),
+  );
 
   static const ColorModel blue = ColorModel(
-    lightColor: Color(0xff2368E2),
+    lightColor: Color(0xff2563eb),
     darkColor: Color(0xff2368E2),
   );
 
+  static const ColorModel statsAccentGreen = ColorModel(
+    lightColor: Color(0xFF1BAA63),
+    darkColor: Color(0xFF1BAA63),
+  );
+  static const ColorModel statsTabSelected = ColorModel(
+    lightColor: Color(0xFF1F8A70),
+    darkColor: Color(0xFF1F8A70),
+  );
+  static const ColorModel statsCardBg = ColorModel(
+    lightColor: Color(0xFFF7F8FA),
+    darkColor: Color(0xFFF7F8FA),
+  );
+  static const ColorModel statsProgressBg = ColorModel(
+    lightColor: Color(0xFFE9EBEF),
+    darkColor: Color(0xFFE9EBEF),
+  );
+  static const ColorModel statsGradientStart = ColorModel(
+    lightColor: Color(0xFF17B78F),
+    darkColor: Color(0xFF17B78F),
+  );
+  static const ColorModel statsGradientEnd = ColorModel(
+    lightColor: Color(0xFF2F6FED),
+    darkColor: Color(0xFF2F6FED),
+  );
 }

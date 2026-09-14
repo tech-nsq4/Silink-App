@@ -1,3 +1,5 @@
+import 'package:Silink/app/router/navigation_services.dart';
+import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
@@ -16,11 +18,6 @@ class RoleSelection extends StatefulWidget {
 
 class _RoleSelectionState extends State<RoleSelection> {
   int? _selectedIndex;
-
-  void _onSelect(int index) {
-    setState(() => _selectedIndex = index);
-    // TODO: navigate / save role selection
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +59,7 @@ class _RoleSelectionState extends State<RoleSelection> {
                 icon: AppImages.iconsMyself,
                 iconColor: AppColors.mint.themeColor,
                 isSelected: _selectedIndex == 0,
-                onTap: () => _onSelect(0),
+                onTap: () => NavigationService.push(Routes.onboardingFlowScreen),
               ),
               SizedBox(height: 16.h),
               _RoleCard(
@@ -71,7 +68,7 @@ class _RoleSelectionState extends State<RoleSelection> {
                 icon: AppImages.iconsCompany,
                 iconColor: AppColors.blue.themeColor,
                 isSelected: _selectedIndex == 1,
-                onTap: () => _onSelect(1),
+                onTap: () => NavigationService.push(Routes.onboardingFlowScreen),
               ),
               const Spacer(),
               Center(

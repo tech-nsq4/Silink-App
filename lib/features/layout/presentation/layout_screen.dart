@@ -1,6 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_images.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,6 +26,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
   static final _screens = [
     const HomeScreen(),
     const MoreScreen(),
+    const HomeScreen(),
+    const MoreScreen(),
   ];
 
   @override
@@ -37,9 +39,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+      body: SafeArea(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: _screens,
+        ),
       ),
       bottomNavigationBar: _CustomNavBar(
         currentIndex: _currentIndex,
@@ -59,7 +63,11 @@ class _NavItem {
 
 final _navItems = [
   const _NavItem(labelKey: LocaleKeys.nav_home, icon: AppImages.iconsHome),
-  const _NavItem(labelKey: LocaleKeys.nav_more, icon: AppImages.iconsMore),
+  const _NavItem(labelKey: LocaleKeys.nav_files, icon: AppImages.iconsPersonal),
+  const _NavItem(
+      labelKey: LocaleKeys.nav_clients, icon: AppImages.iconsClients),
+  const _NavItem(
+      labelKey: LocaleKeys.nav_account, icon: AppImages.iconsAccount),
 ];
 
 // ── Custom nav bar ────────────────────────────────────────────────────────────
@@ -72,7 +80,7 @@ class _CustomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primary = AppColors.primaryColor.themeColor;
+    final primary = AppColors.mint.themeColor;
 
     return Container(
       height: 75.h + MediaQuery.of(context).padding.bottom,
@@ -95,42 +103,43 @@ class _CustomNavBar extends StatelessWidget {
 
           return Expanded(
             child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
               onTap: () => onTap(i),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
-                    decoration: BoxDecoration(
-                      color: isActive
-                          ? primary.withValues(alpha: 0.12)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: SvgPicture.asset(
-                      item.icon,
-                      width: 22.w,
-                      height: 22.w,
-                      colorFilter: ColorFilter.mode(
-                        isActive ? primary : const Color(0xFF9E9E9E),
-                        BlendMode.srcIn,
-                      ),
+                  SvgPicture.asset(
+                    item.icon,
+                    width: 22.w,
+                    height: 22.w,
+                    colorFilter: ColorFilter.mode(
+                      isActive
+                          ? primary
+                          : AppColors.textSecondaryColor.themeColor,
+                      BlendMode.srcIn,
                     ),
                   ),
                   3.height,
                   AppText(
                     item.labelKey.tr(),
                     fontSize: 10.sp,
-                    fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                    color: isActive ? primary : const Color(0xFF9E9E9E),
+                    fontWeight: FontWeight.w600,
+                    color: isActive
+                        ? primary
+                        : AppColors.textSecondaryColor.themeColor,
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
                   3.height,
+                  if (isActive)
+                    Container(
+                      height: 5.w,
+                      width: 5.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.mint.themeColor,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
                 ],
               ),
             ),

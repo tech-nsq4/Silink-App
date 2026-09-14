@@ -12,7 +12,15 @@
     "phone": "رقم الهاتف",
     "name": "الاسم الكامل",
     "register_subtitle": "أنشئ حسابك للبدء",
-    "sign_in": "تسجيل الدخول"
+    "sign_in": "تسجيل الدخول",
+    "welcome_back": "مرحبًا بعودتك",
+    "login_subtitle": "سجّل دخولك للوصول إلى ملفاتك وبطاقاتك",
+    "phone_or_email": "رقم الهاتف أو البريد الإلكتروني",
+    "enter_password": "أدخل كلمة المرور",
+    "forgot_your_password": "نسيت كلمة المرور؟",
+    "register_now": "سجّل الآن",
+    "guest": "ابدأ كضيف",
+    "explore_account": "استكشف بدون حساب"
   },
   "onboarding": {
     "skip": "تخطي",
@@ -38,9 +46,43 @@
     "role_teamDesc": "أدِر ملفات الموظفين والبطاقات وهوية الشركة من مكان واحد",
     "role_footerHint": "مسار «لنفسي» ينتج البدء كضيف أو تسجيل حساب"
   },
+  "profile_type": {
+    "title": "نوع الملف",
+    "subTitle": "اختر نوع الملف",
+    "footerHint": "يمكنك تغيير هذا لاحقًا",
+    "work_title": "عمل",
+    "work_subtitle": "للموظفين والمديرين وأصحاب الشركات",
+    "personal_title": "شخصي",
+    "personal_subtitle": "للأفراد والمهتمين بالتواصل الشخصي",
+    "freelancer_title": "مستقل / استشاري",
+    "freelancer_subtitle": "للمستقلين والمستشارين والمبدعين",
+    "app_bar_title_basic_info": "المعلومات",
+    "basic_info_title": "المعلومات الأساسية",
+    "basic_info_subtitle": "ستظهر هذه المعلومات في ملفك الرقمي",
+    "basic_info_photo_label": "الصورة الشخصية",
+    "basic_info_photo_hint": "تُضاف الصورة الحقيقية بعد التسجيل",
+    "basic_info_choose_photo": "اختر صورة",
+    "basic_info_photo_picker_snackbar": "فتح معرض الصور...",
+    "basic_info_full_name": "الاسم الكامل",
+    "basic_info_full_name_hint": "حازم العتيبي",
+    "basic_info_job_title": "المسمى الوظيفي",
+    "basic_info_job_title_hint": "مدير تطوير الأعمال",
+    "basic_info_company": "الشركة / الجهة",
+    "basic_info_company_hint": "شركة الرؤية الرقمية",
+    "basic_info_bio": "نبذة شخصية",
+    "basic_info_bio_hint": "متخصص في تطوير الأعمال وبناء الشراكات الاستراتيجية. أكثر من 10 سنوات خبرة في قطاع التقنية.",
+    "basic_info_phone": "رقم الهاتف",
+    "basic_info_phone_hint": "0512345678",
+    "basic_info_saved_snackbar": "تم حفظ المعلومات الأساسية — الانتقال للخطوة التالية",
+    "location": "الموقع",
+    "city": "المدينة"
+  },
   "nav": {
     "home": "الرئيسية",
-    "more": "المزيد"
+    "more": "المزيد",
+    "my_files": "ملفاتي",
+    "clients": "العملاء",
+    "account": "الحساب"
   },
   "validation": {
     "required": "هذا الحقل مطلوب",
@@ -59,7 +101,68 @@
     "loading": "جارٍ التحميل..."
   },
   "home": {
-    "welcome": "أهلاً وسهلاً"
+  "welcome": "أهلاً وسهلاً",
+  "greeting": "مساء النور",
+  "active_badge": "نشط",
+  "stat_conversion": "التحويل",
+  "stat_potential_clients": "عميل محتمل",
+  "stat_visits": "زيارة",
+  "edit_profile": "تعديل الملف الشخصي",
+  "action_stats": "إحصائيات",
+  "action_share": "مشاركة",
+  "action_preview": "معاينة",
+  "completion_title": "اكتمال الملف",
+  "complete_profile_badge": "أكمل ملف",
+  "complete_profile_hint": "أضف قنوات التواصل لإكمال ملفك",
+  "my_cards_title": "بطاقاتي",
+  "card_not_published_title": "لم تنشر بطاقتك بعد",
+  "card_not_published_subtitle": "انشر ملفك للحصول على رابط NFC و QR",
+  "complete_and_publish": "إكمال الملف والنشر",
+  "store_badge_new": "جديد",
+  "store_title": "متجر Silink",
+  "store_subtitle": "بطاقات NFC، معدنية، ملصقات وأكثر",
+  "recent_activities_title": "آخر النشاطات",
+  "view_all": "عرض الكل",
+  "activity_profile_visit": "زيارة ملف {name}",
+  "activity_link_interaction": "تفاعل مع رابط – {name}",
+  "activity_contact_saved": "حفظ جهة اتصال – {name}",
+  "hours_ago": "منذ {hours} ساعة",
+  "potential_clients_title": "العملاء المحتملون",
+  "build_client_list_title": "ابنِ قائمة عملائك",
+  "build_client_list_subtitle": "بعد إنشاء ملفك ومشاركته ستظهر هنا بيانات من تواصل معك",
+  "start_creating_profile": "ابدأ إنشاء ملفك"
+  },
+  "stats": {
+    "title": "الإحصائيات",
+    "summary_title": "ملخص الأداء",
+    "total_visits": "إجمالي الزيارات",
+    "unique_visitors": "الزوار الفريدون",
+    "contact_saved": "حفظ جهة الاتصال",
+    "potential_clients": "العملاء المحتملون",
+    "conversion_rate": "معدل التحويل",
+    "visit_sources": "مصادر الزيارات",
+    "link_interaction": "تفاعل الروابط",
+    "source_nfc": "NFC",
+    "source_qr": "رمز QR",
+    "source_direct": "رابط مباشر",
+    "source_whatsapp": "واتساب",
+    "source_call": "اتصال",
+    "source_website": "الموقع",
+    "source_email": "بريد إلكتروني",
+    "source_booking": "حجز موعد",
+    "profile_performance": "أداء الملف",
+    "conversion": "تحويل",
+    "saved": "حفظ",
+    "client": "عميل",
+    "visit": "زيارة",
+    "period_30d": "30 يومًا",
+    "period_7d": "7 أيام",
+    "period_today": "اليوم"
+  },
+  "store": {
+    "title": "المتجر",
+    "offers": "عروض خاصة",
+    "special_offer": "عرض خاص"
   },
   "more": {
     "title": "المزيد",
@@ -79,6 +182,11 @@
     "logout_subtitle": "تسجيل الخروج من حسابك الحالي",
     "logout_dialog_title": "تسجيل الخروج",
     "logout_dialog_message": "هل أنت متأكد من رغبتك في تسجيل الخروج من حسابك؟"
+    
+  },
+  "app_bar": {
+    "back": "رجوع",
+    "step": "الخطوة {step} من {totalSteps}"
   },
   "error": {
     "unauthorized": "انتهت الجلسة، يرجى تسجيل الدخول مجدداً",

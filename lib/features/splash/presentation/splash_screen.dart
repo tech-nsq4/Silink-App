@@ -44,13 +44,28 @@ class _SplashScreenState extends State<SplashScreen>
   void _navigate() {
     if (_navigated || !mounted) return;
     _navigated = true;
+
     final storage = getIt<LocalStorage>();
+
     if (storage.isLoggedIn) {
+   
       Navigator.pushNamedAndRemoveUntil(
-          context, Routes.layoutScreen, (_) => false);
+        context,
+        Routes.layoutScreen,
+        (_) => false,
+      );
+    } else if (storage.isOnboardingSeen) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Routes.loginScreen,
+        (_) => false,
+      );
     } else {
       Navigator.pushNamedAndRemoveUntil(
-          context, Routes.onBoardingScreen, (_) => false);
+        context,
+        Routes.onBoardingScreen,
+        (_) => false,
+      );
     }
   }
 
@@ -78,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen>
                     padding:
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                     decoration: BoxDecoration(
-                      color: Color(0xff3A4150),
+                      color: AppColors.darkSlate.themeColor,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Image.asset(AppImages.logoApp),

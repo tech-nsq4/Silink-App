@@ -14,6 +14,7 @@ class AppTheme {
           seedColor: AppColors.primaryColor.light,
           brightness: Brightness.light,
         ),
+        dividerColor: AppColors.surfaceColor.themeColor,
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.backgroundColor.light,
       );

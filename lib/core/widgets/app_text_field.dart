@@ -1,5 +1,6 @@
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -60,9 +61,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    const defaultFillColor = Color(0xFFE7EAE6);
-    const defaultBorderColor = Color(0xFFD4D9D3);
-    const defaultHintColor = Color(0xFF66706A);
+    const defaultFillColor = AppColors.fieldFill;
+    const defaultBorderColor = Color(0xFFE0E0E0);
+    final defaultHintColor = AppColors.textSecondaryColor.themeColor;
     const defaultTextColor = Color(0xFF2C3430);
 
     final borderRadius = widget.borderRadius ?? 16;
@@ -83,7 +84,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       onTap: widget.onTap,
       style: widget.textStyle ??
           const TextStyle(
-            fontFamily: 'Cairo',
+            fontFamily: 'Tajawal',
             fontWeight: FontWeight.w600,
             fontSize: 15,
             color: defaultTextColor,
@@ -92,20 +93,30 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.hint,
         labelText: widget.label,
         hintStyle: widget.hintStyle ??
-            const TextStyle(
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
+            TextStyle(
+              fontFamily: 'Tajawal',
+              fontSize: 14.sp,
               color: defaultHintColor,
+              fontWeight: FontWeight.w400,
             ),
         labelStyle: widget.labelStyle ??
-            const TextStyle(
-              fontFamily: 'Cairo',
+            TextStyle(
+              fontFamily: 'Tajawal',
               fontWeight: FontWeight.w500,
-              fontSize: 15,
+              fontSize: 14.sp,
               color: defaultHintColor,
             ),
-        prefixIcon: widget.prefixIcon,
+        prefixIconConstraints: BoxConstraints(
+          minWidth: 44.w,
+          minHeight: 0,
+        ),
+        suffixIconConstraints: BoxConstraints(
+          minWidth: 44.w,
+          minHeight: 0,
+        ),
+        prefixIcon: widget.prefixIcon != null
+            ? UnconstrainedBox(child: widget.prefixIcon)
+            : null,
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(_obscure
@@ -113,16 +124,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     : Icons.visibility_outlined),
                 onPressed: () => setState(() => _obscure = !_obscure),
               )
-            : widget.suffixIcon,
+            : (widget.suffixIcon != null
+                ? UnconstrainedBox(child: widget.suffixIcon)
+                : null),
         filled: widget.filled,
         fillColor: widget.fillColor ?? defaultFillColor,
         border: enabledBorder,
         enabledBorder: enabledBorder,
         focusedBorder: OutlineInputBorder(
+          
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide: BorderSide(
             color:
-                widget.focusedBorderColor ?? AppColors.primaryColor.themeColor,
+                widget.focusedBorderColor ?? AppColors.mint.themeColor,
             width: 1.2,
           ),
         ),
@@ -137,11 +151,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
               BorderSide(color: AppColors.errorColor.themeColor, width: 1.2),
         ),
         contentPadding: widget.contentPadding ??
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+            EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
       ),
     );
   }
 }
 
-@Deprecated('Use CustomTextField instead.')
-typedef AppTextField = CustomTextField;
+// @Deprecated('Use CustomTextField instead.')
+// typedef AppTextField = CustomTextField;

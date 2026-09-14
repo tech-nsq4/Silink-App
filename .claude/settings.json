@@ -41,7 +41,13 @@
       "Bash(tee /private/tmp/claude-501/-Users-yehyaelsayed-StudioProjects-Hazem-Vivacare-White-label/44a6269f-d4d4-45fb-959e-bfb4110fd5e1/scratchpad/flutter_run2.log)",
       "Bash(osascript -e 'tell application \"Simulator\" to activate' -e 'delay 0.3' -e 'tell application \"System Events\" to tell process \"Simulator\" to get position of window 1' -e 'tell application \"System Events\" to tell process \"Simulator\" to get size of window 1')",
       "Bash(rm -f /private/tmp/claude-501/-Users-yehyaelsayed-StudioProjects-Hazem-Vivacare-White-label/44a6269f-d4d4-45fb-959e-bfb4110fd5e1/scratchpad/flutter_stdin)",
-      "Bash(tee /private/tmp/claude-501/-Users-yehyaelsayed-StudioProjects-Hazem-Vivacare-White-label/44a6269f-d4d4-45fb-959e-bfb4110fd5e1/scratchpad/flutter_run4.log)"
+      "Bash(tee /private/tmp/claude-501/-Users-yehyaelsayed-StudioProjects-Hazem-Vivacare-White-label/44a6269f-d4d4-45fb-959e-bfb4110fd5e1/scratchpad/flutter_run4.log)",
+      "Bash(mkdir -p /Users/matrix/projects/Silink-App/lib/features/statistics/presentation/widgets)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter build *)"
+    ],
+    "additionalDirectories": [
+      "/Users/matrix/projects/Silink-App/lib/features/statistics/presentation/widgets"
     ]
   }
 }
