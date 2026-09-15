@@ -1,4 +1,6 @@
+import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/widgets/custom_tap_effect.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -84,18 +86,23 @@ class ProfileCompletionCard extends StatelessWidget {
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFdcfce7),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: AppText(
-                      LocaleKeys.home_complete_profile_badge.tr(),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF008236),
+                  CustomTapEffect(
+                    onTap: () {
+                      context.pushNamed(Routes.usageTypeScreen);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFdcfce7),
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                      child: AppText(
+                        LocaleKeys.home_complete_profile_badge.tr(),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF008236),
+                      ),
                     ),
                   ),
                 ],

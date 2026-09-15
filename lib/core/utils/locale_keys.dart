@@ -27,12 +27,33 @@ abstract class LocaleKeys {
   static const String register_now = 'auth.register_now';
   static const String guest = 'auth.guest';
   static const String explore_account = 'auth.explore_account';
+  static const String auth_namePlaceholder = 'auth.name_placeholder';
+  static const String auth_phonePlaceholder = 'auth.phone_placeholder';
+  static const String auth_emailPlaceholder = 'auth.email_placeholder';
+  static const String auth_passwordPlaceholder = 'auth.password_placeholder';
+  static const String auth_createAccountButton = 'auth.create_account_button';
+  static const String auth_termsAgreePrefix = 'auth.terms_agree_prefix';
+  static const String auth_termsOfService = 'auth.terms_of_service';
+  static const String auth_termsAnd = 'auth.terms_and';
+  static const String auth_privacyPolicy = 'auth.privacy_policy';
+
+  // ─── OTP ──────────────────────────────────────────────────────────────────
+  static const String otp_title = 'otp.title';
+  static const String otp_heading = 'otp.heading';
+  static const String otp_subtitle = 'otp.subtitle';
+  static const String otp_verify = 'otp.verify';
+  static const String otp_resendPrefix = 'otp.resend_prefix';
+  static const String otp_resendSuffix = 'otp.resend_suffix';
+  static const String otp_resendAction = 'otp.resend_action';
+  static const String otp_changePhone = 'otp.change_phone';
+  static const String otp_enterFullCode = 'otp.enter_full_code';
 
   // ─── Common ───────────────────────────────────────────────────────────────
   static const String common_cancel = 'common.cancel';
   static const String common_search = 'common.search';
   static const String common_retry = 'common.retry';
   static const String common_confirm = 'common.confirm';
+  static const String common_comingSoon = 'common.coming_soon';
 
   // ─── Validation ───────────────────────────────────────────────────────────
   static const String validation_required = 'validation.required';
@@ -121,8 +142,123 @@ abstract class LocaleKeys {
       'profile_type.basic_info_phone_hint';
   static const String profile_type_basic_info_saved_snackbar =
       'profile_type.basic_info_saved_snackbar';
+  static const String profile_type_basic_info_required_error =
+      'profile_type.basic_info_required_error';
   static const String profile_type_location = 'profile_type.location';
   static const String profile_type_city = 'profile_type.city';
+
+  // ─── Contact Channels (profile completion step 3) ──────────────────────────
+  static const String channels_title = 'channels.title';
+  static const String channels_subtitle = 'channels.subtitle';
+  static const String channels_whatsapp = 'channels.whatsapp';
+  static const String channels_whatsappHint = 'channels.whatsapp_hint';
+  static const String channels_linkedin = 'channels.linkedin';
+  static const String channels_linkedinHint = 'channels.linkedin_hint';
+  static const String channels_instagram = 'channels.instagram';
+  static const String channels_instagramHint = 'channels.instagram_hint';
+  static const String channels_x = 'channels.x';
+  static const String channels_xHint = 'channels.x_hint';
+  static const String channels_snapchat = 'channels.snapchat';
+  static const String channels_snapchatHint = 'channels.snapchat_hint';
+  static const String channels_tiktok = 'channels.tiktok';
+  static const String channels_tiktokHint = 'channels.tiktok_hint';
+
+  // ─── Contact Links (profile completion step 4) ─────────────────────────────
+  static const String links_title = 'links.title';
+  static const String links_subtitle = 'links.subtitle';
+  static const String links_website = 'links.website';
+  static const String links_websiteHint = 'links.website_hint';
+  static const String links_portfolio = 'links.portfolio';
+  static const String links_portfolioHint = 'links.portfolio_hint';
+  static const String links_booking = 'links.booking';
+  static const String links_bookingHint = 'links.booking_hint';
+  static const String links_quote = 'links.quote';
+  static const String links_quoteHint = 'links.quote_hint';
+  static const String links_brochure = 'links.brochure';
+  static const String links_brochureHint = 'links.brochure_hint';
+  static const String links_customLink = 'links.custom_link';
+  static const String links_customLinkHint = 'links.custom_link_hint';
+
+  // ─── Products & Services (profile completion step 5) ───────────────────────
+  static const String products_title = 'products.title';
+  static const String products_subtitle = 'products.subtitle';
+  static const String products_enableTitle = 'products.enable_title';
+  static const String products_enableSubtitle = 'products.enable_subtitle';
+  static const String products_countLabel = 'products.count_label';
+  static const String products_addProduct = 'products.add_product';
+  static const String products_addTitle = 'products.add_title';
+  static const String products_editTitle = 'products.edit_title';
+  static const String products_nameLabel = 'products.name_label';
+  static const String products_nameHint = 'products.name_hint';
+  static const String products_priceLabel = 'products.price_label';
+  static const String products_priceHint = 'products.price_hint';
+  static const String products_emptyHint = 'products.empty_hint';
+
+  // ─── Content Ranking (profile completion step 6) ───────────────────────────
+  static const String ranking_title = 'ranking.title';
+  static const String ranking_subtitle = 'ranking.subtitle';
+  static const String ranking_basicInfo = 'ranking.basic_info';
+  static const String ranking_basicInfoPinned = 'ranking.basic_info_pinned';
+  static const String ranking_bio = 'ranking.bio';
+  static const String ranking_quickContact = 'ranking.quick_contact';
+  static const String ranking_channels = 'ranking.channels';
+  static const String ranking_links = 'ranking.links';
+  static const String ranking_products = 'ranking.products';
+  static const String ranking_services = 'ranking.services';
+  static const String ranking_dragHint = 'ranking.drag_hint';
+
+  // ─── Template (profile completion step 7) ──────────────────────────────────
+  static const String template_title = 'template.title';
+  static const String template_subtitle = 'template.subtitle';
+  static const String template_simpleTitle = 'template.simple_title';
+  static const String template_simpleSubtitle = 'template.simple_subtitle';
+  static const String template_professionalTitle =
+      'template.professional_title';
+  static const String template_professionalSubtitle =
+      'template.professional_subtitle';
+  static const String template_personalTitle = 'template.personal_title';
+  static const String template_personalSubtitle =
+      'template.personal_subtitle';
+  static const String template_freeBadge = 'template.free_badge';
+  static const String template_paidBadge = 'template.paid_badge';
+
+  // ─── Appearance (profile completion step 8) ────────────────────────────────
+  static const String appearance_title = 'appearance.title';
+  static const String appearance_primaryColor = 'appearance.primary_color';
+  static const String appearance_coverColor = 'appearance.cover_color';
+  static const String appearance_profileBackground =
+      'appearance.profile_background';
+  static const String appearance_backgroundGradient =
+      'appearance.background_gradient';
+  static const String appearance_backgroundLight =
+      'appearance.background_light';
+  static const String appearance_backgroundWhite =
+      'appearance.background_white';
+  static const String appearance_previewCall = 'appearance.preview_call';
+  static const String appearance_previewWhatsapp =
+      'appearance.preview_whatsapp';
+  static const String appearance_elementShape = 'appearance.element_shape';
+  static const String appearance_shapeSquare = 'appearance.shape_square';
+  static const String appearance_shapeCurved = 'appearance.shape_curved';
+  static const String appearance_shapeRounded = 'appearance.shape_rounded';
+  static const String appearance_fontStyle = 'appearance.font_style';
+  static const String appearance_fontTajawal = 'appearance.font_tajawal';
+  static const String appearance_fontCairo = 'appearance.font_cairo';
+  static const String appearance_fontAlmarai = 'appearance.font_almarai';
+  static const String appearance_fontSample = 'appearance.font_sample';
+  static const String appearance_previewProfile =
+      'appearance.preview_profile';
+
+  // ─── Publish & Preview (profile completion step 9) ─────────────────────────
+  static const String publish_saveAndPublish = 'publish.save_and_publish';
+  static const String publish_previewEditor = 'publish.preview_editor';
+  static const String publish_viewAsVisitor = 'publish.view_as_visitor';
+  static const String publish_copyLink = 'publish.copy_link';
+  static const String publish_linkCopied = 'publish.link_copied';
+  static const String publish_saveContact = 'publish.save_contact';
+  static const String publish_viewAll = 'publish.view_all';
+  static const String publish_shareCta = 'publish.share_cta';
+  static const String publish_publishedSuccess = 'publish.published_success';
 
   // ─── Navigation ───────────────────────────────────────────────────────────
   static const String nav_home = 'nav.home';

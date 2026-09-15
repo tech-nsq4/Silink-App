@@ -57,7 +57,10 @@ class _SplashScreenState extends State<SplashScreen>
     } else if (storage.isOnboardingSeen) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        Routes.loginScreen,
+        // Routes.loginScreen,
+        // Routes.onBoardingScreen,
+        Routes.onBoardingScreen,
+
         (_) => false,
       );
     } else {

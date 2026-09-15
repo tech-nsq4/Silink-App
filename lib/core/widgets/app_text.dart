@@ -11,6 +11,7 @@ class AppText extends StatelessWidget {
   final double? height;
   final TextOverflow? overflow;
   final TextDecoration? decoration;
+  final String? fontFamily;
 
   const AppText(
     this.text, {
@@ -23,6 +24,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.overflow,
     this.decoration,
+    this.fontFamily,
   });
 
   @override
@@ -34,7 +36,7 @@ class AppText extends StatelessWidget {
       overflow: overflow,
       style: TextStyle(
         height: height,
-        fontFamily: 'Tajawal',
+        fontFamily: fontFamily ?? 'Tajawal',
         fontSize: fontSize ?? 14,
         fontWeight: fontWeight ?? FontWeight.w400,
         color: color ?? AppColors.textPrimaryColor.themeColor,

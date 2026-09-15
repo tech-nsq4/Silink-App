@@ -2,22 +2,7 @@ import 'package:Silink/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Shared dark-green header background used by both the Login and Home
-/// screens.  Provides:
-///   • Primary-colour fill
-///   • Semi-transparent accent-gold decorative circle (top-right)
-///   • SafeArea wrapper
-///
-/// Pass your screen-specific layout as [child].
-///
-/// Usage in Login:
-///   ```dart
-///   PrimaryHeader(child: _LoginHeaderContent())
-///   ```
-/// Usage in Home:
-///   ```dart
-///   PrimaryHeader(height: screenH * 0.40, child: _HomeHeaderContent())
-///   ```
+
 class PrimaryHeader extends StatelessWidget {
   const PrimaryHeader({
     super.key,

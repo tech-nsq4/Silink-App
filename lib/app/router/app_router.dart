@@ -1,10 +1,11 @@
-import 'package:Silink/features/role/presentation/onboarding_flow_screen.dart';
-import 'package:Silink/features/role/presentation/role_selection.dart';
+import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
+import 'package:Silink/features/profile_completion/presentation/usage_type_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
 import 'package:Silink/features/store/presentation/store_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
+import '../../features/auth/presentation/otp_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/layout/presentation/layout_screen.dart';
 import '../../features/onboarding/presentation/on_boarding_screen.dart';
@@ -30,14 +31,18 @@ class RouteGenerator {
       case Routes.registerScreen:
         return _pageRoute(const RegisterScreen());
 
+      case Routes.otpScreen:
+        return _pageRoute(
+            OtpScreen(destination: arguments?['destination'] as String? ?? ''));
+
       case Routes.layoutScreen:
         return _pageRoute(
             LayoutScreen(currentPage: arguments?['currentPage'] ?? 0));
 
-      case Routes.roleSelectionScreen:
-        return _pageRoute(const RoleSelection());
-      case Routes.onboardingFlowScreen:
-        return _pageRoute(const OnboardingFlowScreen());
+      case Routes.usageTypeScreen:
+        return _pageRoute(const UsageTypeScreen());
+      case Routes.profileCompletionScreen:
+        return _pageRoute(const ProfileCompletionScreen());
       case Routes.statisticsScreen:
         return _pageRoute(const StatisticsScreen());
       case Routes.storeScreen:

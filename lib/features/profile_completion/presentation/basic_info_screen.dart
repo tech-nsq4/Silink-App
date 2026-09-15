@@ -5,15 +5,15 @@ import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/core/widgets/app_text_field.dart';
-import 'package:Silink/features/role/models/onboarding_data.dart';
-import 'package:Silink/features/role/presentation/widgets/field_label.dart';
+import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
+import 'package:Silink/features/profile_completion/presentation/widgets/field_label.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BasicInfoStep extends StatefulWidget {
-  final OnboardingData data;
+  final ProfileCompletionData data;
   final ValueChanged<bool> onValidityChanged;
 
   const BasicInfoStep({

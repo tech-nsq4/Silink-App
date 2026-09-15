@@ -21,12 +21,7 @@ class LocalStorage {
   }
 
   // ─── Auth ─────────────────────────────────────────────────────────────────
-  // The token is the one secret worth protecting from a rooted/jailbroken
-  // device or a plain file-system backup, so it lives in the platform
-  // keystore (Keychain on iOS, EncryptedSharedPreferences/Keystore on
-  // Android) instead of GetStorage's plaintext JSON file. `_hasTokenKey`
-  // mirrors "is a token set" in GetStorage so `isLoggedIn` can stay a cheap
-  // synchronous getter for widgets/router that need it at build time.
+
   static const _tokenKey = 'token';
   static const _hasTokenKey = 'has_token';
   static const _userKey = 'user';

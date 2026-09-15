@@ -38,8 +38,7 @@ class AuthRepo {
         ApiEndpoints.login,
         data: data,
       );
-      final user =
-          UserModel.fromJson(response.data['data'] as Map<String, dynamic>);
+      final user = UserModel.fromJson(response.data['data'] as Map<String, dynamic>);
       if (user.token != null) {
         await _storage.setToken(user.token!);
         await _storage.setUser(user.toJson());

@@ -1,9 +1,8 @@
-import 'package:Silink/app/router/navigation_services.dart';
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/widgets/app_text.dart';
+import 'package:Silink/features/auth/presentation/widgets/dashed_guest_button.dart';
 import 'package:Silink/features/auth/presentation/widgets/social_auth_buttons.dart';
-import 'package:Silink/features/profile/logic/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +14,7 @@ import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../logic/auth_cubit.dart';
+import 'widgets/auth_field_label.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,12 +36,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _submit() {
-    NavigationService.pushNamedAndRemoveUntil(Routes.layoutScreen);
-    // if (!_formKey.currentState!.validate()) return;
-    // context.read<AuthCubit>().login(
-    //       email: _emailCtrl.text.trim(),
-    //       password: _passwordCtrl.text,
-    //     );
+    Navigator.pushNamed(
+      context,
+      Routes.otpScreen,
+      arguments: {'destination': _emailCtrl.text.trim()},
+    );
   }
 
   void _continueAsGuest() {
@@ -57,9 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          context.read<ProfileCubit>().getProfile();
-          Navigator.pushNamedAndRemoveUntil(
-              context, Routes.layoutScreen, (_) => false);
+          Navigator.pushNamed(
+            context,
+            Routes.otpScreen,
+            arguments: {'destination': _emailCtrl.text.trim()},
+          );
         }
       },
       child: BlocBuilder<AuthCubit, AuthState>(
@@ -78,20 +79,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: AppText(
-                            LocaleKeys.auth_login.tr(),
-                            fontSize: 24,
-                            color: const Color(0xFF17212B),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        16.height,
-                        Divider(
-                            height: 1.h,
-                            color: AppColors.textSecondaryColor.themeColor
-                                .withValues(alpha: 0.30)),
-                        16.height,
+                        // Center(
+                        //   child: AppText(
+                        //     LocaleKeys.auth_login.tr(),
+                        //     fontSize: 24,
+                        //     color: const Color(0xFF17212B),
+                        //     fontWeight: FontWeight.w700,
+                        //   ),
+                        // ),
+                        // 16.height,
+                        // Divider(
+                        //     height: 1.h,
+                        //     color: AppColors.textSecondaryColor.themeColor
+                        //         .withValues(alpha: 0.30)),
+                        // 16.height,
                         Container(
                           height: 40.h,
                           width: 110.w,
@@ -112,7 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         AppText(LocaleKeys.login_subtitle.tr(),
                             fontSize: 14.sp),
                         16.height,
-                        _FieldLabel(text: LocaleKeys.auth_phone_or_email.tr()),
+                        AuthFieldLabel(
+                            text: LocaleKeys.auth_phone_or_email.tr()),
                         8.height,
                         CustomTextField(
                           hint: '05xxxxxxxx أو name@example.com',
@@ -129,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         14.height,
-                        _FieldLabel(text: LocaleKeys.auth_password.tr()),
+                        AuthFieldLabel(text: LocaleKeys.auth_password.tr()),
                         8.height,
                         CustomTextField(
                           hint: LocaleKeys.enter_password.tr(),
@@ -209,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         20.height,
-                        _DashedGuestButton(
+                        DashedGuestButton(
                           label:
                               '${LocaleKeys.guest.tr()} - ${LocaleKeys.explore_account.tr()}',
                           onTap: _continueAsGuest,
@@ -223,60 +225,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _FieldLabel extends StatelessWidget {
-  const _FieldLabel({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: AlignmentDirectional.centerStart,
-      child: AppText(
-        text,
-        fontSize: 14,
-        color: AppColors.primaryColor.themeColor,
-        fontWeight: FontWeight.w700,
-      ),
-    );
-  }
-}
-
-class _DashedGuestButton extends StatelessWidget {
-  const _DashedGuestButton({
-    required this.label,
-    required this.onTap,
-  });
-
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: 54.h,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.white.themeColor,
-          borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(
-            color: const Color(0xFFE2E8F0),
-            width: 1,
-          ),
-        ),
-        child: AppText(
-          label,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w700,
-        ),
       ),
     );
   }
