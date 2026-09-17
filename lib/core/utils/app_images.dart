@@ -43,9 +43,12 @@ class AppImages {
   static const String iconsShare = '${_icons}share.svg';
   static const String iconsStats = '${_icons}stats.svg';
   static const String iconsCard = '${_icons}card.svg';
-  static const String iconsQrCode= '${_icons}qr_code.svg';
-  static const String iconsStore= '${_icons}store.svg';
-  static const String iconsCart= '${_icons}cart.svg';
+  static const String iconsQrCode = '${_icons}qr_code.svg';
+  static const String iconsStore = '${_icons}store.svg';
+  static const String iconsCart = '${_icons}cart.svg';
+  static const String iconsFlash = '${_icons}flash.svg';
+  static const String iconsDownload = '${_icons}download.svg';
+  static const String iconsInternet = '${_icons}internet.svg';
 
   // ─── Images ──────────────────────────────────────────────────────────────
   static const String logo = '${_base}logo2.png';

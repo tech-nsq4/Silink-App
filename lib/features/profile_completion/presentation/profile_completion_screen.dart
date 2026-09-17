@@ -1,3 +1,5 @@
+import 'package:Silink/app/router/navigation_services.dart';
+import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
@@ -110,6 +112,7 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
 
   void _handleSaveAndPublish() {
     AppOverlay.showSuccess(LocaleKeys.publish_publishedSuccess.tr());
+    NavigationService.push(Routes.publishCardScreen , arguments: {'data': _data});
   }
 
   void _handleViewAsVisitor() {

@@ -44,7 +44,9 @@
       "Bash(tee /private/tmp/claude-501/-Users-yehyaelsayed-StudioProjects-Hazem-Vivacare-White-label/44a6269f-d4d4-45fb-959e-bfb4110fd5e1/scratchpad/flutter_run4.log)",
       "Bash(mkdir -p /Users/matrix/projects/Silink-App/lib/features/statistics/presentation/widgets)",
       "Bash(flutter analyze *)",
-      "Bash(flutter build *)"
+      "Bash(flutter build *)",
+      "Bash(flutter run *)",
+      "Bash(curl -s http://localhost:8765 -o /dev/null -w \"%{http_code}\")"
     ],
     "additionalDirectories": [
       "/Users/matrix/projects/Silink-App/lib/features/statistics/presentation/widgets"

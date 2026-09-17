@@ -1,4 +1,9 @@
+import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
+import 'package:Silink/features/profile_completion/presentation/public_profile_preview_screen.dart';
+import 'package:Silink/features/profile_completion/presentation/publish_card_screen.dart';
+import 'package:Silink/features/profile_completion/presentation/published_screen.dart';
+import 'package:Silink/features/profile_completion/presentation/qr_code_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/usage_type_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
 import 'package:Silink/features/store/presentation/store_screen.dart';
@@ -47,7 +52,26 @@ class RouteGenerator {
         return _pageRoute(const StatisticsScreen());
       case Routes.storeScreen:
         return _pageRoute(const StoreScreen());
-
+      case Routes.publishCardScreen:
+        return _pageRoute(PublishCardScreen(
+          data: (arguments?['data'] as ProfileCompletionData?) ??
+              ProfileCompletionData(),
+        ));
+      case Routes.publishedScreen:
+        return _pageRoute(PublishedScreen(
+          data: (arguments?['data'] as ProfileCompletionData?) ??
+              ProfileCompletionData(),
+        ));
+      case Routes.qrCodeScreen:
+        return _pageRoute(QrCodeScreen(
+          data: (arguments?['data'] as ProfileCompletionData?) ??
+              ProfileCompletionData(),
+        ));
+      case Routes.publicProfilePreviewScreen:
+        return _pageRoute(PublicProfilePreviewScreen(
+          data: (arguments?['data'] as ProfileCompletionData?) ??
+              ProfileCompletionData(),
+        ));
       default:
         return _pageRoute(const _UndefinedScreen());
     }

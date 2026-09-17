@@ -3,6 +3,7 @@ import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
+import 'package:Silink/features/profile_completion/models/initial_char.dart';
 import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -44,11 +45,10 @@ class PublishStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initial = data.fullName.trim().isEmpty
-        ? 'س'
-        : data.fullName.trim().characters.first.toUpperCase();
+
     final enabledProducts =
         data.products.where((p) => p.enabled).take(2).toList();
+
     final showProducts = data.productsEnabled && enabledProducts.isNotEmpty;
 
     return SingleChildScrollView(
@@ -69,7 +69,8 @@ class PublishStep extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
-            Container(height: 100.h, width: double.infinity, color: data.coverColor),
+            Container(
+                height: 100.h, width: double.infinity, color: data.coverColor),
             Transform.translate(
               offset: Offset(0, -36.h),
               child: Column(
@@ -84,7 +85,7 @@ class PublishStep extends StatelessWidget {
                       border: Border.all(color: Colors.white, width: 4),
                     ),
                     child: AppText(
-                      initial,
+                      data.fullName.initial,
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w800,
                       color: Colors.white,
@@ -134,8 +135,7 @@ class PublishStep extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   18.height,
-                  Divider(
-                      height: 1, color: AppColors.dividerColor.themeColor),
+                  Divider(height: 1, color: AppColors.dividerColor.themeColor),
                   if (showProducts) ...[
                     16.height,
                     Padding(

@@ -48,7 +48,6 @@ class _SplashScreenState extends State<SplashScreen>
     final storage = getIt<LocalStorage>();
 
     if (storage.isLoggedIn) {
-   
       Navigator.pushNamedAndRemoveUntil(
         context,
         Routes.layoutScreen,
@@ -58,8 +57,8 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.pushNamedAndRemoveUntil(
         context,
         // Routes.loginScreen,
+        Routes.publishedScreen,
         // Routes.onBoardingScreen,
-        Routes.onBoardingScreen,
 
         (_) => false,
       );

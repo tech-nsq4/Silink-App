@@ -217,8 +217,7 @@ abstract class LocaleKeys {
   static const String template_professionalSubtitle =
       'template.professional_subtitle';
   static const String template_personalTitle = 'template.personal_title';
-  static const String template_personalSubtitle =
-      'template.personal_subtitle';
+  static const String template_personalSubtitle = 'template.personal_subtitle';
   static const String template_freeBadge = 'template.free_badge';
   static const String template_paidBadge = 'template.paid_badge';
 
@@ -246,10 +245,9 @@ abstract class LocaleKeys {
   static const String appearance_fontCairo = 'appearance.font_cairo';
   static const String appearance_fontAlmarai = 'appearance.font_almarai';
   static const String appearance_fontSample = 'appearance.font_sample';
-  static const String appearance_previewProfile =
-      'appearance.preview_profile';
+  static const String appearance_previewProfile = 'appearance.preview_profile';
 
-  // ─── Publish & Preview (profile completion step 9) ─────────────────────────
+  // ─── Publish & Preview (profile completion) ─────────────────────────
   static const String publish_saveAndPublish = 'publish.save_and_publish';
   static const String publish_previewEditor = 'publish.preview_editor';
   static const String publish_viewAsVisitor = 'publish.view_as_visitor';
@@ -259,6 +257,44 @@ abstract class LocaleKeys {
   static const String publish_viewAll = 'publish.view_all';
   static const String publish_shareCta = 'publish.share_cta';
   static const String publish_publishedSuccess = 'publish.published_success';
+  static const String publish_publishCard = 'publish.publish_card';
+  static const String publish_cardCompany = 'publish.card_company';
+  static const String publish_linkYourCard = 'publish.link_your_card';
+  static const String publish_enterHandle = 'publish.enter_handle';
+  static const String publish_showToPublic = 'publish.show_to_public';
+  static const String publish_showToPublicHint = 'publish.show_to_public_hint';
+  static const String publish_publish = 'publish.publish';
+  static const String common_somethingWentWrong = 'common.something_went_wrong';
+  static const String publish_publishedTitle = 'publish.publishedTitle';
+  static const String publish_viewCard = 'publish.viewCard';
+  static const String publish_publishedSuccessTitle =
+      'publish.publishedSuccessTitle';
+  static const String publish_publishedSuccessSubtitle =
+      'publish.publishedSuccessSubtitle';
+  static const String publish_copy = 'publish.copy';
+  static const String publish_myCards = 'publish.myCards';
+  static const String publish_qrCode = 'publish.qrCode';
+  static const String publish_share = 'publish.share';
+  static const String publish_aboutMe = 'publish.aboutMe';
+  static const String publish_cardEmail = 'publish.cardEmail';
+  static const String publish_whatsapp = 'publish.whatsapp';
+  static const String publish_call = 'publish.call';
+  static const String publish_productsAndServices =
+      'publish.productsAndServices';
+  static const String publish_exitPreview = 'publish.exitPreview';
+  static const String publish_contactMe = 'publish.contactMe';
+  static const String publish_contactLinks = 'publish.contactLinks';
+
+  // ─── QR ─────────────────────────────────────────────────────────────────
+  static const String qr_title = 'qr.title';
+  static const String qr_simulateScan = 'qr.simulateScan';
+  static const String qr_downloadQr = 'qr.downloadQr';
+  static const String qr_howToShareTitle = 'qr.howToShareTitle';
+  static const String qr_howToShareSubtitle = 'qr.howToShareSubtitle';
+  static const String qr_howToShareStepCamera = 'qr.howToShareStepCamera';
+  static const String qr_howToShareStepLink = 'qr.howToShareStepLink';
+  static const String qr_howToShareStepBrowser = 'qr.howToShareStepBrowser';
+  static const String qr_publishedAndActive = 'qr.publishedAndActive';
 
   // ─── Navigation ───────────────────────────────────────────────────────────
   static const String nav_home = 'nav.home';

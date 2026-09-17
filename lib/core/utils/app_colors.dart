@@ -95,6 +95,31 @@ class AppColors {
     darkColor: Color(0xFFD4A843),
   );
 
+  static const ColorModel infoCardBackground = ColorModel(
+    lightColor: Color(0xFFFFF6E9),
+    darkColor: Color(0xFFFFF6E9),
+  );
+
+  static const ColorModel infoCardBorder = ColorModel(
+    lightColor: Color(0xFFfed7aa),
+    darkColor: Color(0xFFFCE3B6),
+  );
+
+  static const ColorModel infoCardTitle = ColorModel(
+    lightColor: Color(0xFF7A5209),
+    darkColor: Color(0xFF7A5209),
+  );
+
+  static const ColorModel infoCardText = ColorModel(
+    lightColor: Color(0xFF78350f),
+    darkColor: Color(0xFF8A6A1E),
+  );
+
+  static const ColorModel infoCardIcon = ColorModel(
+    lightColor: Color(0xFFC98A1F),
+    darkColor: Color(0xFFC98A1F),
+  );
+
   static ColorModel borderColor = ColorModel(
     lightColor: Colors.black.withValues(alpha: 0.14),
     darkColor: Colors.white,
