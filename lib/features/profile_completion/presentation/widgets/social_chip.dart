@@ -6,16 +6,14 @@ import '../../../../core/widgets/app_text.dart';
 
 class SocialChip extends StatelessWidget {
   final String label;
-  final IconData icon;
-  final Color color;
+  final Widget badge;
   final Color background;
   final VoidCallback onTap;
 
   const SocialChip({
     super.key,
     required this.label,
-    required this.icon,
-    required this.color,
+    required this.badge,
     required this.background,
     required this.onTap,
   });
@@ -24,25 +22,19 @@ class SocialChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(24.r),
+      borderRadius: BorderRadius.circular(16.r),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: background,
-          borderRadius: BorderRadius.circular(24.r),
-          border: Border.all(color: color.withValues(alpha: 0.18)),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AppText(label, fontSize: 12.sp, fontWeight: FontWeight.w600),
+            badge,
             8.width,
-            Container(
-              width: 24.w,
-              height: 24.w,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-              child: Icon(icon, size: 13.sp, color: Colors.white),
-            ),
+            AppText(label, fontSize: 12.sp, fontWeight: FontWeight.w600),
           ],
         ),
       ),

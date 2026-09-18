@@ -1,10 +1,8 @@
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/features/profile_completion/models/initial_char.dart';
 import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -75,7 +73,7 @@ class ProfilePreviewCard extends StatelessWidget {
                   ),
                 if (data.company.trim().isNotEmpty)
                   AppText(
-                    LocaleKeys.publish_cardCompany.tr(),
+                    data.company,
                     fontSize: 12.sp,
                   ),
               ],

@@ -1,4 +1,5 @@
 import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,29 +10,30 @@ import '../../../../core/widgets/app_text.dart';
 class CoverWithExit extends StatelessWidget {
   final VoidCallback onExit;
 
-  const CoverWithExit({super.key, required this.onExit});
+  const   CoverWithExit({super.key, required this.onExit});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150.h,
+      height: 130.h,
       child: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF17B78F), Color(0xFF0E8F82)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+            decoration:  BoxDecoration(
+              color: AppColors.mint.themeColor,
+              // gradient: LinearGradient(
+              //   colors: [Color(0xFF17B78F), Color(0xFF0E8F82)],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              // ),
             ),
           ),
           Positioned(
             top: -30,
             left: -20,
             child: Container(
-              width: 120,
-              height: 120,
+              width: 120.w,
+              height: 120.w,
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.06),
                 shape: BoxShape.circle,
@@ -42,8 +44,8 @@ class CoverWithExit extends StatelessWidget {
             bottom: -40,
             left: -30,
             child: Container(
-              width: 140,
-              height: 140,
+              width: 140.w,
+              height: 140.w,
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.06),
                 shape: BoxShape.circle,

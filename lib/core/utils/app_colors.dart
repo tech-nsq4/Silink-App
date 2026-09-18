@@ -127,7 +127,7 @@ class AppColors {
 
   // ─── Generated palette ────────────────────────────────────────────────────
   static const ColorModel mint = ColorModel(
-    lightColor: Color(0xff2C9092),
+    lightColor: Color(0xff3FA299),
     darkColor: Color(0xff2C9092),
   );
   static const ColorModel darkSlate = ColorModel(

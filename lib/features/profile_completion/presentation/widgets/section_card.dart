@@ -18,11 +18,10 @@ class SectionCard extends StatelessWidget {
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
         color: AppColors.white.themeColor,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.borderColor.themeColor),
+        borderRadius: BorderRadius.circular(16.r),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppText(
             title,

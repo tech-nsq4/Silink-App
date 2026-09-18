@@ -62,7 +62,12 @@ class PublishedScreen extends StatelessWidget {
                   ),
                   12.height,
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      NavigationService.push(
+                        Routes.publicProfilePreviewScreen,
+                        arguments: {'data': data},
+                      );
+                    },
                     color: AppColors.white.themeColor,
                     borderColor: AppColors.borderColor.themeColor,
                     child: Row(

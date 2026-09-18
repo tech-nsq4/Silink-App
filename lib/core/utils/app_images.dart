@@ -10,7 +10,6 @@ class AppImages {
   static const String iconsCalendar = '${_icons}ic-calendar.svg';
   static const String imagesErrorImage = '${_icons}error_image.svg';
   static const String noData = '${_icons}no_data.svg';
-  static const String iconsChat = '${_icons}ic-chat.svg';
   static const String iconsClock = '${_icons}ic-clock.svg';
   static const String dir = '${_icons}dir.svg';
 
@@ -49,6 +48,10 @@ class AppImages {
   static const String iconsFlash = '${_icons}flash.svg';
   static const String iconsDownload = '${_icons}download.svg';
   static const String iconsInternet = '${_icons}internet.svg';
+  static const String iconsContacts = '${_icons}contacts.svg';
+  static const String iconsGmail = '${_icons}gmail.svg';
+  static const String iconsChat = '${_icons}chat.svg';
+  static const String iconsCall = '${_icons}call.svg';
 
   // ─── Images ──────────────────────────────────────────────────────────────
   static const String logo = '${_base}logo2.png';

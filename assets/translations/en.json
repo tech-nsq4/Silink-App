@@ -206,7 +206,6 @@
     "enter_handle": "Enter your card link",
     "show_to_public": "Show to public",
     "show_to_public_hint": "Your profile can be seen by anyone with your link",
-    "publish": "Publish Card",
     "something_went_wrong": "Something went wrong",
     "publishedTitle": "Published",
     "viewCard": "View Card",
@@ -223,7 +222,10 @@
     "productsAndServices": "Products & Services",
     "exitPreview": "Exit",
     "contactMe": "Contact Me",
-    "contactLinks": "Contact Links"
+    "contactLinks": "Contact Links",
+    "share_data": "Share your data with me",
+    "made_with": "Made with",
+    "file_sharing": "File sharing"
   },
   "qr": {
     "title": "QR Code",

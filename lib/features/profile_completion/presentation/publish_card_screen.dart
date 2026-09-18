@@ -88,7 +88,7 @@ class _PublishCardScreenState extends State<PublishCardScreen> {
                     SvgPicture.asset(AppImages.iconsFlash),
                     8.width,
                     AppText(
-                      LocaleKeys.publish_publish.tr(),
+                      LocaleKeys.publish_publishCard.tr(),
                       fontWeight: FontWeight.w700,
                       fontSize: 14.sp,
                       color: AppColors.white.themeColor,

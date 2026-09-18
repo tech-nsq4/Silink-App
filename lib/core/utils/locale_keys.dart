@@ -263,7 +263,6 @@ abstract class LocaleKeys {
   static const String publish_enterHandle = 'publish.enter_handle';
   static const String publish_showToPublic = 'publish.show_to_public';
   static const String publish_showToPublicHint = 'publish.show_to_public_hint';
-  static const String publish_publish = 'publish.publish';
   static const String common_somethingWentWrong = 'common.something_went_wrong';
   static const String publish_publishedTitle = 'publish.publishedTitle';
   static const String publish_viewCard = 'publish.viewCard';
@@ -284,6 +283,9 @@ abstract class LocaleKeys {
   static const String publish_exitPreview = 'publish.exitPreview';
   static const String publish_contactMe = 'publish.contactMe';
   static const String publish_contactLinks = 'publish.contactLinks';
+  static const String publish_share_data = 'publish.share_data';
+  static const String publish_made_with = 'publish.made_with';
+  static const String publish_file_sharing = 'publish.file_sharing';
 
   // ─── QR ─────────────────────────────────────────────────────────────────
   static const String qr_title = 'qr.title';

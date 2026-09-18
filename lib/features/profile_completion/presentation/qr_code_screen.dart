@@ -36,7 +36,7 @@ class QrCodeScreen extends StatelessWidget {
   void _handleSimulateScan(BuildContext context) {
     NavigationService.push(
       Routes.publicProfilePreviewScreen,
-      arguments: {'name': data.fullName, 'jobTitle': data.jobTitle},
+      arguments: {'data': data},
     );
   }
 
@@ -166,7 +166,10 @@ class QrCodeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(AppImages.iconsDownload,height: 15.h,),
+                        SvgPicture.asset(
+                          AppImages.iconsDownload,
+                          height: 15.h,
+                        ),
                         8.width,
                         AppText(
                           LocaleKeys.qr_downloadQr.tr(),

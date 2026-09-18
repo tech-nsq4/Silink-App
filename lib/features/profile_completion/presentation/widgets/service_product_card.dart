@@ -26,7 +26,7 @@ class ServiceProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white.themeColor,
-        borderRadius: BorderRadius.circular(14.r),
+        borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: AppColors.borderColor.themeColor),
       ),
       clipBehavior: Clip.antiAlias,
@@ -34,7 +34,7 @@ class ServiceProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 80.h,
+            height: 110.h,
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -53,15 +53,16 @@ class ServiceProductCard extends StatelessWidget {
               children: [
                 AppText(
                   name,
-                  fontSize: 12.5.sp,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w800,
                   maxLines: 1,
                 ),
                 if (type != null) ...[
                   4.height,
                   AppText(
                     type!,
-                    fontSize: 10.5.sp,
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w600,
                     color: AppColors.textSecondaryColor.themeColor,
                   ),
                 ],
@@ -69,7 +70,7 @@ class ServiceProductCard extends StatelessWidget {
                   6.height,
                   AppText(
                     price!,
-                    fontSize: 11.5.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
                     color: AppColors.mint.themeColor,
                   ),

@@ -206,7 +206,6 @@
     "enter_handle": "أدخل رابط بطاقتك",
     "show_to_public": "عرض للعموم",
     "show_to_public_hint": "يمكن لأي شخص رؤية ملفك عبر الرابط",
-    "publish": "نشر البطاقة",
     "something_went_wrong": "حدث خطأ ما",
     "publishedTitle": "تم النشر",
     "viewCard": "عرض البطاقة",
@@ -223,7 +222,10 @@
     "productsAndServices": "المنتجات والخدمات",
     "exitPreview": "خروج",
     "contactMe": "تواصل معي",
-    "contactLinks": "روابط التواصل"
+    "contactLinks": "روابط التواصل",
+    "share_data": "شارك بياناتك معي",
+    "made_with": "صنع بـ",
+    "file_sharing": "مشاركة الملف"
   },
   "qr": {
     "title": "رمز QR",
