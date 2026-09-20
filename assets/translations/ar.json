@@ -64,7 +64,8 @@
     "role_personalDesc": "أنشئ ملفك الرقمي وشارك بياناتك وخدماتك بسهولة",
     "role_teamTitle": "لفريقي أو شركتي",
     "role_teamDesc": "أدِر ملفات الموظفين والبطاقات وهوية الشركة من مكان واحد",
-    "role_footerHint": "مسار «لنفسي» ينتج البدء كضيف أو تسجيل حساب"
+    "role_footerHint": "مسار «لنفسي» ينتج البدء كضيف أو تسجيل حساب",
+    "role_continueCta": "متابعة"
   },
   "profile_type": {
     "title": "نوع الملف",
@@ -80,18 +81,21 @@
     "basic_info_title": "المعلومات الأساسية",
     "basic_info_subtitle": "ستظهر هذه المعلومات في ملفك الرقمي",
     "basic_info_photo_label": "الصورة الشخصية",
-    "basic_info_photo_hint": "تُضاف الصورة الحقيقية بعد التسجيل",
+    "basic_info_photo_hint": "اختياري — تظهر في ملفك الرقمي",
     "basic_info_choose_photo": "اختر صورة",
-    "basic_info_photo_picker_snackbar": "فتح معرض الصور...",
+    "basic_info_photo_camera": "التقاط صورة",
+    "basic_info_photo_gallery": "اختيار من المعرض",
+    "basic_info_photo_pick_error": "تعذر اختيار الصورة",
     "basic_info_full_name": "الاسم الكامل",
     "basic_info_full_name_hint": "حازم العتيبي",
     "basic_info_job_title": "المسمى الوظيفي",
+    "basic_info_job_title_hint": "مدير تطوير أعمال",
     "basic_info_company": "الشركة / الجهة",
     "basic_info_company_hint": "شركة الرؤية الرقمية",
     "basic_info_bio": "نبذة شخصية",
     "basic_info_bio_hint": "متخصص في تطوير الأعمال وبناء الشراكات الاستراتيجية. أكثر من 10 سنوات خبرة في قطاع التقنية.",
     "basic_info_phone": "رقم الهاتف",
-    "basic_info_phone_hint": "0512345678",
+    "basic_info_phone_hint": "01012345678",
     "basic_info_saved_snackbar": "تم حفظ المعلومات الأساسية — الانتقال للخطوة التالية",
     "basic_info_required_error": "من فضلك أدخل الاسم الكامل والمسمى الوظيفي للمتابعة",
     "location": "الموقع",
@@ -353,5 +357,12 @@
   "error": {
     "unauthorized": "انتهت الجلسة، يرجى تسجيل الدخول مجدداً",
     "not_found": "المورد غير موجود"
+  },
+  "location_picker": {
+    "title": "تحديد الموقع",
+    "confirm": "تأكيد الموقع",
+    "resolving": "جارِ تحديد العنوان...",
+    "permission_denied": "تعذر الوصول لموقعك، حرّك الخريطة لتحديد موقعك يدويًا",
+    "address_unavailable": "لم نتمكن من التعرف على العنوان، حرّك الخريطة وحاول مجددًا"
   }
 }

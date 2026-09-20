@@ -64,7 +64,8 @@
     "role_personalDesc": "Create your personal card and share your information and services with ease",
     "role_teamTitle": "Team or Company",
     "role_teamDesc": "Manage your team members and cards and grow your company from one place",
-    "role_footerHint": "The «Personal» route starts as a guest or sign up"
+    "role_footerHint": "The «Personal» route starts as a guest or sign up",
+    "role_continueCta": "Continue"
   },
   "profile_type": {
     "title": "Profile Type",
@@ -80,12 +81,15 @@
     "basic_info_title": "Basic Info",
     "basic_info_subtitle": "This information will be displayed in your professional card",
     "basic_info_photo_label": "Personal Photo",
-    "basic_info_photo_hint": "Add your photo after logging in",
+    "basic_info_photo_hint": "Optional — shown on your digital profile",
     "basic_info_choose_photo": "Choose Photo",
-    "basic_info_photo_picker_snackbar": "Opening photo picker...",
+    "basic_info_photo_camera": "Take Photo",
+    "basic_info_photo_gallery": "Choose from Gallery",
+    "basic_info_photo_pick_error": "Couldn't select the photo",
     "basic_info_full_name": "Full Name",
     "basic_info_full_name_hint": "Full Name",
-    "basic_info_job_title_hint": "Job Title",
+    "basic_info_job_title": "Job Title",
+    "basic_info_job_title_hint": "Business Development Manager",
     "basic_info_company": "Company / Organization",
     "basic_info_company_hint": "Company / Organization",
     "basic_info_bio": "Bio",
@@ -352,5 +356,12 @@
   "error": {
     "unauthorized": "Session expired, please login again",
     "not_found": "Resource not found"
+  },
+  "location_picker": {
+    "title": "Set Location",
+    "confirm": "Confirm Location",
+    "resolving": "Resolving address...",
+    "permission_denied": "Couldn't access your location, move the map to set it manually",
+    "address_unavailable": "Couldn't recognize the address, move the map and try again"
   }
 }

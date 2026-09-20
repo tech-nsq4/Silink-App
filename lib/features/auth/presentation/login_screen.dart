@@ -1,8 +1,10 @@
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_images.dart';
+import 'package:Silink/core/utils/custom_text_field_phone/custom_text_field_phone_code.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/features/auth/presentation/widgets/dashed_guest_button.dart';
 import 'package:Silink/features/auth/presentation/widgets/social_auth_buttons.dart';
+import 'package:Silink/features/profile/logic/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,22 +27,22 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailCtrl = TextEditingController();
+  final _phoneCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
 
   @override
   void dispose() {
-    _emailCtrl.dispose();
+    _phoneCtrl.dispose();
     _passwordCtrl.dispose();
     super.dispose();
   }
 
   void _submit() {
-    Navigator.pushNamed(
-      context,
-      Routes.otpScreen,
-      arguments: {'destination': _emailCtrl.text.trim()},
-    );
+    if (!_formKey.currentState!.validate()) return;
+    context.read<AuthCubit>().login(
+          phone: _phoneCtrl.text.trim(),
+          password: _passwordCtrl.text,
+        );
   }
 
   void _continueAsGuest() {
@@ -56,10 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
-          Navigator.pushNamed(
+          context.read<ProfileCubit>().setUser(state.user);
+          Navigator.pushNamedAndRemoveUntil(
             context,
-            Routes.otpScreen,
-            arguments: {'destination': _emailCtrl.text.trim()},
+            Routes.layoutScreen,
+            (_) => false,
           );
         }
       },
@@ -113,22 +116,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         AppText(LocaleKeys.login_subtitle.tr(),
                             fontSize: 14.sp),
                         16.height,
-                        AuthFieldLabel(
-                            text: LocaleKeys.auth_phone_or_email.tr()),
+                        AuthFieldLabel(text: LocaleKeys.auth_phone.tr()),
                         8.height,
-                        CustomTextField(
-                          hint: '05xxxxxxxx أو name@example.com',
-                          controller: _emailCtrl,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (v) {
-                            if (v == null || v.trim().isEmpty) {
-                              return LocaleKeys.validation_required.tr();
-                            }
-                            if (!v.contains('@')) {
-                              return LocaleKeys.validation_invalidEmail.tr();
-                            }
-                            return null;
-                          },
+                        CustomTextFieldPhoneCode(
+                          hint: LocaleKeys.auth_phonePlaceholder.tr(),
+                          controller: _phoneCtrl,
+
+                          // egyptIsInitial: true,
                         ),
                         14.height,
                         AuthFieldLabel(text: LocaleKeys.auth_password.tr()),
@@ -212,8 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         20.height,
                         DashedGuestButton(
-                          label:
-                              '${LocaleKeys.guest.tr()} - ${LocaleKeys.explore_account.tr()}',
+                          label: LocaleKeys.guest.tr(),
                           onTap: _continueAsGuest,
                         ),
                         50.height,

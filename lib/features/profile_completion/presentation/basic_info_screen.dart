@@ -1,16 +1,20 @@
+import 'dart:io';
+
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
+import 'package:Silink/core/utils/custom_text_field_phone/custom_text_field_phone_code.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/core/widgets/app_text_field.dart';
 import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
+import 'package:Silink/features/profile_completion/presentation/location_picker_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/widgets/field_label.dart';
+import 'package:Silink/features/profile_completion/presentation/widgets/photo_source_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class BasicInfoStep extends StatefulWidget {
   final ProfileCompletionData data;
@@ -32,7 +36,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
   late final TextEditingController _companyCtrl;
   late final TextEditingController _bioCtrl;
   late final TextEditingController _phoneCtrl;
-  late final TextEditingController _emailCtrl;
+  late final TextEditingController _passwordCtrl;
   late final TextEditingController _locationCtrl;
 
   static const int _bioMaxLength = 200;
@@ -50,7 +54,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
       ..addListener(_onChanged);
     _phoneCtrl = TextEditingController(text: widget.data.phone)
       ..addListener(_onChanged);
-    _emailCtrl = TextEditingController(text: widget.data.email)
+    _passwordCtrl = TextEditingController(text: widget.data.password)
       ..addListener(_onChanged);
     _locationCtrl = TextEditingController(text: widget.data.location)
       ..addListener(_onChanged);
@@ -64,17 +68,23 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
       ..jobTitle = _jobCtrl.text.trim()
       ..company = _companyCtrl.text.trim()
       ..bio = _bioCtrl.text.trim()
-      ..phone = _phoneCtrl.text.trim()
-      ..email = _emailCtrl.text.trim()
+      ..password = _passwordCtrl.text.trim()
       ..location = _locationCtrl.text.trim();
 
     _reportValidity();
     setState(() {});
   }
 
+  void _onPhoneChanged(PhoneNumber phone) {
+    widget.data.phone =
+        phone.number.trim().isEmpty ? '' : phone.completeNumber;
+    _reportValidity();
+  }
+
   void _reportValidity() {
-    final valid =
-        _nameCtrl.text.trim().isNotEmpty && _jobCtrl.text.trim().isNotEmpty;
+    final valid = _nameCtrl.text.trim().isNotEmpty &&
+        _jobCtrl.text.trim().isNotEmpty &&
+        _phoneCtrl.text.trim().isNotEmpty;
     widget.onValidityChanged(valid);
   }
 
@@ -83,10 +93,34 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
     return t.isEmpty ? 'م' : t.characters.first.toUpperCase();
   }
 
-  void _pickPhoto() {
-    AppOverlay.showSuccess(
-      LocaleKeys.profile_type_basic_info_photo_picker_snackbar.tr(),
+  Future<void> _pickPhoto() async {
+    final source = await PhotoSourceSheet.show(context);
+    if (source == null || !mounted) return;
+
+    try {
+      final picked = await ImagePicker().pickImage(
+        source: source,
+        maxWidth: 1024,
+        imageQuality: 85,
+      );
+      if (picked == null || !mounted) return;
+      setState(() => widget.data.photo = File(picked.path));
+    } catch (_) {
+      if (!mounted) return;
+      AppOverlay.showError(
+        LocaleKeys.profile_type_basic_info_photo_pick_error.tr(),
+      );
+    }
+  }
+
+  Future<void> _pickLocation() async {
+    final result = await Navigator.of(context).push<LocationPickerResult>(
+      MaterialPageRoute(builder: (_) => const LocationPickerScreen()),
     );
+    if (result == null || !mounted) return;
+    widget.data.lat = result.lat;
+    widget.data.lng = result.lng;
+    _locationCtrl.text = result.address;
   }
 
   @override
@@ -96,7 +130,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
     _companyCtrl.dispose();
     _bioCtrl.dispose();
     _phoneCtrl.dispose();
-    _emailCtrl.dispose();
+    _passwordCtrl.dispose();
     _locationCtrl.dispose();
     super.dispose();
   }
@@ -120,23 +154,30 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
           ),
           24.height,
 
-          // Avatar section
           Row(
             children: [
               Container(
                 width: 70.w,
                 height: 70.w,
                 alignment: Alignment.center,
+                clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   color: AppColors.successColor.themeColor,
                   borderRadius: BorderRadius.circular(22.r),
                 ),
-                child: AppText(
-                  _initial,
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.white.themeColor,
-                ),
+                child: widget.data.photo != null
+                    ? Image.file(
+                        widget.data.photo!,
+                        width: 70.w,
+                        height: 70.w,
+                        fit: BoxFit.cover,
+                      )
+                    : AppText(
+                        _initial,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.white.themeColor,
+                      ),
               ),
               12.width,
               Column(
@@ -225,19 +266,23 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
           ),
           16.height,
 
-          FieldLabel(text: LocaleKeys.profile_type_basic_info_phone.tr()),
-          CustomTextField(
+          FieldLabel(
+            text: LocaleKeys.profile_type_basic_info_phone.tr(),
+            required: true,
+          ),
+          CustomTextFieldPhoneCode(
             controller: _phoneCtrl,
             hint: LocaleKeys.profile_type_basic_info_phone_hint.tr(),
-            keyboardType: TextInputType.phone,
+            // egyptIsInitial: true,
+            onChanged: _onPhoneChanged,
           ),
           12.height,
 
-          FieldLabel(text: LocaleKeys.auth_email.tr()),
+          FieldLabel(text: LocaleKeys.auth_password.tr()),
           CustomTextField(
-            controller: _emailCtrl,
-            hint: LocaleKeys.auth_email.tr(),
-            keyboardType: TextInputType.emailAddress,
+            controller: _passwordCtrl,
+            hint: LocaleKeys.auth_passwordPlaceholder.tr(),
+            isPassword: true,
           ),
           12.height,
           FieldLabel(
@@ -246,8 +291,9 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
           CustomTextField(
             controller: _locationCtrl,
             hint: 'الرياض، المملكة العربية السعودية',
-            prefixIcon: SvgPicture.asset(AppImages.iconsMap),
-            keyboardType: TextInputType.emailAddress,
+            prefixIcon: Icon(Icons.location_on_rounded, size: 23.sp,color: Colors.grey,),
+            readOnly: true,
+            onTap: _pickLocation,
           ),
           12.height,
         ],

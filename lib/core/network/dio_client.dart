@@ -30,6 +30,7 @@ class DioClient {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'X-API-Key': 'silink-local-dev-key',
         },
       ),
     );

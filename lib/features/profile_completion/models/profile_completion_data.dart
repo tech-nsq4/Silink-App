@@ -1,6 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 enum ProfileType { work, personal, freelancer }
+
+extension ProfileTypeApi on ProfileType {
+  String get apiValue => switch (this) {
+        ProfileType.work => 'business',
+        ProfileType.personal => 'personal',
+        ProfileType.freelancer => 'freelancer',
+      };
+}
 
 enum ContactChannelType { whatsapp, linkedin, instagram, x, snapchat, tiktok }
 
@@ -53,8 +63,11 @@ class ProfileCompletionData {
   String company = '';
   String bio = '';
   String phone = '';
-  String email = '';
+  String password = '';
   String location = '';
+  double? lat;
+  double? lng;
+  File? photo;
 
   final Map<ContactChannelType, ToggleField> channels = {
     for (final type in ContactChannelType.values) type: ToggleField(),
@@ -89,8 +102,11 @@ class ProfileCompletionData {
       ..company = company
       ..bio = bio
       ..phone = phone
-      ..email = email
+      ..password = password
       ..location = location
+      ..lat = lat
+      ..lng = lng
+      ..photo = photo
       ..template = template
       ..primaryColor = primaryColor
       ..coverColor = coverColor

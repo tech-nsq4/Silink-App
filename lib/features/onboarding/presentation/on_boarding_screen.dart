@@ -62,8 +62,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   void _finish() {
     getIt<LocalStorage>().setOnboardingSeen();
-    Navigator.pushNamedAndRemoveUntil(
-        context, Routes.loginScreen, (_) => false);
+    Navigator.pushNamed(
+        context, Routes.usageTypeScreen,);
   }
 
   @override
@@ -125,8 +125,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           AppText(
                             currentSlide.title,
                             color: Colors.black,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20.sp,
                             textAlign: TextAlign.start,
                             maxLines: 2,
                           ),
@@ -166,7 +166,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         12.height,
                         CustomButton(
                           title: LocaleKeys.onboarding_authHaveAccount.tr(),
-                          onTap: _finish,
+                          onTap: (){
+                            getIt<LocalStorage>().setOnboardingSeen();
+                            Navigator.pushNamed(
+                              context, Routes.loginScreen,);
+                          },
                           color: AppColors.white.themeColor,
                           borderColor:
                               AppColors.black.themeColor.withValues(alpha: 0.14),

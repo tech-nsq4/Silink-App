@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/otp_screen.dart';
+import '../../features/auth/presentation/personal_register_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/layout/presentation/layout_screen.dart';
 import '../../features/onboarding/presentation/on_boarding_screen.dart';
@@ -37,8 +38,11 @@ class RouteGenerator {
         return _pageRoute(const RegisterScreen());
 
       case Routes.otpScreen:
-        return _pageRoute(
-            OtpScreen(destination: arguments?['destination'] as String? ?? ''));
+        return _pageRoute(OtpScreen(
+          destination: arguments?['destination'] as String? ?? '',
+          registrationId: arguments?['registrationId'] as String? ?? '',
+          expiresAt: arguments?['expiresAt'] as DateTime?,
+        ));
 
       case Routes.layoutScreen:
         return _pageRoute(
@@ -46,6 +50,10 @@ class RouteGenerator {
 
       case Routes.usageTypeScreen:
         return _pageRoute(const UsageTypeScreen());
+      case Routes.personalRegisterScreen:
+        return _pageRoute(PersonalRegisterScreen(
+          usageIntent: arguments?['usageIntent'] as String? ?? 'personal',
+        ));
       case Routes.profileCompletionScreen:
         return _pageRoute(const ProfileCompletionScreen());
       case Routes.statisticsScreen:

@@ -1,3 +1,4 @@
+import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -27,15 +28,19 @@ class UsageTypeCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(14.r),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
+        padding: 14.paddingHorizontal + 14.paddingVert,
         decoration: BoxDecoration(
-          color: AppColors.cardColor.themeColor,
+          color: isSelected
+              ? iconColor.withValues(alpha: 0.06)
+              : AppColors.cardColor.themeColor,
           borderRadius: BorderRadius.circular(14.r),
           border: Border.all(
-            color: AppColors.dividerColor.themeColor,
-            width: isSelected ? 1.5 : 1,
+            color: isSelected ? iconColor : AppColors.dividerColor.themeColor,
+            width: isSelected ? 1.6 : 1,
           ),
           boxShadow: [
             BoxShadow(
@@ -57,32 +62,34 @@ class UsageTypeCard extends StatelessWidget {
               ),
               child: SvgPicture.asset(icon),
             ),
-            SizedBox(width: 12.w),
+            12.width,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppText(
                     title,
-                    fontSize: 20.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textPrimaryColor.themeColor,
                   ),
-                  SizedBox(height: 4.h),
+                  4.height,
                   AppText(
                     subtitle,
-                    fontSize: 12.sp,
+                    fontSize: 11.sp,
+                    height: 1.6,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textSecondaryColor.themeColor,
+                    color: AppColors.textSecondaryColor.themeColor.withOpacity(0.8),
                     maxLines: 2,
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 8.w),
+            8.width,
             Icon(
-              Icons.chevron_right,
-              color: AppColors.textSecondaryColor.themeColor,
+              isSelected ? Icons.check_circle : Icons.chevron_right,
+              color:
+                  isSelected ? iconColor : AppColors.textSecondaryColor.themeColor,
               size: 20.sp,
             ),
           ],

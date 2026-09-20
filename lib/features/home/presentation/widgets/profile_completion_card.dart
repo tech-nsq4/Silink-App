@@ -88,7 +88,7 @@ class ProfileCompletionCard extends StatelessWidget {
                   ),
                   CustomTapEffect(
                     onTap: () {
-                      context.pushNamed(Routes.usageTypeScreen);
+                      context.pushNamed(Routes.profileCompletionScreen);
                     },
                     child: Container(
                       padding:

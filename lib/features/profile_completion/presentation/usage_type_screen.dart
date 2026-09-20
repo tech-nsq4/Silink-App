@@ -1,8 +1,10 @@
 import 'package:Silink/app/router/navigation_services.dart';
 import 'package:Silink/app/router/routes.dart';
+import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
+import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +22,29 @@ class UsageTypeScreen extends StatefulWidget {
 class _UsageTypeScreenState extends State<UsageTypeScreen> {
   int? _selectedIndex;
 
+  void _selectIndex(int index) {
+    if (_selectedIndex == index) return;
+    setState(() => _selectedIndex = index);
+  }
+
+  void _handleContinue() {
+    if (_selectedIndex == null) return;
+    if (_selectedIndex == 0) {
+      NavigationService.push(
+        Routes.personalRegisterScreen,
+        arguments: {'usageIntent': 'personal'},
+      );
+      return;
+    }
+    NavigationService.push(Routes.registerScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
+          padding: 19.paddingHorizontal + 16.paddingVert,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,19 +52,19 @@ class _UsageTypeScreenState extends State<UsageTypeScreen> {
                 width: double.infinity,
                 height: 40.h,
                 alignment: Alignment.centerRight,
-                padding: EdgeInsets.all(6.r),
+                padding: 6.paddingAll,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF3A414E),
+                  color: AppColors.darkSlate.themeColor,
                   borderRadius: BorderRadius.circular(9.r),
                 ),
                 child: Image.asset(AppImages.logoApp),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 28.h, bottom: 8.h),
+                padding: 28.paddingTop + 8.paddingBottom,
                 child: AppText(
                   LocaleKeys.role_title.tr(),
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               AppText(
@@ -53,30 +72,40 @@ class _UsageTypeScreenState extends State<UsageTypeScreen> {
                 fontSize: 14.sp,
                 color: AppColors.textSecondaryColor.themeColor,
               ),
-              SizedBox(height: 24.h),
+              24.height,
               UsageTypeCard(
                 title: LocaleKeys.role_personalTitle.tr(),
                 subtitle: LocaleKeys.role_personalDesc.tr(),
                 icon: AppImages.iconsMyself,
                 iconColor: AppColors.mint.themeColor,
                 isSelected: _selectedIndex == 0,
-                onTap: () =>
-                    NavigationService.push(Routes.profileCompletionScreen),
+                onTap: () => _selectIndex(0),
               ),
-              SizedBox(height: 16.h),
+              16.height,
               UsageTypeCard(
                 title: LocaleKeys.role_teamTitle.tr(),
                 subtitle: LocaleKeys.role_teamDesc.tr(),
                 icon: AppImages.iconsCompany,
                 iconColor: AppColors.blue.themeColor,
                 isSelected: _selectedIndex == 1,
-                onTap: () =>
-                    NavigationService.push(Routes.profileCompletionScreen),
+                onTap: () => _selectIndex(1),
               ),
               const Spacer(),
+              CustomButton(
+                title: LocaleKeys.role_continueCta.tr(),
+                onTap: _handleContinue,
+                height: 54,
+                radius: 14,
+                color: _selectedIndex == null
+                    ? AppColors.dividerColor.themeColor
+                    : null,
+                textColor: _selectedIndex == null
+                    ? AppColors.hintColor.themeColor
+                    : null,
+              ),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                  padding: 12.paddingVert,
                   child: AppText(
                     LocaleKeys.role_footerHint.tr(),
                     fontSize: 11.sp,

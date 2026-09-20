@@ -91,6 +91,7 @@ abstract class LocaleKeys {
   static const String role_teamTitle = 'role.role_teamTitle';
   static const String role_teamDesc = 'role.role_teamDesc';
   static const String role_footerHint = 'role.role_footerHint';
+  static const String role_continueCta = 'role.role_continueCta';
 
   // ─── Profile Type ─────────────────────────────────────────────────────────────────
   static const String profile_type_title = 'profile_type.title';
@@ -118,8 +119,12 @@ abstract class LocaleKeys {
       'profile_type.basic_info_photo_hint';
   static const String profile_type_basic_info_choose_photo =
       'profile_type.basic_info_choose_photo';
-  static const String profile_type_basic_info_photo_picker_snackbar =
-      'profile_type.basic_info_photo_picker_snackbar';
+  static const String profile_type_basic_info_photo_camera =
+      'profile_type.basic_info_photo_camera';
+  static const String profile_type_basic_info_photo_gallery =
+      'profile_type.basic_info_photo_gallery';
+  static const String profile_type_basic_info_photo_pick_error =
+      'profile_type.basic_info_photo_pick_error';
   static const String profile_type_basic_info_full_name =
       'profile_type.basic_info_full_name';
   static const String profile_type_basic_info_full_name_hint =
@@ -414,4 +419,14 @@ abstract class LocaleKeys {
   static const String stats_period_30d = 'stats.period_30d';
   static const String stats_period_7d = 'stats.period_7d';
   static const String stats_period_today = 'stats.period_today';
+
+  // ─── Location Picker ────────────────────────────────────────────────────────
+  static const String location_picker_title = 'location_picker.title';
+  static const String location_picker_confirm = 'location_picker.confirm';
+  static const String location_picker_resolving =
+      'location_picker.resolving';
+  static const String location_picker_permission_denied =
+      'location_picker.permission_denied';
+  static const String location_picker_address_unavailable =
+      'location_picker.address_unavailable';
 }

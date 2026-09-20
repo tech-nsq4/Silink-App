@@ -27,6 +27,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
+  void setUser(UserModel user) {
+    kUserModel = user;
+    emit(ProfileSuccess(user));
+  }
+
   void reset() {
     kUserModel = null;
     emit(const ProfileInitial());

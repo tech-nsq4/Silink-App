@@ -36,6 +36,15 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^6.4.0
   dotted_border: ^3.1.0
 
+  # Media
+  image_picker: ^1.1.2
+
+  # Location
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  geolocator: ^13.0.2
+  geocoding: ^3.0.0
+
   # Loading Widget
   loading_animation_widget: ^1.3.0
 

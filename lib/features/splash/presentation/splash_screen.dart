@@ -57,9 +57,8 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.pushNamedAndRemoveUntil(
         context,
         // Routes.loginScreen,
-        Routes.publicProfilePreviewScreen,
-        // Routes.onBoardingScreen,
-
+        // Routes.publicProfilePreviewScreen,
+        Routes.onBoardingScreen,
         (_) => false,
       );
     } else {

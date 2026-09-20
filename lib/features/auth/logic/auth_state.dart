@@ -23,6 +23,21 @@ final class AuthSuccess extends AuthState {
   List<Object?> get props => [user];
 }
 
+final class AuthRegistrationPending extends AuthState {
+  final String registrationId;
+  final String phone;
+  final DateTime? expiresAt;
+
+  const AuthRegistrationPending({
+    required this.registrationId,
+    required this.phone,
+    this.expiresAt,
+  });
+
+  @override
+  List<Object?> get props => [registrationId, phone, expiresAt];
+}
+
 final class AuthError extends AuthState {
   final String message;
   const AuthError(this.message);

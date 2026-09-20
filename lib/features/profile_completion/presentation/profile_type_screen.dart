@@ -28,8 +28,8 @@ class ProfileTypeStep extends StatelessWidget {
         children: [
           AppText(
             LocaleKeys.profile_type_subTitle.tr(),
-            fontSize: 24.sp,
-            fontWeight: FontWeight.w800,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w700,
           ),
           4.height,
           AppText(
@@ -130,7 +130,7 @@ class _TypeCard extends StatelessWidget {
                 children: [
                   AppText(
                     title,
-                    fontSize: 20.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                     color: const Color(0xFF1A1A1A),
                   ),
@@ -139,7 +139,7 @@ class _TypeCard extends StatelessWidget {
                     subtitle,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textSecondaryColor.themeColor,
+                    color: AppColors.textSecondaryColor.themeColor.withOpacity(0.8),
                   ),
                 ],
               ),

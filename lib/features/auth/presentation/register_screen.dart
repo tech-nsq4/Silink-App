@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/routes.dart';
+import '../../../core/utils/custom_text_field_phone/custom_text_field_phone_code.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
@@ -22,8 +23,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  static const String _defaultCountryCode = '+966';
-
   final _formKey = GlobalKey<FormState>();
   final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
@@ -41,23 +40,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
-    context.read<AuthCubit>().register(
-        name: _nameCtrl.text.trim(),
-        email: _emailCtrl.text.trim(),
-        phone: _phoneCtrl.text.trim(),
-        password: _passwordCtrl.text,
-        countryCode: _defaultCountryCode);
+    context.read<AuthCubit>().registerCompany(
+          fullName: _nameCtrl.text.trim(),
+          phone: _phoneCtrl.text.trim(),
+          email: _emailCtrl.text.trim(),
+          password: _passwordCtrl.text,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthSuccess) {
+        if (state is AuthRegistrationPending) {
           Navigator.pushNamed(
             context,
             Routes.otpScreen,
-            arguments: {'destination': _phoneCtrl.text.trim()},
+            arguments: {
+              'destination': state.phone,
+              'registrationId': state.registrationId,
+              'expiresAt': state.expiresAt,
+            },
           );
         }
       },
@@ -95,16 +98,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         14.height,
                         AuthFieldLabel(text: LocaleKeys.auth_phone.tr()),
                         8.height,
-                        CustomTextField(
+                        CustomTextFieldPhoneCode(
                           hint: LocaleKeys.auth_phonePlaceholder.tr(),
                           controller: _phoneCtrl,
-                          keyboardType: TextInputType.phone,
-                          validator: (v) {
-                            if (v == null || v.trim().isEmpty) {
-                              return LocaleKeys.validation_required.tr();
-                            }
-                            return null;
-                          },
+                          // egyptIsInitial: true,
                         ),
                         14.height,
                         AuthFieldLabel(text: LocaleKeys.auth_email.tr()),
@@ -150,7 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         18.height,
                         RegisterSignInFooter(
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => context.pushNamed(Routes.loginScreen)
                         ),
                         50.height,
                       ],

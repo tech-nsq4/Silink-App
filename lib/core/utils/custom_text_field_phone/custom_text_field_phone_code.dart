@@ -239,8 +239,9 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
 
   @override
   Widget build(BuildContext context) {
-    const defaultFillColor = Color(0xFFE7EAE6);
-    const defaultBorderColor = Color(0xFFD4D9D3);
+    final defaultFillColor = AppColors.fieldFill;
+    const defaultBorderColor = Color(0xFFE0E0E0);
+    final defaultHintColor = AppColors.textSecondaryColor.themeColor;
     const defaultTextColor = Color(0xFF2C3430);
 
     final enabledBorder = OutlineInputBorder(
@@ -273,6 +274,12 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
       ),
       decoration: InputDecoration(
         hintText: widget.hint,
+        hintStyle: TextStyle(
+          fontFamily: 'Cairo',
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+          color: defaultHintColor,
+        ),
         counterText: '',
         filled: true,
         fillColor: widget.fillColor ?? defaultFillColor,
@@ -281,8 +288,7 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: BorderSide(
-            color:
-                widget.focusedBorderColor ?? AppColors.primaryColor.themeColor,
+            color: widget.focusedBorderColor ?? AppColors.mint.themeColor,
             width: 1.2,
           ),
         ),
@@ -362,7 +368,7 @@ class _CountrySuffix extends StatelessWidget {
             Container(
               width: 1,
               height: 24,
-              color: const Color(0xFFD4D9D3),
+              color: AppColors.dividerColor.themeColor,
             ),
             const SizedBox(width: 10),
             if (showCountryFlag) ...[
@@ -451,7 +457,7 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         child: Container(
           height: MediaQuery.of(context).size.height * 0.7,
-          color: Colors.white,
+          color: AppColors.white.themeColor,
           child: Column(
             children: [
               const SizedBox(height: 10),
@@ -459,7 +465,7 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                 width: 44,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD4D9D3),
+                  color: AppColors.dividerColor.themeColor,
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
@@ -471,19 +477,21 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                     hintText: LocaleKeys.common_search.tr(),
                     prefixIcon: const Icon(Icons.search_rounded),
                     filled: true,
-                    fillColor: const Color(0xFFE7EAE6),
+                    fillColor: AppColors.fieldFill,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
-                      borderSide: const BorderSide(color: Color(0xFFD4D9D3)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFE0E0E0)),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
-                      borderSide: const BorderSide(color: Color(0xFFD4D9D3)),
+                      borderSide:
+                          const BorderSide(color: Color(0xFFE0E0E0)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
                       borderSide:
-                          BorderSide(color: AppColors.primaryColor.themeColor),
+                          BorderSide(color: AppColors.mint.themeColor),
                     ),
                   ),
                 ),

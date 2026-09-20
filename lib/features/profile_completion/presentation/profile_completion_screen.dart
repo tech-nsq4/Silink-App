@@ -7,12 +7,10 @@ import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/appearance_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/basic_info_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/contact_channels_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/contact_links_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/content_ranking_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/products_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/profile_type_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/publish_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/template_selection_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/widgets/publish_toolbar.dart';
@@ -31,31 +29,24 @@ class ProfileCompletionScreen extends StatefulWidget {
 }
 
 class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
-  static const int totalSteps = 9;
+  static const int totalSteps = 7;
 
   final ProfileCompletionData _data = ProfileCompletionData();
   int _currentStep = 1;
 
-  bool _step1Valid = false;
-  bool _step2Valid = false;
-
   String get _headerTitle {
     switch (_currentStep) {
       case 1:
-        return LocaleKeys.profile_type_title.tr();
-      case 2:
-        return LocaleKeys.profile_type_app_bar_title_basic_info.tr();
-      case 3:
         return LocaleKeys.channels_title.tr();
-      case 4:
+      case 2:
         return LocaleKeys.links_title.tr();
-      case 5:
+      case 3:
         return LocaleKeys.products_title.tr();
-      case 6:
+      case 4:
         return LocaleKeys.ranking_title.tr();
-      case 7:
+      case 5:
         return LocaleKeys.template_title.tr();
-      case 8:
+      case 6:
         return LocaleKeys.appearance_title.tr();
       default:
         return '';
@@ -63,32 +54,13 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
   }
 
   String get _nextButtonLabel {
-    if (_currentStep == 8) {
+    if (_currentStep == totalSteps - 1) {
       return LocaleKeys.appearance_previewProfile.tr();
     }
     return LocaleKeys.onboarding_next.tr();
   }
 
-  bool get _currentStepValid {
-    switch (_currentStep) {
-      case 1:
-        return _step1Valid;
-      case 2:
-        return _step2Valid;
-      default:
-        return true;
-    }
-  }
-
   void _handleNext() {
-    if (!_currentStepValid) {
-      if (_currentStep == 2) {
-        AppOverlay.showError(
-          LocaleKeys.profile_type_basic_info_required_error.tr(),
-        );
-      }
-      return;
-    }
     if (_currentStep < totalSteps) {
       setState(() => _currentStep++);
     }
@@ -120,7 +92,7 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
   }
 
   PreferredSizeWidget get _appBar {
-    if (_currentStep == 9) {
+    if (_currentStep == totalSteps) {
       return PublishToolbar(
         onBack: _handleBack,
         onSaveAndPublish: _handleSaveAndPublish,
@@ -144,23 +116,6 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
       body: IndexedStack(
         index: _currentStep - 1,
         children: [
-          ProfileTypeStep(
-            selected: _data.profileType,
-            onSelected: (type) {
-              setState(() {
-                _data.profileType = type;
-                _step1Valid = true;
-              });
-            },
-          ),
-          BasicInfoStep(
-            data: _data,
-            onValidityChanged: (valid) {
-              if (_step2Valid != valid) {
-                setState(() => _step2Valid = valid);
-              }
-            },
-          ),
           ContactChannelsStep(data: _data),
           ContactLinksStep(data: _data),
           ProductsStep(data: _data),
@@ -169,11 +124,11 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
           AppearanceStep(data: _data),
           PublishStep(
             data: _data,
-            onViewAllProducts: () => setState(() => _currentStep = 5),
+            onViewAllProducts: () => setState(() => _currentStep = 3),
           ),
         ],
       ),
-      bottomNavigationBar: _currentStep == 9
+      bottomNavigationBar: _currentStep == totalSteps
           ? Container(
               color: AppColors.white.themeColor,
               child: Padding(
@@ -201,12 +156,12 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
           : Container(
               color: AppColors.white.themeColor,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
                 child: CustomButton(
                   onTap: _handleNext,
                   title: _nextButtonLabel,
-                  height: 54,
-                  radius: 14,
+                  // height: 54,
+                  // radius: 14,
                 ),
               ),
             ),
