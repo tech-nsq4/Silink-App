@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthRegistrationPending) {
           Navigator.pushNamed(
@@ -64,101 +64,98 @@ class _RegisterScreenState extends State<RegisterScreen> {
           );
         }
       },
-      child: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final isLoading = state is AuthLoading;
+      builder: (context, state) {
+        final isLoading = state is AuthLoading;
 
-          return Scaffold(
-            body: SafeArea(
-              child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  physics: const ClampingScrollPhysics(),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const RegisterHeader(),
-                        24.height,
-                        AuthFieldLabel(text: LocaleKeys.auth_name.tr()),
-                        8.height,
-                        CustomTextField(
-                          hint: LocaleKeys.auth_namePlaceholder.tr(),
-                          controller: _nameCtrl,
-                          keyboardType: TextInputType.name,
-                          validator: (v) {
-                            if (v == null || v.trim().isEmpty) {
-                              return LocaleKeys.validation_required.tr();
-                            }
-                            return null;
-                          },
-                        ),
-                        14.height,
-                        AuthFieldLabel(text: LocaleKeys.auth_phone.tr()),
-                        8.height,
-                        CustomTextFieldPhoneCode(
-                          hint: LocaleKeys.auth_phonePlaceholder.tr(),
-                          controller: _phoneCtrl,
-                          // egyptIsInitial: true,
-                        ),
-                        14.height,
-                        AuthFieldLabel(text: LocaleKeys.auth_email.tr()),
-                        8.height,
-                        CustomTextField(
-                          hint: LocaleKeys.auth_emailPlaceholder.tr(),
-                          controller: _emailCtrl,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (v) {
-                            if (v == null || v.trim().isEmpty) {
-                              return LocaleKeys.validation_required.tr();
-                            }
-                            if (!v.contains('@')) {
-                              return LocaleKeys.validation_invalidEmail.tr();
-                            }
-                            return null;
-                          },
-                        ),
-                        14.height,
-                        AuthFieldLabel(text: LocaleKeys.auth_password.tr()),
-                        8.height,
-                        CustomTextField(
-                          hint: LocaleKeys.auth_passwordPlaceholder.tr(),
-                          controller: _passwordCtrl,
-                          isPassword: true,
-                          validator: (v) {
-                            if (v == null || v.isEmpty) {
-                              return LocaleKeys.validation_required.tr();
-                            }
-                            if (v.length < 6) {
-                              return LocaleKeys.validation_shortPassword.tr();
-                            }
-                            return null;
-                          },
-                        ),
-                        16.height,
-                        const RegisterTermsNotice(),
-                        22.height,
-                        CustomButton(
-                          title: LocaleKeys.auth_createAccountButton.tr(),
-                          onTap: _submit,
-                          loading: isLoading,
-                        ),
-                        18.height,
-                        RegisterSignInFooter(
-                          onTap: () => context.pushNamed(Routes.loginScreen)
-                        ),
-                        50.height,
-                      ],
-                    ),
+        return Scaffold(
+          body: SafeArea(
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const RegisterHeader(),
+                      24.height,
+                      AuthFieldLabel(text: LocaleKeys.auth_name.tr()),
+                      8.height,
+                      CustomTextField(
+                        hint: LocaleKeys.auth_namePlaceholder.tr(),
+                        controller: _nameCtrl,
+                        keyboardType: TextInputType.name,
+                        validator: (v) {
+                          if (v == null || v.trim().isEmpty) {
+                            return LocaleKeys.validation_required.tr();
+                          }
+                          return null;
+                        },
+                      ),
+                      14.height,
+                      AuthFieldLabel(text: LocaleKeys.auth_phone.tr()),
+                      8.height,
+                      CustomTextFieldPhoneCode(
+                        hint: LocaleKeys.auth_phonePlaceholder.tr(),
+                        controller: _phoneCtrl,
+                        // egyptIsInitial: true,
+                      ),
+                      14.height,
+                      AuthFieldLabel(text: LocaleKeys.auth_email.tr()),
+                      8.height,
+                      CustomTextField(
+                        hint: LocaleKeys.auth_emailPlaceholder.tr(),
+                        controller: _emailCtrl,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (v) {
+                          if (v == null || v.trim().isEmpty) {
+                            return LocaleKeys.validation_required.tr();
+                          }
+                          if (!v.contains('@')) {
+                            return LocaleKeys.validation_invalidEmail.tr();
+                          }
+                          return null;
+                        },
+                      ),
+                      14.height,
+                      AuthFieldLabel(text: LocaleKeys.auth_password.tr()),
+                      8.height,
+                      CustomTextField(
+                        hint: LocaleKeys.auth_passwordPlaceholder.tr(),
+                        controller: _passwordCtrl,
+                        isPassword: true,
+                        validator: (v) {
+                          if (v == null || v.isEmpty) {
+                            return LocaleKeys.validation_required.tr();
+                          }
+                          if (v.length < 6) {
+                            return LocaleKeys.validation_shortPassword.tr();
+                          }
+                          return null;
+                        },
+                      ),
+                      16.height,
+                      const RegisterTermsNotice(),
+                      22.height,
+                      CustomButton(
+                        title: LocaleKeys.auth_createAccountButton.tr(),
+                        onTap: _submit,
+                        loading: isLoading,
+                      ),
+                      18.height,
+                      RegisterSignInFooter(
+                          onTap: () => context.pushNamed(Routes.loginScreen)),
+                      50.height,
+                    ],
                   ),
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -45,9 +45,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
         child: IndexedStack(
           index: _currentIndex,
           children: [
-            HomeScreen(cardData: widget.cardData),
+            HomeScreen(),
             const MyCardsScreen(),
-            HomeScreen(cardData: widget.cardData),
+            HomeScreen(),
             const MoreScreen(),
           ],
         ),

@@ -30,8 +30,7 @@ class AuthRepo {
         },
       );
       final responseData = response.data['data'] as Map<String, dynamic>;
-      final user =
-          UserModel.fromJson(responseData['user'] as Map<String, dynamic>);
+      final user = UserModel.fromJson(responseData['user'] as Map<String, dynamic>);
       final token = responseData['token'] as String?;
       if (token != null) {
         await _storage.setToken(token);

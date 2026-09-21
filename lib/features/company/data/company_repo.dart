@@ -13,7 +13,7 @@ class CompanyRepo {
   Future<Company> createCompany(Company company) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
-        ApiEndpoints.companies,
+        ApiEndpoints.baseUrl,
         data: company.toJson(),
       );
       final data = response.data?['data'];

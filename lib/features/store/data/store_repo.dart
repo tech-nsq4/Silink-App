@@ -14,7 +14,7 @@ class StoreRepo {
   Future<List<Product>> fetchProducts() async {
     try {
       final response =
-          await _dio.get<Map<String, dynamic>>(ApiEndpoints.products);
+          await _dio.get<Map<String, dynamic>>(ApiEndpoints.baseUrl);
       return _parseProducts(response.data?['data']);
     } on DioException catch (e) {
       throw NetworkException.fromDioException(e);

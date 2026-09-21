@@ -15,7 +15,7 @@ class OrderRepo {
   Future<StoreOrder> placeOrder(StoreOrder order) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
-        ApiEndpoints.orders,
+        ApiEndpoints.baseUrl,
         data: order.toJson(),
       );
       final data = response.data?['data'];
