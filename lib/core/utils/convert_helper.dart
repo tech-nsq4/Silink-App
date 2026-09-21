@@ -52,6 +52,13 @@ class ConvertHelper {
     return '$minutes min';
   }
 
+  static String formatPrice(double value, {int decimalDigits = 0}) {
+    final format = NumberFormat.decimalPattern('en')
+      ..minimumFractionDigits = decimalDigits
+      ..maximumFractionDigits = decimalDigits;
+    return format.format(value);
+  }
+
   static DateTime? _parseDateTime(String date, {String? time}) {
     final normalizedDate = date.trim();
     final normalizedTime = (time ?? '').trim();

@@ -11,7 +11,7 @@ import 'package:Silink/features/profile_completion/models/profile_completion_dat
 import 'package:Silink/features/profile_completion/presentation/widgets/card_link_field.dart';
 import 'package:Silink/features/profile_completion/presentation/widgets/profile_preview_card.dart';
 import 'package:Silink/features/profile_completion/presentation/widgets/public_toggle_card.dart';
-import 'package:Silink/features/statistics/presentation/widgets/stats_app_bar.dart';
+import 'package:Silink/core/widgets/screen_header_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +53,7 @@ class _PublishCardScreenState extends State<PublishCardScreen> {
     return Scaffold(
       body: Column(
         children: [
-          StatsAppBar(
+          ScreenHeaderBar(
             title: LocaleKeys.publish_publishCard.tr(),
           ),
           Expanded(

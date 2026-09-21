@@ -52,6 +52,7 @@ class AppImages {
   static const String iconsGmail = '${_icons}gmail.svg';
   static const String iconsChat = '${_icons}chat.svg';
   static const String iconsCall = '${_icons}call.svg';
+  static const String iconsEdit= '${_icons}edit.svg';
 
   // ─── Images ──────────────────────────────────────────────────────────────
   static const String logo = '${_base}logo2.png';

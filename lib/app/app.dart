@@ -7,7 +7,11 @@ import '../core/di/injection.dart';
 import '../core/storage/local_storage.dart';
 import '../core/utils/app_constants.dart';
 import '../features/auth/logic/auth_cubit.dart';
+import '../features/company/logic/company_cubit.dart';
 import '../features/profile/logic/profile_cubit.dart';
+import '../features/store/logic/cart_cubit.dart';
+import '../features/store/logic/checkout_cubit.dart';
+import '../features/store/logic/store_cubit.dart';
 import 'router/app_router.dart';
 import 'router/routes.dart';
 import 'theme/app_theme.dart';
@@ -30,6 +34,10 @@ class MyApp extends StatelessWidget {
             return cubit;
           },
         ),
+        BlocProvider<StoreCubit>(create: (_) => getIt<StoreCubit>()),
+        BlocProvider<CartCubit>(create: (_) => getIt<CartCubit>()),
+        BlocProvider<CheckoutCubit>(create: (_) => getIt<CheckoutCubit>()),
+        BlocProvider<CompanyCubit>(create: (_) => getIt<CompanyCubit>()),
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),

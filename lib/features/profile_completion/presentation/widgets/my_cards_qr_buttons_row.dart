@@ -1,5 +1,6 @@
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/app_images.dart';
+import 'package:Silink/core/widgets/app_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,41 +67,28 @@ class _PillButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(14.r),
-        child: Container(
-          height: 47.h,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: gradient == null ? color : null,
-            gradient: gradient,
-            borderRadius: BorderRadius.circular(14.r),
+    return CustomButton(
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            icon,
+            height: 15.w,
+            width: 15.w,
+            colorFilter: ColorFilter.mode(
+              AppColors.white.themeColor,
+              BlendMode.srcIn,
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                icon,
-                height: 15.w,
-                width: 15.w,
-                colorFilter: ColorFilter.mode(
-                  AppColors.white.themeColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-              8.width,
-              AppText(
-                label,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w700,
-                color: AppColors.white.themeColor,
-              ),
-            ],
+          8.width,
+          AppText(
+            label,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.white.themeColor,
           ),
-        ),
+        ],
       ),
     );
   }

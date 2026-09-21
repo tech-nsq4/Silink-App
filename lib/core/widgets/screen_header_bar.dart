@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/widgets/app_text.dart';
+import '../extensions/extensions.dart';
+import '../utils/app_colors.dart';
+import 'app_text.dart';
 
-class StatsAppBar extends StatelessWidget {
-  final String title;
-  final VoidCallback? onBack;
-  final Widget? child;
-
-  const StatsAppBar({
+class ScreenHeaderBar extends StatelessWidget {
+  const ScreenHeaderBar({
     super.key,
     required this.title,
     this.onBack,
-    this.child,
+    this.trailing,
   });
+
+  final String title;
+  final VoidCallback? onBack;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70.h,
-      padding: EdgeInsets.symmetric(horizontal: 19.w),
+      height: 60.h,
+      padding: 19.paddingHorizontal,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -30,19 +31,19 @@ class StatsAppBar extends StatelessWidget {
       ),
       child: Stack(
         children: [
-         
-          Positioned(
-            left: 0,
-            top: 0,
-            bottom: 0,
-            child: Transform.translate(
-              offset: Offset(0, 10.h),
-              child: child ,
+          if (trailing != null)
+            PositionedDirectional(
+              end: 0,
+              top: 0,
+              bottom: 0,
+              child: Transform.translate(
+                offset: Offset(0, 6.h),
+                child: trailing!,
+              ),
             ),
-          ),
           Positioned.fill(
             child: Transform.translate(
-              offset: Offset(0, 10.h),
+              offset: Offset(0, 6.h),
               child: Center(
                 child: AppText(
                   title,
@@ -52,12 +53,12 @@ class StatsAppBar extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            right: 0,
+          PositionedDirectional(
+            start: 0,
             top: 0,
             bottom: 0,
             child: Transform.translate(
-              offset: Offset(0, 10.h),
+              offset: Offset(0, 6.h),
               child: Center(
                 child: InkWell(
                   onTap: onBack ?? () => Navigator.of(context).maybePop(),

@@ -1,3 +1,13 @@
+import 'package:Silink/features/company/presentation/company_brand_screen.dart';
+import 'package:Silink/features/company/presentation/company_cards_screen.dart';
+import 'package:Silink/features/company/presentation/company_catalog_screen.dart';
+import 'package:Silink/features/company/presentation/company_dashboard_screen.dart';
+import 'package:Silink/features/company/presentation/company_edit_screen.dart';
+import 'package:Silink/features/company/presentation/company_employees_screen.dart';
+import 'package:Silink/features/company/presentation/company_publish_screen.dart';
+import 'package:Silink/features/company/presentation/company_qr_screen.dart';
+import 'package:Silink/features/company/presentation/company_setup_screen.dart';
+import 'package:Silink/features/company/presentation/company_success_screen.dart';
 import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/public_profile_preview_screen.dart';
@@ -5,7 +15,16 @@ import 'package:Silink/features/profile_completion/presentation/publish_card_scr
 import 'package:Silink/features/profile_completion/presentation/published_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/qr_code_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/usage_type_screen.dart';
+import 'package:Silink/features/services/presentation/service_details_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
+import 'package:Silink/features/store/data/models/product.dart';
+import 'package:Silink/features/store/presentation/card_customization_screen.dart';
+import 'package:Silink/features/store/presentation/cart_screen.dart';
+import 'package:Silink/features/store/presentation/category_products_screen.dart';
+import 'package:Silink/features/store/presentation/checkout_screen.dart';
+import 'package:Silink/features/store/presentation/order_success_screen.dart';
+import 'package:Silink/features/store/presentation/payment_screen.dart';
+import 'package:Silink/features/store/presentation/product_details_screen.dart';
 import 'package:Silink/features/store/presentation/store_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -45,8 +64,10 @@ class RouteGenerator {
         ));
 
       case Routes.layoutScreen:
-        return _pageRoute(
-            LayoutScreen(currentPage: arguments?['currentPage'] ?? 0));
+        return _pageRoute(LayoutScreen(
+          currentPage: arguments?['currentPage'] ?? 0,
+          cardData: arguments?['data'] as ProfileCompletionData?,
+        ));
 
       case Routes.usageTypeScreen:
         return _pageRoute(const UsageTypeScreen());
@@ -80,6 +101,48 @@ class RouteGenerator {
           data: (arguments?['data'] as ProfileCompletionData?) ??
               ProfileCompletionData(),
         ));
+      case Routes.serviceDetailsScreen:
+        return _pageRoute(ServiceDetailsScreen());
+      case Routes.productDetailsScreen:
+        return _pageRoute(ProductDetailsScreen(
+          productId: arguments?['productId'] as String? ?? '',
+        ));
+      case Routes.categoryProductsScreen:
+        return _pageRoute(CategoryProductsScreen(
+          category: arguments?['category'] as ProductCategory?,
+        ));
+      case Routes.cardCustomizationScreen:
+        return _pageRoute(CardCustomizationScreen(
+          productId: arguments?['productId'] as String? ?? '',
+        ));
+      case Routes.cartScreen:
+        return _pageRoute(const CartScreen());
+      case Routes.checkoutScreen:
+        return _pageRoute(const CheckoutScreen());
+      case Routes.paymentScreen:
+        return _pageRoute(const PaymentScreen());
+      case Routes.orderSuccessScreen:
+        return _pageRoute(const OrderSuccessScreen());
+      case Routes.companySetup:
+        return _pageRoute(const CompanySetupScreen());
+      case Routes.companySuccess:
+        return _pageRoute(const CompanySuccessScreen());
+      case Routes.companyDashboard:
+        return _pageRoute(const CompanyDashboardScreen());
+      case Routes.companyCards:
+        return _pageRoute(const CompanyCardsScreen());
+      case Routes.companyBrand:
+        return _pageRoute(const CompanyBrandScreen());
+      case Routes.companyCatalog:
+        return _pageRoute(const CompanyCatalogScreen());
+      case Routes.companyEmployees:
+        return _pageRoute(const CompanyEmployeesScreen());
+      case Routes.companyQr:
+        return _pageRoute(const CompanyQrScreen());
+      case Routes.companyPublish:
+        return _pageRoute(const CompanyPublishScreen());
+      case Routes.companyEdit:
+        return _pageRoute(const CompanyEditScreen());
       default:
         return _pageRoute(const _UndefinedScreen());
     }

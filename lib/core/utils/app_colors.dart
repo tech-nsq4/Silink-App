@@ -164,4 +164,44 @@ class AppColors {
     lightColor: Color(0xFF2F6FED),
     darkColor: Color(0xFF2F6FED),
   );
+
+  static const ColorModel brandGreen = ColorModel(
+    lightColor: Color(0xFF1F8A70),
+    darkColor: Color(0xFF1F8A70),
+  );
+
+  static const ColorModel brandTeal = ColorModel(
+    lightColor: Color(0xFF17B78F),
+    darkColor: Color(0xFF2C9092),
+  );
+
+  static const ColorModel saleRed = ColorModel(
+    lightColor: Color(0xFFE0563E),
+    darkColor: Color(0xFFE0563E),
+  );
+
+  static const ColorModel saleRedSoft = ColorModel(
+    lightColor: Color(0xFFFFEAEA),
+    darkColor: Color(0xFF3A2724),
+  );
+
+  static const ColorModel mintSoft = ColorModel(
+    lightColor: Color(0xFFE7F8F0),
+    darkColor: Color(0xFF1B3A32),
+  );
+
+  static const ColorModel ratingGold = ColorModel(
+    lightColor: Color(0xFFFFB020),
+    darkColor: Color(0xFFFFB020),
+  );
+
+  static const ColorModel dropdownSurface = ColorModel(
+    lightColor: Color(0xFF17212B),
+    darkColor: Color(0xFF1E1E1E),
+  );
+
+  static const ColorModel overlayOnDark = ColorModel(
+    lightColor: Color(0xFFFFFFFF),
+    darkColor: Color(0xFFFFFFFF),
+  );
 }
