@@ -10,7 +10,7 @@ import 'package:Silink/features/company/widgets/company_step_four.dart';
 import 'package:Silink/features/company/widgets/company_step_one.dart';
 import 'package:Silink/features/company/widgets/company_step_three.dart';
 import 'package:Silink/features/company/widgets/company_step_two.dart';
-import 'package:Silink/features/profile_completion/presentation/widgets/step_header.dart';
+import 'package:Silink/core/widgets/step_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

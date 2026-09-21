@@ -2,6 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+extension StringExtension on String {
+  String get initial {
+    final value = trim();
+    if (value.isEmpty) return 'س';
+    return value.characters.first.toUpperCase();
+  }
+}
 enum ProfileType { work, personal, freelancer }
 
 extension ProfileTypeApi on ProfileType {

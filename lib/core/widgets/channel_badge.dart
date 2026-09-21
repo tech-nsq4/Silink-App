@@ -26,10 +26,10 @@ class ChannelBadge extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(10.r),
       ),
-      padding: 5.paddingTop,
+      padding: 0.paddingTop,
       child: AppText(
         label,
-        fontSize: 11.sp,
+        fontSize: 13.sp,
         fontWeight: FontWeight.w800,
         color: textColor,
       ),

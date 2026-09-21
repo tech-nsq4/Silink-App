@@ -11,7 +11,7 @@ import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
 import '../../home/presentation/home_screen.dart';
 import '../../more/presentation/more_screen.dart';
-import '../../profile_completion/models/profile_completion_data.dart';
+import '../../profile_completion/data/models/profile_completion_data.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({

@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:Silink/core/widgets/channel_badge.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
+
 import '../../../../core/utils/app_overlay.dart';
 import '../../../../core/utils/locale_keys.dart';
-import '../../models/profile_completion_data.dart';
-import 'channel_badge.dart';
 import 'section_card.dart';
 import 'social_chip.dart';
 

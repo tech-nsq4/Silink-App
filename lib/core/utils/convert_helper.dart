@@ -1,8 +1,20 @@
 import 'package:Silink/app/router/navigation_services.dart';
+import 'package:Silink/core/utils/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 
 class ConvertHelper {
+  static Color hexToColor(String hex, {Color fallback = const Color(0xFF17B78F)}) {
+    final cleaned = hex.trim().replaceAll('#', '');
+    if (cleaned.length != 6 && cleaned.length != 8) return fallback;
+    final value = int.tryParse(cleaned.length == 6 ? 'FF$cleaned' : cleaned,
+        radix: 16);
+    return value == null ? fallback : Color(value);
+  }
+
+  static String colorToHex(Color color) =>
+      '#${color.toARGB32().toRadixString(16).substring(2).toUpperCase()}';
+
   static String formatDateTime(
     String date, {
     String? time,
@@ -57,6 +69,16 @@ class ConvertHelper {
       ..minimumFractionDigits = decimalDigits
       ..maximumFractionDigits = decimalDigits;
     return format.format(value);
+  }
+
+  static String formatPriceWithCurrency(String rawPrice) {
+    final trimmed = rawPrice.trim();
+    if (trimmed.isEmpty) return '';
+    final currency = LocaleKeys.store_currency.tr();
+    final value = double.tryParse(trimmed);
+    if (value == null) return '$trimmed $currency';
+    final hasDecimals = value != value.truncateToDouble();
+    return '${formatPrice(value, decimalDigits: hasDecimals ? 2 : 0)} $currency';
   }
 
   static DateTime? _parseDateTime(String date, {String? time}) {

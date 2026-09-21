@@ -1,8 +1,7 @@
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/profile_completion/models/initial_char.dart';
-import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

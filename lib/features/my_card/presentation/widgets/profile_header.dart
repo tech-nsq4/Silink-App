@@ -1,5 +1,5 @@
 import 'package:Silink/core/utils/app_images.dart';
-import 'package:Silink/features/profile_completion/models/initial_char.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
