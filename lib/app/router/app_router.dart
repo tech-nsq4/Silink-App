@@ -17,7 +17,7 @@ import 'package:Silink/features/profile_completion/presentation/qr_code_screen.d
 import 'package:Silink/features/profile_completion/presentation/usage_type_screen.dart';
 import 'package:Silink/features/services/presentation/service_details_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
-import 'package:Silink/features/store/data/models/product.dart';
+import 'package:Silink/features/store/models/product.dart';
 import 'package:Silink/features/store/presentation/card_customization_screen.dart';
 import 'package:Silink/features/store/presentation/cart_screen.dart';
 import 'package:Silink/features/store/presentation/category_products_screen.dart';

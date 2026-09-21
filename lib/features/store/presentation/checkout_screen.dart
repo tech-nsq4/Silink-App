@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/navigation_services.dart';
@@ -16,12 +15,10 @@ import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/screen_header_bar.dart';
-import '../data/models/shipping_address.dart';
-import '../logic/cart_cubit.dart';
-import '../logic/checkout_cubit.dart';
-import '../logic/store_cubit.dart';
-import 'widgets/store_action_bar.dart';
-import 'widgets/store_section_card.dart';
+import '../models/demo_store_data.dart';
+import '../models/shipping_address.dart';
+import '../widgets/store_action_bar.dart';
+import '../widgets/store_section_card.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -32,6 +29,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final _formKey = GlobalKey<FormState>();
+  bool _saveAddress = false;
 
   late final TextEditingController _nameCtrl;
   late final TextEditingController _phoneCtrl;
@@ -44,7 +42,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   void initState() {
     super.initState();
-    final address = context.read<CheckoutCubit>().state.address;
+    const address = ShippingAddress();
     _nameCtrl = TextEditingController(text: address.fullName);
     _phoneCtrl = TextEditingController(text: address.phone);
     _addressCtrl = TextEditingController(text: address.address);
@@ -52,9 +50,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     _districtCtrl = TextEditingController(text: address.district);
     _streetCtrl = TextEditingController(text: address.street);
     _detailsCtrl = TextEditingController(text: address.details);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) context.read<StoreCubit>().loadProducts();
-    });
   }
 
   @override
@@ -105,18 +100,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   void _continue() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-
-    context.read<CheckoutCubit>().setAddress(
-          ShippingAddress(
-            fullName: _nameCtrl.text.trim(),
-            phone: _phoneCtrl.text.trim(),
-            address: _addressCtrl.text.trim(),
-            city: _cityCtrl.text.trim(),
-            district: _districtCtrl.text.trim(),
-            street: _streetCtrl.text.trim(),
-            details: _detailsCtrl.text.trim(),
-          ),
-        );
 
     NavigationService.push(Routes.paymentScreen);
   }
@@ -198,24 +181,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             color: AppColors.borderColor.themeColor,
                           ),
                           6.height,
-                          BlocBuilder<CheckoutCubit, CheckoutState>(
-                            builder: (context, state) => Row(
-                              children: [
-                                Expanded(
-                                  child: AppText(
-                                    LocaleKeys.store_save_address.tr(),
-                                    fontSize: 12.5.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: AppText(
+                                  LocaleKeys.store_save_address.tr(),
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                Switch(
-                                  value: state.saveAddress,
-                                  onChanged: context
-                                      .read<CheckoutCubit>()
-                                      .setSaveAddress,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Switch(
+                                value: _saveAddress,
+                                onChanged: (value) =>
+                                    setState(() => _saveAddress = value),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -242,12 +222,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-        builder: (context, state) => StoreActionBar(
-          title: '${LocaleKeys.store_continue_to_payment.tr()} · '
-              '${ConvertHelper.formatPrice(state.total)} $currency',
-          onTap: _continue,
-        ),
+      bottomNavigationBar: StoreActionBar(
+        title: '${LocaleKeys.store_continue_to_payment.tr()} · '
+            '${ConvertHelper.formatPrice(DemoStoreData.total)} $currency',
+        onTap: _continue,
       ),
     );
   }

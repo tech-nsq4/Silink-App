@@ -1,20 +1,18 @@
-import 'package:Silink/core/extensions/extensions.dart';
-import 'package:Silink/core/utils/app_images.dart';
-import 'package:Silink/core/utils/locale_keys.dart';
-import 'package:Silink/core/widgets/app_button.dart';
-import 'package:Silink/core/widgets/app_text_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
+import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/locale_keys.dart';
+import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text.dart';
-import '../data/models/product.dart';
-import 'widgets/category_filter_chips.dart';
-import 'widgets/product_grid_card.dart';
-import 'widgets/section_header.dart';
-import 'widgets/special_offer_card.dart';
+import '../../../core/widgets/app_text_field.dart';
+import '../models/product.dart';
+import '../widgets/product_grid_card.dart';
+import '../widgets/section_header.dart';
+import '../widgets/special_offer_card.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -24,20 +22,7 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
-  final List<String> _categories = const [
-    'الكل',
-    'بطاقات NFC',
-    'بطاقات معدنية',
-    'ملصقات الهاتف'
-  ];
-  int _selectedCategory = 0;
   String _searchQuery = '';
-  List<Product> get _filteredProducts {
-    if (_searchQuery.trim().isEmpty) return _featuredProducts;
-    return _featuredProducts
-        .where((p) => p.name.contains(_searchQuery.trim()))
-        .toList();
-  }
 
   final Product _specialOffer = const Product(
     id: 'titanium-card',
@@ -46,7 +31,8 @@ class _StoreScreenState extends State<StoreScreen> {
     oldPrice: 349,
     rating: 4.9,
     reviewCount: 187,
-    // imageGradient: [Color(0xFFD9B76A), Color(0xFF8A6A2F)],
+    customizable: true,
+    badge: ProductBadge.specialOffer,
   );
 
   final List<Product> _featuredProducts = const [
@@ -55,40 +41,34 @@ class _StoreScreenState extends State<StoreScreen> {
       name: 'بطاقة معدنية تيتانيوم',
       price: 289,
       badge: ProductBadge.specialOffer,
-      // colorOptions: [Colors.black, Colors.grey, Color(0xFFD9B76A)],
-      // selectedColorIndex: 2,
       customizable: true,
-      // imageGradient: [Color(0xFFD9B76A), Color(0xFF8A6A2F)],
     ),
     Product(
       id: 'nfc-premium',
       name: 'بطاقة NFC بريميوم',
       price: 149,
       badge: ProductBadge.bestSeller,
-      // colorOptions: [Colors.white, Color(0xFFD9B76A), Colors.black],
-      // selectedColorIndex: 1,
-      // customizable: true,
-      // imageGradient: [Color(0xFF2B2B2B), Color(0xFF0D0D0D)],
+      customizable: true,
     ),
     Product(
       id: 'nfc-medal',
       name: 'ميدالية NFC فاخرة',
       price: 199,
-      // colorOptions: [Colors.grey, Color(0xFFD9B76A)],
-      // selectedColorIndex: 1,
-      // customizable: true,
-      // imageGradient: [Color(0xFFD9B76A), Color(0xFF8A6A2F)],
     ),
     Product(
       id: 'nfc-sticker',
       name: 'ملصق NFC للهاتف',
       price: 49,
-      // colorOptions: [Color(0xFF17B78F), Colors.black],
-      // selectedColorIndex: 0,
-      // imageGradient: [Color(0xFF17B78F), Color(0xFF2F6FED)],
     ),
   ];
-  int cartCount = 0;
+
+  List<Product> get _filteredProducts {
+    if (_searchQuery.trim().isEmpty) return _featuredProducts;
+    return _featuredProducts
+        .where((p) => p.name.contains(_searchQuery.trim()))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,7 +159,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     options: RoundedRectDottedBorderOptions(
                       dashPattern: [10, 5],
                       strokeWidth: 2,
-                      radius: Radius.circular(16),
+                      radius: const Radius.circular(16),
                       color: AppColors.borderColor.themeColor,
                     ),
                     child: CustomButton(
@@ -189,7 +169,6 @@ class _StoreScreenState extends State<StoreScreen> {
                       textColor: AppColors.textPrimaryColor.themeColor,
                     ),
                   ),
-                  
                 ],
               ),
             ),
@@ -199,3 +178,4 @@ class _StoreScreenState extends State<StoreScreen> {
     );
   }
 }
+

@@ -4,10 +4,8 @@ import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/company/logic/company_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/company_action_bar.dart';
@@ -17,7 +15,7 @@ class CompanySuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = context.watch<CompanyCubit>().state.company.name;
+    const name = 'Silink';
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 19.w),
