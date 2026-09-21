@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../data/models/company_business_type.dart';
 import 'company_business_type_card.dart';
 
 class CompanyStepTwo extends StatelessWidget {

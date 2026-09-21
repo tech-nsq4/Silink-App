@@ -1,4 +1,4 @@
-import 'package:Silink/features/store/presentation/widgets/section_header.dart';
+import 'package:Silink/features/store/widgets/section_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

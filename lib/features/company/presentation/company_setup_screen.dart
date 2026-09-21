@@ -2,8 +2,7 @@ import 'package:Silink/app/router/navigation_services.dart';
 import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
-import 'package:Silink/features/company/logic/company_cubit.dart';
-import 'package:Silink/features/company/logic/company_state.dart';
+import 'package:Silink/features/company/widgets/company_business_type_card.dart';
 import 'package:Silink/features/company/widgets/company_action_bar.dart';
 import 'package:Silink/features/company/widgets/company_review_step.dart';
 import 'package:Silink/features/company/widgets/company_step_four.dart';
@@ -13,7 +12,6 @@ import 'package:Silink/features/company/widgets/company_step_two.dart';
 import 'package:Silink/core/widgets/step_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompanySetupScreen extends StatefulWidget {
@@ -36,24 +34,24 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
   late final TextEditingController _cityCtrl;
   late final TextEditingController _districtCtrl;
 
+  CompanyBusinessType? _businessType;
   String? _activityNature;
   String? _employeesRange;
+  bool _hasOnlineStore = false;
 
   @override
   void initState() {
     super.initState();
-    final company = context.read<CompanyCubit>().state.company;
-    _nameCtrl = TextEditingController(text: company.name);
-    _regCtrl = TextEditingController(text: company.registrationNumber);
-    _taxCtrl = TextEditingController(text: company.taxNumber);
-    _descCtrl = TextEditingController(text: company.activityDescription);
-    _emailCtrl = TextEditingController(text: company.email);
-    _phoneCtrl = TextEditingController(text: company.phone);
-    _websiteCtrl = TextEditingController(text: company.website);
-    _cityCtrl = TextEditingController(text: company.city);
-    _districtCtrl = TextEditingController(text: company.district);
-    _activityNature = company.activityNature.isEmpty ? null : company.activityNature;
-    _employeesRange = company.employeesRange.isEmpty ? null : company.employeesRange;
+
+    _nameCtrl = TextEditingController();
+    _regCtrl = TextEditingController();
+    _taxCtrl = TextEditingController();
+    _descCtrl = TextEditingController();
+    _emailCtrl = TextEditingController();
+    _phoneCtrl = TextEditingController();
+    _websiteCtrl = TextEditingController();
+    _cityCtrl = TextEditingController();
+    _districtCtrl = TextEditingController();
   }
 
   @override
@@ -67,10 +65,9 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
     _websiteCtrl.dispose();
     _cityCtrl.dispose();
     _districtCtrl.dispose();
+
     super.dispose();
   }
-
-  CompanyCubit get _cubit => context.read<CompanyCubit>();
 
   String get _headerTitle {
     switch (_step) {
@@ -87,30 +84,17 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
     }
   }
 
-  void _saveStep() {
-    _cubit.setField(
-      name: _nameCtrl.text.trim(),
-      registrationNumber: _regCtrl.text.trim(),
-      taxNumber: _taxCtrl.text.trim(),
-      activityDescription: _descCtrl.text.trim(),
-      email: _emailCtrl.text.trim(),
-      phone: _phoneCtrl.text.trim(),
-      website: _websiteCtrl.text.trim(),
-      city: _cityCtrl.text.trim(),
-      district: _districtCtrl.text.trim(),
-      activityNature: _activityNature ?? '',
-      employeesRange: _employeesRange ?? '',
-    );
-  }
-
   bool get _currentStepValid {
     switch (_step) {
       case 1:
-        return _nameCtrl.text.trim().isNotEmpty && _regCtrl.text.trim().isNotEmpty;
+        return _nameCtrl.text.trim().isNotEmpty &&
+            _regCtrl.text.trim().isNotEmpty;
+
       case 4:
         return _employeesRange != null &&
             _phoneCtrl.text.trim().isNotEmpty &&
             _emailCtrl.text.trim().isNotEmpty;
+
       default:
         return true;
     }
@@ -118,32 +102,26 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
 
   void _continue() {
     if (!_currentStepValid) {
-      AppOverlay.showError(LocaleKeys.company_error_required.tr());
+      AppOverlay.showError(
+        LocaleKeys.company_error_required.tr(),
+      );
       return;
     }
-    _saveStep();
-    if (_step < 5) {
-      setState(() => _step++);
-    } else {
-      _submit();
-    }
-  }
 
-  Future<void> _submit() async {
-    try {
-      await _cubit.submitCompany();
-      if (!mounted) return;
+    if (_step < 5) {
+      setState(() {
+        _step++;
+      });
+    } else {
       NavigationService.push(Routes.companySuccess);
-    } catch (_) {
-      if (!mounted) return;
-      AppOverlay.showError(LocaleKeys.company_error_required.tr());
     }
   }
 
   void _back() {
     if (_step > 1) {
-      _saveStep();
-      setState(() => _step--);
+      setState(() {
+        _step--;
+      });
     } else {
       Navigator.of(context).maybePop();
     }
@@ -151,40 +129,43 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CompanyCubit, CompanyState>(
-      builder: (context, state) => Scaffold(
-        appBar: StepHeader(
-          title: _headerTitle,
-          step: _step,
-          totalSteps: 5,
-          onBack: _back,
-          onClose: () => Navigator.of(context).maybePop(),
-        ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStep(state),
-              ],
-            ),
+    return Scaffold(
+      appBar: StepHeader(
+        title: _headerTitle,
+        step: _step,
+        totalSteps: 5,
+        onBack: _back,
+        onClose: () => Navigator.of(context).maybePop(),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: 19.w,
+            vertical: 16.h,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildStep(),
+            ],
           ),
         ),
-        bottomNavigationBar: CompanyActionBar(
-          titleKey: _step == 5
-              ? LocaleKeys.company_create_company
-              : LocaleKeys.company_continue,
-          onTap: _continue,
-          secondaryTitleKey: _step > 1 ? LocaleKeys.company_back : null,
-          onSecondaryTap: _step > 1 ? _back : null,
-          loading: state.isLoading,
-        ),
+      ),
+      bottomNavigationBar: CompanyActionBar(
+        titleKey: _step == 5
+            ? LocaleKeys.company_create_company
+            : LocaleKeys.company_continue,
+        onTap: _continue,
+        secondaryTitleKey: _step > 1
+            ? LocaleKeys.company_back
+            : null,
+        onSecondaryTap: _step > 1 ? _back : null,
+        loading: false,
       ),
     );
   }
 
-  Widget _buildStep(CompanyState state) {
+  Widget _buildStep() {
     switch (_step) {
       case 1:
         return CompanyStepOne(
@@ -195,40 +176,59 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
           emailCtrl: _emailCtrl,
           onNameChanged: () => setState(() {}),
         );
+
       case 2:
         return CompanyStepTwo(
-          selected: state.company.businessType,
-          onSelected: (type) => _cubit.setField(businessType: type),
+          selected: _businessType,
+          onSelected: (CompanyBusinessType type) {
+            setState(() {
+              _businessType = type;
+            });
+          },
         );
+
       case 3:
         return CompanyStepThree(
           activityNature: _activityNature,
-          onActivityNatureChanged: (key) => setState(() => _activityNature = key),
-          hasOnlineStore: state.company.hasOnlineStore,
-          onOnlineStoreChanged: (value) => _cubit.setField(hasOnlineStore: value),
+          onActivityNatureChanged: (key) {
+            setState(() {
+              _activityNature = key;
+            });
+          },
+          hasOnlineStore: _hasOnlineStore,
+          onOnlineStoreChanged: (value) {
+            setState(() {
+              _hasOnlineStore = value;
+            });
+          },
           cityCtrl: _cityCtrl,
           districtCtrl: _districtCtrl,
           websiteCtrl: _websiteCtrl,
         );
+
       case 4:
         return CompanyStepFour(
           employeesRange: _employeesRange,
-          onEmployeesRangeChanged: (range) => setState(() => _employeesRange = range),
+          onEmployeesRangeChanged: (range) {
+            setState(() {
+              _employeesRange = range;
+            });
+          },
           phoneCtrl: _phoneCtrl,
           emailCtrl: _emailCtrl,
         );
+
       default:
-        final company = state.company;
         return CompanyReviewStep(
-          name: company.name,
-          registrationNumber: company.registrationNumber,
-          taxNumber: company.taxNumber,
-          businessTypeKey: company.businessType.key,
+          name: _nameCtrl.text,
+          registrationNumber: _regCtrl.text,
+          taxNumber: _taxCtrl.text,
+          businessTypeKey: _businessType?.key ?? '',
           activityNature: _activityNature,
-          city: company.city,
-          district: company.district,
+          city: _cityCtrl.text,
+          district: _districtCtrl.text,
           employeesRange: _employeesRange,
-          email: company.email,
+          email: _emailCtrl.text,
         );
     }
   }

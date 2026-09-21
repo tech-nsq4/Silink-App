@@ -6,8 +6,8 @@ import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
-import '../logic/company_cubit.dart';
 import 'company_field.dart';
+import 'company_validators.dart';
 
 class CompanyStepFour extends StatelessWidget {
   const CompanyStepFour({
@@ -54,7 +54,7 @@ class CompanyStepFour extends StatelessWidget {
           hint: LocaleKeys.company_phone_hint.tr(),
           controller: phoneCtrl,
           keyboardType: TextInputType.phone,
-          validator: (value) => CompanyCubit.requiredValidator(value)?.tr(),
+          validator: (value) => CompanyValidators.requiredValidator(value)?.tr(),
         ),
         12.height,
         CompanyField(
@@ -62,7 +62,7 @@ class CompanyStepFour extends StatelessWidget {
           hint: LocaleKeys.company_email_hint.tr(),
           controller: emailCtrl,
           keyboardType: TextInputType.emailAddress,
-          validator: (value) => CompanyCubit.emailValidator(value)?.tr(),
+          validator: (value) => CompanyValidators.emailValidator(value)?.tr(),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:Silink/features/company/widgets/company_validators.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,6 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
-import '../logic/company_cubit.dart';
 import 'company_field.dart';
 
 class CompanyStepOne extends StatelessWidget {
@@ -89,7 +89,8 @@ class CompanyStepOne extends StatelessWidget {
           label: LocaleKeys.company_name.tr(),
           hint: LocaleKeys.company_name_hint.tr(),
           controller: nameCtrl,
-          validator: (value) => CompanyCubit.requiredValidator(value)?.tr(),
+          validator: (value) =>
+              CompanyValidators.requiredValidator(value)?.tr(),
           onChanged: (_) => onNameChanged(),
         ),
         12.height,
@@ -98,7 +99,8 @@ class CompanyStepOne extends StatelessWidget {
           hint: LocaleKeys.company_registration_hint.tr(),
           controller: regCtrl,
           keyboardType: TextInputType.number,
-          validator: (value) => CompanyCubit.requiredValidator(value)?.tr(),
+          validator: (value) =>
+              CompanyValidators.requiredValidator(value)?.tr(),
         ),
         12.height,
         CompanyField(
@@ -120,7 +122,7 @@ class CompanyStepOne extends StatelessWidget {
           hint: LocaleKeys.company_email_hint.tr(),
           controller: emailCtrl,
           keyboardType: TextInputType.emailAddress,
-          validator: (value) => CompanyCubit.emailValidator(value)?.tr(),
+          validator: (value) => CompanyValidators.emailValidator(value)?.tr(),
         ),
       ],
     );

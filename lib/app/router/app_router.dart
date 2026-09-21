@@ -16,7 +16,7 @@ import 'package:Silink/features/my_card/presentation/qr_code_screen.dart';
 import 'package:Silink/features/auth/presentation/usage_type_screen.dart';
 import 'package:Silink/features/services/presentation/service_details_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
-import 'package:Silink/features/store/data/models/product.dart';
+import 'package:Silink/features/store/models/product.dart';
 import 'package:Silink/features/store/presentation/card_customization_screen.dart';
 import 'package:Silink/features/store/presentation/cart_screen.dart';
 import 'package:Silink/features/store/presentation/category_products_screen.dart';
