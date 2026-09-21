@@ -71,7 +71,7 @@ class _UsageTypeScreenState extends State<UsageTypeScreen> {
                 iconColor: AppColors.blue.themeColor,
                 isSelected: _selectedIndex == 1,
                 onTap: () =>
-                    NavigationService.push(Routes.profileCompletionScreen),
+                    NavigationService.push(Routes.companySetup),
               ),
               const Spacer(),
               Center(

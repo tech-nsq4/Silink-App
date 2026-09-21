@@ -5,8 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// Top navigation bar + thin progress bar used on every onboarding step.
-/// [step] is 1-based current step, [totalSteps] is the total (9 in this flow).
 class StepHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final int step;
@@ -86,10 +84,11 @@ class StepHeader extends StatelessWidget implements PreferredSizeWidget {
                   InkWell(
                     onTap: onClose ?? () => Navigator.of(context).maybePop(),
                     borderRadius: BorderRadius.circular(20),
-                    child:  Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(6),
-                      child:
-                          Icon(Icons.close, size: 20.r, color: AppColors.textSecondaryColor.themeColor),
+                      child: Icon(Icons.close,
+                          size: 20.r,
+                          color: AppColors.textSecondaryColor.themeColor),
                     ),
                   ),
                 ],
@@ -100,7 +99,7 @@ class StepHeader extends StatelessWidget implements PreferredSizeWidget {
                 child: LinearProgressIndicator(
                   value: progress,
                   minHeight: 4,
-                  backgroundColor: const Color(0xFFf1f5f9),
+                  backgroundColor: AppColors.fieldFill,
                   valueColor:
                       const AlwaysStoppedAnimation<Color>(Color(0xFF2F6FED)),
                 ),

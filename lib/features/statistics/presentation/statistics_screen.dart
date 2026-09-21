@@ -5,12 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/locale_keys.dart';
+import '../../../../core/widgets/screen_header_bar.dart';
 import '../models/ranked_metric.dart';
 import 'widgets/performance_summary_card.dart';
 import 'widgets/period_filter_tabs.dart';
 import 'widgets/profile_stats_footer_card.dart';
 import 'widgets/ranked_metric_list_card.dart';
-import 'widgets/stats_app_bar.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
@@ -27,7 +27,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     return Scaffold(
       body: Column(
         children: [
-          StatsAppBar(title: LocaleKeys.stats_title.tr()),
+          ScreenHeaderBar(title: LocaleKeys.stats_title.tr()),
           Padding(
             padding: 12.paddingVert + 19.paddingHorizontal,
             child: PeriodFilterTabs(

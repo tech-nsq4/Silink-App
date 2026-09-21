@@ -21,6 +21,11 @@ class AppConstants {
   static const double defaultPadding = 16.0;
   static const double smallPadding = 8.0;
   static const double largePadding = 24.0;
+
+  static const int storeGridColumns = 2;
+  static const double productGridAspectRatio = 0.68;
+  static const double defaultShippingCost = 25.0;
+  static const double defaultFreeShippingThreshold = 300.0;
 }
 
 class AppFonts {

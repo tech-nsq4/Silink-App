@@ -1,5 +1,6 @@
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_images.dart';
+import 'package:Silink/features/my_card/presentation/my_cards_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,11 +11,17 @@ import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
 import '../../home/presentation/home_screen.dart';
 import '../../more/presentation/more_screen.dart';
+import '../../profile_completion/models/profile_completion_data.dart';
 
 class LayoutScreen extends StatefulWidget {
-  const LayoutScreen({super.key, this.currentPage = 0});
+  const LayoutScreen({
+    super.key,
+    this.currentPage = 0,
+    this.cardData,
+  });
 
   final int currentPage;
+  final ProfileCompletionData? cardData;
 
   @override
   State<LayoutScreen> createState() => _LayoutScreenState();
@@ -23,12 +30,7 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   late int _currentIndex;
 
-  static final _screens = [
-    const HomeScreen(),
-    const MoreScreen(),
-    const HomeScreen(),
-    const MoreScreen(),
-  ];
+  
 
   @override
   void initState() {
@@ -42,7 +44,12 @@ class _LayoutScreenState extends State<LayoutScreen> {
       body: SafeArea(
         child: IndexedStack(
           index: _currentIndex,
-          children: _screens,
+          children: [
+            HomeScreen(cardData: widget.cardData),
+            const MyCardsScreen(),
+            HomeScreen(cardData: widget.cardData),
+            const MoreScreen(),
+          ],
         ),
       ),
       bottomNavigationBar: _CustomNavBar(
@@ -53,7 +60,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
   }
 }
 
-// ── Nav item descriptor ───────────────────────────────────────────────────────
 
 class _NavItem {
   const _NavItem({required this.labelKey, required this.icon});

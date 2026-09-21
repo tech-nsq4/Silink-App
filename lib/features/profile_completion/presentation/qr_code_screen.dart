@@ -15,7 +15,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
-import '../../statistics/presentation/widgets/stats_app_bar.dart';
+import '../../../core/widgets/screen_header_bar.dart';
 import 'widgets/how_to_share_info_box.dart';
 import 'widgets/qr_display_card.dart';
 
@@ -60,9 +60,9 @@ class QrCodeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          StatsAppBar(
+          ScreenHeaderBar(
             title: LocaleKeys.qr_title.tr(),
-            child: IconButton(
+            trailing: IconButton(
               onPressed: () {},
               icon: SvgPicture.asset(AppImages.iconsDownload),
             ),

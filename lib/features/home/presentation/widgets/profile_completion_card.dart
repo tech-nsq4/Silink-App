@@ -54,7 +54,7 @@ class ProfileCompletionCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6.r),
                 child: Container(
                   height: 8.h,
-                  color: Color(0xFFf1f5f9),
+                  color: AppColors.fieldFill,
                   child: Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: FractionallySizedBox(

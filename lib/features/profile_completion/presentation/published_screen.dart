@@ -13,7 +13,7 @@ import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
-import '../../statistics/presentation/widgets/stats_app_bar.dart';
+import '../../../core/widgets/screen_header_bar.dart';
 import 'widgets/my_cards_qr_buttons_row.dart';
 import 'widgets/profile_preview_card.dart';
 import 'widgets/public_toggle_card.dart';
@@ -32,7 +32,7 @@ class PublishedScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF7F8FA),
       body: Column(
         children: [
-          StatsAppBar(title: LocaleKeys.publish_publishedTitle.tr()),
+          ScreenHeaderBar(title: LocaleKeys.publish_publishedTitle.tr()),
           12.height,
           Expanded(
             child: SingleChildScrollView(
@@ -49,7 +49,10 @@ class PublishedScreen extends StatelessWidget {
                   12.height,
                   MyCardsAndQrButtonsRow(
                     onMyCardsTap: () {
-                      NavigationService.push(Routes.myCardsScreen);
+                      NavigationService.push(
+                        Routes.layoutScreen,
+                        arguments: {'data': data},
+                      );
                     },
                     onQrCodeTap: () {
                       NavigationService.push(

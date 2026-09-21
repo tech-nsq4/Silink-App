@@ -1,4 +1,5 @@
 import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +49,7 @@ class LinkBadge extends StatelessWidget {
       height: 34.w,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F5F9),
+        color: AppColors.fieldFill,
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Icon(icon, size: 17.sp, color: const Color(0xFF64748B)),

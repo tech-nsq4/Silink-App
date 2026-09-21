@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/utils/locale_keys.dart';
 import '../models/activity_item.dart';
+import '../../profile_completion/models/profile_completion_data.dart';
 import 'widgets/header.dart';
 import 'widgets/my_cards_section.dart';
 import 'widgets/potential_clients_section.dart';
@@ -32,7 +33,9 @@ class _NoStretchScrollBehavior extends MaterialScrollBehavior {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.cardData});
+
+  final ProfileCompletionData? cardData;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +69,10 @@ class HomeScreen extends StatelessWidget {
                       16.height,
                       const ProfileCompletionCard(percent: 0.78),
                       16.height,
-                      const MyCardsSection(),
-                       16.height,
+                      MyCardsSection(cardData: cardData),
+                      16.height,
                       const StoreBanner(),
-                       16.height,
+                      16.height,
                       const RecentActivitySection(
                         activities: [
                           ActivityItem(

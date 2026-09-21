@@ -44,7 +44,7 @@ class RankingRowCard extends StatelessWidget {
             padding: 8.paddingAll,
               decoration: BoxDecoration(
 
-                color: const Color(0xFFF1F5F9),
+                color: AppColors.fieldFill,
                 borderRadius: BorderRadius.circular(500.r),
               ),
               child: Icon(icon, size: 15.sp, color: AppColors.textSecondaryColor.themeColor)),

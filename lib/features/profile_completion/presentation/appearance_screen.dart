@@ -151,7 +151,9 @@ class _AppearanceStepState extends State<AppearanceStep> {
               8.width,
               BackgroundStyleCard(
                 label: LocaleKeys.appearance_backgroundLight.tr(),
-                preview: Container(color: const Color(0xFFF1F5F9)),
+                preview: Container(
+                  color: AppColors.fieldFill,
+                ),
                 selected: data.backgroundStyle == ProfileBackgroundStyle.light,
                 onTap: () => setState(
                     () => data.backgroundStyle = ProfileBackgroundStyle.light),
