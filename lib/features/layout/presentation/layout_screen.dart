@@ -9,8 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
+import '../../account/widgets/account_tab_body.dart';
 import '../../home/presentation/home_screen.dart';
-import '../../more/presentation/more_screen.dart';
 import '../../profile_completion/models/profile_completion_data.dart';
 
 class LayoutScreen extends StatefulWidget {
@@ -30,8 +30,6 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   late int _currentIndex;
 
-  
-
   @override
   void initState() {
     super.initState();
@@ -48,7 +46,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             HomeScreen(),
             const MyCardsScreen(),
             HomeScreen(),
-            const MoreScreen(),
+            const AccountTabBody(),
           ],
         ),
       ),
@@ -59,7 +57,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
     );
   }
 }
-
 
 class _NavItem {
   const _NavItem({required this.labelKey, required this.icon});

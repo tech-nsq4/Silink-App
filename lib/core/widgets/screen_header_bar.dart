@@ -11,16 +11,18 @@ class ScreenHeaderBar extends StatelessWidget {
     required this.title,
     this.onBack,
     this.trailing,
+    this.showBack = true,
   });
 
   final String title;
   final VoidCallback? onBack;
   final Widget? trailing;
+  final bool showBack;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.h,
+      height: 70.h,
       padding: 19.paddingHorizontal,
       decoration: BoxDecoration(
         border: Border(
@@ -35,9 +37,9 @@ class ScreenHeaderBar extends StatelessWidget {
             PositionedDirectional(
               end: 0,
               top: 0,
-              bottom: 0,
+              // bottom: 0,
               child: Transform.translate(
-                offset: Offset(0, 6.h),
+                offset: Offset(0, 27.h),
                 child: trailing!,
               ),
             ),
@@ -53,25 +55,26 @@ class ScreenHeaderBar extends StatelessWidget {
               ),
             ),
           ),
-          PositionedDirectional(
-            start: 0,
-            top: 0,
-            bottom: 0,
-            child: Transform.translate(
-              offset: Offset(0, 6.h),
-              child: Center(
-                child: InkWell(
-                  onTap: onBack ?? () => Navigator.of(context).maybePop(),
-                  borderRadius: BorderRadius.circular(20.r),
-                  child: Icon(
-                    Icons.chevron_left,
-                    size: 24.sp,
-                    color: AppColors.textPrimaryColor.themeColor,
+          if (showBack)
+            PositionedDirectional(
+              start: 0,
+              top: 0,
+              bottom: 0,
+              child: Transform.translate(
+                offset: Offset(0, 6.h),
+                child: Center(
+                  child: InkWell(
+                    onTap: onBack ?? () => Navigator.of(context).maybePop(),
+                    borderRadius: BorderRadius.circular(20.r),
+                    child: Icon(
+                      Icons.chevron_left,
+                      size: 24.sp,
+                      color: AppColors.textPrimaryColor.themeColor,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

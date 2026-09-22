@@ -140,6 +140,11 @@ class AppColors {
     darkColor: Color(0xff2368E2),
   );
 
+  static const ColorModel purple = ColorModel(
+    lightColor: Color(0xFF7C3AED),
+    darkColor: Color(0xFF8B5CF6),
+  );
+
   static const ColorModel statsAccentGreen = ColorModel(
     lightColor: Color(0xFF1BAA63),
     darkColor: Color(0xFF1BAA63),
@@ -176,7 +181,7 @@ class AppColors {
   );
 
   static const ColorModel saleRed = ColorModel(
-    lightColor: Color(0xFFE0563E),
+    lightColor: Color(0xFFfb2c36),
     darkColor: Color(0xFFE0563E),
   );
 
