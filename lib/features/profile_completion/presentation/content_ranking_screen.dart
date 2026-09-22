@@ -1,146 +1,112 @@
 import 'package:Silink/core/extensions/extensions.dart';
-import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
+import 'package:Silink/core/widgets/screen_state_layout.dart';
+import 'package:Silink/features/profile_completion/logic/profile_completion_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widgets/ranking_row_card.dart';
 
 class ContentRankingStep extends StatefulWidget {
-  const ContentRankingStep({super.key, required this.data});
-
-  final ProfileCompletionData data;
+  const ContentRankingStep({super.key});
 
   @override
   State<ContentRankingStep> createState() => _ContentRankingStepState();
 }
 
 class _ContentRankingStepState extends State<ContentRankingStep> {
-  String _titleFor(RankingSectionType type) {
-    switch (type) {
-      case RankingSectionType.bio:
-        return LocaleKeys.ranking_bio.tr();
-      case RankingSectionType.quickContact:
-        return LocaleKeys.ranking_quickContact.tr();
-      case RankingSectionType.channels:
-        return LocaleKeys.ranking_channels.tr();
-      case RankingSectionType.links:
-        return LocaleKeys.ranking_links.tr();
-      case RankingSectionType.products:
-        return LocaleKeys.ranking_products.tr();
-      case RankingSectionType.services:
-        return LocaleKeys.ranking_services.tr();
-    }
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCompletionCubit>().loadArrangement();
   }
 
-  IconData _iconFor(RankingSectionType type) {
+  IconData _iconFor(String type) {
     switch (type) {
-      case RankingSectionType.bio:
+      case 'basic':
+        return Icons.person_outline;
+      case 'bio':
         return Icons.description_outlined;
-      case RankingSectionType.quickContact:
+      case 'quick_contact':
         return Icons.call_outlined;
-      case RankingSectionType.channels:
+      case 'channels':
         return Icons.share_outlined;
-      case RankingSectionType.links:
+      case 'links':
         return Icons.link;
-      case RankingSectionType.products:
+      case 'products':
         return Icons.inventory_2_outlined;
-      case RankingSectionType.services:
+      case 'services':
         return Icons.work_outline;
+      default:
+        return Icons.widgets_outlined;
     }
-  }
-
-  void _move(int index, int delta) {
-    setState(() {
-      final list = widget.data.ranking;
-      final target = index + delta;
-      final item = list.removeAt(index);
-      list.insert(target, item);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final ranking = widget.data.ranking;
-
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppText(
-            LocaleKeys.ranking_title.tr(),
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w800,
-          ),
-          4.height,
-          AppText(
-            LocaleKeys.ranking_subtitle.tr(),
-            fontSize: 14.sp,
-          ),
-          16.height,
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-            margin: EdgeInsets.only(bottom: 10.h),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF7F8FA),
-              borderRadius: BorderRadius.circular(14.r),
-              border: Border.all(color: AppColors.dividerColor.themeColor),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.lock_outline,
-                    size: 16.sp,
-                    color: AppColors.textSecondaryColor.themeColor),
-                8.width,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        LocaleKeys.ranking_basicInfo.tr(),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      AppText(
-                        LocaleKeys.ranking_basicInfoPinned.tr(),
-                        fontSize: 11.sp,
-                        color: AppColors.textSecondaryColor.themeColor,
-                      ),
-                    ],
+    return BlocBuilder<ProfileCompletionCubit, ProfileCompletionState>(
+      builder: (context, state) {
+        return CustomScreenStateLayout(
+          isLoading: state.arrangementLoading && state.arrangement.isEmpty,
+          error: state.arrangementError != null
+              ? ErrorModel(
+                  code: ErrorEnum.otherError,
+                  errorMessage: state.arrangementError!,
+                )
+              : null,
+          onRetry: () => context
+              .read<ProfileCompletionCubit>()
+              .loadArrangement(force: true),
+          builder: (context) {
+            final sections = state.arrangement;
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 16.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    LocaleKeys.ranking_title.tr(),
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w800,
                   ),
-                ),
-                Icon(Icons.person_outline,
-                    size: 18.sp,
-                    color: AppColors.textSecondaryColor.themeColor),
-              ],
-            ),
-          ),
-          for (int i = 0; i < ranking.length; i++)
-            RankingRowCard(
-              title: _titleFor(ranking[i].type),
-              icon: _iconFor(ranking[i].type),
-              enabled: ranking[i].enabled,
-              canMoveUp: i > 0,
-              canMoveDown: i < ranking.length - 1,
-              onToggle: (v) => setState(() => ranking[i].enabled = v),
-              onMoveUp: () => _move(i, -1),
-              onMoveDown: () => _move(i, 1),
-            ),
-          8.height,
-          Center(
-            child: AppText(
-              LocaleKeys.ranking_dragHint.tr(),
-              fontSize: 11.sp,
-              color: AppColors.textSecondaryColor.themeColor,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
+                  4.height,
+                  AppText(
+                    LocaleKeys.ranking_subtitle.tr(),
+                    fontSize: 14.sp,
+                  ),
+                  16.height,
+                  for (final entry in sections.indexed)
+                    RankingRowCard(
+                      title: entry.$2.label,
+                      icon: _iconFor(entry.$2.type),
+                      enabled: entry.$2.visible,
+                      locked: entry.$2.locked,
+                      hint: entry.$2.hint,
+                      canMoveUp: entry.$1 > 0 &&
+                          !entry.$2.locked &&
+                          !sections[entry.$1 - 1].locked,
+                      canMoveDown: entry.$1 < sections.length - 1 &&
+                          !entry.$2.locked &&
+                          !sections[entry.$1 + 1].locked,
+                      onToggle: (v) => context
+                          .read<ProfileCompletionCubit>()
+                          .toggleArrangementVisible(entry.$2.type, v),
+                      onMoveUp: () => context
+                          .read<ProfileCompletionCubit>()
+                          .moveArrangementSection(entry.$2.type, -1),
+                      onMoveDown: () => context
+                          .read<ProfileCompletionCubit>()
+                          .moveArrangementSection(entry.$2.type, 1),
+                    ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

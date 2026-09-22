@@ -10,15 +10,15 @@ class PublishToolbar extends StatelessWidget implements PreferredSizeWidget {
   const PublishToolbar({
     super.key,
     required this.onBack,
-    required this.onSaveAndPublish,
     required this.onViewAsVisitor,
     required this.onCopyLink,
+    required this.onFinish,
   });
 
   final VoidCallback onBack;
-  final VoidCallback onSaveAndPublish;
   final VoidCallback onViewAsVisitor;
   final VoidCallback onCopyLink;
+  final VoidCallback onFinish;
 
   @override
   Size get preferredSize => const Size.fromHeight(112);
@@ -66,30 +66,20 @@ class PublishToolbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: onSaveAndPublish,
-                  borderRadius: BorderRadius.circular(20.r),
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF17B78F), Color(0xFF2368E2)],
+                  onTap: onFinish,
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: Row(
+                    children: [
+                      AppText(
+                        LocaleKeys.publish_finish.tr(),
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.mint.themeColor,
                       ),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.check, size: 14.sp, color: Colors.white),
-                        4.width,
-                        AppText(
-                          LocaleKeys.publish_saveAndPublish.tr(),
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
+                      4.width,
+                      Icon(Icons.home_outlined,
+                          size: 18.sp, color: AppColors.mint.themeColor),
+                    ],
                   ),
                 ),
               ],

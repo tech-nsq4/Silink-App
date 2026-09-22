@@ -1,11 +1,16 @@
-import 'package:Silink/app/router/navigation_services.dart';
+import 'dart:ui' as ui;
+
 import 'package:Silink/app/router/routes.dart';
+import 'package:Silink/core/di/injection.dart';
+import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
+import 'package:Silink/features/profile_completion/logic/profile_completion_cubit.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/appearance_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/contact_channels_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/contact_links_screen.dart';
@@ -14,11 +19,14 @@ import 'package:Silink/features/profile_completion/presentation/products_screen.
 import 'package:Silink/features/profile_completion/presentation/publish_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/template_selection_screen.dart';
 import 'package:Silink/features/profile_completion/presentation/widgets/publish_toolbar.dart';
-import 'package:Silink/features/profile_completion/presentation/widgets/step_header.dart';
+import 'package:Silink/core/widgets/step_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProfileCompletionScreen extends StatefulWidget {
   const ProfileCompletionScreen({super.key});
@@ -32,7 +40,24 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
   static const int totalSteps = 7;
 
   final ProfileCompletionData _data = ProfileCompletionData();
+  final GlobalKey _shareCardKey = GlobalKey();
+  late final ProfileCompletionCubit _cubit = getIt<ProfileCompletionCubit>();
   int _currentStep = 1;
+  bool _isSharing = false;
+  late final Set<int> _visitedSteps = {0};
+  late final List<Widget> _stepWidgets = [
+    const ContactChannelsStep(),
+    const ContactLinksStep(),
+    const ProductsStep(),
+    const ContentRankingStep(),
+    const TemplateSelectionStep(),
+    AppearanceStep(data: _data),
+    PublishStep(
+      data: _data,
+      repaintKey: _shareCardKey,
+      onViewAllProducts: () => setState(() => _currentStep = 3),
+    ),
+  ];
 
   String get _headerTitle {
     switch (_currentStep) {
@@ -60,9 +85,19 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
     return LocaleKeys.onboarding_next.tr();
   }
 
-  void _handleNext() {
+  String get _profileHandle {
+    final trimmed = _data.fullName.trim();
+    return trimmed.isEmpty ? 'demo-profile' : trimmed.replaceAll(' ', '-');
+  }
+
+  Future<void> _handleNext() async {
+    final ok = await _cubit.saveStep(_currentStep);
+    if (!ok || !mounted) return;
     if (_currentStep < totalSteps) {
-      setState(() => _currentStep++);
+      setState(() {
+        _currentStep++;
+        _visitedSteps.add(_currentStep - 1);
+      });
     }
   }
 
@@ -75,29 +110,69 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
   }
 
   void _handleCopyLink() {
-    final handle = _data.fullName.trim().isEmpty
-        ? 'demo-profile'
-        : _data.fullName.trim().replaceAll(' ', '-');
-    Clipboard.setData(ClipboardData(text: 'silink.app/$handle'));
+    Clipboard.setData(ClipboardData(text: 'silink.sa/$_profileHandle'));
     AppOverlay.showSuccess(LocaleKeys.publish_linkCopied.tr());
-  }
-
-  void _handleSaveAndPublish() {
-    AppOverlay.showSuccess(LocaleKeys.publish_publishedSuccess.tr());
-    NavigationService.push(Routes.publishCardScreen , arguments: {'data': _data});
   }
 
   void _handleViewAsVisitor() {
     AppOverlay.showSuccess(LocaleKeys.common_comingSoon.tr());
   }
 
+  void _handleFinish() {
+    context.pushNamedAndRemoveUntil(
+      Routes.layoutScreen,
+      predicate: (_) => false,
+    );
+  }
+
+  Future<void> _handleShare() async {
+    if (_isSharing) return;
+    setState(() => _isSharing = true);
+    try {
+      await WidgetsBinding.instance.endOfFrame;
+      final boundary = _shareCardKey.currentContext?.findRenderObject()
+          as RenderRepaintBoundary?;
+      if (boundary == null) {
+        throw StateError('card not ready');
+      }
+      final image = await boundary.toImage(pixelRatio: 3);
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      if (byteData == null) throw StateError('failed to encode image');
+      final bytes = byteData.buffer.asUint8List();
+
+      final email = kUserModel?.email;
+      final caption = [
+        _data.fullName.trim().isEmpty ? AppConstants.appName : _data.fullName.trim(),
+        if (email != null && email.trim().isNotEmpty) email.trim(),
+        AppConstants.appName,
+        'silink.sa/$_profileHandle',
+      ].join('\n');
+
+      await Share.shareXFiles(
+        [XFile.fromData(bytes, name: 'silink-card.png', mimeType: 'image/png')],
+        text: caption,
+        fileNameOverrides: const ['silink-card.png'],
+      );
+    } catch (_) {
+      if (mounted) AppOverlay.showError(LocaleKeys.common_somethingWentWrong.tr());
+    } finally {
+      if (mounted) setState(() => _isSharing = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
+
   PreferredSizeWidget get _appBar {
     if (_currentStep == totalSteps) {
       return PublishToolbar(
         onBack: _handleBack,
-        onSaveAndPublish: _handleSaveAndPublish,
         onViewAsVisitor: _handleViewAsVisitor,
         onCopyLink: _handleCopyLink,
+        onFinish: _handleFinish,
       );
     }
     return StepHeader(
@@ -111,60 +186,59 @@ class _ProfileCompletionScreenState extends State<ProfileCompletionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar,
-      body: IndexedStack(
-        index: _currentStep - 1,
-        children: [
-          ContactChannelsStep(data: _data),
-          ContactLinksStep(data: _data),
-          ProductsStep(data: _data),
-          ContentRankingStep(data: _data),
-          TemplateSelectionStep(data: _data),
-          AppearanceStep(data: _data),
-          PublishStep(
-            data: _data,
-            onViewAllProducts: () => setState(() => _currentStep = 3),
-          ),
-        ],
-      ),
-      bottomNavigationBar: _currentStep == totalSteps
-          ? Container(
-              color: AppColors.white.themeColor,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-                child: CustomButton(
-                  onTap: _handleCopyLink,
-                  height: 54,
-                  radius: 14,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.ios_share,
-                          size: 18, color: Colors.white),
-                      SizedBox(width: 8.w),
-                      AppText(
-                        LocaleKeys.publish_shareCta.tr(),
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ],
+    return BlocProvider.value(
+      value: _cubit,
+      child: Scaffold(
+        appBar: _appBar,
+        body: IndexedStack(
+          index: _currentStep - 1,
+          children: [
+            for (int i = 0; i < totalSteps; i++)
+              _visitedSteps.contains(i) ? _stepWidgets[i] : const SizedBox.shrink(),
+          ],
+        ),
+        bottomNavigationBar: _currentStep == totalSteps
+            ? Container(
+                color: AppColors.white.themeColor,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                  child: CustomButton(
+                    onTap: _handleShare,
+                    height: 54,
+                    radius: 14,
+                    loading: _isSharing,
+                    child: _isSharing
+                        ? null
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.ios_share,
+                                  size: 18, color: Colors.white),
+                              SizedBox(width: 8.w),
+                              AppText(
+                                LocaleKeys.publish_shareCta.tr(),
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+              )
+            : Container(
+                color: AppColors.white.themeColor,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+                  child: BlocBuilder<ProfileCompletionCubit, ProfileCompletionState>(
+                    builder: (context, state) => CustomButton(
+                      onTap: _handleNext,
+                      title: state.isSavingStep ? null : _nextButtonLabel,
+                      loading: state.isSavingStep,
+                    ),
                   ),
                 ),
               ),
-            )
-          : Container(
-              color: AppColors.white.themeColor,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
-                child: CustomButton(
-                  onTap: _handleNext,
-                  title: _nextButtonLabel,
-                  // height: 54,
-                  // radius: 14,
-                ),
-              ),
-            ),
+      ),
     );
   }
 }

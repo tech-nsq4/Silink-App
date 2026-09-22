@@ -50,6 +50,7 @@ abstract class LocaleKeys {
 
   // ─── Common ───────────────────────────────────────────────────────────────
   static const String common_cancel = 'common.cancel';
+  static const String common_delete = 'common.delete';
   static const String common_search = 'common.search';
   static const String common_retry = 'common.retry';
   static const String common_confirm = 'common.confirm';
@@ -190,14 +191,39 @@ abstract class LocaleKeys {
   static const String products_enableTitle = 'products.enable_title';
   static const String products_enableSubtitle = 'products.enable_subtitle';
   static const String products_countLabel = 'products.count_label';
+  static const String products_serviceCountLabel =
+      'products.service_count_label';
   static const String products_addProduct = 'products.add_product';
   static const String products_addTitle = 'products.add_title';
   static const String products_editTitle = 'products.edit_title';
+  static const String products_addServiceTitle = 'products.add_service_title';
+  static const String products_editServiceTitle =
+      'products.edit_service_title';
   static const String products_nameLabel = 'products.name_label';
   static const String products_nameHint = 'products.name_hint';
   static const String products_priceLabel = 'products.price_label';
   static const String products_priceHint = 'products.price_hint';
   static const String products_emptyHint = 'products.empty_hint';
+  static const String products_itemSaved = 'products.item_saved';
+  static const String products_kindLabel = 'products.kind_label';
+  static const String products_kindProduct = 'products.kind_product';
+  static const String products_kindService = 'products.kind_service';
+  static const String products_descriptionLabel = 'products.description_label';
+  static const String products_descriptionHint = 'products.description_hint';
+  static const String products_pricePrefixLabel = 'products.price_prefix_label';
+  static const String products_pricePrefixHint = 'products.price_prefix_hint';
+  static const String products_actionTypeLabel = 'products.action_type_label';
+  static const String products_actionUrlLabel = 'products.action_url_label';
+  static const String products_actionUrlHint = 'products.action_url_hint';
+  static const String products_imageLabel = 'products.image_label';
+  static const String products_changeImage = 'products.change_image';
+  static const String products_addImage = 'products.add_image';
+  static const String products_removeImage = 'products.remove_image';
+  static const String products_previewLabel = 'products.preview_label';
+  static const String products_deleteConfirmTitle =
+      'products.delete_confirm_title';
+  static const String products_deleteConfirmMessage =
+      'products.delete_confirm_message';
 
   // ─── Content Ranking (profile completion step 6) ───────────────────────────
   static const String ranking_title = 'ranking.title';
@@ -255,6 +281,7 @@ abstract class LocaleKeys {
   // ─── Publish & Preview (profile completion) ─────────────────────────
   static const String publish_saveAndPublish = 'publish.save_and_publish';
   static const String publish_previewEditor = 'publish.preview_editor';
+  static const String publish_finish = 'publish.finish';
   static const String publish_viewAsVisitor = 'publish.view_as_visitor';
   static const String publish_copyLink = 'publish.copy_link';
   static const String publish_linkCopied = 'publish.link_copied';

@@ -7,10 +7,10 @@ import 'package:Silink/core/utils/custom_text_field_phone/custom_text_field_phon
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/core/widgets/app_text_field.dart';
-import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
-import 'package:Silink/features/profile_completion/presentation/location_picker_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/widgets/field_label.dart';
-import 'package:Silink/features/profile_completion/presentation/widgets/photo_source_sheet.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
+import 'package:Silink/features/location/presentation/location_picker_screen.dart';
+import 'package:Silink/core/widgets/field_label.dart';
+import 'package:Silink/core/widgets/photo_source_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

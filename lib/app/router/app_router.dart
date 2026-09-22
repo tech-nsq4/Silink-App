@@ -12,16 +12,12 @@ import 'package:Silink/features/company/presentation/company_publish_screen.dart
 import 'package:Silink/features/company/presentation/company_qr_screen.dart';
 import 'package:Silink/features/company/presentation/company_setup_screen.dart';
 import 'package:Silink/features/company/presentation/company_success_screen.dart';
-import 'package:Silink/features/help/presentation/help_screen.dart';
-import 'package:Silink/features/notifications/presentation/notifications_screen.dart';
-import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
 import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/public_profile_preview_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/publish_card_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/published_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/qr_code_screen.dart';
-import 'package:Silink/features/profile_completion/presentation/usage_type_screen.dart';
+import 'package:Silink/features/my_card/presentation/public_profile_preview_screen.dart';
+import 'package:Silink/features/my_card/presentation/published_screen.dart';
+import 'package:Silink/features/my_card/presentation/qr_code_screen.dart';
+import 'package:Silink/features/auth/presentation/usage_type_screen.dart';
 import 'package:Silink/features/services/presentation/service_details_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
 import 'package:Silink/features/store/models/product.dart';
@@ -89,11 +85,6 @@ class RouteGenerator {
         return _pageRoute(const StatisticsScreen());
       case Routes.storeScreen:
         return _pageRoute(const StoreScreen());
-      case Routes.publishCardScreen:
-        return _pageRoute(PublishCardScreen(
-          data: (arguments?['data'] as ProfileCompletionData?) ??
-              ProfileCompletionData(),
-        ));
       case Routes.publishedScreen:
         return _pageRoute(PublishedScreen(
           data: (arguments?['data'] as ProfileCompletionData?) ??

@@ -2,7 +2,7 @@ import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/profile_completion/models/profile_completion_data.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
