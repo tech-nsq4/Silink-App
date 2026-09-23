@@ -19,4 +19,10 @@ class ApiEndpoints {
   static const String meArrangement = 'me/arrangement';
   static const String meTemplate = 'me/template';
   static const String meAppearance = 'me/appearance';
+
+  // ─── Company Profile Completion ───────────────────────────────────────────
+  static const String meCompany = 'me/company';
+  static const String meCompanyIndustry = 'me/company/industry';
+  static const String meCompanySubIndustry = 'me/company/sub-industry';
+  static const String meCompanyDetails = 'me/company/details';
 }

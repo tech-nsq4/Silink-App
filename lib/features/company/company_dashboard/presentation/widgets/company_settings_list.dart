@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Silink/core/utils/locale_keys.dart';
-import '../company_field.dart';
+import 'package:Silink/features/company/shared/widgets/company_field.dart';
 import 'company_settings_tile.dart';
 
 class CompanySettingsList extends StatelessWidget {

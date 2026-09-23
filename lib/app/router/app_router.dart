@@ -1,13 +1,13 @@
-import 'package:Silink/features/company/presentation/company_brand_screen.dart';
-import 'package:Silink/features/company/presentation/company_cards_screen.dart';
-import 'package:Silink/features/company/presentation/company_catalog_screen.dart';
-import 'package:Silink/features/company/presentation/company_dashboard_screen.dart';
-import 'package:Silink/features/company/presentation/company_edit_screen.dart';
-import 'package:Silink/features/company/presentation/company_employees_screen.dart';
-import 'package:Silink/features/company/presentation/company_publish_screen.dart';
-import 'package:Silink/features/company/presentation/company_qr_screen.dart';
-import 'package:Silink/features/company/presentation/company_setup_screen.dart';
-import 'package:Silink/features/company/presentation/company_success_screen.dart';
+import 'package:Silink/features/company/company_settings/presentation/company_brand_screen.dart';
+import 'package:Silink/features/company/company_card/presentation/company_cards_screen.dart';
+import 'package:Silink/features/company/company_catalog/presentation/company_catalog_screen.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/company_dashboard_screen.dart';
+import 'package:Silink/features/company/company_settings/presentation/company_edit_screen.dart';
+import 'package:Silink/features/company/company_team/presentation/company_employees_screen.dart';
+import 'package:Silink/features/company/company_card/presentation/company_publish_screen.dart';
+import 'package:Silink/features/company/company_card/presentation/company_qr_screen.dart';
+import 'package:Silink/features/company/company_profile_completion/presentation/company_setup_screen.dart';
+import 'package:Silink/features/company/company_profile_completion/presentation/company_success_screen.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
 import 'package:Silink/features/my_card/presentation/public_profile_preview_screen.dart';
@@ -120,7 +120,17 @@ class RouteGenerator {
       case Routes.companySetup:
         return _pageRoute(const CompanySetupScreen());
       case Routes.companySuccess:
-        return _pageRoute(const CompanySuccessScreen());
+        return _pageRoute(CompanySuccessScreen(
+          companyName: arguments?['companyName'] as String? ?? '',
+          industry: arguments?['industry'] as String? ?? '',
+          subIndustry: arguments?['subIndustry'] as String? ?? '',
+          size: arguments?['size'] as String? ?? '',
+          city: arguments?['city'] as String? ?? '',
+          phone: arguments?['phone'] as String? ?? '',
+          email: arguments?['email'] as String? ?? '',
+          website: arguments?['website'] as String? ?? '',
+          bio: arguments?['bio'] as String? ?? '',
+        ));
       case Routes.companyDashboard:
         return _pageRoute(const CompanyDashboardScreen());
       case Routes.companyCards:

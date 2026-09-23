@@ -4,11 +4,14 @@ import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/di/injection.dart';
 import 'package:Silink/core/storage/local_storage.dart';
 import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/core/widgets/custom_loading_widget.dart';
+import 'package:Silink/features/profile/logic/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gif/gif.dart';
 
@@ -41,16 +44,18 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  void _navigate() {
+  void _navigate() async {
     if (_navigated || !mounted) return;
     _navigated = true;
 
     final storage = getIt<LocalStorage>();
 
     if (storage.isLoggedIn) {
+      await context.read<ProfileCubit>().getProfile();
+      if (!mounted) return;
       Navigator.pushNamedAndRemoveUntil(
         context,
-        Routes.layoutScreen,
+        kHomeRoute,
         (_) => false,
       );
     } else if (storage.isOnboardingSeen) {

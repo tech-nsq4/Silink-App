@@ -1,3 +1,4 @@
+import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/features/auth/data/models/user_model.dart';
 
 class AppConstants {
@@ -38,3 +39,9 @@ UserModel? kUserModel;
 /// Returns `true` when the user is NOT logged in (guest mode).
 /// Use this everywhere in the app to guard authenticated-only actions.
 bool get kIsGuest => kUserModel == null;
+
+/// The home route to land the current user on right after auth/splash,
+/// based on their account type.
+String get kHomeRoute => kUserModel?.usageIntent == 'company'
+    ? Routes.companyDashboard
+    : Routes.layoutScreen;

@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/routes.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
@@ -61,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
           context.read<ProfileCubit>().setUser(state.user);
           Navigator.pushNamedAndRemoveUntil(
             context,
-            Routes.layoutScreen,
+            kHomeRoute,
             (_) => false,
           );
         }

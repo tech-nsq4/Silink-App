@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/locale_keys.dart';
 import '../../../../core/widgets/app_text.dart';
 
@@ -88,6 +89,10 @@ class ProfileCompletionCard extends StatelessWidget {
                   ),
                   CustomTapEffect(
                     onTap: () {
+                      if (kUserModel?.usageIntent == 'company') {
+                        context.pushNamed(Routes.companySetup);
+                        return;
+                      }
                       context.pushNamed(Routes.profileCompletionScreen);
                     },
                     child: Container(

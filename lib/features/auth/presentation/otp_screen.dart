@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../app/router/routes.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../profile/logic/profile_cubit.dart';
 import '../logic/auth_cubit.dart';
@@ -77,7 +77,7 @@ class _OtpScreenState extends State<OtpScreen> {
         if (state is AuthSuccess) {
           context.read<ProfileCubit>().setUser(state.user);
           Navigator.pushNamedAndRemoveUntil(
-              context, Routes.layoutScreen, (_) => false);
+              context, kHomeRoute, (_) => false);
         }
       },
       builder: (context, state) {

@@ -7,12 +7,12 @@ import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/screen_header_bar.dart';
-import '../widgets/dashboard/company_dashboard_action_buttons.dart';
-import '../widgets/dashboard/company_dashboard_card.dart';
-import '../widgets/dashboard/company_profile_completion_card.dart';
-import '../widgets/dashboard/company_quick_actions.dart';
-import '../widgets/dashboard/company_settings_list.dart';
-import '../widgets/dashboard/company_stats_grid.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/widgets/company_dashboard_action_buttons.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/widgets/company_dashboard_card.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/widgets/company_profile_completion_card.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/widgets/company_quick_actions.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/widgets/company_settings_list.dart';
+import 'package:Silink/features/company/company_dashboard/presentation/widgets/company_stats_grid.dart';
 
 class CompanyDashboardScreen extends StatelessWidget {
   const CompanyDashboardScreen({super.key});
@@ -20,6 +20,7 @@ class CompanyDashboardScreen extends StatelessWidget {
   void _onEdit() => NavigationService.push(Routes.companyEdit);
   void _onShare() => NavigationService.push(Routes.companyQr);
   void _onEmployees() => NavigationService.push(Routes.companyEmployees);
+  void _onCompleteProfile() => NavigationService.push(Routes.companySetup);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class CompanyDashboardScreen extends StatelessWidget {
                       cards: 0,
                     ),
                     12.height,
-                    const CompanyProfileCompletionCard(),
+                    CompanyProfileCompletionCard(onTap: _onCompleteProfile),
                     12.height,
                     CompanyQuickActions(
                       onShare: _onShare,
