@@ -197,8 +197,7 @@ abstract class LocaleKeys {
   static const String products_addTitle = 'products.add_title';
   static const String products_editTitle = 'products.edit_title';
   static const String products_addServiceTitle = 'products.add_service_title';
-  static const String products_editServiceTitle =
-      'products.edit_service_title';
+  static const String products_editServiceTitle = 'products.edit_service_title';
   static const String products_nameLabel = 'products.name_label';
   static const String products_nameHint = 'products.name_hint';
   static const String products_priceLabel = 'products.price_label';
@@ -631,10 +630,211 @@ abstract class LocaleKeys {
   // ─── Location Picker ────────────────────────────────────────────────────────
   static const String location_picker_title = 'location_picker.title';
   static const String location_picker_confirm = 'location_picker.confirm';
-  static const String location_picker_resolving =
-      'location_picker.resolving';
+  static const String location_picker_resolving = 'location_picker.resolving';
   static const String location_picker_permission_denied =
       'location_picker.permission_denied';
   static const String location_picker_address_unavailable =
       'location_picker.address_unavailable';
+
+  static const String account_guestTitle = 'account.guest_title';
+  static const String account_welcome = 'account.welcome';
+  static const String account_guestSubtitle = 'account.guest_subtitle';
+  static const String account_continueAsGuest = 'account.continue_as_guest';
+  static const String account_createAccount = 'account.create_account';
+  static const String account_signIn = 'account.sign_in';
+  static const String account_privacyPolicy = 'account.privacy_policy';
+  static const String account_changeUsageType = 'account.change_usage_type';
+  static const String account_title = 'account.title';
+  static const String account_memberRole = 'account.member_role';
+  static const String account_readyTitle = 'account.ready_title';
+  static const String account_readySubtitle = 'account.ready_subtitle';
+  static const String account_add = 'account.add';
+  static const String account_sectionAccountData =
+      'account.section_account_data';
+  static const String account_editProfile = 'account.edit_profile';
+  static const String account_helpCenter = 'account.help_center';
+  static const String account_privacySecurity = 'account.privacy_security';
+  static const String account_subscriptions = 'account.subscriptions';
+  static const String account_usage = 'account.usage';
+  static const String account_logout = 'account.logout';
+  static const String account_language = 'account.language';
+  static const String account_soon = 'account.soon';
+  static const String account_sectionDashboard = 'account.section_dashboard';
+  static const String account_statistics = 'account.statistics';
+  static const String account_publishCard = 'account.publish_card';
+  static const String account_editTitle = 'account.edit_title';
+  static const String account_fullName = 'account.full_name';
+  static const String account_jobTitle = 'account.job_title';
+  static const String account_phone = 'account.phone';
+  static const String account_email = 'account.email';
+  static const String account_jobHint = 'account.job_hint';
+  static const String account_phoneHint = 'account.phone_hint';
+  static const String account_emailHint = 'account.email_hint';
+  static const String account_changePassword = 'account.change_password';
+  static const String account_saveEdit = 'account.save_edit';
+  static const String account_editNote = 'account.edit_note';
+  static const String account_notificationsTitle =
+      'account.notifications_title';
+  static const String account_offersTitle = 'account.offers_title';
+  static const String account_offersSubtitle = 'account.offers_subtitle';
+  static const String account_remindersTitle = 'account.reminders_title';
+  static const String account_remindersSubtitle = 'account.reminders_subtitle';
+  static const String account_followersTitle = 'account.followers_title';
+  static const String account_followersSubtitle = 'account.followers_subtitle';
+  static const String account_nfcTitle = 'account.nfc_title';
+  static const String account_nfcSubtitle = 'account.nfc_subtitle';
+  static const String account_messagesTitle = 'account.messages_title';
+  static const String account_messagesSubtitle = 'account.messages_subtitle';
+  static const String account_reportsTitle = 'account.reports_title';
+  static const String account_reportsSubtitle = 'account.reports_subtitle';
+  static const String account_notificationsNote = 'account.notifications_note';
+  static const String account_privacyTitle = 'account.privacy_title';
+  static const String account_profileLook = 'account.profile_look';
+  static const String account_profileLookSubtitle =
+      'account.profile_look_subtitle';
+  static const String account_secondSide = 'account.second_side';
+  static const String account_secondSideSubtitle =
+      'account.second_side_subtitle';
+  static const String account_profileVisibility = 'account.profile_visibility';
+  static const String account_public = 'account.public';
+  static const String account_publicVisibility = 'account.public_visibility';
+  static const String account_twoStep = 'account.two_step';
+  static const String account_enabled = 'account.enabled';
+  static const String account_disabled = 'account.disabled';
+  static const String account_passwordTitle = 'account.password_title';
+  static const String account_change = 'account.change';
+  static const String account_activeDevices = 'account.active_devices';
+  static const String account_currentDevice = 'account.current_device';
+  static const String account_deviceLogout = 'account.device_logout';
+  static const String account_logoutOtherDevices =
+      'account.logout_other_devices';
+  static const String account_dataAndAccount = 'account.data_and_account';
+  static const String account_downloadMyData = 'account.download_my_data';
+  static const String account_deviceInfo = 'account.device_info';
+  static const String account_storeSource = 'account.store_source';
+  static const String account_version = 'account.version';
+  static const String account_dataSize = 'account.data_size';
+  static const String account_lastUpdate = 'account.last_update';
+  static const String account_dangerTitle = 'account.danger_title';
+  static const String account_edit = 'account.edit';
+  static const String account_deleteAccount = 'account.delete_account';
+  static const String account_subscriptionTitle = 'account.subscription_title';
+  static const String account_currentPlanLabel = 'account.current_plan_label';
+  static const String account_activeBadge = 'account.active_badge';
+  static const String account_comparePlans = 'account.compare_plans';
+  static const String account_upgradeChip = 'account.upgrade_chip';
+  static const String account_yourCurrentPlan = 'account.your_current_plan';
+  static const String account_pricePerMonth = 'account.price_per_month';
+  static const String account_freePlanPrice = 'account.free_plan_price';
+  static const String account_freePlanCard = 'account.free_plan_card';
+  static const String account_freePlanFree = 'account.free_plan_free';
+  static const String account_freeFeature1 = 'account.free_feature_1';
+  static const String account_freeFeature2 = 'account.free_feature_2';
+  static const String account_freeFeature3 = 'account.free_feature_3';
+  static const String account_freeFeature4 = 'account.free_feature_4';
+  static const String account_professionalPlan = 'account.professional_plan';
+  static const String account_professionalPrice = 'account.professional_price';
+  static const String account_professionalFeature1 =
+      'account.professional_feature_1';
+  static const String account_professionalFeature2 =
+      'account.professional_feature_2';
+  static const String account_professionalFeature3 =
+      'account.professional_feature_3';
+  static const String account_professionalFeature4 =
+      'account.professional_feature_4';
+  static const String account_professionalFeature5 =
+      'account.professional_feature_5';
+  static const String account_businessPlan = 'account.business_plan';
+  static const String account_businessPrice = 'account.business_price';
+  static const String account_businessFeature1 = 'account.business_feature_1';
+  static const String account_businessFeature2 = 'account.business_feature_2';
+  static const String account_businessFeature3 = 'account.business_feature_3';
+  static const String account_businessFeature4 = 'account.business_feature_4';
+  static const String account_subscriptionNote = 'account.subscription_note';
+  static const String help_title = 'help.title';
+  static const String help_faqSection = 'help.faq_section';
+  static const String help_faq1Question = 'help.faq_1_question';
+  static const String help_faq1Answer = 'help.faq_1_answer';
+  static const String help_faq2Question = 'help.faq_2_question';
+  static const String help_faq2Answer = 'help.faq_2_answer';
+  static const String help_faq3Question = 'help.faq_3_question';
+  static const String help_faq3Answer = 'help.faq_3_answer';
+  static const String help_faq4Question = 'help.faq_4_question';
+  static const String help_faq4Answer = 'help.faq_4_answer';
+  static const String help_faq5Question = 'help.faq_5_question';
+  static const String help_faq5Answer = 'help.faq_5_answer';
+  static const String help_contactSection = 'help.contact_section';
+  static const String help_subjectHint = 'help.subject_hint';
+  static const String help_messageHint = 'help.message_hint';
+  static const String help_send = 'help.send';
+  static const String help_nfcGuide = 'help.nfc_guide';
+  static const String help_reportProblem = 'help.report_problem';
+  static const String help_termsOfUse = 'help.terms_of_use';
+  static const String help_privacyPolicy = 'help.privacy_policy';
+  static const String help_whatsappSupport = 'help.whatsapp_support';
+  static const String help_whatsappSupportHint = 'help.whatsapp_support_hint';
+  static const String help_emailSupport = 'help.email_support';
+  static const String help_emailSupportHint = 'help.email_support_hint';
+  static const String help_helpNote = 'help.help_note';
+  static const String help_version = 'help.version';
+  static const String clients_searchHint = 'clients.search_hint';
+  static const String clients_filterAll = 'clients.filter_all';
+  static const String clients_filterNew = 'clients.filter_new';
+  static const String clients_filterContacted = 'clients.filter_contacted';
+  static const String clients_filterQualified = 'clients.filter_qualified';
+  static const String clients_filterConverted = 'clients.filter_converted';
+  static const String clients_sourceLabel = 'clients.source_label';
+  static const String clients_managedVia = 'clients.managed_via';
+  static const String clients_minutesAgo = 'clients.minutes_ago';
+  static const String clients_hoursAgo = 'clients.hours_ago';
+  static const String clients_daysAgo = 'clients.days_ago';
+  static const String clients_sourceQr = 'clients.source_qr';
+  static const String clients_statusSheetTitle = 'clients.status_sheet_title';
+  static const String clients_statusImportant = 'clients.status_important';
+  static const String clients_statusLost = 'clients.status_lost';
+  static const String clients_statusNotImportant =
+      'clients.status_not_important';
+  static const String clients_detailsTitle = 'clients.details_title';
+  static const String clients_call = 'clients.call';
+  static const String clients_whatsapp = 'clients.whatsapp';
+  static const String clients_sendEmail = 'clients.send_email';
+  static const String clients_saveContact = 'clients.save_contact';
+  static const String clients_submissionData = 'clients.submission_data';
+  static const String clients_submitDate = 'clients.submit_date';
+  static const String clients_message = 'clients.message';
+  static const String clients_source = 'clients.source';
+  static const String clients_tags = 'clients.tags';
+  static const String clients_addTag = 'clients.add_tag';
+  static const String clients_notes = 'clients.notes';
+  static const String clients_noNotes = 'clients.no_notes';
+  static const String clients_meetings = 'clients.meetings';
+  static const String clients_noMeetings = 'clients.no_meetings';
+  static const String clients_tagImportant = 'clients.tag_important';
+  static const String clients_tagUrgent = 'clients.tag_urgent';
+  static const String clients_tagVip = 'clients.tag_vip';
+  static const String clients_tagPotentialConversion =
+      'clients.tag_potential_conversion';
+  static const String clients_tagCurrentClient = 'clients.tag_current_client';
+  static const String clients_tagReturned = 'clients.tag_returned';
+  static const String clients_tagFollowUp = 'clients.tag_follow_up';
+  static const String clients_tagOfferSubmitted =
+      'clients.tag_offer_submitted';
+  static const String clients_followUp = 'clients.follow_up';
+  static const String clients_noFollowUp = 'clients.no_follow_up';
+  static const String clients_followUpDateHint =
+      'clients.follow_up_date_hint';
+  static const String clients_followUpTimeHint =
+      'clients.follow_up_time_hint';
+  static const String clients_followUpReasonHint =
+      'clients.follow_up_reason_hint';
+  static const String clients_save = 'clients.save';
+  static const String clients_add = 'clients.add';
+  static const String clients_addNoteAction = 'clients.add_note_action';
+  static const String clients_noteHint = 'clients.note_hint';
+  static const String clients_notesCount = 'clients.notes_count';
+
+  static const String clients_empty = 'clients.empty';
+
+  static const String account_login_company = 'account.login_company';
+  static const String account_managing_Company = 'account.managing_company';
 }

@@ -37,4 +37,13 @@ class Routes {
   static const String companyQr = '/company_qr';
   static const String companyPublish = '/company_publish';
   static const String companyEdit = '/company_edit';
+
+  static const String accountGuestScreen = '/account_guest_screen';
+  static const String accountScreen = '/account_screen';
+  static const String accountEditScreen = '/account_edit_screen';
+  static const String notificationsScreen = '/notifications_screen';
+  static const String privacyScreen = '/privacy_screen';
+  static const String subscriptionScreen = '/subscription_screen';
+  static const String helpScreen = '/help_screen';
+  static const String clientDetailsScreen = '/client_details_screen';
 }

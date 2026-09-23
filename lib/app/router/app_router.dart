@@ -1,13 +1,22 @@
-import 'package:Silink/features/company/company_settings/presentation/company_brand_screen.dart';
-import 'package:Silink/features/company/company_card/presentation/company_cards_screen.dart';
-import 'package:Silink/features/company/company_catalog/presentation/company_catalog_screen.dart';
-import 'package:Silink/features/company/company_dashboard/presentation/company_dashboard_screen.dart';
-import 'package:Silink/features/company/company_settings/presentation/company_edit_screen.dart';
-import 'package:Silink/features/company/company_team/presentation/company_employees_screen.dart';
-import 'package:Silink/features/company/company_card/presentation/company_publish_screen.dart';
-import 'package:Silink/features/company/company_card/presentation/company_qr_screen.dart';
-import 'package:Silink/features/company/company_profile_completion/presentation/company_setup_screen.dart';
-import 'package:Silink/features/company/company_profile_completion/presentation/company_success_screen.dart';
+import 'package:Silink/features/account/presentation/account_edit_screen.dart';
+import 'package:Silink/features/account/presentation/account_guest_screen.dart';
+import 'package:Silink/features/account/presentation/account_screen.dart';
+import 'package:Silink/features/auth/data/models/user_model.dart';
+import 'package:Silink/features/clients/models/client_model.dart';
+import 'package:Silink/features/clients/presentation/client_details_screen.dart';
+import 'package:Silink/features/company/presentation/company_brand_screen.dart';
+import 'package:Silink/features/company/presentation/company_cards_screen.dart';
+import 'package:Silink/features/company/presentation/company_catalog_screen.dart';
+import 'package:Silink/features/company/presentation/company_dashboard_screen.dart';
+import 'package:Silink/features/company/presentation/company_edit_screen.dart';
+import 'package:Silink/features/company/presentation/company_employees_screen.dart';
+import 'package:Silink/features/company/presentation/company_publish_screen.dart';
+import 'package:Silink/features/company/presentation/company_qr_screen.dart';
+import 'package:Silink/features/company/presentation/company_setup_screen.dart';
+import 'package:Silink/features/company/presentation/company_success_screen.dart';
+import 'package:Silink/features/help/presentation/help_screen.dart';
+import 'package:Silink/features/notifications/presentation/notifications_screen.dart';
+import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
 import 'package:Silink/features/my_card/presentation/public_profile_preview_screen.dart';
@@ -25,6 +34,7 @@ import 'package:Silink/features/store/presentation/order_success_screen.dart';
 import 'package:Silink/features/store/presentation/payment_screen.dart';
 import 'package:Silink/features/store/presentation/product_details_screen.dart';
 import 'package:Silink/features/store/presentation/store_screen.dart';
+import 'package:Silink/features/subscription/presentation/subscription_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
@@ -117,20 +127,44 @@ class RouteGenerator {
         return _pageRoute(const PaymentScreen());
       case Routes.orderSuccessScreen:
         return _pageRoute(const OrderSuccessScreen());
+      case Routes.accountGuestScreen:
+        return _pageRoute(const AccountGuestScreen());
+      case Routes.accountScreen:
+        return _pageRoute(const AccountScreen());
+      case Routes.accountEditScreen:
+        return _pageRoute(AccountEditScreen(
+          user: arguments?['user'] as UserModel? ??
+              UserModel(
+                id: '',
+                fullName: '',
+                phone: '',
+              ),
+        ));
+      case Routes.notificationsScreen:
+        return _pageRoute(const NotificationsScreen());
+      case Routes.privacyScreen:
+        return _pageRoute(PrivacyScreen(
+          username: arguments?['username'] as String? ?? '',
+        ));
+      case Routes.subscriptionScreen:
+        return _pageRoute(const SubscriptionScreen());
+      case Routes.helpScreen:
+        return _pageRoute(const HelpScreen());
+      case Routes.clientDetailsScreen:
+        return _pageRoute(ClientDetailsScreen(
+          client: arguments?['client'] as ClientModel? ??
+              const ClientModel(
+                id: '',
+                name: '',
+                phone: '',
+                status: ClientStatus.newClient,
+                source: ClientSource.qr,
+              ),
+        ));
       case Routes.companySetup:
         return _pageRoute(const CompanySetupScreen());
       case Routes.companySuccess:
-        return _pageRoute(CompanySuccessScreen(
-          companyName: arguments?['companyName'] as String? ?? '',
-          industry: arguments?['industry'] as String? ?? '',
-          subIndustry: arguments?['subIndustry'] as String? ?? '',
-          size: arguments?['size'] as String? ?? '',
-          city: arguments?['city'] as String? ?? '',
-          phone: arguments?['phone'] as String? ?? '',
-          email: arguments?['email'] as String? ?? '',
-          website: arguments?['website'] as String? ?? '',
-          bio: arguments?['bio'] as String? ?? '',
-        ));
+        return _pageRoute(const CompanySuccessScreen());
       case Routes.companyDashboard:
         return _pageRoute(const CompanyDashboardScreen());
       case Routes.companyCards:
