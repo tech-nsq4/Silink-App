@@ -56,8 +56,8 @@ class AccountScreen extends StatelessWidget {
                         title: LocaleKeys.account_readyTitle.tr(),
                         subtitle: LocaleKeys.account_readySubtitle.tr(),
                         actionLabel: LocaleKeys.account_add.tr(),
-                        onAddTap: () =>
-                            context.pushNamed(Routes.publishCardScreen),
+                        // onAddTap: () =>
+                        //     context.pushNamed(Routes.publishCardScreen),
                       ),
                       16.height,
                       AccountSectionCard(

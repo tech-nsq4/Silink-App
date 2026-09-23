@@ -1,6 +1,8 @@
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_images.dart';
+import 'package:Silink/features/clients/presentation/clients_screen.dart';
 import 'package:Silink/features/my_card/presentation/my_cards_screen.dart';
+import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,9 +13,6 @@ import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
 import '../../account/widgets/account_tab_body.dart';
 import '../../home/presentation/home_screen.dart';
-import '../../more/presentation/more_screen.dart';
-import '../../profile_completion/models/profile_completion_data.dart';
-
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({
     super.key,
@@ -46,7 +45,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
           children: [
             HomeScreen(),
             const MyCardsScreen(),
-            HomeScreen(),
+            const ClientsScreen(),
             const AccountTabBody(),
           ],
         ),

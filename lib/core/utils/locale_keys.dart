@@ -197,8 +197,7 @@ abstract class LocaleKeys {
   static const String products_addTitle = 'products.add_title';
   static const String products_editTitle = 'products.edit_title';
   static const String products_addServiceTitle = 'products.add_service_title';
-  static const String products_editServiceTitle =
-      'products.edit_service_title';
+  static const String products_editServiceTitle = 'products.edit_service_title';
   static const String products_nameLabel = 'products.name_label';
   static const String products_nameHint = 'products.name_hint';
   static const String products_priceLabel = 'products.price_label';
@@ -666,8 +665,7 @@ abstract class LocaleKeys {
   // ─── Location Picker ────────────────────────────────────────────────────────
   static const String location_picker_title = 'location_picker.title';
   static const String location_picker_confirm = 'location_picker.confirm';
-  static const String location_picker_resolving =
-      'location_picker.resolving';
+  static const String location_picker_resolving = 'location_picker.resolving';
   static const String location_picker_permission_denied =
       'location_picker.permission_denied';
   static const String location_picker_address_unavailable =
@@ -686,7 +684,8 @@ abstract class LocaleKeys {
   static const String account_readyTitle = 'account.ready_title';
   static const String account_readySubtitle = 'account.ready_subtitle';
   static const String account_add = 'account.add';
-  static const String account_sectionAccountData = 'account.section_account_data';
+  static const String account_sectionAccountData =
+      'account.section_account_data';
   static const String account_editProfile = 'account.edit_profile';
   static const String account_helpCenter = 'account.help_center';
   static const String account_privacySecurity = 'account.privacy_security';
@@ -709,7 +708,8 @@ abstract class LocaleKeys {
   static const String account_changePassword = 'account.change_password';
   static const String account_saveEdit = 'account.save_edit';
   static const String account_editNote = 'account.edit_note';
-  static const String account_notificationsTitle = 'account.notifications_title';
+  static const String account_notificationsTitle =
+      'account.notifications_title';
   static const String account_offersTitle = 'account.offers_title';
   static const String account_offersSubtitle = 'account.offers_subtitle';
   static const String account_remindersTitle = 'account.reminders_title';
@@ -722,8 +722,7 @@ abstract class LocaleKeys {
   static const String account_messagesSubtitle = 'account.messages_subtitle';
   static const String account_reportsTitle = 'account.reports_title';
   static const String account_reportsSubtitle = 'account.reports_subtitle';
-  static const String account_notificationsNote =
-      'account.notifications_note';
+  static const String account_notificationsNote = 'account.notifications_note';
   static const String account_privacyTitle = 'account.privacy_title';
   static const String account_profileLook = 'account.profile_look';
   static const String account_profileLookSubtitle =
@@ -813,6 +812,64 @@ abstract class LocaleKeys {
   static const String help_emailSupportHint = 'help.email_support_hint';
   static const String help_helpNote = 'help.help_note';
   static const String help_version = 'help.version';
+  static const String clients_searchHint = 'clients.search_hint';
+  static const String clients_filterAll = 'clients.filter_all';
+  static const String clients_filterNew = 'clients.filter_new';
+  static const String clients_filterContacted = 'clients.filter_contacted';
+  static const String clients_filterQualified = 'clients.filter_qualified';
+  static const String clients_filterConverted = 'clients.filter_converted';
+  static const String clients_sourceLabel = 'clients.source_label';
+  static const String clients_managedVia = 'clients.managed_via';
+  static const String clients_minutesAgo = 'clients.minutes_ago';
+  static const String clients_hoursAgo = 'clients.hours_ago';
+  static const String clients_daysAgo = 'clients.days_ago';
+  static const String clients_sourceQr = 'clients.source_qr';
+  static const String clients_statusSheetTitle = 'clients.status_sheet_title';
+  static const String clients_statusImportant = 'clients.status_important';
+  static const String clients_statusLost = 'clients.status_lost';
+  static const String clients_statusNotImportant =
+      'clients.status_not_important';
+  static const String clients_detailsTitle = 'clients.details_title';
+  static const String clients_call = 'clients.call';
+  static const String clients_whatsapp = 'clients.whatsapp';
+  static const String clients_sendEmail = 'clients.send_email';
+  static const String clients_saveContact = 'clients.save_contact';
+  static const String clients_submissionData = 'clients.submission_data';
+  static const String clients_submitDate = 'clients.submit_date';
+  static const String clients_message = 'clients.message';
+  static const String clients_source = 'clients.source';
+  static const String clients_tags = 'clients.tags';
+  static const String clients_addTag = 'clients.add_tag';
+  static const String clients_notes = 'clients.notes';
+  static const String clients_noNotes = 'clients.no_notes';
+  static const String clients_meetings = 'clients.meetings';
+  static const String clients_noMeetings = 'clients.no_meetings';
+  static const String clients_tagImportant = 'clients.tag_important';
+  static const String clients_tagUrgent = 'clients.tag_urgent';
+  static const String clients_tagVip = 'clients.tag_vip';
+  static const String clients_tagPotentialConversion =
+      'clients.tag_potential_conversion';
+  static const String clients_tagCurrentClient = 'clients.tag_current_client';
+  static const String clients_tagReturned = 'clients.tag_returned';
+  static const String clients_tagFollowUp = 'clients.tag_follow_up';
+  static const String clients_tagOfferSubmitted =
+      'clients.tag_offer_submitted';
+  static const String clients_followUp = 'clients.follow_up';
+  static const String clients_noFollowUp = 'clients.no_follow_up';
+  static const String clients_followUpDateHint =
+      'clients.follow_up_date_hint';
+  static const String clients_followUpTimeHint =
+      'clients.follow_up_time_hint';
+  static const String clients_followUpReasonHint =
+      'clients.follow_up_reason_hint';
+  static const String clients_save = 'clients.save';
+  static const String clients_add = 'clients.add';
+  static const String clients_addNoteAction = 'clients.add_note_action';
+  static const String clients_noteHint = 'clients.note_hint';
+  static const String clients_notesCount = 'clients.notes_count';
+
+  static const String clients_empty = 'clients.empty';
+
   static const String account_login_company = 'account.login_company';
   static const String account_managing_Company = 'account.managing_company';
 }

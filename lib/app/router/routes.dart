@@ -45,4 +45,5 @@ class Routes {
   static const String privacyScreen = '/privacy_screen';
   static const String subscriptionScreen = '/subscription_screen';
   static const String helpScreen = '/help_screen';
+  static const String clientDetailsScreen = '/client_details_screen';
 }
