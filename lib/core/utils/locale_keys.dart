@@ -505,6 +505,19 @@ abstract class LocaleKeys {
   static const String myCards_categoryPersonal = 'my_cards.categoryPersonal';
   static const String myCards_categoryFreelancer =
       'my_cards.categoryFreelancer';
+  static const String myCards_detailsTitle = 'my_cards.detailsTitle';
+  static const String myCards_share = 'my_cards.share';
+  static const String myCards_publishStatus = 'my_cards.publishStatus';
+  static const String myCards_nfcPremium = 'my_cards.nfcPremium';
+  static const String myCards_nfcEnabled = 'my_cards.nfcEnabled';
+  static const String myCards_nfcDisabled = 'my_cards.nfcDisabled';
+  static const String myCards_statsVisits = 'my_cards.statsVisits';
+  static const String myCards_statsClients = 'my_cards.statsClients';
+  static const String myCards_statsLastUpdate = 'my_cards.statsLastUpdate';
+  static const String myCards_createdAt = 'my_cards.createdAt';
+  static const String myCards_isDefault = 'my_cards.isDefault';
+  static const String myCards_viewClients = 'my_cards.viewClients';
+  static const String myCards_link = 'my_cards.link';
 
   // ─── Company ────────────────────────────────────────────────────────────
   static const String company_header = 'company.header';
@@ -575,8 +588,23 @@ abstract class LocaleKeys {
   static const String company_catalog = 'company.catalog';
   static const String company_employees = 'company.employees';
   static const String company_qr = 'company.qr';
+  static const String company_qr_page_title = 'company.qr_page_title';
+  static const String company_qr_page_subtitle = 'company.qr_page_subtitle';
+  static const String company_qr_simulate_scan = 'company.qr_simulate_scan';
+  static const String company_qr_share_link = 'company.qr_share_link';
   static const String company_publish = 'company.publish';
   static const String company_edit = 'company.edit';
+  static const String company_active_employees = 'company.active_employees';
+  static const String company_active_cards = 'company.active_cards';
+  static const String company_visits = 'company.visits';
+  static const String company_leads = 'company.leads';
+  static const String company_public_page = 'company.public_page';
+  static const String company_public_page_hint = 'company.public_page_hint';
+  static const String company_view_page = 'company.view_page';
+  static const String company_publish_page = 'company.publish_page';
+  static const String company_setup_catalog = 'company.setup_catalog';
+  static const String company_back_to_personal = 'company.back_to_personal';
+  static const String company_quick_procedures = 'company.quick_procedures';
   static const String company_fans = 'company.fans';
   static const String company_setup_title = 'company.setup_title';
   static const String company_continue = 'company.continue';
@@ -591,6 +619,9 @@ abstract class LocaleKeys {
   static const String company_step4_subtitle = 'company.step4_subtitle';
   static const String company_step5_title = 'company.step5_title';
   static const String company_step5_subtitle = 'company.step5_subtitle';
+  static const String company_image_label = 'company.image_label';
+  static const String company_image_hint = 'company.image_hint';
+  static const String company_upload_image = 'company.upload_image';
   static const String company_logo_hint = 'company.logo_hint';
   static const String company_activity = 'company.activity';
   static const String company_activity_hint = 'company.activity_hint';
@@ -600,6 +631,242 @@ abstract class LocaleKeys {
   static const String company_nature_retail = 'company.nature_retail';
   static const String company_nature_services = 'company.nature_services';
   static const String company_nature_other = 'company.nature_other';
+  static const String company_cards_page_title = 'company.cards_page_title';
+  static const String company_card_numbered = 'company.card_numbered';
+  static const String company_card_deactivated = 'company.card_deactivated';
+  static const String company_stat_total = 'company.stat_total';
+  static const String company_stat_available = 'company.stat_available';
+  static const String company_stat_active = 'company.stat_active';
+  static const String company_stat_disabled = 'company.stat_disabled';
+  static const String company_filter_all = 'company.filter_all';
+  static const String company_filter_active_short =
+      'company.filter_active_short';
+  static const String company_filter_pending = 'company.filter_pending';
+  static const String company_filter_suspended = 'company.filter_suspended';
+  static const String company_status_available = 'company.status_available';
+  static const String company_status_active = 'company.status_active';
+  static const String company_status_active_feminine =
+      'company.status_active_feminine';
+  static const String company_status_disabled = 'company.status_disabled';
+  static const String company_cards_empty = 'company.cards_empty';
+  static const String company_cards_empty_desc = 'company.cards_empty_desc';
+  static const String company_activate = 'company.activate';
+  static const String company_deactivate = 'company.deactivate';
+  static const String company_card_activated = 'company.card_activated';
+  static const String company_brand_identity_title =
+      'company.brand_identity_title';
+  static const String company_brand_hint = 'company.brand_hint';
+  static const String company_preview = 'company.preview';
+  static const String company_primary_color = 'company.primary_color';
+  static const String company_profile_template = 'company.profile_template';
+  static const String company_template_simple = 'company.template_simple';
+  static const String company_template_pro = 'company.template_pro';
+  static const String company_template_personal = 'company.template_personal';
+  static const String company_tagline = 'company.tagline';
+  static const String company_tagline_hint = 'company.tagline_hint';
+  static const String company_lock_colors = 'company.lock_colors';
+  static const String company_lock_colors_hint = 'company.lock_colors_hint';
+  static const String company_save = 'company.save';
+  static const String company_save_brand = 'company.save_brand';
+  static const String company_brand_saved = 'company.brand_saved';
+  static const String company_bio_default = 'company.company_bio_default';
+  static const String company_edit_data_title = 'company.edit_data_title';
+  static const String company_name_label = 'company.name_label';
+  static const String company_bio_label = 'company.bio_label';
+  static const String company_website_label = 'company.website_label';
+  static const String company_business_type_label =
+      'company.business_type_label';
+  static const String company_industry_label = 'company.industry_label';
+  static const String company_size_label = 'company.size_label';
+  static const String company_city_label = 'company.city_label';
+  static const String company_phone_contact = 'company.phone_contact';
+  static const String company_email_official = 'company.email_official';
+  static const String company_save_changes = 'company.save_changes';
+  static const String company_name_required = 'company.name_required';
+  static const String company_saved = 'company.company_saved';
+  static const String company_type_general = 'company.type_general';
+  static const String company_type_general_desc = 'company.type_general_desc';
+  static const String company_type_restaurant2 = 'company.type_restaurant2';
+  static const String company_type_restaurant_desc =
+      'company.type_restaurant_desc';
+  static const String company_type_clinic2 = 'company.type_clinic2';
+  static const String company_type_clinic_desc = 'company.type_clinic_desc';
+  static const String company_type_retail2 = 'company.type_retail2';
+  static const String company_type_retail_desc = 'company.type_retail_desc';
+  static const String company_ind_professional = 'company.ind_professional';
+  static const String company_ind_marketing = 'company.ind_marketing';
+  static const String company_ind_retail = 'company.ind_retail';
+  static const String company_ind_food = 'company.ind_food';
+  static const String company_ind_real_estate = 'company.ind_real_estate';
+  static const String company_ind_health = 'company.ind_health';
+  static const String company_ind_education = 'company.ind_education';
+  static const String company_ind_tourism = 'company.ind_tourism';
+  static const String company_ind_events = 'company.ind_events';
+  static const String company_ind_other = 'company.ind_other';
+  static const String company_size_1_10 = 'company.size_1_10';
+  static const String company_size_11_50 = 'company.size_11_50';
+  static const String company_size_51_200 = 'company.size_51_200';
+  static const String company_size_200_plus = 'company.size_200_plus';
+  static const String company_employees_title = 'company.employees_title';
+  static const String company_search_employees_hint =
+      'company.search_employees_hint';
+  static const String company_no_employees = 'company.no_employees';
+  static const String company_no_employees_desc = 'company.no_employees_desc';
+  static const String company_no_results = 'company.no_results';
+  static const String company_no_results_desc = 'company.no_results_desc';
+  static const String company_linked_profile = 'company.linked_profile';
+  static const String company_no_profile = 'company.no_profile';
+  static const String company_invite_title = 'company.invite_title';
+  static const String company_invite_subtitle = 'company.invite_subtitle';
+  static const String company_full_name_star = 'company.full_name_star';
+  static const String company_email_star = 'company.email_star';
+  static const String company_phone_number = 'company.phone_number';
+  static const String company_job_title_star = 'company.job_title_star';
+  static const String company_department = 'company.department';
+  static const String company_department_hint = 'company.department_hint';
+  static const String company_send_invite = 'company.send_invite';
+  static const String company_sending_invite = 'company.sending_invite';
+  static const String company_invite_sent = 'company.invite_sent';
+  static const String company_invite_sent_desc = 'company.invite_sent_desc';
+  static const String company_view_employees_list =
+      'company.view_employees_list';
+  static const String company_invite_another = 'company.invite_another';
+  static const String company_employee_details_title =
+      'company.employee_details_title';
+  static const String company_employee_edit_title =
+      'company.employee_edit_title';
+  static const String company_employee_actions = 'company.employee_actions';
+  static const String company_employee_edit_data = 'company.employee_edit_data';
+  static const String company_employee_resend_invite =
+      'company.employee_resend_invite';
+  static const String company_employee_cancel_invite =
+      'company.employee_cancel_invite';
+  static const String company_employee_deactivate =
+      'company.employee_deactivate';
+  static const String company_employee_activate = 'company.employee_activate';
+  static const String company_employee_link_nfc = 'company.employee_link_nfc';
+  static const String company_employee_remove = 'company.employee_remove';
+  static const String company_employee_not_linked =
+      'company.employee_not_linked';
+  static const String company_employee_nfc_card = 'company.employee_nfc_card';
+  static const String company_employee_digital_title =
+      'company.employee_digital_title';
+  static const String company_employee_digital_desc =
+      'company.employee_digital_desc';
+  static const String company_employee_profile_first_title =
+      'company.employee_profile_first_title';
+  static const String company_employee_profile_first_desc =
+      'company.employee_profile_first_desc';
+  static const String company_employee_updated = 'company.employee_updated';
+  static const String company_employee_invite_resent =
+      'company.employee_invite_resent';
+  static const String company_employee_profile_linked =
+      'company.employee_profile_linked';
+  static const String company_employee_nfc_linked =
+      'company.employee_nfc_linked';
+  static const String company_employee_removed = 'company.employee_removed';
+  static const String company_employee_remove_confirm_title =
+      'company.employee_remove_confirm_title';
+  static const String company_employee_remove_confirm_desc =
+      'company.employee_remove_confirm_desc';
+  static const String company_catalog_title = 'company.catalog_title';
+  static const String company_menu_title = 'company.menu_title';
+  static const String company_menu_cat_drinks = 'company.menu_cat_drinks';
+  static const String company_menu_cat_main = 'company.menu_cat_main';
+  static const String company_menu_cat_appetizers =
+      'company.menu_cat_appetizers';
+  static const String company_catalog_empty = 'company.catalog_empty';
+  static const String company_add_to_order = 'company.add_to_order';
+  static const String company_item_details_title = 'company.item_details_title';
+  static const String company_service_details_title =
+      'company.service_details_title';
+  static const String company_close = 'company.close';
+  static const String company_price_title = 'company.price_title';
+  static const String company_provided_by = 'company.provided_by';
+  static const String company_order_now = 'company.order_now';
+  static const String company_manage_item = 'company.manage_item';
+  static const String company_item_image_url = 'company.item_image_url';
+  static const String company_item_updated = 'company.item_updated';
+  static const String company_hide_item = 'company.hide_item';
+  static const String company_show_item = 'company.show_item';
+  static const String company_cancel = 'company.cancel';
+  static const String company_products_section = 'company.products_section';
+  static const String company_services_section = 'company.services_section';
+  static const String company_no_products = 'company.no_products';
+  static const String company_no_services = 'company.no_services';
+  static const String company_add_product = 'company.add_product';
+  static const String company_add_service = 'company.add_service';
+  static const String company_add_item_title = 'company.add_item_title';
+  static const String company_edit_item_title = 'company.edit_item_title';
+  static const String company_kind_product = 'company.kind_product';
+  static const String company_kind_service = 'company.kind_service';
+  static const String company_item_name = 'company.item_name';
+  static const String company_item_name_required = 'company.item_name_required';
+  static const String company_item_desc = 'company.item_desc';
+  static const String company_item_desc_hint = 'company.item_desc_hint';
+  static const String company_item_price = 'company.item_price';
+  static const String company_item_price_label = 'company.item_price_label';
+  static const String company_price_label_hint = 'company.price_label_hint';
+  static const String company_no_price = 'company.no_price';
+  static const String company_hidden = 'company.hidden';
+  static const String company_save_item = 'company.save_item';
+  static const String company_example_consult = 'company.example_consult';
+  static const String company_delete_item = 'company.delete_item';
+  static const String company_item_deleted = 'company.item_deleted';
+  static const String company_publish_title = 'company.publish_title';
+  static const String company_published_title = 'company.published_title';
+  static const String company_page_published = 'company.page_published';
+  static const String company_page_available = 'company.page_available';
+  static const String company_what_includes = 'company.what_includes';
+  static const String company_includes_company = 'company.includes_company';
+  static const String company_includes_catalog = 'company.includes_catalog';
+  static const String company_includes_team = 'company.includes_team';
+  static const String company_includes_contact = 'company.includes_contact';
+  static const String company_page_link = 'company.page_link';
+  static const String company_link_hint_public = 'company.link_hint_public';
+  static const String company_publishing = 'company.publishing';
+  static const String company_view_public_page = 'company.view_public_page';
+  static const String company_share_label = 'company.share_label';
+  static const String company_employee_word = 'company.employee_word';
+  static const String company_add_contact = 'company.add_contact';
+  static const String company_website_short = 'company.website_short';
+  static const String company_team = 'company.team';
+  static const String company_share_page = 'company.share_page';
+  static const String company_powered_by = 'company.powered_by';
+  static const String company_nfc_page_title = 'company.nfc_page_title';
+  static const String company_nfc_intro_title = 'company.nfc_intro_title';
+  static const String company_nfc_intro_desc = 'company.nfc_intro_desc';
+  static const String company_nfc_req1 = 'company.nfc_req1';
+  static const String company_nfc_req2 = 'company.nfc_req2';
+  static const String company_enter_serial = 'company.enter_serial';
+  static const String company_scan_serial_qr = 'company.scan_serial_qr';
+  static const String company_serial_label = 'company.serial_label';
+  static const String company_serial_hint = 'company.serial_hint';
+  static const String company_serial_placeholder = 'company.serial_placeholder';
+  static const String company_serial_error = 'company.serial_error';
+  static const String company_verify_serial = 'company.verify_serial';
+  static const String company_verifying = 'company.verifying';
+  static const String company_verifying_desc = 'company.verifying_desc';
+  static const String company_select_profile = 'company.select_profile';
+  static const String company_confirm_activation = 'company.confirm_activation';
+  static const String company_product_label = 'company.product_label';
+  static const String company_linked_profile_label =
+      'company.linked_profile_label';
+  static const String company_activate_button = 'company.activate_button';
+  static const String company_activating = 'company.activating';
+  static const String company_activating_desc = 'company.activating_desc';
+  static const String company_activation_done = 'company.activation_done';
+  static const String company_activation_done_desc =
+      'company.activation_done_desc';
+  static const String company_nfc_product_name = 'company.nfc_product_name';
+  static const String company_status_active_short =
+      'company.status_active_short';
+  static const String company_activation_date = 'company.activation_date';
+  static const String company_back_home = 'company.back_home';
+  static const String company_back_button = 'company.back_button';
+  static const String company_copy = 'company.copy';
+  static const String company_my_profile_fallback =
+      'company.my_profile_fallback';
 
   // ─── Splash ───────────────────────────────────────────────────────────────
   static const String splash_subtitle = 'splash.subtitle';
@@ -852,14 +1119,11 @@ abstract class LocaleKeys {
   static const String clients_tagCurrentClient = 'clients.tag_current_client';
   static const String clients_tagReturned = 'clients.tag_returned';
   static const String clients_tagFollowUp = 'clients.tag_follow_up';
-  static const String clients_tagOfferSubmitted =
-      'clients.tag_offer_submitted';
+  static const String clients_tagOfferSubmitted = 'clients.tag_offer_submitted';
   static const String clients_followUp = 'clients.follow_up';
   static const String clients_noFollowUp = 'clients.no_follow_up';
-  static const String clients_followUpDateHint =
-      'clients.follow_up_date_hint';
-  static const String clients_followUpTimeHint =
-      'clients.follow_up_time_hint';
+  static const String clients_followUpDateHint = 'clients.follow_up_date_hint';
+  static const String clients_followUpTimeHint = 'clients.follow_up_time_hint';
   static const String clients_followUpReasonHint =
       'clients.follow_up_reason_hint';
   static const String clients_save = 'clients.save';

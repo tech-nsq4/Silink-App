@@ -1,9 +1,11 @@
+import 'package:Silink/app/router/navigation_services.dart';
+import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
+import 'package:Silink/core/widgets/screen_header_bar.dart';
 import 'package:Silink/features/my_card/models/my_card_model.dart';
 import 'package:Silink/features/my_card/widgets/card_more_sheet.dart';
 import 'package:Silink/features/my_card/widgets/create_new_card_button.dart';
 import 'package:Silink/features/my_card/widgets/my_card_tile.dart';
-import 'package:Silink/core/widgets/screen_header_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,7 +101,10 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
   }
 
   void _onOpenDetails(MyCardModel card) {
-    // NavigationService.push(Routes.cardDetailsScreen, arguments: {'card': card});
+    NavigationService.push(
+      Routes.myCardDetailsScreen,
+      arguments: {'card': card},
+    );
   }
 
   @override
@@ -109,6 +114,7 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
         children: [
           ScreenHeaderBar(
             title: LocaleKeys.nav_files.tr(),
+            showBack: false,
           ),
           Expanded(
             child: ListView.separated(

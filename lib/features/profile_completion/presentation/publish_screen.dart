@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widgets/catalog_carousel.dart';
+import 'widgets/profile_catalog_item_details.dart';
 
 class PublishStep extends StatelessWidget {
   const PublishStep({
@@ -45,8 +46,8 @@ class PublishStep extends StatelessWidget {
                 .where((f) => f.id == appearance.fontId)
                 .toList() ??
             const [];
-        final fontFamily =
-            _fontFamily(matchingFonts.isEmpty ? '' : matchingFonts.first.family);
+        final fontFamily = _fontFamily(
+            matchingFonts.isEmpty ? '' : matchingFonts.first.family);
 
         final products = (catalog?.productsEnabled ?? false)
             ? (catalog?.items ?? const <CatalogItemModel>[])
@@ -112,7 +113,8 @@ class PublishStep extends StatelessWidget {
                         8.height,
                         AppText(
                           data.fullName.trim().isEmpty
-                              ? LocaleKeys.profile_type_basic_info_full_name_hint
+                              ? LocaleKeys
+                                  .profile_type_basic_info_full_name_hint
                                   .tr()
                               : data.fullName.trim(),
                           fontSize: 16.sp,
@@ -154,7 +156,8 @@ class PublishStep extends StatelessWidget {
                         ),
                         18.height,
                         Divider(
-                            height: 1, color: AppColors.dividerColor.themeColor),
+                            height: 1,
+                            color: AppColors.dividerColor.themeColor),
                         if (showCatalog) ...[
                           16.height,
                           Padding(
@@ -181,7 +184,14 @@ class PublishStep extends StatelessWidget {
                             ),
                           ),
                           12.height,
-                          CatalogCarousel(items: catalogItems),
+                          CatalogCarousel(
+                            items: catalogItems,
+                            onItemTap: (item) => openProfileCatalogItemDetails(
+                              context,
+                              item,
+                              visible: true,
+                            ),
+                          ),
                           16.height,
                         ] else
                           16.height,

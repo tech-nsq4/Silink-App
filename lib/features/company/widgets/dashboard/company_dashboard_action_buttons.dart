@@ -1,35 +1,45 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
-import 'package:Silink/core/widgets/app_button.dart';
 
-class CompanyDashboardActionButtons extends StatelessWidget {
-  const CompanyDashboardActionButtons({
-    super.key,
-    required this.onEdit,
-    required this.onShare,
-  });
+/// Single full-width button: العودة إلى الحساب الشخصي (Q0).
+class CompanyBackToPersonalButton extends StatelessWidget {
+  const CompanyBackToPersonalButton({super.key, required this.onTap});
 
-  final VoidCallback onEdit;
-  final VoidCallback onShare;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomButton(
-          onTap: onEdit,
-          title: LocaleKeys.company_edit.tr(),
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        onPressed: onTap,
+        icon: Icon(
+          Icons.swap_horiz_rounded,
+          size: 16.sp,
+          color: AppColors.blue.themeColor,
         ),
-        10.height,
-        CustomButton(
-          onTap: onShare,
-          title: LocaleKeys.company_qr.tr(),
-          isOutlined: true,
+        label: Text(
+          LocaleKeys.company_back_to_personal.tr(),
+          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
         ),
-      ],
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.blue.themeColor,
+          side: BorderSide(
+            color: AppColors.blue.themeColor.withValues(alpha: 0.25),
+          ),
+          backgroundColor:
+              AppColors.blue.themeColor.withValues(alpha: 0.05),
+          padding: EdgeInsets.symmetric(vertical: 14.h),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+        ),
+      ),
     );
   }
 }
+

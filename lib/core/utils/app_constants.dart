@@ -24,8 +24,13 @@ class AppConstants {
 
   static const int storeGridColumns = 2;
   static const double productGridAspectRatio = 0.68;
+  static const int catalogGridColumns = 2;
+  static const double catalogGridAspectRatio = 0.80;
   static const double defaultShippingCost = 25.0;
   static const double defaultFreeShippingThreshold = 300.0;
+
+  static const String companyPageHost = 'silink.nsq4.sa/c/';
+  static const String companyPageUrl = 'https://$companyPageHost';
 }
 
 class AppFonts {

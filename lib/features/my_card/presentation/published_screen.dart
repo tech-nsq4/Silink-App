@@ -1,7 +1,7 @@
 import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
-import 'package:Silink/features/my_card/presentation/widgets/card_link_field.dart';
+import 'package:Silink/features/my_card/widgets/card_link_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,10 +14,10 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
 import '../../../core/widgets/screen_header_bar.dart';
-import 'widgets/my_cards_qr_buttons_row.dart';
-import 'widgets/profile_preview_card.dart';
-import 'widgets/public_toggle_card.dart';
-import 'widgets/publish_success_banner.dart';
+import '../widgets/my_cards_qr_buttons_row.dart';
+import '../widgets/profile_preview_card.dart';
+import '../widgets/public_toggle_card.dart';
+import '../widgets/publish_success_banner.dart';
 
 class PublishedScreen extends StatelessWidget {
   const PublishedScreen({

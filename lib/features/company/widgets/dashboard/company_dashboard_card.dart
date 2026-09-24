@@ -1,73 +1,93 @@
+import 'dart:io';
+
 import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompanyDashboardCard extends StatelessWidget {
-  const CompanyDashboardCard({super.key, required this.companyName});
+  const CompanyDashboardCard({
+    super.key,
+    required this.companyName,
+    this.industry,
+    this.city,
+    this.logoUrl,
+    this.imagePath,
+  });
 
   final String companyName;
+  final String? industry;
+  final String? city;
+  final String? logoUrl;
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
     final name = companyName.trim().isEmpty ? 'Q' : companyName.trim();
-    final initial = companyName.trim().isEmpty ? 'Q' : companyName.trim()[0];
+    final initial =
+        companyName.trim().isEmpty ? 'Q' : companyName.trim()[0].toUpperCase();
+    final hasImage = imagePath != null && imagePath!.trim().isNotEmpty;
+    final fallback = AppText(
+      initial,
+      fontSize: 20.sp,
+      fontWeight: FontWeight.w700,
+      color: AppColors.white.themeColor,
+    );
+
     return Container(
-      padding: EdgeInsets.all(14.w),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff2C9092), Color(0xff2368E2)],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
+        color: AppColors.cardColor.themeColor,
         borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColors.borderColor.themeColor),
       ),
       child: Row(
         children: [
           Container(
-            width: 52.w,
-            height: 52.w,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
+            width: 64.w,
+            height: 64.w,
+            decoration: BoxDecoration(
+              color: AppColors.blue.themeColor,
+              borderRadius: BorderRadius.circular(18.r),
             ),
-            child: Center(
-              child: AppText(
-                initial,
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            clipBehavior: Clip.antiAlias,
+            child: hasImage
+                ? Image.file(
+                    File(imagePath!),
+                    width: 64.w,
+                    height: 64.w,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Center(child: fallback),
+                  )
+                : Center(child: fallback),
           ),
-          12.width,
+          16.width,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
                   name,
-                  fontSize: 16.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
                 ),
-                4.height,
-                const AppText(
-                  'test',
-                  fontSize: 11.5,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            child: const Row(
-              children: [
-                Icon(Icons.verified, color: Colors.white, size: 22),
+                if (industry != null && industry!.isNotEmpty) ...[
+                  2.height,
+                  AppText(
+                    industry!,
+                    fontSize: 12.sp,
+                    color: AppColors.textSecondaryColor.themeColor,
+                  ),
+                ],
+                if (city != null && city!.isNotEmpty) ...[
+                  2.height,
+                  AppText(
+                    city!,
+                    fontSize: 12.sp,
+                    color: AppColors.textSecondaryColor.themeColor,
+                  ),
+                ],
               ],
             ),
           ),

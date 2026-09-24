@@ -4,21 +4,35 @@ import 'package:Silink/features/account/presentation/account_screen.dart';
 import 'package:Silink/features/auth/data/models/user_model.dart';
 import 'package:Silink/features/clients/models/client_model.dart';
 import 'package:Silink/features/clients/presentation/client_details_screen.dart';
-import 'package:Silink/features/company/presentation/company_brand_screen.dart';
-import 'package:Silink/features/company/presentation/company_cards_screen.dart';
-import 'package:Silink/features/company/presentation/company_catalog_screen.dart';
-import 'package:Silink/features/company/presentation/company_dashboard_screen.dart';
-import 'package:Silink/features/company/presentation/company_edit_screen.dart';
-import 'package:Silink/features/company/presentation/company_employees_screen.dart';
-import 'package:Silink/features/company/presentation/company_publish_screen.dart';
-import 'package:Silink/features/company/presentation/company_qr_screen.dart';
-import 'package:Silink/features/company/presentation/company_setup_screen.dart';
-import 'package:Silink/features/company/presentation/company_success_screen.dart';
+import 'package:Silink/features/company/presentation/brand_screen.dart';
+import 'package:Silink/features/company/presentation/cards_screen.dart';
+import 'package:Silink/features/company/catalog/presentation/catalog_item_screen.dart';
+import 'package:Silink/features/company/catalog/presentation/catalog_screen.dart';
+import 'package:Silink/features/company/data/models/company_business_type.dart';
+import 'package:Silink/features/company/data/models/company_catalog_item.dart';
+import 'package:Silink/features/company/data/models/company_employee.dart';
+import 'package:Silink/features/company/data/models/company_public_page_data.dart';
+import 'package:Silink/features/company/employees/presentation/employee_details_screen.dart';
+import 'package:Silink/features/company/employees/presentation/employee_digital_profile_screen.dart';
+import 'package:Silink/features/company/employees/presentation/employee_edit_screen.dart';
+import 'package:Silink/features/company/employees/presentation/employee_nfc_link_screen.dart';
+import 'package:Silink/features/company/presentation/dashboard_screen.dart';
+import 'package:Silink/features/company/presentation/edit_screen.dart';
+import 'package:Silink/features/company/employees/presentation/employees_screen.dart';
+import 'package:Silink/features/company/presentation/invite_screen.dart';
+import 'package:Silink/features/nfc/presentation/nfc_screen.dart';
+import 'package:Silink/features/company/presentation/publish_screen.dart';
+import 'package:Silink/features/company/presentation/public_page_screen.dart';
+import 'package:Silink/features/company/presentation/qr_screen.dart';
+import 'package:Silink/features/company/presentation/setup_screen.dart';
+import 'package:Silink/features/company/presentation/success_screen.dart';
 import 'package:Silink/features/help/presentation/help_screen.dart';
 import 'package:Silink/features/notifications/presentation/notifications_screen.dart';
 import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
+import 'package:Silink/features/my_card/models/my_card_model.dart';
+import 'package:Silink/features/my_card/presentation/my_card_details_screen.dart';
 import 'package:Silink/features/my_card/presentation/public_profile_preview_screen.dart';
 import 'package:Silink/features/my_card/presentation/published_screen.dart';
 import 'package:Silink/features/my_card/presentation/qr_code_screen.dart';
@@ -161,26 +175,102 @@ class RouteGenerator {
                 source: ClientSource.qr,
               ),
         ));
+      case Routes.myCardDetailsScreen:
+        final card = arguments?['card'];
+        if (card is MyCardModel) {
+          return _pageRoute(MyCardDetailsScreen(card: card));
+        }
+        return _pageRoute(const _UndefinedScreen());
       case Routes.companySetup:
-        return _pageRoute(const CompanySetupScreen());
+        return _pageRoute(const SetupScreen());
       case Routes.companySuccess:
-        return _pageRoute(const CompanySuccessScreen());
+        return _pageRoute(const SuccessScreen());
       case Routes.companyDashboard:
-        return _pageRoute(const CompanyDashboardScreen());
+        return _pageRoute(const DashboardScreen());
       case Routes.companyCards:
-        return _pageRoute(const CompanyCardsScreen());
+        return _pageRoute(const CardsScreen());
       case Routes.companyBrand:
-        return _pageRoute(const CompanyBrandScreen());
+        return _pageRoute(const BrandScreen());
       case Routes.companyCatalog:
-        return _pageRoute(const CompanyCatalogScreen());
+        return _pageRoute(
+          CatalogScreen(
+            businessType: arguments?['businessType'] as CompanyBusinessType? ??
+                CompanyBusinessType.restaurant,
+            companyName: arguments?['companyName'] as String?,
+            providerType: arguments?['providerType'] as String?,
+            providerCity: arguments?['providerCity'] as String?,
+            editable: arguments?['editable'] as bool? ?? true,
+          ),
+        );
+      case Routes.companyCatalogItem:
+        final item = arguments?['item'];
+        final categories = arguments?['categories'];
+        if (item is! CompanyCatalogItem ||
+            categories is! List<CompanyCatalogCategory>) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(
+          CatalogItemScreen(
+            item: item,
+            categoryLabel: arguments?['categoryLabel'] as String? ?? '',
+            categories: categories,
+            providerName: arguments?['providerName'] as String?,
+            providerType: arguments?['providerType'] as String?,
+            providerCity: arguments?['providerCity'] as String?,
+            editable: arguments?['editable'] as bool? ?? true,
+          ),
+        );
       case Routes.companyEmployees:
-        return _pageRoute(const CompanyEmployeesScreen());
+        return _pageRoute(const EmployeesScreen());
+      case Routes.companyEmployeeDetails:
+        final employee = arguments?['employee'];
+        if (employee is! CompanyEmployeeItem) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(EmployeeDetailsScreen(employee: employee));
+      case Routes.companyEmployeeEdit:
+        final employee = arguments?['employee'];
+        if (employee is! CompanyEmployeeItem) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(EmployeeEditScreen(employee: employee));
+      case Routes.companyEmployeeDigital:
+        final employee = arguments?['employee'];
+        if (employee is! CompanyEmployeeItem) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(
+          EmployeeDigitalProfileScreen(employee: employee),
+        );
+      case Routes.companyEmployeeNfcLink:
+        final employee = arguments?['employee'];
+        if (employee is! CompanyEmployeeItem) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(EmployeeNfcLinkScreen(employee: employee));
       case Routes.companyQr:
-        return _pageRoute(const CompanyQrScreen());
+        return _pageRoute(const QrScreen());
       case Routes.companyPublish:
-        return _pageRoute(const CompanyPublishScreen());
+        return _pageRoute(const PublishScreen());
+      case Routes.companyPublicPage:
+        final data = arguments?['data'];
+        return _pageRoute(
+          PublicPageScreen(
+            data: data is CompanyPublicPageData
+                ? data
+                : CompanyPublicPageData.sample,
+          ),
+        );
       case Routes.companyEdit:
-        return _pageRoute(const CompanyEditScreen());
+        return _pageRoute(
+          EditScreen(
+            initialImagePath: arguments?['imagePath'] as String?,
+          ),
+        );
+      case Routes.companyInvite:
+        return _pageRoute(const InviteScreen());
+      case Routes.companyNfc:
+        return _pageRoute(const NfcScreen());
       default:
         return _pageRoute(const _UndefinedScreen());
     }

@@ -15,8 +15,8 @@ import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
 import '../../../core/widgets/screen_header_bar.dart';
-import 'widgets/how_to_share_info_box.dart';
-import 'widgets/qr_display_card.dart';
+import '../widgets/how_to_share_info_box.dart';
+import '../widgets/qr_display_card.dart';
 
 class QrCodeScreen extends StatelessWidget {
   const QrCodeScreen({

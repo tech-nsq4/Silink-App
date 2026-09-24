@@ -17,6 +17,7 @@ class Routes {
       '/public_profile_preview_screen';
   static const String qrCodeScreen = '/qr_code_screen';
   static const String myCardsScreen = '/my_cards_screen';
+  static const String myCardDetailsScreen = '/my_card_details_screen';
   static const String myCardScreen = '/my_card_screen';
   static const String serviceDetailsScreen = '/service_details_screen';
   static const String productDetailsScreen = '/product_details_screen';
@@ -33,10 +34,18 @@ class Routes {
   static const String companyCards = '/company_cards';
   static const String companyBrand = '/company_brand';
   static const String companyCatalog = '/company_catalog';
+  static const String companyCatalogItem = '/company_catalog_item';
   static const String companyEmployees = '/company_employees';
+  static const String companyEmployeeDetails = '/company_employee_details';
+  static const String companyEmployeeEdit = '/company_employee_edit';
+  static const String companyEmployeeDigital = '/company_employee_digital';
+  static const String companyEmployeeNfcLink = '/company_employee_nfc_link';
   static const String companyQr = '/company_qr';
   static const String companyPublish = '/company_publish';
+  static const String companyPublicPage = '/company_public_page';
   static const String companyEdit = '/company_edit';
+  static const String companyInvite = '/company_invite';
+  static const String companyNfc = '/company_nfc';
 
   static const String accountGuestScreen = '/account_guest_screen';
   static const String accountScreen = '/account_screen';
