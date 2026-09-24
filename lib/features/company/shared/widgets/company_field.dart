@@ -5,6 +5,7 @@ import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/core/widgets/app_text_field.dart';
+import 'package:Silink/core/widgets/field_label.dart';
 
 class CompanyField extends StatelessWidget {
   const CompanyField({
@@ -15,9 +16,11 @@ class CompanyField extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.maxLines = 1,
+    this.maxLength,
     this.onChanged,
     this.suffixIcon,
     this.enabled = true,
+    this.required = false,
   });
 
   final String label;
@@ -26,20 +29,18 @@ class CompanyField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final int maxLines;
+  final int? maxLength;
   final ValueChanged<String>? onChanged;
   final Widget? suffixIcon;
   final bool enabled;
+  final bool required;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppText(
-          label,
-          fontSize: 13.5.sp,
-          fontWeight: FontWeight.w600,
-        ),
+        FieldLabel(text: label, required: required),
         8.height,
         CustomTextField(
           hint: hint,
@@ -47,6 +48,7 @@ class CompanyField extends StatelessWidget {
           validator: validator,
           keyboardType: keyboardType,
           maxLines: maxLines,
+          maxLength: maxLength,
           onChanged: onChanged,
           suffixIcon: suffixIcon,
           enabled: enabled,

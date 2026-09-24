@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/utils/app_colors.dart';
-import '../../../core/widgets/app_text.dart';
+import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/widgets/app_text.dart';
 
-class CompanyBusinessTypeCard extends StatelessWidget {
-  const CompanyBusinessTypeCard({
+class CompanyChoiceRow extends StatelessWidget {
+  const CompanyChoiceRow({
     super.key,
     required this.title,
     required this.selected,
@@ -22,12 +22,15 @@ class CompanyBusinessTypeCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16.r),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
-          color: selected ? AppColors.mintSoft.themeColor : AppColors.cardColor.themeColor,
+          color: selected
+              ? AppColors.mintSoft.themeColor
+              : AppColors.cardColor.themeColor,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: selected ? AppColors.mint.themeColor : AppColors.borderColor.themeColor,
+            color:
+                selected ? AppColors.mint.themeColor : AppColors.borderColor.themeColor,
             width: selected ? 1.5 : 1,
           ),
         ),
@@ -47,7 +50,9 @@ class CompanyBusinessTypeCard extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: selected ? AppColors.mint.themeColor : Colors.transparent,
                 border: Border.all(
-                  color: selected ? AppColors.mint.themeColor : AppColors.borderColor.themeColor,
+                  color: selected
+                      ? AppColors.mint.themeColor
+                      : AppColors.borderColor.themeColor,
                   width: 1.5,
                 ),
               ),
@@ -61,14 +66,3 @@ class CompanyBusinessTypeCard extends StatelessWidget {
     );
   }
 }
-
-enum CompanyBusinessType {
-  restaurant,
-  cafe,
-  clinic,
-  mall,
-  other;
-
-  String get key => 'company.business_$name';
-}
-
