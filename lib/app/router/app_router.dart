@@ -4,7 +4,6 @@ import 'package:Silink/features/account/presentation/account_screen.dart';
 import 'package:Silink/features/auth/data/models/user_model.dart';
 import 'package:Silink/features/clients/models/client_model.dart';
 import 'package:Silink/features/clients/presentation/client_details_screen.dart';
-<<<<<<< HEAD
 import 'package:Silink/features/company/presentation/brand_screen.dart';
 import 'package:Silink/features/company/presentation/cards_screen.dart';
 import 'package:Silink/features/company/catalog/presentation/catalog_item_screen.dart';
@@ -27,9 +26,6 @@ import 'package:Silink/features/company/presentation/public_page_screen.dart';
 import 'package:Silink/features/company/presentation/qr_screen.dart';
 import 'package:Silink/features/company/presentation/setup_screen.dart';
 import 'package:Silink/features/company/presentation/success_screen.dart';
-=======
-
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
 import 'package:Silink/features/help/presentation/help_screen.dart';
 import 'package:Silink/features/notifications/presentation/notifications_screen.dart';
 import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
@@ -196,13 +192,9 @@ class RouteGenerator {
         }
         return _pageRoute(const _UndefinedScreen());
       case Routes.companySetup:
-<<<<<<< HEAD
         return _pageRoute(const SetupScreen());
       case Routes.companySuccess:
         return _pageRoute(const SuccessScreen());
-=======
-        return _pageRoute(const CompanySetupScreen());
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
       case Routes.companyDashboard:
         return _pageRoute(const DashboardScreen());
       case Routes.companyCards:
@@ -280,7 +272,6 @@ class RouteGenerator {
           ),
         );
       case Routes.companyEdit:
-<<<<<<< HEAD
         return _pageRoute(
           EditScreen(
             initialImagePath: arguments?['imagePath'] as String?,
@@ -290,21 +281,6 @@ class RouteGenerator {
         return _pageRoute(const InviteScreen());
       case Routes.companyNfc:
         return _pageRoute(const NfcScreen());
-=======
-        return _pageRoute(const CompanyEditScreen());
-      case Routes.companySuccess:
-        return _pageRoute(CompanySuccessScreen(
-          companyName: arguments?['companyName'] as String? ?? '',
-          industry: arguments?['industry'] as String? ?? '',
-          subIndustry: arguments?['subIndustry'] as String? ?? '',
-          size: arguments?['size'] as String? ?? '',
-          city: arguments?['city'] as String? ?? '',
-          phone: arguments?['phone'] as String? ?? '',
-          email: arguments?['email'] as String? ?? '',
-          website: arguments?['website'] as String? ?? '',
-          bio: arguments?['bio'] as String? ?? '',
-        ));
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
       default:
         return _pageRoute(const _UndefinedScreen());
     }
