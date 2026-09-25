@@ -7,10 +7,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/cards/company_card_stat_box.dart';
-import '../widgets/cards/company_card_status.dart';
-import '../widgets/cards/company_card_tile.dart';
-import '../widgets/cards/company_cards_empty_state.dart';
+import '../../company_profile_completion/presentation/widgets/cards/company_card_stat_box.dart';
+import '../../company_profile_completion/presentation/widgets/cards/company_card_status.dart';
+import '../../company_profile_completion/presentation/widgets/cards/company_card_tile.dart';
+import '../../company_profile_completion/presentation/widgets/cards/company_cards_empty_state.dart';
 
 class CardsScreen extends StatefulWidget {
   const CardsScreen({super.key});

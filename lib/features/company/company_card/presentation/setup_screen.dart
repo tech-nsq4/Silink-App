@@ -2,17 +2,16 @@ import 'package:Silink/app/router/navigation_services.dart';
 import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
-import 'package:Silink/features/company/widgets/company_business_type_card.dart';
-import 'package:Silink/features/company/widgets/company_action_bar.dart';
-import 'package:Silink/features/company/widgets/company_review_step.dart';
-import 'package:Silink/features/company/widgets/company_step_four.dart';
-import 'package:Silink/features/company/widgets/company_step_one.dart';
-import 'package:Silink/features/company/widgets/company_step_three.dart';
-import 'package:Silink/features/company/widgets/company_step_two.dart';
 import 'package:Silink/core/widgets/step_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../company_profile_completion/presentation/widgets/company_action_bar.dart';
+import '../../company_profile_completion/presentation/widgets/company_step_one.dart';
+import '../../company_profile_completion/presentation/widgets/company_step_three.dart';
+import '../../company_profile_completion/presentation/widgets/company_step_two.dart';
+import '../../data/models/company_business_type.dart';
 
 class SetupScreen extends StatefulWidget {
   const SetupScreen({super.key});
@@ -164,70 +163,70 @@ class _SetupScreenState extends State<SetupScreen> {
   }
 
   Widget _buildStep() {
-    switch (_step) {
-      case 1:
+    // switch (_step) {
+    //   case 1:
         return CompanyStepOne(
           nameCtrl: _nameCtrl,
-          regCtrl: _regCtrl,
-          taxCtrl: _taxCtrl,
-          descCtrl: _descCtrl,
-          emailCtrl: _emailCtrl,
-          onNameChanged: () => setState(() {}),
+          // regCtrl: _regCtrl,
+          // taxCtrl: _taxCtrl,
+          // descCtrl: _descCtrl,
+          // emailCtrl: _emailCtrl,
+          onNameChanged: () => setState(() {}), bioCtrl: _regCtrl, websiteCtrl: _regCtrl, logoUrl: '', logoFile: null, onPickLogo: () {  },
         );
 
-      case 2:
-        return CompanyStepTwo(
-          selected: _businessType,
-          onSelected: (CompanyBusinessType type) {
-            setState(() {
-              _businessType = type;
-            });
-          },
-        );
-
-      case 3:
-        return CompanyStepThree(
-          activityNature: _activityNature,
-          onActivityNatureChanged: (key) {
-            setState(() {
-              _activityNature = key;
-            });
-          },
-          hasOnlineStore: _hasOnlineStore,
-          onOnlineStoreChanged: (value) {
-            setState(() {
-              _hasOnlineStore = value;
-            });
-          },
-          cityCtrl: _cityCtrl,
-          districtCtrl: _districtCtrl,
-          websiteCtrl: _websiteCtrl,
-        );
-
-      case 4:
-        return CompanyStepFour(
-          employeesRange: _employeesRange,
-          onEmployeesRangeChanged: (range) {
-            setState(() {
-              _employeesRange = range;
-            });
-          },
-          phoneCtrl: _phoneCtrl,
-          emailCtrl: _emailCtrl,
-        );
-
-      default:
-        return CompanyReviewStep(
-          name: _nameCtrl.text,
-          registrationNumber: _regCtrl.text,
-          taxNumber: _taxCtrl.text,
-          businessTypeKey: _businessType?.key ?? '',
-          activityNature: _activityNature,
-          city: _cityCtrl.text,
-          district: _districtCtrl.text,
-          employeesRange: _employeesRange,
-          email: _emailCtrl.text,
-        );
-    }
+      // case 2:
+      //   return CompanyStepTwo(
+      //     selected: _businessType,
+      //     onSelected: (CompanyBusinessType type) {
+      //       setState(() {
+      //         _businessType = type;
+      //       });
+      //     },
+      //   );
+      //
+      // case 3:
+      //   return CompanyStepThree(
+      //     activityNature: _activityNature,
+      //     onActivityNatureChanged: (key) {
+      //       setState(() {
+      //         _activityNature = key;
+      //       });
+      //     },
+      //     hasOnlineStore: _hasOnlineStore,
+      //     onOnlineStoreChanged: (value) {
+      //       setState(() {
+      //         _hasOnlineStore = value;
+      //       });
+      //     },
+      //     cityCtrl: _cityCtrl,
+      //     districtCtrl: _districtCtrl,
+      //     websiteCtrl: _websiteCtrl, loading: null, options: [], selectedId: '', onSelected: (String value) {  },
+      //   );
+      //
+      // case 4:
+      //   return CompanyStepFour(
+      //     employeesRange: _employeesRange,
+      //     onEmployeesRangeChanged: (range) {
+      //       setState(() {
+      //         _employeesRange = range;
+      //       });
+      //     },
+      //     phoneCtrl: _phoneCtrl,
+      //     emailCtrl: _emailCtrl,
+      //   );
+      //
+      // default:
+      //   return CompanyReviewStep(
+      //     name: _nameCtrl.text,
+      //     registrationNumber: _regCtrl.text,
+      //     taxNumber: _taxCtrl.text,
+      //     businessTypeKey: _businessType?.key ?? '',
+      //     activityNature: _activityNature,
+      //     city: _cityCtrl.text,
+      //     district: _districtCtrl.text,
+      //     employeesRange: _employeesRange,
+      //     email: _emailCtrl.text,
+      //   );
+    // }
   }
 }

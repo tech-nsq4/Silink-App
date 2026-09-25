@@ -6,16 +6,14 @@ import 'package:Silink/core/widgets/screen_header_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../data/models/company_business_type.dart';
-import '../data/models/company_public_page_data.dart';
-import '../widgets/dashboard/company_dashboard_action_buttons.dart';
+import '../../company_dashboard/presentation/widgets/company_dashboard_action_buttons.dart';
+import '../../company_dashboard/presentation/widgets/company_dashboard_card.dart';
+import '../../company_dashboard/presentation/widgets/company_quick_actions.dart';
+import '../../company_dashboard/presentation/widgets/company_stats_grid.dart';
+import '../../data/models/company_business_type.dart';
+import '../../data/models/company_public_page_data.dart';
+import '../../widgets/dashboard/company_profile_completion_card.dart';
 import 'edit_screen.dart';
-
-import '../widgets/dashboard/company_dashboard_card.dart';
-import '../widgets/dashboard/company_profile_completion_card.dart';
-import '../widgets/dashboard/company_quick_actions.dart';
-import '../widgets/dashboard/company_stats_grid.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

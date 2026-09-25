@@ -7,7 +7,8 @@ import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/company/widgets/qr/company_qr_link_pill.dart';
+
+import 'company_qr_link_pill.dart';
 
 class CompanyQrCard extends StatelessWidget {
   const CompanyQrCard({

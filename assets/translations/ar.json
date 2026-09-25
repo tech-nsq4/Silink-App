@@ -774,7 +774,18 @@
     "back_home": "العودة للرئيسية",
     "back_button": "رجوع",
     "my_profile_fallback": "ملفي الشخصي",
-    "copy": "نسخ"
+    "copy": "نسخ",
+    "bio": "نبذة مختصرة",
+    "bio_hint": "مثال: مطبخ سعودي أصيل وضيافة دافئة - قائمة يومية وحجوزات",
+    "industry": "مجال النشاط",
+    "sub_industry": "التخصص",
+    "sub_industry_empty": "لا توجد تخصصات لهذا المجال",
+    "size": "حجم الشركة",
+    "business_restaurant": "مطعم",
+    "business_cafe": "مقهى",
+    "business_clinic": "عيادة",
+    "business_mall": "مول",
+    "business_other": "أخرى"
   },
   "profile": {
     "title": "ملفي الشخصي",

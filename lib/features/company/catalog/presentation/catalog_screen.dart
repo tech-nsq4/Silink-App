@@ -58,8 +58,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
     if (providedType != null && providedType.isNotEmpty) return providedType;
     return switch (widget.businessType) {
       CompanyBusinessType.restaurant ||
-      CompanyBusinessType.cafe =>
-        LocaleKeys.company_ind_food.tr(),
+      CompanyBusinessType.cafe => LocaleKeys.company_ind_food.tr(),
       CompanyBusinessType.clinic => LocaleKeys.company_business_clinic.tr(),
       CompanyBusinessType.mall => LocaleKeys.company_business_mall.tr(),
       CompanyBusinessType.other => LocaleKeys.company_business_other.tr(),

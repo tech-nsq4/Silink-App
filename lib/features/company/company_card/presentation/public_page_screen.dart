@@ -5,15 +5,16 @@ import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/features/company/data/models/company_public_page_data.dart';
-import 'package:Silink/features/company/widgets/public_page/company_public_brand_button.dart';
-import 'package:Silink/features/company/widgets/public_page/company_public_contact_row.dart';
-import 'package:Silink/features/company/widgets/public_page/company_public_page_about_card.dart';
-import 'package:Silink/features/company/widgets/public_page/company_public_page_cover.dart';
-import 'package:Silink/features/company/widgets/public_page/company_public_page_header.dart';
-import 'package:Silink/features/company/widgets/public_page/company_public_team_section.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../company_profile_completion/presentation/widgets/public_page/company_public_brand_button.dart';
+import '../../company_profile_completion/presentation/widgets/public_page/company_public_contact_row.dart';
+import '../../company_profile_completion/presentation/widgets/public_page/company_public_page_about_card.dart';
+import '../../company_profile_completion/presentation/widgets/public_page/company_public_page_cover.dart';
+import '../../company_profile_completion/presentation/widgets/public_page/company_public_page_header.dart';
+import '../../company_profile_completion/presentation/widgets/public_page/company_public_team_section.dart';
 
 class PublicPageScreen extends StatelessWidget {
   const PublicPageScreen({

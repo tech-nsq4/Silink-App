@@ -4,8 +4,7 @@ import 'package:Silink/features/account/presentation/account_screen.dart';
 import 'package:Silink/features/auth/data/models/user_model.dart';
 import 'package:Silink/features/clients/models/client_model.dart';
 import 'package:Silink/features/clients/presentation/client_details_screen.dart';
-import 'package:Silink/features/company/presentation/brand_screen.dart';
-import 'package:Silink/features/company/presentation/cards_screen.dart';
+
 import 'package:Silink/features/company/catalog/presentation/catalog_item_screen.dart';
 import 'package:Silink/features/company/catalog/presentation/catalog_screen.dart';
 import 'package:Silink/features/company/data/models/company_business_type.dart';
@@ -16,16 +15,10 @@ import 'package:Silink/features/company/employees/presentation/employee_details_
 import 'package:Silink/features/company/employees/presentation/employee_digital_profile_screen.dart';
 import 'package:Silink/features/company/employees/presentation/employee_edit_screen.dart';
 import 'package:Silink/features/company/employees/presentation/employee_nfc_link_screen.dart';
-import 'package:Silink/features/company/presentation/dashboard_screen.dart';
-import 'package:Silink/features/company/presentation/edit_screen.dart';
+
 import 'package:Silink/features/company/employees/presentation/employees_screen.dart';
-import 'package:Silink/features/company/presentation/invite_screen.dart';
 import 'package:Silink/features/nfc/presentation/nfc_screen.dart';
-import 'package:Silink/features/company/presentation/publish_screen.dart';
-import 'package:Silink/features/company/presentation/public_page_screen.dart';
-import 'package:Silink/features/company/presentation/qr_screen.dart';
-import 'package:Silink/features/company/presentation/setup_screen.dart';
-import 'package:Silink/features/company/presentation/success_screen.dart';
+
 import 'package:Silink/features/help/presentation/help_screen.dart';
 import 'package:Silink/features/notifications/presentation/notifications_screen.dart';
 import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
@@ -55,9 +48,19 @@ import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/otp_screen.dart';
 import '../../features/auth/presentation/personal_register_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
+import '../../features/company/company_card/presentation/brand_screen.dart';
+import '../../features/company/company_card/presentation/cards_screen.dart';
 import '../../features/company/company_card/presentation/company_cards_screen.dart';
 import '../../features/company/company_card/presentation/company_publish_screen.dart';
 import '../../features/company/company_card/presentation/company_qr_screen.dart';
+import '../../features/company/company_card/presentation/dashboard_screen.dart';
+import '../../features/company/company_card/presentation/edit_screen.dart';
+import '../../features/company/company_card/presentation/invite_screen.dart';
+import '../../features/company/company_card/presentation/public_page_screen.dart';
+import '../../features/company/company_card/presentation/publish_screen.dart';
+import '../../features/company/company_card/presentation/qr_screen.dart';
+import '../../features/company/company_card/presentation/setup_screen.dart';
+import '../../features/company/company_card/presentation/success_screen.dart';
 import '../../features/company/company_catalog/presentation/company_catalog_screen.dart';
 import '../../features/company/company_dashboard/presentation/company_dashboard_screen.dart';
 import '../../features/company/company_profile_completion/presentation/company_setup_screen.dart';

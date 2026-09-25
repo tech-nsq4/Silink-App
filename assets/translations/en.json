@@ -533,7 +533,6 @@
     "continue": "Continue",
     "create_company": "Create Company",
     "step1_subtitle": "Enter your company's basic info",
-<<<<<<< HEAD
     "step1_title": "Basic Info",
     "step2_title": "Business Type",
     "step2_subtitle": "Select your company's business type",
@@ -546,18 +545,8 @@
     "image_label": "Company image",
     "image_hint": "Choose an image that represents your company",
     "upload_image": "Upload",
-=======
-    "step1_title": "Company Data",
-    "step2_title": "Industry",
-    "step2_subtitle": "Select your company's industry",
-    "step3_title": "Specialization",
-    "step3_subtitle": "Choose the specialization closest to your activity",
-    "step4_title": "Additional Information",
-    "step4_subtitle": "Helps us customize your company's experience",
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
     "logo_hint": "Add your company logo (optional)",
     "contact_email": "Contact Email",
-<<<<<<< HEAD
     "nature_food": "Food",
     "nature_retail": "Retail",
     "nature_services": "Services",
@@ -785,15 +774,18 @@
     "back_home": "Back to home",
     "back_button": "Back",
     "my_profile_fallback": "My profile",
-    "copy": "Copy"
-=======
+    "copy": "Copy",
     "bio": "Short Bio",
     "bio_hint": "e.g. Authentic Saudi cuisine and warm hospitality - daily menu and reservations",
     "industry": "Industry",
     "sub_industry": "Specialization",
     "sub_industry_empty": "No specializations for this industry",
-    "size": "Company Size"
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
+    "size": "Company Size",
+    "business_restaurant": "Restaurant",
+    "business_cafe": "Cafe",
+    "business_clinic": "Clinic",
+    "business_mall": "Mall",
+    "business_other": "Other"
   },
   "profile": {
     "title": "My Profile",

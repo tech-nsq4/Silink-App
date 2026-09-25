@@ -13,8 +13,9 @@ import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/screen_header_bar.dart';
 import 'package:Silink/features/company/data/models/company_public_page_data.dart';
-import 'package:Silink/features/company/widgets/qr/company_qr_action_button.dart';
-import 'package:Silink/features/company/widgets/qr/company_qr_card.dart';
+
+import '../../company_profile_completion/presentation/widgets/qr/company_qr_action_button.dart';
+import '../../company_profile_completion/presentation/widgets/qr/company_qr_card.dart';
 
 class QrScreen extends StatelessWidget {
   const QrScreen({

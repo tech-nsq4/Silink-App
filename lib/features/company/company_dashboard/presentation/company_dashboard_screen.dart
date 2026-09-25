@@ -50,11 +50,11 @@ class CompanyDashboardScreen extends StatelessWidget {
                     CompanyProfileCompletionCard(onTap: _onCompleteProfile),
                     12.height,
                     CompanyQuickActions(
-                      onShare: _onShare,
+                      // onShare: _onShare,
                       onEmployees: _onEmployees,
                       onCards: () => NavigationService.push(
                         Routes.companyCards,
-                      ),
+                      ), isPublished: true, onPrimary: () {  }, onQr: () {  }, onInvite: () {  }, onCatalog: () {  }, onEdit: () {  }, onBrand: () {  },
                     ),
                     12.height,
                     CompanySettingsList(
@@ -75,10 +75,10 @@ class CompanyDashboardScreen extends StatelessWidget {
                       onEdit: _onEdit,
                     ),
                     16.height,
-                    CompanyDashboardActionButtons(
-                      onEdit: _onEdit,
-                      onShare: _onShare,
-                    ),
+                    // CompanyDashboardActionButtons(
+                    //   onEdit: _onEdit,
+                    //   onShare: _onShare,
+                    // ),
                   ],
                 ),
               ),

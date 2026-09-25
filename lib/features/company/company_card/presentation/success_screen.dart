@@ -8,7 +8,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widgets/company_action_bar.dart';
+import '../../company_profile_completion/presentation/widgets/company_action_bar.dart';
+
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});

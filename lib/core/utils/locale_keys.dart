@@ -591,17 +591,13 @@ abstract class LocaleKeys {
   static const String company_step3_subtitle = 'company.step3_subtitle';
   static const String company_step4_title = 'company.step4_title';
   static const String company_step4_subtitle = 'company.step4_subtitle';
-<<<<<<< HEAD
   static const String company_step5_title = 'company.step5_title';
   static const String company_step5_subtitle = 'company.step5_subtitle';
   static const String company_image_label = 'company.image_label';
   static const String company_image_hint = 'company.image_hint';
   static const String company_upload_image = 'company.upload_image';
-=======
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
   static const String company_logo_hint = 'company.logo_hint';
   static const String company_contact_email = 'company.contact_email';
-<<<<<<< HEAD
   static const String company_nature_food = 'company.nature_food';
   static const String company_nature_retail = 'company.nature_retail';
   static const String company_nature_services = 'company.nature_services';
@@ -651,6 +647,12 @@ abstract class LocaleKeys {
   static const String company_website_label = 'company.website_label';
   static const String company_business_type_label =
       'company.business_type_label';
+  static const String company_business_restaurant =
+      'company.business_restaurant';
+  static const String company_business_cafe = 'company.business_cafe';
+  static const String company_business_clinic = 'company.business_clinic';
+  static const String company_business_mall = 'company.business_mall';
+  static const String company_business_other = 'company.business_other';
   static const String company_industry_label = 'company.industry_label';
   static const String company_size_label = 'company.size_label';
   static const String company_city_label = 'company.city_label';
@@ -842,8 +844,6 @@ abstract class LocaleKeys {
   static const String company_copy = 'company.copy';
   static const String company_my_profile_fallback =
       'company.my_profile_fallback';
-=======
->>>>>>> 0ecc604e79f8296123f1d0d807b0097f196b95cd
 
   // ─── Splash ───────────────────────────────────────────────────────────────
   static const String splash_subtitle = 'splash.subtitle';
