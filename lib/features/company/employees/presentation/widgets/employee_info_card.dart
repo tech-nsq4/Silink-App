@@ -1,7 +1,7 @@
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/company/data/models/company_employee.dart';
+import 'package:Silink/features/company/employees/data/models/company_employee_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +9,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EmployeeInfoCard extends StatelessWidget {
   const EmployeeInfoCard({super.key, required this.employee});
 
-  final CompanyEmployeeItem employee;
+  final CompanyEmployeeModel employee;
 
   @override
   Widget build(BuildContext context) {
     final phone = employee.phone.trim();
+    final whatsapp = employee.whatsapp.trim();
+    final createdAt = employee.createdAt;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
@@ -37,8 +39,15 @@ class EmployeeInfoCard extends StatelessWidget {
           ),
           Divider(color: AppColors.dividerColor.themeColor, height: 20.h),
           _InfoRow(
+            label: LocaleKeys.company_whatsapp.tr(),
+            value: whatsapp.isEmpty
+                ? LocaleKeys.company_employee_not_linked.tr()
+                : whatsapp,
+          ),
+          Divider(color: AppColors.dividerColor.themeColor, height: 20.h),
+          _InfoRow(
             label: LocaleKeys.store_job_title.tr(),
-            value: employee.jobTitle.trim(),
+            value: employee.position.trim(),
           ),
           Divider(color: AppColors.dividerColor.themeColor, height: 20.h),
           _InfoRow(
@@ -50,6 +59,13 @@ class EmployeeInfoCard extends StatelessWidget {
                 ? AppColors.successColor.themeColor
                 : AppColors.textPrimaryColor.themeColor,
           ),
+          if (createdAt != null) ...[
+            Divider(color: AppColors.dividerColor.themeColor, height: 20.h),
+            _InfoRow(
+              label: LocaleKeys.company_employee_joined_at.tr(),
+              value: DateFormat('yyyy/MM/dd').format(createdAt.toLocal()),
+            ),
+          ],
         ],
       ),
     );

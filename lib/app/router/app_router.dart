@@ -9,11 +9,12 @@ import 'package:Silink/features/company/catalog/presentation/catalog_item_screen
 import 'package:Silink/features/company/catalog/presentation/catalog_screen.dart';
 import 'package:Silink/features/company/data/models/company_business_type.dart';
 import 'package:Silink/features/company/data/models/company_catalog_item.dart';
-import 'package:Silink/features/company/data/models/company_employee.dart';
+import 'package:Silink/features/company/employees/data/models/company_employee_model.dart';
 import 'package:Silink/features/company/data/models/company_public_page_data.dart';
 import 'package:Silink/features/company/employees/presentation/employee_details_screen.dart';
 import 'package:Silink/features/company/employees/presentation/employee_digital_profile_screen.dart';
 import 'package:Silink/features/company/employees/presentation/employee_edit_screen.dart';
+import 'package:Silink/features/company/employees/presentation/employee_invite_screen.dart';
 import 'package:Silink/features/company/employees/presentation/employee_nfc_link_screen.dart';
 
 import 'package:Silink/features/company/employees/presentation/employees_screen.dart';
@@ -24,6 +25,7 @@ import 'package:Silink/features/notifications/presentation/notifications_screen.
 import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
+import 'package:Silink/features/profile_card/presentation/profile_card_screen.dart';
 import 'package:Silink/features/my_card/models/my_card_model.dart';
 import 'package:Silink/features/my_card/presentation/my_card_details_screen.dart';
 import 'package:Silink/features/my_card/presentation/public_profile_preview_screen.dart';
@@ -50,24 +52,15 @@ import '../../features/auth/presentation/personal_register_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/company/company_card/presentation/brand_screen.dart';
 import '../../features/company/company_card/presentation/cards_screen.dart';
-import '../../features/company/company_card/presentation/company_cards_screen.dart';
-import '../../features/company/company_card/presentation/company_publish_screen.dart';
-import '../../features/company/company_card/presentation/company_qr_screen.dart';
-import '../../features/company/company_card/presentation/dashboard_screen.dart';
+
+import '../../features/company/company_dashboard/presentation/dashboard_screen.dart';
 import '../../features/company/company_card/presentation/edit_screen.dart';
-import '../../features/company/company_card/presentation/invite_screen.dart';
 import '../../features/company/company_card/presentation/public_page_screen.dart';
 import '../../features/company/company_card/presentation/publish_screen.dart';
 import '../../features/company/company_card/presentation/qr_screen.dart';
 import '../../features/company/company_card/presentation/setup_screen.dart';
 import '../../features/company/company_card/presentation/success_screen.dart';
-import '../../features/company/company_catalog/presentation/company_catalog_screen.dart';
-import '../../features/company/company_dashboard/presentation/company_dashboard_screen.dart';
-import '../../features/company/company_profile_completion/presentation/company_setup_screen.dart';
-import '../../features/company/company_profile_completion/presentation/company_success_screen.dart';
-import '../../features/company/company_settings/presentation/company_brand_screen.dart';
-import '../../features/company/company_settings/presentation/company_edit_screen.dart';
-import '../../features/company/company_team/presentation/company_employees_screen.dart';
+
 import '../../features/layout/presentation/layout_screen.dart';
 import '../../features/onboarding/presentation/on_boarding_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
@@ -113,6 +106,8 @@ class RouteGenerator {
         ));
       case Routes.profileCompletionScreen:
         return _pageRoute(const ProfileCompletionScreen());
+      case Routes.profileCardScreen:
+        return _pageRoute(const ProfileCardScreen());
       case Routes.statisticsScreen:
         return _pageRoute(const StatisticsScreen());
       case Routes.storeScreen:
@@ -237,19 +232,19 @@ class RouteGenerator {
         return _pageRoute(const EmployeesScreen());
       case Routes.companyEmployeeDetails:
         final employee = arguments?['employee'];
-        if (employee is! CompanyEmployeeItem) {
+        if (employee is! CompanyEmployeeModel) {
           return _pageRoute(const _UndefinedScreen());
         }
         return _pageRoute(EmployeeDetailsScreen(employee: employee));
       case Routes.companyEmployeeEdit:
         final employee = arguments?['employee'];
-        if (employee is! CompanyEmployeeItem) {
+        if (employee is! CompanyEmployeeModel) {
           return _pageRoute(const _UndefinedScreen());
         }
         return _pageRoute(EmployeeEditScreen(employee: employee));
       case Routes.companyEmployeeDigital:
         final employee = arguments?['employee'];
-        if (employee is! CompanyEmployeeItem) {
+        if (employee is! CompanyEmployeeModel) {
           return _pageRoute(const _UndefinedScreen());
         }
         return _pageRoute(
@@ -257,7 +252,7 @@ class RouteGenerator {
         );
       case Routes.companyEmployeeNfcLink:
         final employee = arguments?['employee'];
-        if (employee is! CompanyEmployeeItem) {
+        if (employee is! CompanyEmployeeModel) {
           return _pageRoute(const _UndefinedScreen());
         }
         return _pageRoute(EmployeeNfcLinkScreen(employee: employee));
@@ -281,7 +276,7 @@ class RouteGenerator {
           ),
         );
       case Routes.companyInvite:
-        return _pageRoute(const InviteScreen());
+        return _pageRoute(const EmployeeInviteScreen());
       case Routes.companyNfc:
         return _pageRoute(const NfcScreen());
       default:

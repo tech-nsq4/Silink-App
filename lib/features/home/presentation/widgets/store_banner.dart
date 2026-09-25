@@ -12,7 +12,6 @@ import '../../../../core/utils/locale_keys.dart';
 import '../../../../core/widgets/app_text.dart';
 
 class StoreBanner extends StatelessWidget {
-
   const StoreBanner({super.key});
 
   @override

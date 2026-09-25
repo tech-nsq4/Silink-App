@@ -16,6 +16,12 @@ class HelperMethods {
     }
   }
 
+  static Future<void> openUri(Uri uri) async {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $uri';
+    }
+  }
+
   static Future<void> openLink(String url) async {
     if (!url.startsWith('http')) {
       url = 'https://$url';

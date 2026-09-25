@@ -6,17 +6,21 @@ import 'package:Silink/core/widgets/app_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/locale_keys.dart';
 import '../../../../core/widgets/app_text.dart';
+import '../../../../core/widgets/image/custom_image.dart';
+import 'overview_feature_action.dart';
+import 'overview_stat_divider.dart';
+import 'overview_stat_item.dart';
 
 class ProfileOverviewCard extends StatelessWidget {
   final String name;
   final String jobTitle;
   final String company;
   final String initials;
+  final String? photoUrl;
   final bool isActive;
   final String conversionRate;
   final String potentialClients;
@@ -28,11 +32,14 @@ class ProfileOverviewCard extends StatelessWidget {
     required this.jobTitle,
     required this.company,
     required this.initials,
+    this.photoUrl,
     required this.isActive,
     required this.conversionRate,
     required this.potentialClients,
     required this.visits,
   });
+
+  bool get _hasPhoto => photoUrl != null && photoUrl!.trim().isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +71,19 @@ class ProfileOverviewCard extends StatelessWidget {
                     end: Alignment.centerRight,
                   ),
                 ),
-                child: AppText(
-                  initials,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.white.themeColor,
-                ),
+                child: _hasPhoto
+                    ? CustomImage(
+                        image: photoUrl!,
+                        width: 56.h,
+                        height: 56.h,
+                        radius: 16.r,
+                      )
+                    : AppText(
+                        initials,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.white.themeColor,
+                      ),
               ),
               12.width,
               Expanded(
@@ -82,20 +96,22 @@ class ProfileOverviewCard extends StatelessWidget {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w700,
                     ),
-                    AppText(
-                      jobTitle,
-                      fontSize: 12.sp,
-                      color: AppColors.textSecondaryColor.themeColor,
-                    ),
-                    AppText(
-                      company,
-                      fontSize: 12.sp,
-                      color: AppColors.textSecondaryColor.themeColor,
-                    ),
+                    if (jobTitle.trim().isNotEmpty)
+                      AppText(
+                        jobTitle.trim(),
+                        fontSize: 12.sp,
+                        color: AppColors.textSecondaryColor.themeColor,
+                      ),
+                    if (company.trim().isNotEmpty)
+                      AppText(
+                        company.trim(),
+                        fontSize: 12.sp,
+                        color: AppColors.textSecondaryColor.themeColor,
+                      ),
                   ],
                 ),
               ),
-              Spacer(),
+              // Spacer(),
               if (isActive)
                 Container(
                   padding:
@@ -117,18 +133,18 @@ class ProfileOverviewCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _StatItem(
+                child: OverviewStatItem(
                     value: visits, labelKey: LocaleKeys.home_stat_visits),
               ),
-              const _StatDivider(),
+              const OverviewStatDivider(),
               Expanded(
-                child: _StatItem(
+                child: OverviewStatItem(
                     value: potentialClients,
                     labelKey: LocaleKeys.home_stat_potential_clients),
               ),
-              const _StatDivider(),
+              const OverviewStatDivider(),
               Expanded(
-                child: _StatItem(
+                child: OverviewStatItem(
                     value: conversionRate,
                     labelKey: LocaleKeys.home_stat_conversion),
               ),
@@ -175,14 +191,14 @@ class ProfileOverviewCard extends StatelessWidget {
                 label: LocaleKeys.home_action_preview,
                 onTap: () {},
               )),
-              const _StatDivider(),
+              const OverviewStatDivider(),
               Expanded(
                   child: Features(
                 icon: AppImages.iconsShare,
                 label: LocaleKeys.home_action_share,
                 onTap: () {},
               )),
-              const _StatDivider(),
+              const OverviewStatDivider(),
               Expanded(
                   child: Features(
                 icon: AppImages.iconsStats,
@@ -192,76 +208,6 @@ class ProfileOverviewCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _StatItem extends StatelessWidget {
-  final String value;
-  final String labelKey;
-
-  const _StatItem({required this.value, required this.labelKey});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AppText(
-          value,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w700,
-        ),
-        4.height,
-        AppText(
-          labelKey.tr(),
-          fontSize: 11.2.sp,
-          color: AppColors.textSecondaryColor.themeColor,
-        ),
-      ],
-    );
-  }
-}
-
-class Features extends StatelessWidget {
-  final String label;
-  final String icon;
-  final Function() onTap;
-  const Features(
-      {super.key,
-      required this.icon,
-      required this.label,
-      required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          SvgPicture.asset(icon),
-          4.height,
-          AppText(
-            label.tr(),
-            fontSize: 11.2.sp,
-            color: AppColors.textSecondaryColor.themeColor,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StatDivider extends StatelessWidget {
-  const _StatDivider();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 36,
-      child: VerticalDivider(
-        width: 1.5.w,
-        color: AppColors.borderColor.themeColor,
       ),
     );
   }

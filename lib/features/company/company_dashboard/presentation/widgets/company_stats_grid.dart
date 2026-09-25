@@ -26,6 +26,7 @@ class CompanyStatsGrid extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 2,
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 10.h,
       crossAxisSpacing: 10.w,
@@ -59,4 +60,3 @@ class CompanyStatsGrid extends StatelessWidget {
     );
   }
 }
-

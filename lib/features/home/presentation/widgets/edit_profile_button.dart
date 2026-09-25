@@ -33,7 +33,8 @@ class EditProfileButton extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.description_outlined, size: 18.sp, color: Colors.white),
+                  Icon(Icons.description_outlined,
+                      size: 18.sp, color: Colors.white),
                   SizedBox(width: 8.w),
                   AppText(
                     LocaleKeys.home_edit_profile.tr(),

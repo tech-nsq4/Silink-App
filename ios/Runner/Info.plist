@@ -30,6 +30,8 @@
 	<string>نحتاج الوصول إلى الكاميرا لالتقاط صورتك الشخصية</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>نحتاج الوصول إلى معرض الصور لاختيار صورتك الشخصية</string>
+	<key>NSContactsUsageDescription</key>
+	<string>نحتاج الوصول إلى جهات الاتصال لحفظ بيانات البطاقة في هاتفك</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>نحتاج الوصول إلى موقعك لتحديد عنوانك على الخريطة</string>
 	<key>UIApplicationSceneManifest</key>

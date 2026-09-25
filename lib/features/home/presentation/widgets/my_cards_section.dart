@@ -40,7 +40,6 @@ class MyCardsSection extends StatelessWidget {
           ],
         ),
         12.height,
-      
         _hasCard
             ? _PublishedCard(
                 data: cardData!,

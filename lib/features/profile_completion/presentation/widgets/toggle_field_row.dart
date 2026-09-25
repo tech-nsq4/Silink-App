@@ -50,7 +50,7 @@ class ToggleFieldRow extends StatelessWidget {
                 AppText(
                   value.isEmpty ? hint : value,
                   fontSize: 11.sp,
-                  color: AppColors.textSecondaryColor.themeColor,
+                  color:value.isEmpty ? Colors.grey.shade300: AppColors.textSecondaryColor.themeColor,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

@@ -35,12 +35,8 @@ class _NoStretchScrollBehavior extends MaterialScrollBehavior {
 }
 
 String _initialsFor(String name) {
-  final words = name
-      .trim()
-      .split(' ')
-      .where((word) => word.isNotEmpty)
-      .take(2)
-      .toList();
+  final words =
+      name.trim().split(' ').where((word) => word.isNotEmpty).take(2).toList();
   if (words.isEmpty) return '?';
   return words.map((word) => word[0].toUpperCase()).join();
 }
@@ -65,7 +61,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(19.w, 16.h, 19.w, 6),
-                  child: Header(userName: displayName),
+                  child: Header(userName: user?.fullName.trim() ?? ''),
                 ),
                 Expanded(
                   child: ScrollConfiguration(
@@ -77,10 +73,11 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           ProfileOverviewCard(
                             name: displayName,
-                            jobTitle: 'مدير تطوير الأعمال',
-                            company: 'شركة الرؤية التقنية',
+                            jobTitle: user?.jobTitle ?? '',
+                            company: user?.company ?? '',
                             initials: initials,
-                            isActive: true,
+                            photoUrl: user?.photoUrl,
+                            isActive: user?.status == 'active',
                             conversionRate: '0.0%',
                             potentialClients: '0',
                             visits: '36',
@@ -98,7 +95,8 @@ class HomeScreen extends StatelessWidget {
                                 icon: AppImages.iconsPreview,
                                 iconColor: const Color(0xFF2F6FED),
                                 iconBackground: const Color(0xFFE9F1FF),
-                                titleKey: LocaleKeys.home_activity_profile_visit,
+                                titleKey:
+                                    LocaleKeys.home_activity_profile_visit,
                                 subjectName: displayName,
                                 hoursAgo: 8,
                               ),
@@ -115,7 +113,8 @@ class HomeScreen extends StatelessWidget {
                                 icon: AppImages.iconsShare,
                                 iconColor: const Color(0xFF8B5CF6),
                                 iconBackground: const Color(0xFFF1EBFF),
-                                titleKey: LocaleKeys.home_activity_contact_saved,
+                                titleKey:
+                                    LocaleKeys.home_activity_contact_saved,
                                 subjectName: displayName,
                                 hoursAgo: 16,
                               ),

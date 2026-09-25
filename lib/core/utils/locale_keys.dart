@@ -317,6 +317,26 @@ abstract class LocaleKeys {
   static const String publish_share_data = 'publish.share_data';
   static const String publish_made_with = 'publish.made_with';
   static const String publish_file_sharing = 'publish.file_sharing';
+  static const String publish_shareDataSubtitle = 'publish.share_data_subtitle';
+  static const String publish_leadFullName = 'publish.lead_full_name';
+  static const String publish_leadFullNameHint = 'publish.lead_full_name_hint';
+  static const String publish_leadPhone = 'publish.lead_phone';
+  static const String publish_leadPhoneHint = 'publish.lead_phone_hint';
+  static const String publish_leadEmail = 'publish.lead_email';
+  static const String publish_leadEmailHint = 'publish.lead_email_hint';
+  static const String publish_leadCompany = 'publish.lead_company';
+  static const String publish_leadCompanyHint = 'publish.lead_company_hint';
+  static const String publish_leadJobTitle = 'publish.lead_job_title';
+  static const String publish_leadJobTitleHint = 'publish.lead_job_title_hint';
+  static const String publish_leadMessage = 'publish.lead_message';
+  static const String publish_leadOptional = 'publish.lead_optional';
+  static const String publish_leadMessageHint = 'publish.lead_message_hint';
+  static const String publish_leadConsent = 'publish.lead_consent';
+  static const String publish_leadSubmit = 'publish.lead_submit';
+  static const String publish_itemKindProduct = 'publish.item_kind_product';
+  static const String publish_itemKindService = 'publish.item_kind_service';
+  static const String publish_visitorBanner = 'publish.visitor_banner';
+  static const String publish_contactSaved = 'publish.contact_saved';
 
   // ─── QR ─────────────────────────────────────────────────────────────────
   static const String qr_title = 'qr.title';
@@ -339,6 +359,7 @@ abstract class LocaleKeys {
   // ─── Home ─────────────────────────────────────────────────────────────────
   static const String home_welcome = 'home.welcome';
   static const String home_greeting = 'home.greeting';
+  static const String home_greetingMorning = 'home.greeting_morning';
   static const String home_active_badge = 'home.active_badge';
   static const String home_stat_conversion = 'home.stat_conversion';
   static const String home_stat_potential_clients =
@@ -746,6 +767,11 @@ abstract class LocaleKeys {
       'company.employee_remove_confirm_title';
   static const String company_employee_remove_confirm_desc =
       'company.employee_remove_confirm_desc';
+  static const String company_password_star = 'company.password_star';
+  static const String company_new_password = 'company.new_password';
+  static const String company_password_keep_hint = 'company.password_keep_hint';
+  static const String company_whatsapp = 'company.whatsapp';
+  static const String company_employee_joined_at = 'company.employee_joined_at';
   static const String company_catalog_title = 'company.catalog_title';
   static const String company_menu_title = 'company.menu_title';
   static const String company_menu_cat_drinks = 'company.menu_cat_drinks';

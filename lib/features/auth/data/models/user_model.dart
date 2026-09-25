@@ -6,6 +6,8 @@ class UserModel extends Equatable {
   final String phone;
   final String? email;
   final String? photoUrl;
+  final String? jobTitle;
+  final String? company;
   final String? status;
   final String? usageIntent;
   final String? createdAt;
@@ -16,6 +18,8 @@ class UserModel extends Equatable {
     required this.phone,
     this.email,
     this.photoUrl,
+    this.jobTitle,
+    this.company,
     this.status,
     this.usageIntent,
     this.createdAt,
@@ -23,11 +27,12 @@ class UserModel extends Equatable {
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json['id']?.toString() ?? '',
-        fullName:
-            json['fullName'] as String? ?? json['name'] as String? ?? '',
+        fullName: json['fullName'] as String? ?? json['name'] as String? ?? '',
         phone: json['phone'] as String? ?? '',
         email: json['email'] as String?,
         photoUrl: json['photoUrl'] as String? ?? json['photo'] as String?,
+        jobTitle: json['jobTitle'] as String? ?? json['job_title'] as String?,
+        company: json['company'] as String? ?? json['companyName'] as String?,
         status: json['status'] as String?,
         usageIntent: json['usageIntent'] as String?,
         createdAt:
@@ -40,12 +45,24 @@ class UserModel extends Equatable {
         'phone': phone,
         'email': email,
         'photoUrl': photoUrl,
+        'jobTitle': jobTitle,
+        'company': company,
         'status': status,
         'usageIntent': usageIntent,
         'createdAt': createdAt,
       };
 
   @override
-  List<Object?> get props =>
-      [id, fullName, phone, email, photoUrl, status, usageIntent, createdAt];
+  List<Object?> get props => [
+        id,
+        fullName,
+        phone,
+        email,
+        photoUrl,
+        jobTitle,
+        company,
+        status,
+        usageIntent,
+        createdAt,
+      ];
 }

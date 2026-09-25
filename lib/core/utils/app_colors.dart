@@ -191,6 +191,36 @@ class AppColors {
     darkColor: Color(0xFFF0F6F8),
   );
 
+  static const ColorModel profileCardToolbar = ColorModel(
+    lightColor: Color(0xFF1E293B),
+    darkColor: Color(0xFF1E293B),
+  );
+
+  static const ColorModel profileCardToolbarChip = ColorModel(
+    lightColor: Color(0xFF334155),
+    darkColor: Color(0xFF334155),
+  );
+
+  static const ColorModel profileCardToolbarBorder = ColorModel(
+    lightColor: Color(0xFF475569),
+    darkColor: Color(0xFF475569),
+  );
+
+  static const ColorModel profileCardToolbarText = ColorModel(
+    lightColor: Color(0xFFCBD5E1),
+    darkColor: Color(0xFFCBD5E1),
+  );
+
+  static const ColorModel profileCardLightBackground = ColorModel(
+    lightColor: Color(0xFFF8FAFC),
+    darkColor: Color(0xFFF8FAFC),
+  );
+
+  static const ColorModel profileCardSaveContact = ColorModel(
+    lightColor: Color(0xFF17212B),
+    darkColor: Color(0xFF17212B),
+  );
+
   static const ColorModel whatsapp = ColorModel(
     lightColor: Color(0xFF25D366),
     darkColor: Color(0xFF25D366),

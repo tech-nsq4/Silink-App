@@ -2,7 +2,8 @@ import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/company/data/models/company_employee.dart';
+import 'package:Silink/features/company/employees/data/models/company_employee_model.dart';
+import 'package:Silink/features/company/employees/presentation/widgets/employee_avatar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class EmployeeCard extends StatelessWidget {
     required this.onTap,
   });
 
-  final CompanyEmployeeItem employee;
+  final CompanyEmployeeModel employee;
   final VoidCallback onTap;
 
   String _statusLabel(CompanyEmployeeStatus status) => switch (status) {
@@ -41,23 +42,14 @@ class EmployeeCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
-                width: 44.w,
-                height: 44.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
-                  gradient: LinearGradient(
-                    colors: [Color(0xff2C9092), Color(0xff2368E2)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                alignment: Alignment.center,
-                child: AppText(
-                  employee.initials,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.white.themeColor,
+              EmployeeAvatar(
+                employee: employee,
+                size: 44,
+                radius: 12,
+                gradient: const LinearGradient(
+                  colors: [Color(0xff2C9092), Color(0xff2368E2)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
               ),
               12.width,
@@ -66,7 +58,7 @@ class EmployeeCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      employee.fullName,
+                      employee.name,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w700,
                       maxLines: 1,
@@ -74,9 +66,7 @@ class EmployeeCard extends StatelessWidget {
                     ),
                     2.height,
                     AppText(
-                      employee.department.trim().isEmpty
-                          ? employee.jobTitle
-                          : '${employee.jobTitle} · ${employee.department}',
+                      employee.position,
                       fontSize: 12.sp,
                       color: AppColors.textSecondaryColor.themeColor,
                       maxLines: 1,

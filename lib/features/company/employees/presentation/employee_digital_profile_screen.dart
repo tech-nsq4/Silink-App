@@ -6,7 +6,7 @@ import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/core/widgets/app_text.dart';
 import 'package:Silink/core/widgets/screen_header_bar.dart';
-import 'package:Silink/features/company/data/models/company_employee.dart';
+import 'package:Silink/features/company/employees/data/models/company_employee_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +18,7 @@ class EmployeeDigitalProfileScreen extends StatelessWidget {
     required this.employee,
   });
 
-  final CompanyEmployeeItem employee;
+  final CompanyEmployeeModel employee;
 
   void _createProfile(BuildContext context) {
     AppOverlay.showSuccess(
@@ -102,13 +102,13 @@ class EmployeeDigitalProfileScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AppText(
-                                  employee.fullName,
+                                  employee.name,
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.w800,
                                 ),
                                 3.height,
                                 AppText(
-                                  employee.jobTitle,
+                                  employee.position,
                                   fontSize: 11.sp,
                                   color:
                                       AppColors.textSecondaryColor.themeColor,

@@ -2,7 +2,8 @@ import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/features/company/data/models/company_employee.dart';
+import 'package:Silink/features/company/employees/data/models/company_employee_model.dart';
+import 'package:Silink/features/company/employees/presentation/widgets/employee_avatar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,15 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EmployeeProfileCard extends StatelessWidget {
   const EmployeeProfileCard({super.key, required this.employee});
 
-  final CompanyEmployeeItem employee;
+  final CompanyEmployeeModel employee;
 
   @override
   Widget build(BuildContext context) {
-    final subtitle = [
-      employee.jobTitle.trim(),
-      if (employee.department.trim().isNotEmpty) employee.department.trim(),
-    ].join(' · ');
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(14.w),
@@ -29,23 +25,14 @@ class EmployeeProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: 48.w,
-            height: 48.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14.r),
-              gradient: const LinearGradient(
-                colors: [Color(0xFF22B8CF), Color(0xFF2563EB)],
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-              ),
-            ),
-            child: AppText(
-              employee.initials,
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
+          EmployeeAvatar(
+            employee: employee,
+            size: 48,
+            radius: 14,
+            gradient: const LinearGradient(
+              colors: [Color(0xFF22B8CF), Color(0xFF2563EB)],
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
             ),
           ),
           10.width,
@@ -54,7 +41,7 @@ class EmployeeProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  employee.fullName,
+                  employee.name,
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w800,
                   maxLines: 1,
@@ -62,7 +49,7 @@ class EmployeeProfileCard extends StatelessWidget {
                 ),
                 3.height,
                 AppText(
-                  subtitle,
+                  employee.position,
                   fontSize: 11.sp,
                   color: AppColors.textSecondaryColor.themeColor,
                   maxLines: 1,

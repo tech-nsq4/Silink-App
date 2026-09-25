@@ -28,6 +28,7 @@ class CompanyDashboardCard extends StatelessWidget {
     final initial =
         companyName.trim().isEmpty ? 'Q' : companyName.trim()[0].toUpperCase();
     final hasImage = imagePath != null && imagePath!.trim().isNotEmpty;
+    final hasLogo = logoUrl != null && logoUrl!.trim().isNotEmpty;
     final fallback = AppText(
       initial,
       fontSize: 20.sp,
@@ -60,7 +61,15 @@ class CompanyDashboardCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder: (_, __, ___) => Center(child: fallback),
                   )
-                : Center(child: fallback),
+                : hasLogo
+                    ? Image.network(
+                        logoUrl!,
+                        width: 64.w,
+                        height: 64.w,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Center(child: fallback),
+                      )
+                    : Center(child: fallback),
           ),
           16.width,
           Expanded(

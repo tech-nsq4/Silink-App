@@ -10,6 +10,7 @@ class Routes {
   static const String usageTypeScreen = '/usage_type';
   static const String personalRegisterScreen = '/personal_register';
   static const String profileCompletionScreen = '/profile_completion';
+  static const String profileCardScreen = '/profile_card';
   static const String statisticsScreen = '/statistics_screen';
   static const String storeScreen = '/store_screen';
   static const String publishedScreen = '/published_screen';

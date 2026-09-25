@@ -31,8 +31,7 @@ class CompanyBackToPersonalButton extends StatelessWidget {
           side: BorderSide(
             color: AppColors.blue.themeColor.withValues(alpha: 0.25),
           ),
-          backgroundColor:
-              AppColors.blue.themeColor.withValues(alpha: 0.05),
+          backgroundColor: AppColors.blue.themeColor.withValues(alpha: 0.05),
           padding: EdgeInsets.symmetric(vertical: 14.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.r),
@@ -42,4 +41,3 @@ class CompanyBackToPersonalButton extends StatelessWidget {
     );
   }
 }
-

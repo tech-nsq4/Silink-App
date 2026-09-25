@@ -1,12 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
-import '../../../../core/utils/locale_keys.dart';
-import '../../../../core/widgets/app_text.dart';
+import 'home_greeting.dart';
 
 class Header extends StatelessWidget {
   final String userName;
@@ -18,28 +16,8 @@ class Header extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              LocaleKeys.home_greeting.tr(),
-              fontSize: 12.sp,
-              color: AppColors.textSecondaryColor.themeColor,
-            ),
-            SizedBox(height: 2.h),
-            Row(
-              children: [
-                AppText(
-                  userName,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-                SizedBox(width: 6.w),
-                SvgPicture.asset(AppImages.iconsHand),
-              ],
-            ),
-          ],
-        ),
+        Expanded(child: HomeGreeting(name: userName)),
+        SizedBox(width: 12.w),
         InkWell(
           onTap: () {},
           child: Container(
