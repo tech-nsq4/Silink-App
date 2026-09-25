@@ -77,6 +77,7 @@ class AuthRepo {
     double? lat,
     double? lng,
     required String phone,
+    String? email,
     String? password,
     File? photo,
   }) async {
@@ -92,6 +93,7 @@ class AuthRepo {
         if (lat != null) 'lat': lat,
         if (lng != null) 'lng': lng,
         'phone': phone,
+        if (email != null && email.trim().isNotEmpty) 'email': email,
         if (password != null && password.trim().isNotEmpty)
           'password': password,
         if (photo != null)

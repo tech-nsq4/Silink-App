@@ -36,6 +36,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
   late final TextEditingController _companyCtrl;
   late final TextEditingController _bioCtrl;
   late final TextEditingController _phoneCtrl;
+  late final TextEditingController _emailCtrl;
   late final TextEditingController _passwordCtrl;
   late final TextEditingController _locationCtrl;
 
@@ -54,6 +55,8 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
       ..addListener(_onChanged);
     _phoneCtrl = TextEditingController(text: widget.data.phone)
       ..addListener(_onChanged);
+    _emailCtrl = TextEditingController(text: widget.data.email)
+      ..addListener(_onChanged);
     _passwordCtrl = TextEditingController(text: widget.data.password)
       ..addListener(_onChanged);
     _locationCtrl = TextEditingController(text: widget.data.location)
@@ -68,6 +71,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
       ..jobTitle = _jobCtrl.text.trim()
       ..company = _companyCtrl.text.trim()
       ..bio = _bioCtrl.text.trim()
+      ..email = _emailCtrl.text.trim()
       ..password = _passwordCtrl.text.trim()
       ..location = _locationCtrl.text.trim();
 
@@ -84,8 +88,15 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
   void _reportValidity() {
     final valid = _nameCtrl.text.trim().isNotEmpty &&
         _jobCtrl.text.trim().isNotEmpty &&
-        _phoneCtrl.text.trim().isNotEmpty;
+        _phoneCtrl.text.trim().isNotEmpty &&
+        _isEmailValid;
     widget.onValidityChanged(valid);
+  }
+
+  bool get _isEmailValid {
+    final email = _emailCtrl.text.trim();
+    return email.isEmpty ||
+        RegExp(r'^[\w.\-+]+@[\w\-]+\.[\w.\-]+$').hasMatch(email);
   }
 
   String get _initial {
@@ -130,6 +141,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
     _companyCtrl.dispose();
     _bioCtrl.dispose();
     _phoneCtrl.dispose();
+    _emailCtrl.dispose();
     _passwordCtrl.dispose();
     _locationCtrl.dispose();
     super.dispose();
@@ -273,8 +285,19 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
           CustomTextFieldPhoneCode(
             controller: _phoneCtrl,
             hint: LocaleKeys.profile_type_basic_info_phone_hint.tr(),
-            // egyptIsInitial: true,
+            initialCountryCode: 'SA',
             onChanged: _onPhoneChanged,
+          ),
+          12.height,
+
+          FieldLabel(text: LocaleKeys.auth_email.tr()),
+          CustomTextField(
+            controller: _emailCtrl,
+            hint: LocaleKeys.auth_emailPlaceholder.tr(),
+            keyboardType: TextInputType.emailAddress,
+            validator: (_) => _isEmailValid
+                ? null
+                : LocaleKeys.validation_invalidEmail.tr(),
           ),
           12.height,
 

@@ -78,6 +78,7 @@ class _PersonalRegisterScreenState extends State<PersonalRegisterScreen> {
           lat: _data.lat,
           lng: _data.lng,
           phone: _data.phone,
+          email: _data.email,
           password: _data.password,
           photo: _data.photo,
         );

@@ -95,7 +95,7 @@
     "basic_info_bio": "Bio",
     "basic_info_bio_hint": "Briefly describe yourself in the field of professional development and building your startups. More than 10 years of experience in the field of IT.",
     "basic_info_phone": "Phone Number",
-    "basic_info_phone_hint": "Phone Number",
+    "basic_info_phone_hint": "5XXXXXXXX",
     "basic_info_saved_snackbar": "Your basic info has been saved — proceed to the next step",
     "basic_info_required_error": "Please enter your full name and job title to continue",
     "location": "Location",

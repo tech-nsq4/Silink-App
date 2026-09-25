@@ -70,6 +70,7 @@ class ProfileCompletionData {
   String company = '';
   String bio = '';
   String phone = '';
+  String email = '';
   String password = '';
   String location = '';
   double? lat;
@@ -109,6 +110,7 @@ class ProfileCompletionData {
       ..company = company
       ..bio = bio
       ..phone = phone
+      ..email = email
       ..password = password
       ..location = location
       ..lat = lat

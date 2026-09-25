@@ -69,6 +69,7 @@ class AuthCubit extends Cubit<AuthState> {
     double? lat,
     double? lng,
     required String phone,
+    String? email,
     String? password,
     File? photo,
   }) async {
@@ -85,6 +86,7 @@ class AuthCubit extends Cubit<AuthState> {
         lat: lat,
         lng: lng,
         phone: phone,
+        email: email,
         password: password,
         photo: photo,
       );
