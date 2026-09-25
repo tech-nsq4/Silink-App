@@ -180,6 +180,22 @@ class AppColors {
     darkColor: Color(0xFF2C9092),
   );
 
+  static const ColorModel companyBrand = ColorModel(
+    lightColor: Color(0xFF3d4f2f),
+    darkColor: Color(0xFF4C5A38),
+  );
+
+  static const ColorModel catalogDetailsBackground = ColorModel(
+    lightColor: Color(0xFFF0F6F8),
+    
+    darkColor: Color(0xFFF0F6F8),
+  );
+
+  static const ColorModel whatsapp = ColorModel(
+    lightColor: Color(0xFF25D366),
+    darkColor: Color(0xFF25D366),
+  );
+
   static const ColorModel saleRed = ColorModel(
     lightColor: Color(0xFFfb2c36),
     darkColor: Color(0xFFE0563E),

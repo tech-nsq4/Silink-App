@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widgets/product_edit_sheet.dart';
 import 'widgets/product_row_card.dart';
+import 'widgets/profile_catalog_item_details.dart';
 
 class ProductsStep extends StatefulWidget {
   const ProductsStep({super.key});
@@ -104,6 +105,17 @@ class _ProductsStepState extends State<ProductsStep> {
         );
   }
 
+  Future<void> _openItem(
+    CatalogItemModel item, {
+    required bool visible,
+  }) async {
+    await openProfileCatalogItemDetails(
+      context,
+      item,
+      visible: visible,
+    );
+  }
+
   Future<void> _deleteItem(CatalogItemModel item) async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -177,8 +189,8 @@ class _ProductsStepState extends State<ProductsStep> {
                       decoration: BoxDecoration(
                         color: AppColors.white.themeColor,
                         borderRadius: BorderRadius.circular(14.r),
-                        border:
-                            Border.all(color: AppColors.dividerColor.themeColor),
+                        border: Border.all(
+                            color: AppColors.dividerColor.themeColor),
                       ),
                       child: Row(
                         children: [
@@ -211,7 +223,8 @@ class _ProductsStepState extends State<ProductsStep> {
                                 AppText(
                                   section.description,
                                   fontSize: 11.sp,
-                                  color: AppColors.textSecondaryColor.themeColor,
+                                  color:
+                                      AppColors.textSecondaryColor.themeColor,
                                 ),
                               ],
                             ),
@@ -231,9 +244,13 @@ class _ProductsStepState extends State<ProductsStep> {
                   10.height,
                   Row(
                     children: [
-                      Expanded(child: _kindTab(LocaleKeys.products_kindProduct.tr(), 'product')),
+                      Expanded(
+                          child: _kindTab(
+                              LocaleKeys.products_kindProduct.tr(), 'product')),
                       8.width,
-                      Expanded(child: _kindTab(LocaleKeys.products_kindService.tr(), 'service')),
+                      Expanded(
+                          child: _kindTab(
+                              LocaleKeys.products_kindService.tr(), 'service')),
                     ],
                   ),
                   16.height,
@@ -241,21 +258,24 @@ class _ProductsStepState extends State<ProductsStep> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap:
-                            state.isSavingCatalogItem ? null : () => _addItem(catalog),
+                        onTap: state.isSavingCatalogItem
+                            ? null
+                            : () => _addItem(catalog),
                         borderRadius: BorderRadius.circular(20.r),
                         child: Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 14.w, vertical: 8.h),
                           decoration: BoxDecoration(
-                            color: AppColors.mint.themeColor.withValues(alpha: 0.1),
+                            color: AppColors.mint.themeColor
+                                .withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.add,
-                                  size: 16.sp, color: AppColors.mint.themeColor),
+                                  size: 16.sp,
+                                  color: AppColors.mint.themeColor),
                               4.width,
                               AppText(
                                 _addTitle,
@@ -302,6 +322,10 @@ class _ProductsStepState extends State<ProductsStep> {
                         canMoveUp: entry.$1 > 0,
                         canMoveDown: entry.$1 < ordered.length - 1,
                         isSaving: state.savingCatalogItemId == entry.$2.id,
+                        onTap: () => _openItem(
+                          entry.$2,
+                          visible: !_locallyOff.contains(entry.$2.id),
+                        ),
                         onToggle: (v) => setState(() => v
                             ? _locallyOff.remove(entry.$2.id)
                             : _locallyOff.add(entry.$2.id)),
@@ -327,7 +351,9 @@ class _ProductsStepState extends State<ProductsStep> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: selected ? AppColors.primaryColor.themeColor : Colors.grey.shade200,
+          color: selected
+              ? AppColors.primaryColor.themeColor
+              : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Center(
@@ -335,7 +361,8 @@ class _ProductsStepState extends State<ProductsStep> {
             label,
             fontSize: 12.sp,
             fontWeight: FontWeight.w700,
-            color: selected ? Colors.white : AppColors.textPrimaryColor.themeColor,
+            color:
+                selected ? Colors.white : AppColors.textPrimaryColor.themeColor,
           ),
         ),
       ),

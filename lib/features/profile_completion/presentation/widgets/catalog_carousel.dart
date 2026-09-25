@@ -12,9 +12,11 @@ class CatalogCarousel extends StatelessWidget {
   const CatalogCarousel({
     super.key,
     required this.items,
+    required this.onItemTap,
   });
 
   final List<CatalogItemModel> items;
+  final ValueChanged<CatalogItemModel> onItemTap;
 
   String _kindLabel(String kind) => kind == 'service'
       ? LocaleKeys.products_kindService.tr()
@@ -35,13 +37,17 @@ class CatalogCarousel extends StatelessWidget {
           final item = items[index];
           return SizedBox(
             width: 140.w,
-            child: ProductPreviewCard(
-              name: item.name,
-              kindLabel: _kindLabel(item.kind),
-              price: item.priceLabel.isEmpty
-                  ? ConvertHelper.formatPriceWithCurrency(item.price)
-                  : '${item.priceLabel} ${ConvertHelper.formatPriceWithCurrency(item.price)}',
-              imageUrl: item.imageUrl,
+            child: InkWell(
+              onTap: () => onItemTap(item),
+              borderRadius: BorderRadius.circular(16.r),
+              child: ProductPreviewCard(
+                name: item.name,
+                kindLabel: _kindLabel(item.kind),
+                price: item.priceLabel.isEmpty
+                    ? ConvertHelper.formatPriceWithCurrency(item.price)
+                    : '${item.priceLabel} ${ConvertHelper.formatPriceWithCurrency(item.price)}',
+                imageUrl: item.imageUrl,
+              ),
             ),
           );
         },

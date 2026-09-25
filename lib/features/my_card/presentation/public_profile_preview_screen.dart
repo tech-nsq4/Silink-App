@@ -11,12 +11,12 @@ import 'package:flutter_svg/svg.dart';
 import '../../../app/router/navigation_services.dart';
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
-import 'widgets/about_me_card.dart';
-import 'widgets/contact_links_section.dart';
-import 'widgets/cover_with_exit.dart';
-import 'widgets/profile_header.dart';
-import 'widgets/quick_actions_row.dart';
-import 'widgets/services_section.dart';
+import '../widgets/about_me_card.dart';
+import '../widgets/contact_links_section.dart';
+import '../widgets/cover_with_exit.dart';
+import '../widgets/profile_header.dart';
+import '../widgets/quick_actions_row.dart';
+import '../widgets/services_section.dart';
 
 class PublicProfilePreviewScreen extends StatelessWidget {
   const PublicProfilePreviewScreen({super.key, required this.data});

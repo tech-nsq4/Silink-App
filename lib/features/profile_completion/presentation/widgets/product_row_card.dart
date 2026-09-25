@@ -16,6 +16,7 @@ class ProductRowCard extends StatelessWidget {
     required this.canMoveUp,
     required this.canMoveDown,
     required this.isSaving,
+    required this.onTap,
     required this.onToggle,
     required this.onMoveUp,
     required this.onMoveDown,
@@ -31,6 +32,7 @@ class ProductRowCard extends StatelessWidget {
   final bool canMoveUp;
   final bool canMoveDown;
   final bool isSaving;
+  final VoidCallback onTap;
   final ValueChanged<bool> onToggle;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
@@ -39,110 +41,119 @@ class ProductRowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-      margin: EdgeInsets.only(bottom: 10.h),
-      decoration: BoxDecoration(
-        color: AppColors.white.themeColor,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: AppColors.dividerColor.themeColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 44.w,
-            height: 44.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.fieldFill,
-              borderRadius: BorderRadius.circular(10.r),
-              image: imageUrl != null && imageUrl!.isNotEmpty
-                  ? DecorationImage(
-                      image: NetworkImage(imageUrl!), fit: BoxFit.cover)
-                  : null,
-            ),
-            child: imageUrl == null || imageUrl!.isEmpty
-                ? Icon(Icons.inventory_2_outlined,
-                    size: 18.sp, color: AppColors.textSecondaryColor.themeColor)
-                : null,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+          margin: EdgeInsets.only(bottom: 10.h),
+          decoration: BoxDecoration(
+            color: AppColors.white.themeColor,
+            borderRadius: BorderRadius.circular(14.r),
+            border: Border.all(color: AppColors.dividerColor.themeColor),
           ),
-          8.width,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(
-                  name,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w700,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
+          child: Row(
+            children: [
+              Container(
+                width: 44.w,
+                height: 44.w,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.fieldFill,
+                  borderRadius: BorderRadius.circular(10.r),
+                  image: imageUrl != null && imageUrl!.isNotEmpty
+                      ? DecorationImage(
+                          image: NetworkImage(imageUrl!), fit: BoxFit.cover)
+                      : null,
                 ),
-                2.height,
-                AppText(
-                  priceLabel.isEmpty ? price : '$priceLabel $price',
-                  fontSize: 12.sp,
-                  color: AppColors.textSecondaryColor.themeColor,
+                child: imageUrl == null || imageUrl!.isEmpty
+                    ? Icon(Icons.inventory_2_outlined,
+                        size: 18.sp,
+                        color: AppColors.textSecondaryColor.themeColor)
+                    : null,
+              ),
+              8.width,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      name,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w700,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                    ),
+                    2.height,
+                    AppText(
+                      priceLabel.isEmpty ? price : '$priceLabel $price',
+                      fontSize: 12.sp,
+                      color: AppColors.textSecondaryColor.themeColor,
+                    ),
+                  ],
+                ),
+              ),
+              8.width,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  InkWell(
+                    onTap: canMoveUp ? onMoveUp : null,
+                    child: Icon(
+                      Icons.keyboard_arrow_up,
+                      size: 18.sp,
+                      color: canMoveUp
+                          ? AppColors.textSecondaryColor.themeColor
+                          : AppColors.dividerColor.themeColor,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: canMoveDown ? onMoveDown : null,
+                    child: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 18.sp,
+                      color: canMoveDown
+                          ? AppColors.textSecondaryColor.themeColor
+                          : AppColors.dividerColor.themeColor,
+                    ),
+                  ),
+                ],
+              ),
+              if (isSaving)
+                SizedBox(
+                  width: 20.w,
+                  height: 20.w,
+                  child: CustomLoadingWidget(
+                    color: AppColors.primaryColor.themeColor,
+                    size: 20,
+                  ),
+                )
+              else ...[
+                Switch(
+                  value: enabled,
+                  onChanged: onToggle,
+                  activeThumbColor: AppColors.mint.themeColor,
+                ),
+                8.width,
+                InkWell(
+                  onTap: onEdit,
+                  child: Icon(Icons.edit_outlined,
+                      size: 18.sp,
+                      color: AppColors.textSecondaryColor.themeColor),
+                ),
+                8.width,
+                InkWell(
+                  onTap: onDelete,
+                  child: Icon(Icons.delete_outline,
+                      size: 20.sp, color: AppColors.errorColor.themeColor),
                 ),
               ],
-            ),
-          ),
-          8.width,
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: canMoveUp ? onMoveUp : null,
-                child: Icon(
-                  Icons.keyboard_arrow_up,
-                  size: 18.sp,
-                  color: canMoveUp
-                      ? AppColors.textSecondaryColor.themeColor
-                      : AppColors.dividerColor.themeColor,
-                ),
-              ),
-              InkWell(
-                onTap: canMoveDown ? onMoveDown : null,
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 18.sp,
-                  color: canMoveDown
-                      ? AppColors.textSecondaryColor.themeColor
-                      : AppColors.dividerColor.themeColor,
-                ),
-              ),
             ],
           ),
-          if (isSaving)
-            SizedBox(
-              width: 20.w,
-              height: 20.w,
-              child: CustomLoadingWidget(
-                color: AppColors.primaryColor.themeColor,
-                size: 20,
-              ),
-            )
-          else ...[
-            Switch(
-              value: enabled,
-              onChanged: onToggle,
-              activeThumbColor: AppColors.mint.themeColor,
-            ),
-            8.width,
-            InkWell(
-              onTap: onEdit,
-              child: Icon(Icons.edit_outlined,
-                  size: 18.sp, color: AppColors.textSecondaryColor.themeColor),
-            ),
-            8.width,
-            InkWell(
-              onTap: onDelete,
-              child: Icon(Icons.delete_outline,
-                  size: 20.sp, color: AppColors.errorColor.themeColor),
-            ),
-          ],
-        ],
+        ),
       ),
     );
   }
