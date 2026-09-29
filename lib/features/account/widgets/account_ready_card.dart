@@ -75,7 +75,6 @@ class AccountReadyCard extends StatelessWidget {
                 ],
               ),
             ),
-            
             Icon(
               Icons.arrow_forward_ios,
               size: 12.w,

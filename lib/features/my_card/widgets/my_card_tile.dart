@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/app_text.dart';
+import '../../../core/widgets/image/custom_image.dart';
 
 class MyCardTile extends StatelessWidget {
   const MyCardTile({
@@ -51,6 +52,10 @@ class MyCardTile extends StatelessWidget {
     }
   }
 
+  List<String> get _categoryLabels =>
+      card.categoryNames?.where((n) => n.trim().isNotEmpty).toList() ??
+      [_categoryLabel];
+
   ({String label, Color bg, Color text, Color dot}) get _statusStyle {
     switch (card.status) {
       case CardLifecycleStatus.active:
@@ -84,7 +89,7 @@ class MyCardTile extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16.r),
       child: Container(
-        padding: 16.paddingTop + 19.paddingHorizontal,
+        padding: 16.paddingVert + 19.paddingHorizontal,
         decoration: BoxDecoration(
           color: AppColors.white.themeColor,
           borderRadius: BorderRadius.circular(16.r),
@@ -108,10 +113,17 @@ class MyCardTile extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       alignment: Alignment.center,
-                      child: AppText(card.initials,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                      child: card.hasImage
+                          ? CustomImage(
+                              image: card.imageUrl!,
+                              width: 46.w,
+                              height: 46.w,
+                              radius: 12.r,
+                            )
+                          : AppText(card.initials,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
                     ),
                     8.width,
                     Column(
@@ -141,11 +153,12 @@ class MyCardTile extends StatelessWidget {
                           spacing: 8.w,
                           runSpacing: 6.h,
                           children: [
-                            TagPill(
-                              label: _categoryLabel,
-                              background: const Color(0xFFE8F0FE),
-                              textColor: const Color(0xFF2F6FED),
-                            ),
+                            for (final label in _categoryLabels)
+                              TagPill(
+                                label: label,
+                                background: const Color(0xFFE8F0FE),
+                                textColor: const Color(0xFF2F6FED),
+                              ),
                             TagPill(
                               label: card.isPublished
                                   ? LocaleKeys.myCards_isPublished.tr()

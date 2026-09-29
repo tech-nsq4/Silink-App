@@ -53,6 +53,14 @@ class ConvertHelper {
     return parts.join(' - ');
   }
 
+  static String formatWeekdayDate(DateTime date) {
+    final locale = _languageCode;
+    final pattern = locale == 'ar' ? 'EEEE، d MMMM' : 'EEEE, d MMMM';
+    return DateFormat(pattern, locale).format(date);
+  }
+
+  static String get listSeparator => _languageCode == 'ar' ? '، ' : ', ';
+
   static String formatDuration(String duration) {
     final minutes = int.tryParse(duration.trim());
     if (minutes == null || minutes <= 0) return duration;

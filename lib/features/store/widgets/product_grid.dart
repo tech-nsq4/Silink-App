@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/utils/app_constants.dart';
-import '../models/product.dart';
+import '../data/models/product.dart';
 import 'product_grid_card.dart';
 import 'products_empty_view.dart';
 
@@ -18,6 +18,7 @@ class ProductGrid extends StatelessWidget {
 
     return GridView.builder(
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: products.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

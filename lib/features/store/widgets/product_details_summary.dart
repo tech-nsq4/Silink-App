@@ -7,7 +7,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/convert_helper.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
-import '../models/product.dart';
+import '../data/models/product.dart';
 
 class ProductDetailsSummary extends StatelessWidget {
   const ProductDetailsSummary({super.key, required this.product});
@@ -63,26 +63,28 @@ class ProductDetailsSummary extends StatelessWidget {
               ],
             ],
           ),
-          6.height,
-          AppText(
-            product.category.labelKey.tr(),
-            fontSize: 12.sp,
-            color: AppColors.textSecondaryColor.themeColor,
-          ),
-          6.height,
+          if (product.category != null) ...[
+            6.height,
+            AppText(
+              product.category!.labelKey.tr(),
+              fontSize: 12.sp,
+              color: AppColors.textSecondaryColor.themeColor,
+            ),
+          ],
+          8.height,
           Row(
             children: [
               AppText(
                 ConvertHelper.formatPrice(product.price),
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w700,
-                color: AppColors.mint.themeColor,
+                color: AppColors.successColor.themeColor,
               ),
               4.width,
               AppText(
                 currency,
                 fontSize: 14.sp,
-                color: AppColors.mint.themeColor,
+                color: AppColors.successColor.themeColor,
               ),
               if (product.isDiscounted) ...[
                 10.width,

@@ -17,8 +17,7 @@ class AccountSectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          padding ?? EdgeInsets.symmetric(vertical: 6.h),
+      padding: padding ?? EdgeInsets.symmetric(vertical: 6.h),
       decoration: BoxDecoration(
         color: AppColors.white.themeColor,
         borderRadius: BorderRadius.circular(18.r),

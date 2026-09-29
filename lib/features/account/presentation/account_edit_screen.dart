@@ -62,7 +62,8 @@ class _AccountEditScreenState extends State<AccountEditScreen> {
     AppOverlay.showSuccess(LocaleKeys.stats_saved.tr());
     context.pop();
   }
-GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+  GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

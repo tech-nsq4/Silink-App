@@ -54,9 +54,9 @@ class AccountGuestScreen extends StatelessWidget {
                       onSignInTap: () => context.pushNamed(Routes.loginScreen),
                       onContinueAsGuestTap: () =>
                           context.pushNamedAndRemoveUntil(
-                            Routes.layoutScreen,
-                            predicate: (_) => false,
-                          ),
+                        Routes.layoutScreen,
+                        predicate: (_) => false,
+                      ),
                       onChangeUsageTypeTap: () =>
                           context.pushNamed(Routes.usageTypeScreen),
                     ),

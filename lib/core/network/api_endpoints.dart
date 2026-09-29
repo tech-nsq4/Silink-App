@@ -32,4 +32,20 @@ class ApiEndpoints {
   // ─── Company Team ─────────────────────────────────────────────────────────
   static const String meCompanyTeam = 'me/company/team';
   static String meCompanyTeamMember(String id) => 'me/company/team/$id';
+
+  static const String meFiles = 'me/files';
+  static const String meFileCategories = 'me/file-categories';
+  static String meFile(String id) => 'me/files/$id';
+
+  // ─── Store ────────────────────────────────────────────────────────────────
+  static const String nfcProducts = 'nfc-products';
+  static const String meOrders = 'me/orders';
+  static const String cities = 'cities';
+  static String meOrderCancel(String id) => 'me/orders/$id/cancel';
+
+  // ─── Subscriptions ────────────────────────────────────────────────────────
+  static const String subscriptions = 'subscriptions';
+
+  // ─── FAQs ─────────────────────────────────────────────────────────────────
+  static const String faqs = 'faqs';
 }

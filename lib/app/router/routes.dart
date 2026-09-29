@@ -28,6 +28,8 @@ class Routes {
   static const String checkoutScreen = '/checkout_screen';
   static const String paymentScreen = '/payment_screen';
   static const String orderSuccessScreen = '/order_success_screen';
+  static const String myOrdersScreen = '/my_orders_screen';
+  static const String orderDetailsScreen = '/order_details_screen';
 
   static const String companySetup = '/company_setup';
   static const String companySuccess = '/company_success';

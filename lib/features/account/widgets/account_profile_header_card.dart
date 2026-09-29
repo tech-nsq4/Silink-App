@@ -44,7 +44,6 @@ class AccountProfileHeaderCard extends StatelessWidget {
           AccountAvatar(
             imageUrl: imageUrl,
             initial: trimmedName.isEmpty ? '' : trimmedName.substring(0, 1),
-            
           ),
           12.width,
           Expanded(

@@ -251,6 +251,11 @@ class AppColors {
     darkColor: Color(0xFF1E1E1E),
   );
 
+  static const ColorModel disabledColor = ColorModel(
+    lightColor: Color(0xFFDCE3EA),
+    darkColor: Color(0xFF3A3F45),
+  );
+
   static const ColorModel overlayOnDark = ColorModel(
     lightColor: Color(0xFFFFFFFF),
     darkColor: Color(0xFFFFFFFF),

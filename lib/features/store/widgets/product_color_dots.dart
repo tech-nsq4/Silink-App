@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
-import '../models/product.dart';
+import '../data/models/product.dart';
 
 class ProductColorDots extends StatelessWidget {
   const ProductColorDots({

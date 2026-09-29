@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../data/models/my_file_model.dart';
+
 enum CardLifecycleStatus { active, draft, paused }
 
 extension CardLifecycleStatusX on CardLifecycleStatus {
@@ -50,6 +52,8 @@ class MyCardModel extends Equatable {
   final DateTime lastUpdated;
   final DateTime createdAt;
   final String link;
+  final String? imageUrl;
+  final List<String>? categoryNames;
 
   const MyCardModel({
     required this.id,
@@ -72,10 +76,37 @@ class MyCardModel extends Equatable {
     this.nfcCardName,
     this.nfcCardCode,
     this.nfcActive = false,
+    this.imageUrl,
+    this.categoryNames,
   });
 
   Color get avatarColor => Color(avatarColorValue);
   Color get categoryColor => Color(categoryColorValue);
+
+  bool get hasImage => (imageUrl ?? '').trim().isNotEmpty;
+
+  factory MyCardModel.fromFile(MyFileModel file) {
+    final now = DateTime.now();
+    return MyCardModel(
+      id: file.id,
+      name: file.name,
+      role: file.note,
+      company: '',
+      initials: file.initials,
+      avatarColorValue: 0xFF17B78F,
+      category: CardCategory.personal,
+      categoryColorValue: 0xFF2F6FED,
+      status: CardLifecycleStatus.active,
+      isPublished: false,
+      visitsCount: 0,
+      clientsCount: 0,
+      lastUpdated: now,
+      createdAt: now,
+      link: '',
+      imageUrl: file.fileUrl,
+      categoryNames: file.categories.map((c) => c.name).toList(),
+    );
+  }
 
   factory MyCardModel.fromJson(Map<String, dynamic> json) => MyCardModel(
         id: json['id'] as String,
@@ -141,6 +172,8 @@ class MyCardModel extends Equatable {
         nfcCardName,
         nfcCardCode,
         nfcActive,
+        imageUrl,
+        categoryNames,
         visitsCount,
         clientsCount,
         lastUpdated,

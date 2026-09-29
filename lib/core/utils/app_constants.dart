@@ -29,6 +29,10 @@ class AppConstants {
   static const double catalogGridAspectRatio = 0.80;
   static const double defaultShippingCost = 25.0;
   static const double defaultFreeShippingThreshold = 300.0;
+  static const int maxCartItemQuantity = 99;
+  static const int maxDeliveryDays = 9;
+  static const double defaultProductRating = 4.8;
+  static const int defaultProductReviewCount = 312;
 
   static const String companyPageHost = 'silink.nsq4.sa/c/';
   static const String companyPageUrl = 'https://$companyPageHost';

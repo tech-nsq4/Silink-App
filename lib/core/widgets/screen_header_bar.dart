@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../extensions/extensions.dart';
 import '../utils/app_colors.dart';
 import 'app_text.dart';
 
@@ -21,61 +20,46 @@ class ScreenHeaderBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 70.h,
-      padding: 19.paddingHorizontal,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.borderColor.themeColor,
+    return SafeArea(
+      bottom: false,
+      child: Container(
+        height: 50.h,
+        padding: EdgeInsetsDirectional.only(
+          start: 19.w,
+          end: 19.w,
+          bottom: 12.h,
+
+        ),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.borderColor.themeColor,
+            ),
           ),
         ),
-      ),
-      child: Stack(
-        children: [
-          if (trailing != null)
-            PositionedDirectional(
-              end: 0,
-              top: 0,
-              // bottom: 0,
-              child: Transform.translate(
-                offset: Offset(0, 27.h),
-                child: trailing!,
-              ),
-            ),
-          Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(0, 6.h),
-              child: Center(
-                child: AppText(
-                  title,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ),
-          if (showBack)
-            PositionedDirectional(
-              start: 0,
-              top: 0,
-              bottom: 0,
-              child: Transform.translate(
-                offset: Offset(0, 6.h),
-                child: Center(
-                  child: InkWell(
-                    onTap: onBack ?? () => Navigator.of(context).maybePop(),
-                    borderRadius: BorderRadius.circular(20.r),
-                    child: Icon(
-                      Icons.chevron_left,
-                      size: 24.sp,
-                      color: AppColors.textPrimaryColor.themeColor,
-                    ),
+        child: NavigationToolbar(
+          centerMiddle: true,
+          middleSpacing: 12.w,
+          leading: showBack
+              ? InkWell(
+                  onTap: onBack ?? () => Navigator.of(context).maybePop(),
+                  borderRadius: BorderRadius.circular(20.r),
+                  child: Icon(
+                    Icons.chevron_left,
+                    size: 24.sp,
+                    color: AppColors.textPrimaryColor.themeColor,
                   ),
-                ),
-              ),
-            ),
-        ],
+                )
+              : null,
+          middle: AppText(
+            title,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w700,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: trailing,
+        ),
       ),
     );
   }

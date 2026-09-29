@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
-import '../models/product_filters.dart';
+import '../data/models/product_filters.dart';
 import 'sort_dropdown_button.dart';
 
 class ProductsSortBar extends StatelessWidget {

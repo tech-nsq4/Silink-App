@@ -502,6 +502,56 @@ abstract class LocaleKeys {
   static const String store_error_card_invalid = 'store.error_card_invalid';
   static const String store_error_expiry_invalid = 'store.error_expiry_invalid';
   static const String store_error_cvv_invalid = 'store.error_cvv_invalid';
+  static const String store_save_amount = 'store.save_amount';
+  static const String store_shipping_note = 'store.shipping_note';
+  static const String store_items_count = 'store.items_count';
+  static const String store_expected_delivery = 'store.expected_delivery';
+  static const String store_expected_delivery_within = 'store.expected_delivery_within';
+  static const String store_street_details = 'store.street_details';
+  static const String store_notes_optional = 'store.notes_optional';
+  static const String store_total_amount = 'store.total_amount';
+  static const String store_apple_pay = 'store.apple_pay';
+  static const String store_confirm_payment = 'store.confirm_payment';
+  static const String store_card_number_hint = 'store.card_number_hint';
+  static const String store_expiry_hint = 'store.expiry_hint';
+  static const String store_cvv_hint = 'store.cvv_hint';
+  static const String store_apple_pay_mark = 'store.apple_pay_mark';
+  static const String store_select_city = 'store.select_city';
+  static const String store_cities_load_failed = 'store.cities_load_failed';
+  static const String store_default_compatibility = 'store.default_compatibility';
+  static const String store_package_item_product = 'store.package_item_product';
+  static const String store_package_item_guide = 'store.package_item_guide';
+  static const String store_package_item_qr = 'store.package_item_qr';
+
+  // ─── Orders ───────────────────────────────────────────────────────────────
+  static const String orders_title = 'orders.title';
+  static const String orders_details_title = 'orders.details_title';
+  static const String orders_order_label = 'orders.order_label';
+  static const String orders_empty_title = 'orders.empty_title';
+  static const String orders_empty_subtitle = 'orders.empty_subtitle';
+  static const String orders_shop_now = 'orders.shop_now';
+  static const String orders_status_placed = 'orders.status_placed';
+  static const String orders_status_processing = 'orders.status_processing';
+  static const String orders_status_shipped = 'orders.status_shipped';
+  static const String orders_status_delivered = 'orders.status_delivered';
+  static const String orders_status_cancelled = 'orders.status_cancelled';
+  static const String orders_products = 'orders.products';
+  static const String orders_shipping_info = 'orders.shipping_info';
+  static const String orders_summary = 'orders.summary';
+  static const String orders_delivery_estimate = 'orders.delivery_estimate';
+  static const String orders_name = 'orders.name';
+  static const String orders_phone = 'orders.phone';
+  static const String orders_city = 'orders.city';
+  static const String orders_district = 'orders.district';
+  static const String orders_street = 'orders.street';
+  static const String orders_notes = 'orders.notes';
+  static const String orders_cancelled_at = 'orders.cancelled_at';
+  static const String orders_cancel_order = 'orders.cancel_order';
+  static const String orders_cancel_confirm_title = 'orders.cancel_confirm_title';
+  static const String orders_cancel_confirm_message = 'orders.cancel_confirm_message';
+  static const String orders_cancel_confirm = 'orders.cancel_confirm';
+  static const String orders_keep_order = 'orders.keep_order';
+  static const String orders_cancelled_success = 'orders.cancelled_success';
 
   // ─── My Cards ───────────────────────────────────────────────────────────
   static const String myCards_edit = 'my_cards.edit';
@@ -539,6 +589,26 @@ abstract class LocaleKeys {
   static const String myCards_isDefault = 'my_cards.isDefault';
   static const String myCards_viewClients = 'my_cards.viewClients';
   static const String myCards_link = 'my_cards.link';
+
+  static const String myFiles_emptyTitle = 'my_files.empty_title';
+  static const String myFiles_emptyDesc = 'my_files.empty_desc';
+  static const String myFiles_addTitle = 'my_files.add_title';
+  static const String myFiles_editTitle = 'my_files.edit_title';
+  static const String myFiles_nameLabel = 'my_files.name_label';
+  static const String myFiles_nameHint = 'my_files.name_hint';
+  static const String myFiles_nameRequired = 'my_files.name_required';
+  static const String myFiles_noteLabel = 'my_files.note_label';
+  static const String myFiles_noteHint = 'my_files.note_hint';
+  static const String myFiles_categoriesLabel = 'my_files.categories_label';
+  static const String myFiles_imageLabel = 'my_files.image_label';
+  static const String myFiles_addImage = 'my_files.add_image';
+  static const String myFiles_changeImage = 'my_files.change_image';
+  static const String myFiles_imageRequired = 'my_files.image_required';
+  static const String myFiles_save = 'my_files.save';
+  static const String myFiles_saved = 'my_files.saved';
+  static const String myFiles_deleted = 'my_files.deleted';
+  static const String myFiles_deleteConfirmTitle = 'my_files.delete_confirm_title';
+  static const String myFiles_deleteConfirmDesc = 'my_files.delete_confirm_desc';
 
   // ─── Company ────────────────────────────────────────────────────────────
   static const String company_header = 'company.header';
@@ -1030,6 +1100,7 @@ abstract class LocaleKeys {
   static const String account_upgradeChip = 'account.upgrade_chip';
   static const String account_yourCurrentPlan = 'account.your_current_plan';
   static const String account_pricePerMonth = 'account.price_per_month';
+  static const String account_pricePerYear = 'account.price_per_year';
   static const String account_freePlanPrice = 'account.free_plan_price';
   static const String account_freePlanCard = 'account.free_plan_card';
   static const String account_freePlanFree = 'account.free_plan_free';

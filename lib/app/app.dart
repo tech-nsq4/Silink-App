@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/di/injection.dart';
 import '../core/utils/app_constants.dart';
 import '../features/auth/logic/auth_cubit.dart';
+import '../features/cart/logic/cart_cubit.dart';
 import '../features/profile/logic/profile_cubit.dart';
 import 'router/app_router.dart';
 import 'router/routes.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthCubit>(create: (_) => getIt<AuthCubit>()),
         BlocProvider<ProfileCubit>(create: (_) => getIt<ProfileCubit>()),
+        BlocProvider<CartCubit>(
+          create: (_) => getIt<CartCubit>()..loadCart(),
+        ),
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),

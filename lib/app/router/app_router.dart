@@ -34,13 +34,18 @@ import 'package:Silink/features/my_card/presentation/qr_code_screen.dart';
 import 'package:Silink/features/auth/presentation/usage_type_screen.dart';
 import 'package:Silink/features/services/presentation/service_details_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
-import 'package:Silink/features/store/models/product.dart';
+import 'package:Silink/features/cart/presentation/cart_screen.dart';
+import 'package:Silink/features/checkout/data/models/order_model.dart';
+import 'package:Silink/features/checkout/data/models/shipping_address.dart';
+import 'package:Silink/features/checkout/presentation/checkout_screen.dart';
+import 'package:Silink/features/checkout/presentation/order_success_screen.dart';
+import 'package:Silink/features/checkout/presentation/payment_screen.dart';
+import 'package:Silink/features/orders/data/models/my_order_model.dart';
+import 'package:Silink/features/orders/presentation/my_orders_screen.dart';
+import 'package:Silink/features/orders/presentation/order_details_screen.dart';
+import 'package:Silink/features/store/data/models/product.dart';
 import 'package:Silink/features/store/presentation/card_customization_screen.dart';
-import 'package:Silink/features/store/presentation/cart_screen.dart';
 import 'package:Silink/features/store/presentation/category_products_screen.dart';
-import 'package:Silink/features/store/presentation/checkout_screen.dart';
-import 'package:Silink/features/store/presentation/order_success_screen.dart';
-import 'package:Silink/features/store/presentation/payment_screen.dart';
 import 'package:Silink/features/store/presentation/product_details_screen.dart';
 import 'package:Silink/features/store/presentation/store_screen.dart';
 import 'package:Silink/features/subscription/presentation/subscription_screen.dart';
@@ -111,7 +116,7 @@ class RouteGenerator {
       case Routes.statisticsScreen:
         return _pageRoute(const StatisticsScreen());
       case Routes.storeScreen:
-        return _pageRoute(const StoreScreen());
+        return _pageRoute(const StoreScreen(), settings: settings);
       case Routes.publishedScreen:
         return _pageRoute(PublishedScreen(
           data: (arguments?['data'] as ProfileCompletionData?) ??
@@ -130,25 +135,37 @@ class RouteGenerator {
       case Routes.serviceDetailsScreen:
         return _pageRoute(ServiceDetailsScreen());
       case Routes.productDetailsScreen:
-        return _pageRoute(ProductDetailsScreen(
-          productId: arguments?['productId'] as String? ?? '',
-        ));
+        final product = arguments?['product'] as Product?;
+        if (product == null) return _pageRoute(const _UndefinedScreen());
+        return _pageRoute(ProductDetailsScreen(product: product));
       case Routes.categoryProductsScreen:
         return _pageRoute(CategoryProductsScreen(
+          products: arguments?['products'] as List<Product>? ?? const [],
           category: arguments?['category'] as ProductCategory?,
         ));
       case Routes.cardCustomizationScreen:
-        return _pageRoute(CardCustomizationScreen(
-          productId: arguments?['productId'] as String? ?? '',
-        ));
+        final product = arguments?['product'] as Product?;
+        if (product == null) return _pageRoute(const _UndefinedScreen());
+        return _pageRoute(CardCustomizationScreen(product: product));
       case Routes.cartScreen:
         return _pageRoute(const CartScreen());
       case Routes.checkoutScreen:
         return _pageRoute(const CheckoutScreen());
       case Routes.paymentScreen:
-        return _pageRoute(const PaymentScreen());
+        return _pageRoute(PaymentScreen(
+          address: arguments?['address'] as ShippingAddress? ??
+              const ShippingAddress(),
+        ));
       case Routes.orderSuccessScreen:
-        return _pageRoute(const OrderSuccessScreen());
+        final order = arguments?['order'] as OrderModel?;
+        if (order == null) return _pageRoute(const _UndefinedScreen());
+        return _pageRoute(OrderSuccessScreen(order: order));
+      case Routes.myOrdersScreen:
+        return _pageRoute(const MyOrdersScreen());
+      case Routes.orderDetailsScreen:
+        final myOrder = arguments?['order'] as MyOrderModel?;
+        if (myOrder == null) return _pageRoute(const _UndefinedScreen());
+        return _pageRoute(OrderDetailsScreen(order: myOrder));
       case Routes.accountGuestScreen:
         return _pageRoute(const AccountGuestScreen());
       case Routes.accountScreen:
@@ -284,8 +301,8 @@ class RouteGenerator {
     }
   }
 
-  static PageRoute<dynamic> _pageRoute(Widget page) {
-    return MaterialPageRoute(builder: (_) => page);
+  static PageRoute<dynamic> _pageRoute(Widget page, {RouteSettings? settings}) {
+    return MaterialPageRoute(builder: (_) => page, settings: settings);
   }
 }
 

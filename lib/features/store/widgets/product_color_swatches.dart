@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
-import '../models/product.dart';
+import '../data/models/product.dart';
 
 class ProductColorSwatches extends StatelessWidget {
   const ProductColorSwatches({
@@ -31,33 +31,34 @@ class ProductColorSwatches extends StatelessWidget {
             child: InkWell(
               onTap: () => onSelected(index),
               customBorder: const CircleBorder(),
-              child: Container(
-                width: 36.w,
-                height: 36.w,
-                alignment: Alignment.center,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
+                width: 44.w,
+                height: 44.w,
+                padding: EdgeInsets.all(3.w),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: index == selectedIndex
-                        ? AppColors.brandTeal.themeColor
+                        ? AppColors.successColor.themeColor
                         : Colors.transparent,
+                    width: 2,
                   ),
                 ),
                 child: Container(
-                  width: 30.w,
-                  height: 30.w,
                   decoration: BoxDecoration(
                     color: product.colorAt(index),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: AppColors.backgroundColor.themeColor,
+                      color: AppColors.borderColor.themeColor
+                          .withValues(alpha: 0.12),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-          if (index != product.colorValues.length - 1) 6.width,
+          if (index != product.colorValues.length - 1) 10.width,
         ],
       ],
     );

@@ -8,10 +8,11 @@ import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/convert_helper.dart';
 import '../../../core/utils/locale_keys.dart';
+import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/app_text.dart';
-import '../models/product.dart';
+import '../../../core/widgets/product_thumb.dart';
+import '../data/models/product.dart';
 import 'product_badge_pill.dart';
-import 'product_thumb.dart';
 
 class SpecialOfferCard extends StatelessWidget {
   const SpecialOfferCard({super.key, required this.product, this.onTap});
@@ -21,19 +22,19 @@ class SpecialOfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final card = Container(
+    final currency = LocaleKeys.store_currency.tr();
+
+    return AppCard(
+      onTap: onTap,
       padding: EdgeInsets.all(12.w),
-      decoration: BoxDecoration(
-        color: AppColors.cardColor.themeColor,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.borderColor.themeColor),
-      ),
       child: Row(
         children: [
           ProductThumb(
             gradient: product.imageGradient,
+            imageUrl: product.image,
             width: 64,
             height: 64,
+            radius: 14,
           ),
           12.width,
           Expanded(
@@ -45,8 +46,8 @@ class SpecialOfferCard extends StatelessWidget {
                     Flexible(
                       child: AppText(
                         product.name,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 13.5.sp,
+                        fontWeight: FontWeight.w800,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -55,6 +56,7 @@ class SpecialOfferCard extends StatelessWidget {
                     const ProductBadgePill(
                       badge: ProductBadge.specialOffer,
                       compact: true,
+                      tinted: true,
                     ),
                   ],
                 ),
@@ -62,17 +64,16 @@ class SpecialOfferCard extends StatelessWidget {
                 Row(
                   children: [
                     AppText(
-                      '${ConvertHelper.formatPrice(product.price)} ${LocaleKeys.store_currency.tr()}',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.mint.themeColor,
+                      '${ConvertHelper.formatPrice(product.price)} $currency',
+                      fontSize: 13.5.sp,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.successColor.themeColor,
                     ),
                     if (product.isDiscounted) ...[
-                      6.width,
+                      8.width,
                       AppText(
-                        '${ConvertHelper.formatPrice(product.oldPrice!)} ${LocaleKeys.store_currency.tr()}',
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        '${ConvertHelper.formatPrice(product.oldPrice!)} $currency',
+                        fontSize: 11.5.sp,
                         color: AppColors.textSecondaryColor.themeColor,
                         decoration: TextDecoration.lineThrough,
                       ),
@@ -91,8 +92,7 @@ class SpecialOfferCard extends StatelessWidget {
                       3.width,
                       AppText(
                         '${product.rating} (${product.reviewCount ?? 0})',
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 11.5.sp,
                         color: AppColors.textSecondaryColor.themeColor,
                       ),
                     ],
@@ -104,21 +104,13 @@ class SpecialOfferCard extends StatelessWidget {
           8.width,
           Icon(
             Directionality.of(context) == ui.TextDirection.rtl
-                ? Icons.arrow_back_ios_new
-                : Icons.arrow_forward_ios,
-            size: 16.w,
+                ? Icons.chevron_left_rounded
+                : Icons.chevron_right_rounded,
+            size: 22.sp,
             color: AppColors.textSecondaryColor.themeColor,
           ),
         ],
       ),
-    );
-
-    if (onTap == null) return card;
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16.r),
-      child: card,
     );
   }
 }

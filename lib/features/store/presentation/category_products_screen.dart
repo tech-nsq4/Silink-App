@@ -7,17 +7,21 @@ import '../../../app/router/routes.dart';
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/screen_header_bar.dart';
-import '../models/product.dart';
-import '../models/product_filters.dart';
-import '../models/store_catalog.dart';
-import '../widgets/cart_badge_button.dart';
+import '../../cart/presentation/widgets/cart_badge_button.dart';
+import '../data/models/product.dart';
+import '../data/models/product_filters.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/product_search_field.dart';
 import '../widgets/products_sort_bar.dart';
 
 class CategoryProductsScreen extends StatefulWidget {
-  const CategoryProductsScreen({super.key, this.category});
+  const CategoryProductsScreen({
+    super.key,
+    required this.products,
+    this.category,
+  });
 
+  final List<Product> products;
   final ProductCategory? category;
 
   @override
@@ -31,7 +35,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   void _openProduct(Product product) {
     NavigationService.push(
       Routes.productDetailsScreen,
-      arguments: {'productId': product.id},
+      arguments: {'product': product},
     );
   }
 
@@ -44,7 +48,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
     final products = ProductFilters.sorted(
       ProductFilters.search(
-        ProductFilters.byCategory(StoreCatalog.products(), category),
+        ProductFilters.byCategory(widget.products, category),
         _searchQuery,
       ),
       _sortOption,
@@ -55,9 +59,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         children: [
           ScreenHeaderBar(
             title: title,
-            trailing: CartBadgeButton(
-              onTap: () => NavigationService.push(Routes.cartScreen),
-            ),
+            trailing: const CartBadgeButton(),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -69,8 +71,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ProductSearchField(
-                    onChanged: (value) =>
-                        setState(() => _searchQuery = value),
+                    onChanged: (value) => setState(() => _searchQuery = value),
                   ),
                   16.height,
                   ProductsSortBar(

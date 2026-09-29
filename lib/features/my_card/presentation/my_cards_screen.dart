@@ -1,13 +1,23 @@
 import 'package:Silink/app/router/navigation_services.dart';
 import 'package:Silink/app/router/routes.dart';
+import 'package:Silink/core/di/injection.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/screen_header_bar.dart';
+import 'package:Silink/core/widgets/screen_state_layout.dart';
+import 'package:Silink/features/my_card/data/models/file_category_model.dart';
+import 'package:Silink/features/my_card/data/models/my_file_model.dart';
+import 'package:Silink/features/my_card/logic/my_file_cubit.dart';
+import 'package:Silink/features/my_card/logic/my_files_cubit.dart';
 import 'package:Silink/features/my_card/models/my_card_model.dart';
+import 'package:Silink/features/my_card/presentation/widgets/my_file_delete_sheet.dart';
+import 'package:Silink/features/my_card/presentation/widgets/my_file_form_sheet.dart';
+import 'package:Silink/features/my_card/presentation/widgets/my_files_empty_view.dart';
 import 'package:Silink/features/my_card/widgets/card_more_sheet.dart';
 import 'package:Silink/features/my_card/widgets/create_new_card_button.dart';
 import 'package:Silink/features/my_card/widgets/my_card_tile.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/extensions/extensions.dart';
@@ -20,91 +30,55 @@ class MyCardsScreen extends StatefulWidget {
 }
 
 class _MyCardsScreenState extends State<MyCardsScreen> {
-  // استبدلها بداتا حقيقية من الـ API/repository (MyCardModel.fromJson)
-  final List<MyCardModel> _cards = [
-    MyCardModel(
-      id: '1',
-      name: 'حازم العتيبي',
-      role: 'مدير تطوير الأعمال',
-      company: 'شركة الرؤية التقنية',
-      initials: 'ها',
-      avatarColorValue: 0xFF17B78F,
-      category: CardCategory.business,
-      categoryColorValue: 0xFF2F6FED,
-      status: CardLifecycleStatus.active,
-      isPublished: true,
-      hasNfc: true,
-      visitsCount: 36,
-      clientsCount: 0,
-      lastUpdated: DateTime(2024, 12, 1),
-      createdAt: DateTime(2024, 7, 1),
-      link: 'silink.nsq4.sa/hazem1',
-    ),
-    MyCardModel(
-      id: '2',
-      name: 'حازم العتيبي',
-      role: 'مطور تطبيقات',
-      company: '',
-      initials: 'ها',
-      avatarColorValue: 0xFF8B5CF6,
-      category: CardCategory.personal,
-      categoryColorValue: 0xFF8B5CF6,
-      status: CardLifecycleStatus.draft,
-      isPublished: false,
-      visitsCount: 36,
-      clientsCount: 0,
-      lastUpdated: DateTime(2024, 11, 15),
-      createdAt: DateTime(2024, 8, 1),
-      link: 'silink.nsq4.sa/hazem2',
-    ),
-    MyCardModel(
-      id: '3',
-      name: 'حازم استشاري',
-      role: 'مستشار نفسي مستقل',
-      company: '',
-      initials: 'ها',
-      avatarColorValue: 0xFF17B78F,
-      category: CardCategory.freelancer,
-      categoryColorValue: 0xFF2F6FED,
-      status: CardLifecycleStatus.paused,
-      isPublished: true,
-      visitsCount: 0,
-      clientsCount: 0,
-      lastUpdated: DateTime(2024, 1, 1),
-      createdAt: DateTime(2024, 1, 1),
-      link: 'silink.nsq4.sa/hazem3',
-    ),
-  ];
+  late final MyFilesCubit _cubit = getIt<MyFilesCubit>()..getFiles();
+  late final MyFileCubit _fileCubit = getIt<MyFileCubit>();
 
-  void _onMore(MyCardModel card) {
+  @override
+  void dispose() {
+    _cubit.close();
+    _fileCubit.close();
+    super.dispose();
+  }
+
+  List<FileCategoryModel> get _categories {
+    final state = _cubit.state;
+    return state is MyFilesSuccess ? state.categories : const [];
+  }
+
+  Future<void> _openForm([MyFileModel? file]) async {
+    final saved = await MyFileFormSheet.show(
+      context,
+      categories: _categories,
+      initial: file,
+    );
+    if (saved && mounted) _cubit.refresh();
+  }
+
+  Future<void> _delete(MyFileModel file) async {
+    final confirmed = await MyFileDeleteSheet.show(context);
+    if (!confirmed || !mounted) return;
+    await _fileCubit.deleteFile(file.id);
+    if (mounted && _fileCubit.state is MyFileDeleted) _cubit.refresh();
+  }
+
+  void _onMore(MyFileModel file, MyCardModel card) {
     showCardMoreSheet(
       context,
       cardName: card.name,
       isPaused: card.status == CardLifecycleStatus.paused,
       onDuplicate: () {},
-      onRename: () {},
+      onRename: () => _openForm(file),
       onTogglePause: () {},
-      onDelete: () {},
+      onDelete: () => _delete(file),
     );
   }
 
-  void _onQr(MyCardModel card) {
-    // NavigationService.push(Routes.qrCodeScreen, arguments: {'data': ...});
-  }
-
-  void _onPreview(MyCardModel card) {
-    // NavigationService.push(Routes.publicProfilePreviewScreen, arguments: {'data': ...});
-  }
-
-  void _onEdit(MyCardModel card) {
-    // NavigationService.push(Routes.profileCompletionScreen);
-  }
-
-  void _onOpenDetails(MyCardModel card) {
-    NavigationService.push(
+  Future<void> _onOpenDetails(MyCardModel card) async {
+    await NavigationService.push(
       Routes.myCardDetailsScreen,
       arguments: {'card': card},
     );
+    if (mounted) _cubit.refresh();
   }
 
   @override
@@ -117,22 +91,46 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
             showBack: false,
           ),
           Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-              itemCount: _cards.length + 1,
-              separatorBuilder: (_, __) => 12.height,
-              itemBuilder: (context, index) {
-                if (index == _cards.length) {
-                  return CreateNewCardButton(onTap: () {});
-                }
-                final card = _cards[index];
-                return MyCardTile(
-                  card: card,
-                  onTap: () => _onOpenDetails(card),
-                  onMoreTap: () => _onMore(card),
-                  onQrTap: () => _onQr(card),
-                  onPreviewTap: () => _onPreview(card),
-                  onEditTap: () => _onEdit(card),
+            child: BlocBuilder<MyFilesCubit, MyFilesState>(
+              bloc: _cubit,
+              builder: (context, state) {
+                final files = state is MyFilesSuccess
+                    ? state.files
+                    : const <MyFileModel>[];
+                return CustomScreenStateLayout(
+                  isLoading: state is MyFilesLoading || state is MyFilesInitial,
+                  error: state is MyFilesError
+                      ? ErrorModel(
+                          code: ErrorEnum.response,
+                          errorMessage: state.message,
+                        )
+                      : null,
+                  onRetry: _cubit.getFiles,
+                  isEmpty: files.isEmpty,
+                  noDataBuilder: (_) => MyFilesEmptyView(onCreate: _openForm),
+                  onRefresh: _cubit.refresh,
+                  builder: (_) => ListView.separated(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                    itemCount: files.length + 1,
+                    separatorBuilder: (_, __) => 12.height,
+                    itemBuilder: (context, index) {
+                      if (index == files.length) {
+                        return CreateNewCardButton(onTap: _openForm);
+                      }
+                      final file = files[index];
+                      final card = MyCardModel.fromFile(file);
+                      return MyCardTile(
+                        card: card,
+                        onTap: () => _onOpenDetails(card),
+                        onMoreTap: () => _onMore(file, card),
+                        onQrTap: () {},
+                        onPreviewTap: () {},
+                        onEditTap: () => _openForm(file),
+                      );
+                    },
+                  ),
                 );
               },
             ),
