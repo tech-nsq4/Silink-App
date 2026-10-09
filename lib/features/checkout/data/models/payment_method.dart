@@ -5,8 +5,9 @@ enum PaymentMethod {
   applePay,
   cashOnDelivery;
 
-  static PaymentMethod fromValue(String? value) => PaymentMethod.values
-      .firstWhere((method) => method.value == value, orElse: () => cashOnDelivery);
+  static PaymentMethod fromValue(String? value) =>
+      PaymentMethod.values.firstWhere((method) => method.value == value,
+          orElse: () => cashOnDelivery);
 }
 
 extension PaymentMethodX on PaymentMethod {

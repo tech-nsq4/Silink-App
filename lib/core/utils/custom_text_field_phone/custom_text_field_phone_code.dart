@@ -1,3 +1,4 @@
+import 'package:Silink/core/utils/app_constants.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
 
@@ -267,7 +268,7 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
       autofocus: widget.autofocus,
       onTap: widget.onTap,
       style: const TextStyle(
-        fontFamily: 'Cairo',
+        fontFamily: AppFonts.familyFont,
         fontWeight: FontWeight.w600,
         fontSize: 15,
         color: defaultTextColor,
@@ -275,7 +276,7 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
       decoration: InputDecoration(
         hintText: widget.hint,
         hintStyle: TextStyle(
-          fontFamily: 'Cairo',
+          fontFamily: AppFonts.familyFont,
           fontWeight: FontWeight.w500,
           fontSize: 15,
           color: defaultHintColor,
@@ -323,7 +324,7 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
           Text(
             widget.label!,
             style: TextStyle(
-              fontFamily: 'Cairo',
+              fontFamily: AppFonts.familyFont,
               fontWeight: FontWeight.w700,
               fontSize: 14,
               color: AppColors.primaryColor.themeColor,
@@ -379,7 +380,7 @@ class _CountrySuffix extends StatelessWidget {
               Text(
                 '+${country.dialCode}',
                 style: TextStyle(
-                  fontFamily: 'Cairo',
+                  fontFamily: AppFonts.familyFont,
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                   color: AppColors.textPrimaryColor.themeColor,
@@ -519,7 +520,7 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                       title: Text(
                         isArabic ? country.nameAr : country.name,
                         style: const TextStyle(
-                          fontFamily: 'Cairo',
+                          fontFamily: AppFonts.familyFont,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -527,7 +528,7 @@ class _CountryPickerSheetState extends State<_CountryPickerSheet> {
                       subtitle: Text(
                         '+${country.dialCode}',
                         style: TextStyle(
-                          fontFamily: 'Cairo',
+                          fontFamily: AppFonts.familyFont,
                           color: AppColors.textSecondaryColor.themeColor,
                         ),
                       ),

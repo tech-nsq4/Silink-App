@@ -165,68 +165,69 @@ class _SetupScreenState extends State<SetupScreen> {
   Widget _buildStep() {
     // switch (_step) {
     //   case 1:
-        return CompanyStepOne(
-          nameCtrl: _nameCtrl,
-          // regCtrl: _regCtrl,
-          // taxCtrl: _taxCtrl,
-          // descCtrl: _descCtrl,
-          // emailCtrl: _emailCtrl,
-          onNameChanged: () => setState(() {}), bioCtrl: _regCtrl, websiteCtrl: _regCtrl, logoUrl: '', logoFile: null, onPickLogo: () {  },
-        );
+    return CompanyStepOne(
+      nameCtrl: _nameCtrl,
+      // regCtrl: _regCtrl,
+      // taxCtrl: _taxCtrl,
+      // descCtrl: _descCtrl,
+      // emailCtrl: _emailCtrl,
+      onNameChanged: () => setState(() {}), bioCtrl: _regCtrl,
+      websiteCtrl: _regCtrl, logoUrl: '', logoFile: null, onPickLogo: () {},
+    );
 
-      // case 2:
-      //   return CompanyStepTwo(
-      //     selected: _businessType,
-      //     onSelected: (CompanyBusinessType type) {
-      //       setState(() {
-      //         _businessType = type;
-      //       });
-      //     },
-      //   );
-      //
-      // case 3:
-      //   return CompanyStepThree(
-      //     activityNature: _activityNature,
-      //     onActivityNatureChanged: (key) {
-      //       setState(() {
-      //         _activityNature = key;
-      //       });
-      //     },
-      //     hasOnlineStore: _hasOnlineStore,
-      //     onOnlineStoreChanged: (value) {
-      //       setState(() {
-      //         _hasOnlineStore = value;
-      //       });
-      //     },
-      //     cityCtrl: _cityCtrl,
-      //     districtCtrl: _districtCtrl,
-      //     websiteCtrl: _websiteCtrl, loading: null, options: [], selectedId: '', onSelected: (String value) {  },
-      //   );
-      //
-      // case 4:
-      //   return CompanyStepFour(
-      //     employeesRange: _employeesRange,
-      //     onEmployeesRangeChanged: (range) {
-      //       setState(() {
-      //         _employeesRange = range;
-      //       });
-      //     },
-      //     phoneCtrl: _phoneCtrl,
-      //     emailCtrl: _emailCtrl,
-      //   );
-      //
-      // default:
-      //   return CompanyReviewStep(
-      //     name: _nameCtrl.text,
-      //     registrationNumber: _regCtrl.text,
-      //     taxNumber: _taxCtrl.text,
-      //     businessTypeKey: _businessType?.key ?? '',
-      //     activityNature: _activityNature,
-      //     city: _cityCtrl.text,
-      //     district: _districtCtrl.text,
-      //     employeesRange: _employeesRange,
-      //     email: _emailCtrl.text,
-      //   );
+    // case 2:
+    //   return CompanyStepTwo(
+    //     selected: _businessType,
+    //     onSelected: (CompanyBusinessType type) {
+    //       setState(() {
+    //         _businessType = type;
+    //       });
+    //     },
+    //   );
+    //
+    // case 3:
+    //   return CompanyStepThree(
+    //     activityNature: _activityNature,
+    //     onActivityNatureChanged: (key) {
+    //       setState(() {
+    //         _activityNature = key;
+    //       });
+    //     },
+    //     hasOnlineStore: _hasOnlineStore,
+    //     onOnlineStoreChanged: (value) {
+    //       setState(() {
+    //         _hasOnlineStore = value;
+    //       });
+    //     },
+    //     cityCtrl: _cityCtrl,
+    //     districtCtrl: _districtCtrl,
+    //     websiteCtrl: _websiteCtrl, loading: null, options: [], selectedId: '', onSelected: (String value) {  },
+    //   );
+    //
+    // case 4:
+    //   return CompanyStepFour(
+    //     employeesRange: _employeesRange,
+    //     onEmployeesRangeChanged: (range) {
+    //       setState(() {
+    //         _employeesRange = range;
+    //       });
+    //     },
+    //     phoneCtrl: _phoneCtrl,
+    //     emailCtrl: _emailCtrl,
+    //   );
+    //
+    // default:
+    //   return CompanyReviewStep(
+    //     name: _nameCtrl.text,
+    //     registrationNumber: _regCtrl.text,
+    //     taxNumber: _taxCtrl.text,
+    //     businessTypeKey: _businessType?.key ?? '',
+    //     activityNature: _activityNature,
+    //     city: _cityCtrl.text,
+    //     district: _districtCtrl.text,
+    //     employeesRange: _employeesRange,
+    //     email: _emailCtrl.text,
+    //   );
     // }
   }
 }

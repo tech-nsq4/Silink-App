@@ -6,6 +6,8 @@ class ApiEndpoints {
   // ─── Auth ─────────────────────────────────────────────────────────────────
   static const String login = 'auth/login';
   static const String profile = 'me/profile';
+  static const String mePassword = 'me/password';
+  static const String meFcmToken = 'me/fcm-token';
   static const String register = 'auth/register';
   static const String verifyOtp = 'auth/otp/verify';
 
@@ -36,6 +38,13 @@ class ApiEndpoints {
   static const String meFiles = 'me/files';
   static const String meFileCategories = 'me/file-categories';
   static String meFile(String id) => 'me/files/$id';
+
+  static const String meProducts = 'me/products';
+  static String meProduct(String id) => 'me/products/$id';
+
+  static const String meClients = 'me/clients';
+  static String meClient(String id) => 'me/clients/$id';
+  static const String meClientCategories = 'me/client-categories';
 
   // ─── Store ────────────────────────────────────────────────────────────────
   static const String nfcProducts = 'nfc-products';

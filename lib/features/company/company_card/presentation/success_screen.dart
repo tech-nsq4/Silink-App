@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../company_profile_completion/presentation/widgets/company_action_bar.dart';
 
-
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
 

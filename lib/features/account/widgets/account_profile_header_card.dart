@@ -13,11 +13,9 @@ class AccountProfileHeaderCard extends StatelessWidget {
   const AccountProfileHeaderCard({
     super.key,
     required this.user,
-    this.imageUrl,
     this.onEditTap,
   });
 
-  final String? imageUrl;
   final VoidCallback? onEditTap;
 
   final UserModel user;
@@ -42,7 +40,7 @@ class AccountProfileHeaderCard extends StatelessWidget {
       child: Row(
         children: [
           AccountAvatar(
-            imageUrl: imageUrl,
+            imageUrl: user.photoUrl,
             initial: trimmedName.isEmpty ? '' : trimmedName.substring(0, 1),
           ),
           12.width,

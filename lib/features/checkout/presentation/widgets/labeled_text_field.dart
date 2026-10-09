@@ -18,6 +18,7 @@ class LabeledTextField extends StatelessWidget {
     this.inputFormatters,
     this.maxLines = 1,
     this.onChanged,
+    this.required = false,
   });
 
   final String label;
@@ -28,6 +29,7 @@ class LabeledTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final int maxLines;
   final ValueChanged<String>? onChanged;
+  final bool required;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +37,9 @@ class LabeledTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppText(
-          label,
-          fontSize: 12.sp,
+          required ? '$label *' : label,
+          fontSize: 10.5.sp,
           fontWeight: FontWeight.w700,
-          color: AppColors.darkSlate.themeColor,
         ),
         8.height,
         CustomTextField(
@@ -49,7 +50,10 @@ class LabeledTextField extends StatelessWidget {
           inputFormatters: inputFormatters,
           maxLines: maxLines,
           onChanged: onChanged,
-          borderColor: AppColors.borderColor.themeColor.withValues(alpha: 0.08),
+          borderRadius: 14.r,
+          fillColor: AppColors.white.themeColor,
+          borderColor: AppColors.studioPanelBorder.themeColor,
+          focusedBorderColor: AppColors.accentTeal.themeColor,
         ),
       ],
     );

@@ -10,11 +10,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../../app/router/routes.dart';
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_images.dart';
-import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/screen_header_bar.dart';
 import '../../auth/logic/auth_cubit.dart';
-import '../widgets/account_language_tile.dart';
 import '../widgets/account_menu_tile.dart';
 import '../widgets/account_profile_header_card.dart';
 import '../widgets/account_ready_card.dart';
@@ -81,17 +79,17 @@ class AccountScreen extends StatelessWidget {
                                 context.pushNamed(Routes.usageTypeScreen),
                             icon: AppImages.iconsChanging,
                           ),
+                          // AccountMenuTile(
+                          //   icon: AppImages.iconsNotifications,
+                          //   label: LocaleKeys.account_notificationsTitle.tr(),
+                          //   onTap: () =>
+                          //       context.pushNamed(Routes.notificationsScreen),
+                          // ),
                           AccountMenuTile(
-                            icon: AppImages.iconsNotifications,
-                            label: LocaleKeys.account_notificationsTitle.tr(),
+                            icon: AppImages.iconsSettings,
+                            label: LocaleKeys.settings_title.tr(),
                             onTap: () =>
-                                context.pushNamed(Routes.notificationsScreen),
-                          ),
-                          AccountMenuTile(
-                            icon: AppImages.iconsPrivacy,
-                            label: LocaleKeys.account_privacyTitle.tr(),
-                            onTap: () =>
-                                context.pushNamed(Routes.privacyScreen),
+                                context.pushNamed(Routes.settingsScreen),
                           ),
                           AccountMenuTile(
                             icon: AppImages.iconsStar,
@@ -107,12 +105,6 @@ class AccountScreen extends StatelessWidget {
                         ],
                       ),
                       16.height,
-                      AccountLanguageTile(
-                        onTap: () => AppOverlay.showSuccess(
-                          LocaleKeys.common_comingSoon.tr(),
-                        ),
-                      ),
-                      12.height,
                       CustomButton(
                         onTap: () {
                           context.read<ProfileCubit>().reset();

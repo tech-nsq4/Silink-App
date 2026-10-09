@@ -55,6 +55,8 @@ dependencies:
   gif: ^2.3.0
   qr_flutter: ^4.1.0
   flutter_contacts: ^2.5.0
+  firebase_core: ^4.15.0
+  firebase_messaging: ^16.7.0
 
 dev_dependencies:
   flutter_test:

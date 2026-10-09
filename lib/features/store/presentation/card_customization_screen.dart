@@ -1,27 +1,30 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../app/router/navigation_services.dart';
-import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/convert_helper.dart';
 import '../../../core/utils/locale_keys.dart';
-import '../../../core/widgets/app_text.dart';
-import '../../../core/widgets/app_text_field.dart';
-import '../../../core/widgets/bottom_action_bar.dart';
-import '../../../core/widgets/screen_header_bar.dart';
+import '../../../core/widgets/flow_top_bar.dart';
+import '../../../core/widgets/gradient_action_button.dart';
 import '../../cart/data/models/cart_item.dart';
 import '../../cart/logic/cart_cubit.dart';
+import '../data/models/print_palette.dart';
 import '../data/models/product.dart';
-import '../data/models/product_font.dart';
-import '../widgets/card_design_preview.dart';
-import '../widgets/customization_tool_tile.dart';
-import '../widgets/font_option_chips.dart';
-import '../widgets/product_color_swatches.dart';
-import '../widgets/store_section_card.dart';
+import '../widgets/shop_card_mockup.dart';
+import '../widgets/shop_color_picker.dart';
+import '../widgets/shop_face_toggle.dart';
+import '../widgets/shop_field.dart';
+import '../widgets/shop_logo_upload.dart';
+import '../widgets/shop_section_label.dart';
+import '../widgets/shop_toggle_tile.dart';
 
 class CardCustomizationScreen extends StatefulWidget {
   const CardCustomizationScreen({super.key, required this.product});
@@ -34,13 +37,18 @@ class CardCustomizationScreen extends StatefulWidget {
 }
 
 class _CardCustomizationScreenState extends State<CardCustomizationScreen> {
-  final _nameCtrl = TextEditingController();
-  final _jobTitleCtrl = TextEditingController();
-  final _companyCtrl = TextEditingController();
+  late final _nameCtrl = TextEditingController(text: kUserModel?.fullName);
+  late final _jobTitleCtrl =
+      TextEditingController(text: kUserModel?.jobTitle ?? '');
+  late final _companyCtrl =
+      TextEditingController(text: kUserModel?.company ?? '');
   final _notesCtrl = TextEditingController();
 
-  ProductFont _font = ProductFont.tajawal;
-  int? _colorIndex;
+  bool _showBack = false;
+  bool _doubleSided = false;
+  int _cardColor = 0;
+  int _printColor = 0;
+  File? _logo;
 
   @override
   void dispose() {
@@ -51,92 +59,51 @@ class _CardCustomizationScreenState extends State<CardCustomizationScreen> {
     super.dispose();
   }
 
-  Future<void> _pickColor(Product product) async {
-    final selectedIndex = _colorIndex ?? product.defaultColorIndex;
+  double get _unitPrice =>
+      widget.product.price +
+      (_doubleSided ? AppConstants.doubleSidedPrintCost : 0);
 
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => Container(
-        padding: EdgeInsets.all(19.w),
-        decoration: BoxDecoration(
-          color: AppColors.cardColor.themeColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText(
-              LocaleKeys.store_card_color.tr(),
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w700,
-            ),
-            16.height,
-            ProductColorSwatches(
-              product: product,
-              selectedIndex: selectedIndex,
-              onSelected: (index) {
-                setState(() => _colorIndex = index);
-                Navigator.pop(sheetContext);
-              },
-            ),
-            16.height,
-          ],
-        ),
-      ),
-    );
+  String _valueOr(TextEditingController controller, String fallback) {
+    final value = controller.text.trim();
+    return value.isEmpty ? fallback : value;
   }
 
-  Future<void> _chooseFont() async {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (sheetContext) => Container(
-        padding: EdgeInsets.all(19.w),
-        decoration: BoxDecoration(
-          color: AppColors.cardColor.themeColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AppText(
-              LocaleKeys.store_choose_font.tr(),
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w700,
-            ),
-            16.height,
-            FontOptionChips(
-              selected: _font,
-              onSelected: (font) {
-                setState(() => _font = font);
-                Navigator.pop(sheetContext);
-              },
-            ),
-            16.height,
-          ],
-        ),
-      ),
-    );
+  Future<void> _pickLogo() async {
+    try {
+      final picked = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1600,
+      );
+      if (picked == null || !mounted) return;
+      if (await picked.length() > AppConstants.maxLogoBytes) {
+        AppOverlay.showError(LocaleKeys.shop_logoTooBig.tr());
+        return;
+      }
+      setState(() => _logo = File(picked.path));
+    } catch (_) {
+      AppOverlay.showError(
+        LocaleKeys.profile_type_basic_info_photo_pick_error.tr(),
+      );
+    }
   }
 
-  void _uploadLogo() =>
-      AppOverlay.showSuccess(LocaleKeys.common_comingSoon.tr());
-
-  void _addToCart(Product product) {
+  void _save() {
     final summary = [
       _nameCtrl.text.trim(),
       _jobTitleCtrl.text.trim(),
       _companyCtrl.text.trim(),
+      if (_doubleSided) LocaleKeys.shop_doubleTitle.tr(),
+      _notesCtrl.text.trim(),
     ].where((value) => value.isNotEmpty).join(' · ');
-
     context.read<CartCubit>().addItem(
-          CartItem.fromProduct(
-            product,
-            colorIndex: _colorIndex,
+          CartItem(
+            productId: widget.product.id,
+            name: widget.product.name,
+            image: widget.product.image,
+            price: _unitPrice,
+            colorValue: PrintPalette.cardColors[_cardColor].toARGB32(),
             summary: summary,
+            imageGradientValues: widget.product.imageGradientValues,
           ),
         );
     AppOverlay.showSuccess(LocaleKeys.store_added_to_cart.tr());
@@ -145,132 +112,124 @@ class _CardCustomizationScreenState extends State<CardCustomizationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final product = widget.product;
-
-    final colorIndex = _colorIndex ?? product.defaultColorIndex;
-    final colorLabel = product.colorLabelAt(colorIndex);
     final currency = LocaleKeys.store_currency.tr();
-
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor.themeColor,
       body: Column(
         children: [
-          ScreenHeaderBar(
-            title: LocaleKeys.store_customization_title.tr(),
+          SafeArea(
+            bottom: false,
+            child: FlowTopBar(title: LocaleKeys.shop_customTitle.tr()),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              padding: 19.paddingHorizontal + 16.paddingVert,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 6.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.mintSoft.themeColor,
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      child: AppText(
-                        LocaleKeys.store_live_preview.tr(),
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.mint.themeColor,
-                      ),
-                    ),
+            child: ListView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: EdgeInsets.fromLTRB(22.w, 6.h, 22.w, 24.h),
+              children: [
+                ShopFaceToggle(
+                  labels: [
+                    LocaleKeys.shop_front.tr(),
+                    LocaleKeys.shop_back.tr(),
+                  ],
+                  selected: _showBack ? 1 : 0,
+                  onSelected: (index) => setState(() => _showBack = index == 1),
+                ),
+                SizedBox(height: 16.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 18.w),
+                  child: ShopCardMockup(
+                    showBack: _showBack,
+                    cardColor: PrintPalette.cardColors[_cardColor],
+                    printColor: PrintPalette.printColors[_printColor],
+                    name: _valueOr(
+                        _nameCtrl, LocaleKeys.shop_namePlaceholder.tr()),
+                    jobTitle:
+                        _valueOr(_jobTitleCtrl, LocaleKeys.shop_jobTitle.tr()),
+                    company:
+                        _valueOr(_companyCtrl, LocaleKeys.shop_company.tr()),
+                    logo: _logo,
                   ),
-                  12.height,
-                  CardDesignPreview(
-                    name: _nameCtrl.text,
-                    jobTitle: _jobTitleCtrl.text,
-                    company: _companyCtrl.text,
-                    color: product.colorAt(colorIndex),
-                    fontFamily: _font.family,
-                  ),
-                  16.height,
-                  StoreSectionCard(
-                    title: LocaleKeys.store_card_text.tr(),
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          hint: LocaleKeys.store_full_name.tr(),
-                          controller: _nameCtrl,
-                          onChanged: (_) => setState(() {}),
-                        ),
-                        10.height,
-                        CustomTextField(
-                          hint: LocaleKeys.store_job_title.tr(),
-                          controller: _jobTitleCtrl,
-                          onChanged: (_) => setState(() {}),
-                        ),
-                        10.height,
-                        CustomTextField(
-                          hint: LocaleKeys.store_company_name.tr(),
-                          controller: _companyCtrl,
-                          onChanged: (_) => setState(() {}),
-                        ),
-                        10.height,
-                        CustomTextField(
-                          hint: LocaleKeys.store_notes.tr(),
-                          controller: _notesCtrl,
-                          maxLines: 3,
-                        ),
-                      ],
-                    ),
-                  ),
-                  12.height,
-                  StoreSectionCard(
-                    title: LocaleKeys.store_font_type.tr(),
-                    child: FontOptionChips(
-                      selected: _font,
-                      onSelected: (font) => setState(() => _font = font),
-                    ),
-                  ),
-                  12.height,
-                  StoreSectionCard(
-                    title: LocaleKeys.store_card_tools.tr(),
-                    child: Column(
-                      children: [
-                        if (product.hasColors) ...[
-                          CustomizationToolTile(
-                            icon: Icons.palette_outlined,
-                            title: LocaleKeys.store_card_color.tr(),
-                            value: colorLabel.isEmpty ? null : colorLabel.tr(),
-                            onTap: () => _pickColor(product),
-                          ),
-                          6.height,
-                        ],
-                        CustomizationToolTile(
-                          icon: Icons.upload_file_outlined,
-                          title: LocaleKeys.store_upload_logo.tr(),
-                          onTap: _uploadLogo,
-                        ),
-                        6.height,
-                        CustomizationToolTile(
-                          icon: Icons.font_download_outlined,
-                          title: LocaleKeys.store_choose_font.tr(),
-                          value: _font.labelKey.tr(),
-                          onTap: _chooseFont,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
+                SizedBox(height: 22.h),
+                ShopField(
+                  label: LocaleKeys.shop_fullName.tr(),
+                  hint: LocaleKeys.shop_namePlaceholder.tr(),
+                  controller: _nameCtrl,
+                  onChanged: (_) => setState(() {}),
+                ),
+                ShopField(
+                  label: LocaleKeys.shop_jobTitle.tr(),
+                  hint: LocaleKeys.shop_jobTitle.tr(),
+                  controller: _jobTitleCtrl,
+                  onChanged: (_) => setState(() {}),
+                ),
+                ShopField(
+                  label: LocaleKeys.shop_company.tr(),
+                  hint: LocaleKeys.shop_company.tr(),
+                  controller: _companyCtrl,
+                  onChanged: (_) => setState(() {}),
+                ),
+                ShopSectionLabel(text: LocaleKeys.shop_logoLabel.tr()),
+                ShopLogoUpload(
+                  logo: _logo,
+                  onPick: _pickLogo,
+                  onRemove: () => setState(() => _logo = null),
+                ),
+                SizedBox(height: 18.h),
+                ShopSectionLabel(text: LocaleKeys.shop_cardColor.tr()),
+                ShopColorPicker(
+                  colors: PrintPalette.cardColors,
+                  selected: _cardColor,
+                  size: 30.w,
+                  spacing: 4.w,
+                  onSelected: (index) => setState(() => _cardColor = index),
+                ),
+                SizedBox(height: 16.h),
+                ShopSectionLabel(text: LocaleKeys.shop_printColor.tr()),
+                ShopColorPicker(
+                  colors: PrintPalette.printColors,
+                  selected: _printColor,
+                  size: 30.w,
+                  spacing: 4.w,
+                  onSelected: (index) => setState(() => _printColor = index),
+                ),
+                SizedBox(height: 18.h),
+                ShopToggleTile(
+                  title: LocaleKeys.shop_doubleTitle.tr(),
+                  subtitle: LocaleKeys.shop_doubleSubtitle.tr(),
+                  value: _doubleSided,
+                  onChanged: (value) => setState(() => _doubleSided = value),
+                ),
+                SizedBox(height: 18.h),
+                ShopField(
+                  label: LocaleKeys.shop_notesLabel.tr(),
+                  hint: LocaleKeys.shop_notesHint.tr(),
+                  controller: _notesCtrl,
+                  maxLines: 4,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(22.w, 12.h, 22.w, 12.h),
+            decoration: BoxDecoration(
+              color: AppColors.white.themeColor,
+              border: Border(
+                top: BorderSide(color: AppColors.studioStepLine.themeColor),
+              ),
+            ),
+            child: SafeArea(
+              top: false,
+              child: GradientActionButton(
+                title: LocaleKeys.shop_save.tr(),
+                trailing: '${ConvertHelper.formatPrice(_unitPrice)} $currency',
+                radius: 14,
+                minHeight: 50,
+                onTap: _save,
               ),
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomActionBar(
-        title: LocaleKeys.store_approve_design.tr(
-          namedArgs: {
-            'price':
-                '${ConvertHelper.formatPrice(product.totalFor(1))} $currency',
-          },
-        ),
-        onTap: () => _addToCart(product),
       ),
     );
   }

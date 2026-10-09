@@ -59,6 +59,7 @@ class AppImages {
   static const String iconsDelete = '${_icons}delete.svg';
   static const String iconsLogout = '${_icons}logout.svg';
   static const String iconsSave = '${_icons}save_contacts.svg';
+  static const String iconsSettings = '${_icons}settings.svg';
 
   // ─── Images ──────────────────────────────────────────────────────────────
   static const String logo = '${_base}logo2.png';

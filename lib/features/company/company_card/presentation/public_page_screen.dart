@@ -3,11 +3,14 @@ import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
+import 'package:Silink/core/utils/helper_methods.dart';
+import 'package:Silink/features/clients/data/models/client_request.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/features/company/data/models/company_public_page_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../company_profile_completion/presentation/widgets/public_page/company_public_brand_button.dart';
 import '../../company_profile_completion/presentation/widgets/public_page/company_public_contact_row.dart';
@@ -39,6 +42,46 @@ class PublicPageScreen extends StatelessWidget {
   void _onComingSoon() =>
       AppOverlay.showSuccess(LocaleKeys.common_comingSoon.tr());
 
+  String get _phoneDigits => ClientRequest.withCountryCode(data.phone)
+      .replaceAll(RegExp(r'[^\d+]'), '');
+
+  Future<void> _open(Uri? uri) async {
+    if (uri == null) {
+      _onComingSoon();
+      return;
+    }
+    try {
+      await HelperMethods.openUri(uri);
+    } catch (_) {
+      AppOverlay.showError(LocaleKeys.common_somethingWentWrong.tr());
+    }
+  }
+
+  void _onCall() => _open(data.phone.trim().isEmpty
+      ? null
+      : Uri(scheme: 'tel', path: _phoneDigits));
+
+  void _onWhatsapp() => _open(data.phone.trim().isEmpty
+      ? null
+      : Uri.parse('https://wa.me/${_phoneDigits.replaceAll('+', '')}'));
+
+  void _onEmail() => _open(data.email.trim().isEmpty
+      ? null
+      : Uri(scheme: 'mailto', path: data.email.trim()));
+
+  void _onWebsite() {
+    final website = data.website.trim();
+    _open(website.isEmpty
+        ? null
+        : Uri.tryParse(website.contains('://') ? website : 'https://$website'));
+  }
+
+  void _onShare() => Share.share(
+        [data.name, data.about ?? '', data.website, data.phone]
+            .where((value) => value.trim().isNotEmpty)
+            .join('\n'),
+      );
+
   void _onSaveContact() => AppOverlay.showSuccess(
         LocaleKeys.home_activity_contact_saved.tr(namedArgs: {
           'name': data.name,
@@ -69,6 +112,7 @@ class PublicPageScreen extends StatelessWidget {
                       city: data.city,
                       employeesLabel: data.employeesLabel,
                       imagePath: data.imagePath,
+                      logoUrl: data.logoUrl,
                     ),
                     if (hasAbout) ...[
                       16.height,
@@ -76,10 +120,10 @@ class PublicPageScreen extends StatelessWidget {
                     ],
                     18.height,
                     CompanyPublicContactRow(
-                      onCall: _onComingSoon,
-                      onWhatsapp: _onComingSoon,
-                      onEmail: _onComingSoon,
-                      onWebsite: _onComingSoon,
+                      onCall: _onCall,
+                      onWhatsapp: _onWhatsapp,
+                      onEmail: _onEmail,
+                      onWebsite: _onWebsite,
                       onSaveContact: _onSaveContact,
                     ),
                     18.height,
@@ -98,7 +142,7 @@ class PublicPageScreen extends StatelessWidget {
                     CompanyPublicBrandButton(
                       icon: AppImages.iconsShare,
                       label: LocaleKeys.company_share_page.tr(),
-                      onTap: _onComingSoon,
+                      onTap: _onShare,
                     ),
                   ],
                 ),

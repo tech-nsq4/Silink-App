@@ -20,10 +20,8 @@ class CompanyCardsScreen extends StatelessWidget {
               child: ListView.separated(
                 padding: EdgeInsets.all(19.w),
                 itemCount: 0,
-                separatorBuilder: (_, __) =>
-                    SizedBox(height: 10.h),
-                itemBuilder: (context, index) =>
-                    const SizedBox.shrink(),
+                separatorBuilder: (_, __) => SizedBox(height: 10.h),
+                itemBuilder: (context, index) => const SizedBox.shrink(),
               ),
             ),
           ],

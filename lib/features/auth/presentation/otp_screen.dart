@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../app/router/routes.dart';
+import '../../../core/di/injection.dart';
+import '../../../core/storage/local_storage.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../profile/logic/profile_cubit.dart';
@@ -67,6 +70,15 @@ class _OtpScreenState extends State<OtpScreen> {
         );
   }
 
+  Future<void> _openHome({required bool isCompany}) async {
+    final navigator = Navigator.of(context);
+    if (isCompany) await getIt<LocalStorage>().setCompanySetupPending(true);
+    navigator.pushNamedAndRemoveUntil(
+      isCompany ? Routes.companySetup : kHomeRoute,
+      (_) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isComplete = _code.length == _codeLength;
@@ -76,8 +88,7 @@ class _OtpScreenState extends State<OtpScreen> {
       listener: (context, state) {
         if (state is AuthSuccess) {
           context.read<ProfileCubit>().setUser(state.user);
-          Navigator.pushNamedAndRemoveUntil(
-              context, kHomeRoute, (_) => false);
+          _openHome(isCompany: state.user.usageIntent == 'company');
         }
       },
       builder: (context, state) {

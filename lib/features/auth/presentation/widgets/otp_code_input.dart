@@ -24,8 +24,7 @@ class OtpCodeInputState extends State<OtpCodeInput> {
   @override
   void initState() {
     super.initState();
-    _controllers =
-        List.generate(widget.length, (_) => TextEditingController());
+    _controllers = List.generate(widget.length, (_) => TextEditingController());
     _focusNodes = List.generate(widget.length, (_) => FocusNode());
     for (final node in _focusNodes) {
       node.addListener(_onFocusChanged);

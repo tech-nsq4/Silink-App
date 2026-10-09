@@ -111,31 +111,31 @@ class _HelpScreenState extends State<HelpScreen> {
                       ],
                     ),
                     18.height,
-                    // ── Quick links ────────────────────────────────────
-                    AccountSectionCard(
-                      children: [
-                        AccountMenuTile(
-                          icon: AppImages.iconsCard,
-                          label: LocaleKeys.help_nfcGuide.tr(),
-                          onTap: _showComingSoon,
-                        ),
-                        AccountMenuTile(
-                          icon: AppImages.iconsInfo,
-                          label: LocaleKeys.help_reportProblem.tr(),
-                          onTap: _showComingSoon,
-                        ),
-                        AccountMenuTile(
-                          icon: AppImages.iconsDoc,
-                          label: LocaleKeys.help_termsOfUse.tr(),
-                          onTap: _showComingSoon,
-                        ),
-                        AccountMenuTile(
-                          icon: AppImages.iconsPrivacy,
-                          label: LocaleKeys.help_privacyPolicy.tr(),
-                          onTap: _showComingSoon,
-                        ),
-                      ],
-                    ),
+                    // // ── Quick links ────────────────────────────────────
+                    // AccountSectionCard(
+                    //   children: [
+                    //     AccountMenuTile(
+                    //       icon: AppImages.iconsCard,
+                    //       label: LocaleKeys.help_nfcGuide.tr(),
+                    //       onTap: _showComingSoon,
+                    //     ),
+                    //     AccountMenuTile(
+                    //       icon: AppImages.iconsInfo,
+                    //       label: LocaleKeys.help_reportProblem.tr(),
+                    //       onTap: _showComingSoon,
+                    //     ),
+                    //     AccountMenuTile(
+                    //       icon: AppImages.iconsDoc,
+                    //       label: LocaleKeys.help_termsOfUse.tr(),
+                    //       onTap: _showComingSoon,
+                    //     ),
+                    //     AccountMenuTile(
+                    //       icon: AppImages.iconsPrivacy,
+                    //       label: LocaleKeys.help_privacyPolicy.tr(),
+                    //       onTap: _showComingSoon,
+                    //     ),
+                    //   ],
+                    // ),
                     24.height,
                     AppText(
                       '${LocaleKeys.help_version.tr()} ${HelpScreen.appVersion}',

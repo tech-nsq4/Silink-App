@@ -1,3 +1,4 @@
+import 'package:Silink/core/utils/app_constants.dart';
 import 'dart:async';
 
 import 'package:Silink/core/extensions/extensions.dart';
@@ -162,7 +163,7 @@ class _AppBannerState extends State<_AppBanner>
                         child: Text(
                           widget.message,
                           style: TextStyle(
-                            fontFamily: 'Cairo',
+                            fontFamily: AppFonts.familyFont,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,

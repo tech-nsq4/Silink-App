@@ -1,6 +1,8 @@
-import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/utils/app_colors.dart';
+import '../../../../core/widgets/app_text.dart';
 
 class AuthFieldLabel extends StatelessWidget {
   const AuthFieldLabel({super.key, required this.text});
@@ -13,8 +15,8 @@ class AuthFieldLabel extends StatelessWidget {
       alignment: AlignmentDirectional.centerStart,
       child: AppText(
         text,
-        fontSize: 14,
-        color: AppColors.primaryColor.themeColor,
+        fontSize: 10.sp,
+        color: AppColors.fieldLabel.themeColor,
         fontWeight: FontWeight.w700,
       ),
     );

@@ -1,16 +1,17 @@
-import 'package:Silink/app/router/navigation_services.dart';
-import 'package:Silink/app/router/routes.dart';
-import 'package:Silink/core/extensions/extensions.dart';
-import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/utils/app_images.dart';
-import 'package:Silink/core/utils/locale_keys.dart';
-import 'package:Silink/core/widgets/app_button.dart';
-import 'package:Silink/core/widgets/app_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'widgets/usage_type_card.dart';
+import '../../../app/router/navigation_services.dart';
+import '../../../app/router/routes.dart';
+import '../../../core/extensions/extensions.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/locale_keys.dart';
+import '../../../core/widgets/app_text.dart';
+import '../../../core/widgets/gradient_action_button.dart';
+import 'widgets/auth_top_bar.dart';
+import 'widgets/usage_option_card.dart';
+import 'widgets/usage_path_preview.dart';
 
 class UsageTypeScreen extends StatefulWidget {
   const UsageTypeScreen({super.key});
@@ -20,18 +21,12 @@ class UsageTypeScreen extends StatefulWidget {
 }
 
 class _UsageTypeScreenState extends State<UsageTypeScreen> {
-  int? _selectedIndex;
+  bool _isPersonal = true;
 
-  void _selectIndex(int index) {
-    if (_selectedIndex == index) return;
-    setState(() => _selectedIndex = index);
-  }
-
-  void _handleContinue() {
-    if (_selectedIndex == null) return;
-    if (_selectedIndex == 0) {
+  void _continue() {
+    if (_isPersonal) {
       NavigationService.push(
-        Routes.personalRegisterScreen,
+        Routes.newCardStartScreen,
         arguments: {'usageIntent': 'personal'},
       );
       return;
@@ -42,80 +37,107 @@ class _UsageTypeScreenState extends State<UsageTypeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor.themeColor,
       body: SafeArea(
-        child: Padding(
-          padding: 19.paddingHorizontal + 16.paddingVert,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 40.h,
-                alignment: Alignment.centerRight,
-                padding: 6.paddingAll,
-                decoration: BoxDecoration(
-                  color: AppColors.darkSlate.themeColor,
-                  borderRadius: BorderRadius.circular(9.r),
-                ),
-                child: Image.asset(AppImages.logoApp),
-              ),
-              Padding(
-                padding: 28.paddingTop + 8.paddingBottom,
-                child: AppText(
-                  LocaleKeys.role_title.tr(),
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              AppText(
-                LocaleKeys.role_subTitle.tr(),
-                fontSize: 14.sp,
-                color: AppColors.textSecondaryColor.themeColor,
-              ),
-              24.height,
-              UsageTypeCard(
-                title: LocaleKeys.role_personalTitle.tr(),
-                subtitle: LocaleKeys.role_personalDesc.tr(),
-                icon: AppImages.iconsMyself,
-                iconColor: AppColors.mint.themeColor,
-                isSelected: _selectedIndex == 0,
-                onTap: () => _selectIndex(0),
-              ),
-              16.height,
-              UsageTypeCard(
-                title: LocaleKeys.role_teamTitle.tr(),
-                subtitle: LocaleKeys.role_teamDesc.tr(),
-                icon: AppImages.iconsCompany,
-                iconColor: AppColors.blue.themeColor,
-                isSelected: _selectedIndex == 1,
-                onTap: () => _selectIndex(1),
-              ),
-              const Spacer(),
-              CustomButton(
-                title: LocaleKeys.role_continueCta.tr(),
-                onTap: _handleContinue,
-                height: 54,
-                radius: 14,
-                color: _selectedIndex == null
-                    ? AppColors.dividerColor.themeColor
-                    : null,
-                textColor: _selectedIndex == null
-                    ? AppColors.hintColor.themeColor
-                    : null,
-              ),
-              Center(
-                child: Padding(
-                  padding: 12.paddingVert,
-                  child: AppText(
-                    LocaleKeys.role_footerHint.tr(),
-                    fontSize: 11.sp,
-                    color: AppColors.textSecondaryColor.themeColor,
-                    textAlign: TextAlign.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AuthTopBar(tagline: LocaleKeys.role_headerTagline.tr()),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.fromLTRB(24.w, 10.h, 24.w, 24.h),
+                children: [
+                  AppText(
+                    LocaleKeys.role_eyebrow.tr(),
+                    fontSize: 9.sp,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.accentTeal.themeColor,
                   ),
-                ),
+                  SizedBox(height: 16.h),
+                  AppText(
+                    LocaleKeys.role_headline.tr(),
+                    fontSize: 39.sp,
+                    fontWeight: FontWeight.w800,
+                    height: 1.2,
+                    letterSpacing: -1,
+                  ),
+                  SizedBox(height: 13.h),
+                  AppText(
+                    LocaleKeys.role_intro.tr(),
+                    fontSize: 10.sp,
+                    height: 1.8,
+                    color: AppColors.pathBody.themeColor,
+                  ),
+                  SizedBox(height: 27.h),
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: UsageOptionCard(
+                            number: '01',
+                            icon: Icons.work_outline_rounded,
+                            title: LocaleKeys.role_personalOption.tr(),
+                            body: LocaleKeys.role_personalOptionBody.tr(),
+                            selected: _isPersonal,
+                            onTap: () => setState(() => _isPersonal = true),
+                          ),
+                        ),
+                        10.width,
+                        Expanded(
+                          child: UsageOptionCard(
+                            number: '02',
+                            icon: Icons.apartment_outlined,
+                            title: LocaleKeys.role_teamOption.tr(),
+                            body: LocaleKeys.role_teamOptionBody.tr(),
+                            selected: !_isPersonal,
+                            onTap: () => setState(() => _isPersonal = false),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 27.h),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: UsagePathPreview(
+                      key: ValueKey(_isPersonal),
+                      icon: _isPersonal
+                          ? Icons.auto_awesome_outlined
+                          : Icons.group_outlined,
+                      title: _isPersonal
+                          ? LocaleKeys.role_personalPathTitle.tr()
+                          : LocaleKeys.role_teamPathTitle.tr(),
+                      steps: _isPersonal
+                          ? LocaleKeys.role_personalPathSteps.tr()
+                          : LocaleKeys.role_teamPathSteps.tr(),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 24.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  GradientActionButton(
+                    title: _isPersonal
+                        ? LocaleKeys.role_personalCta.tr()
+                        : LocaleKeys.role_teamCta.tr(),
+                    onTap: _continue,
+                  ),
+                  SizedBox(height: 11.h),
+                  AppText(
+                    LocaleKeys.role_controlNote.tr(),
+                    fontSize: 8.sp,
+                    textAlign: TextAlign.center,
+                    color: AppColors.choiceBody.themeColor,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

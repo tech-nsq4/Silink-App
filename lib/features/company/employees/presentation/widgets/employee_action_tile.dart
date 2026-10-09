@@ -1,22 +1,21 @@
-import 'package:Silink/core/extensions/extensions.dart';
-import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/utils/app_images.dart';
-import 'package:Silink/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/widgets/app_text.dart';
 
 class EmployeeActionTile extends StatelessWidget {
   const EmployeeActionTile({
     super.key,
-    required this.iconAsset,
+    required this.icon,
     required this.title,
     required this.onTap,
     this.destructive = false,
     this.showDivider = true,
   });
 
-  final String iconAsset;
+  final IconData icon;
   final String title;
   final VoidCallback onTap;
   final bool destructive;
@@ -30,50 +29,48 @@ class EmployeeActionTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 13.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
           border: showDivider
               ? Border(
-                  bottom: BorderSide(
-                    color: AppColors.dividerColor.themeColor,
-                  ),
+                  bottom:
+                      BorderSide(color: AppColors.studioStepLine.themeColor),
                 )
               : null,
         ),
         child: Row(
           children: [
             Container(
-              width: 34.w,
-              height: 34.w,
+              width: 36.w,
+              height: 36.w,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: AppColors.surfaceColor.themeColor,
-                borderRadius: BorderRadius.circular(12.r),
+                color: destructive
+                    ? color.withValues(alpha: 0.08)
+                    : AppColors.studioSelectFill.themeColor,
+                borderRadius: BorderRadius.circular(11.r),
               ),
-              child: SvgPicture.asset(
-                iconAsset,
-                width: 18.w,
-                height: 18.h,
-                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              child: Icon(
+                icon,
+                size: 18.sp,
+                color: destructive
+                    ? color
+                    : AppColors.textSecondaryColor.themeColor,
               ),
             ),
-            10.width,
+            12.width,
             Expanded(
               child: AppText(
                 title,
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w700,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w800,
                 color: color,
               ),
             ),
-            SvgPicture.asset(
-              AppImages.iconsExternal,
-              width: 14.w,
-              height: 14.h,
-              colorFilter: ColorFilter.mode(
-                AppColors.textSecondaryColor.themeColor.withValues(alpha: 0.35),
-                BlendMode.srcIn,
-              ),
+            Icon(
+              Icons.chevron_left_rounded,
+              size: 18.sp,
+              color: AppColors.studioRowIcon.themeColor,
             ),
           ],
         ),

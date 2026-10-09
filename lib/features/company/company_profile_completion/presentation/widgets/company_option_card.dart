@@ -32,8 +32,9 @@ class CompanyOptionCard extends StatelessWidget {
               : AppColors.cardColor.themeColor,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color:
-                selected ? AppColors.mint.themeColor : AppColors.borderColor.themeColor,
+            color: selected
+                ? AppColors.mint.themeColor
+                : AppColors.borderColor.themeColor,
             width: selected ? 1.5 : 1,
           ),
         ),
@@ -63,7 +64,8 @@ class CompanyOptionCard extends StatelessWidget {
               height: 22.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: selected ? AppColors.mint.themeColor : Colors.transparent,
+                color:
+                    selected ? AppColors.mint.themeColor : Colors.transparent,
                 border: Border.all(
                   color: selected
                       ? AppColors.mint.themeColor

@@ -330,7 +330,7 @@ class _PublishScreenState extends State<PublishScreen> {
                                     bottom: 14.h,
                                   ),
                                   textStyle: TextStyle(
-                                    fontFamily: 'Cairo',
+                                    fontFamily: AppFonts.familyFont,
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
                                     color:

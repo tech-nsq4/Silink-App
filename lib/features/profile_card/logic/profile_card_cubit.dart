@@ -17,8 +17,10 @@ class ProfileCardCubit extends Cubit<ProfileCardState> {
     emit(const ProfileCardLoading());
     try {
       final card = await _repo.getMyCard();
+      if (isClosed) return;
       emit(ProfileCardSuccess(card));
     } catch (e) {
+      if (isClosed) return;
       final msg = e is NetworkException ? e.message : e.toString();
       AppOverlay.showError(msg);
       emit(ProfileCardError(msg));

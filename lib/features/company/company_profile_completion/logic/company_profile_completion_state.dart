@@ -39,8 +39,7 @@ class CompanyProfileCompletionState extends Equatable {
 
   bool get companyLoaded => company != null || companyError != null;
   bool get industryLoaded => industry != null || industryError != null;
-  bool get subIndustryLoaded =>
-      subIndustry != null || subIndustryError != null;
+  bool get subIndustryLoaded => subIndustry != null || subIndustryError != null;
   bool get detailsLoaded => details != null || detailsError != null;
 
   CompanyProfileCompletionState copyWith({
@@ -78,8 +77,7 @@ class CompanyProfileCompletionState extends Equatable {
       industryError:
           clearIndustryError ? null : (industryError ?? this.industryError),
       subIndustryLoading: subIndustryLoading ?? this.subIndustryLoading,
-      subIndustry:
-          clearSubIndustry ? null : (subIndustry ?? this.subIndustry),
+      subIndustry: clearSubIndustry ? null : (subIndustry ?? this.subIndustry),
       subIndustryError: clearSubIndustryError
           ? null
           : (subIndustryError ?? this.subIndustryError),

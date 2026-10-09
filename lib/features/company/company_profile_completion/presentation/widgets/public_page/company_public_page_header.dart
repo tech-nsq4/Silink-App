@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:Silink/core/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,6 +18,7 @@ class CompanyPublicPageHeader extends StatelessWidget {
     this.city,
     this.employeesLabel,
     this.imagePath,
+    this.logoUrl,
   });
 
   final String companyName;
@@ -24,6 +26,7 @@ class CompanyPublicPageHeader extends StatelessWidget {
   final String? city;
   final String? employeesLabel;
   final String? imagePath;
+  final String? logoUrl;
 
   String get _initials {
     final words = companyName
@@ -45,6 +48,7 @@ class CompanyPublicPageHeader extends StatelessWidget {
     final brand = AppColors.companyBrand.themeColor;
     final hasEmployees = employeesLabel != null && employeesLabel!.isNotEmpty;
     final hasImage = imagePath != null && imagePath!.trim().isNotEmpty;
+    final logo = logoUrl?.trim() ?? '';
     final fallback = AppText(
       _initials,
       fontSize: 22.sp,
@@ -75,7 +79,14 @@ class CompanyPublicPageHeader extends StatelessWidget {
                   fit: BoxFit.cover,
                   errorBuilder: (_, __, ___) => fallback,
                 )
-              : fallback,
+              : logo.isNotEmpty
+                  ? CustomImage(
+                      image: logo,
+                      width: 72.w,
+                      height: 72.w,
+                      fit: BoxFit.cover,
+                    )
+                  : fallback,
         ),
         12.height,
         AppText(

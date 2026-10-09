@@ -22,6 +22,44 @@ class CompanyProfileCompletionCubit
   String _errorMessage(Object e) =>
       e is NetworkException ? e.message : e.toString();
 
+  Future<void> loadWorkspace() async {
+    await Future.wait([
+      loadCompanyProfile(force: true),
+      loadIndustries(force: true),
+      loadDetails(force: true),
+    ]);
+    if (state.industry?.selectedId != null) {
+      await loadSubIndustries(force: true);
+    }
+  }
+
+  Future<bool> saveAll({
+    required String companyName,
+    required String about,
+    required String website,
+    required String contactPhone,
+    required String companyEmail,
+  }) async {
+    final saved = await saveCompanyProfile(
+      companyName: companyName,
+      about: about,
+      website: website,
+      companyEmail: companyEmail,
+      industryId: state.industry?.selectedId,
+    );
+    if (!saved) return false;
+    if (state.subIndustry?.selectedId != null && !await saveSubIndustry()) {
+      return false;
+    }
+    return saveDetails(contactPhone: contactPhone, companyEmail: companyEmail);
+  }
+
+  Future<void> chooseIndustry(String id) async {
+    if (state.industry?.selectedId == id && state.subIndustry != null) return;
+    selectIndustry(id);
+    if (await saveIndustry()) await loadSubIndustries(force: true);
+  }
+
   // ─── Company ──────────────────────────────────────────────────────────────
 
   Future<void> loadCompanyProfile({bool force = false}) async {
@@ -46,6 +84,8 @@ class CompanyProfileCompletionCubit
     required String companyName,
     required String about,
     required String website,
+    String? companyEmail,
+    String? industryId,
   }) async {
     emit(state.copyWith(isSavingStep: true));
     try {
@@ -53,6 +93,8 @@ class CompanyProfileCompletionCubit
         companyName: companyName,
         about: about,
         website: website,
+        companyEmail: companyEmail,
+        industryId: industryId,
         logo: state.companyLogoFile,
       );
       emit(state.copyWith(
@@ -113,8 +155,7 @@ class CompanyProfileCompletionCubit
 
   Future<void> loadSubIndustries({bool force = false}) async {
     if (state.subIndustryLoaded && !force) return;
-    emit(
-        state.copyWith(subIndustryLoading: true, clearSubIndustryError: true));
+    emit(state.copyWith(subIndustryLoading: true, clearSubIndustryError: true));
     try {
       final subIndustry = await _repo.getSubIndustries();
       emit(state.copyWith(subIndustryLoading: false, subIndustry: subIndustry));

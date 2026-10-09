@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/locale_keys.dart';
-import '../../../../core/widgets/app_card.dart';
+import '../../../../core/widgets/custom_tap_effect.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../data/models/payment_method.dart';
 
@@ -23,76 +23,84 @@ class PaymentMethodTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = AppColors.successColor.themeColor;
-    final iconColor = AppColors.textPrimaryColor.themeColor;
+    final accent = AppColors.accentTeal.themeColor;
 
-    return AppCard(
+    return CustomTapEffect(
       onTap: onTap,
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
-      color: isSelected ? accent.withValues(alpha: 0.08) : null,
-      borderColor: isSelected ? accent : null,
-      child: Row(
-        children: [
-          Container(
-            width: 40.w,
-            height: 40.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: accent.withValues(alpha: 0.12),
-              shape: BoxShape.circle,
-            ),
-            child: switch (method) {
-              PaymentMethod.creditCard => Icon(
-                  Icons.credit_card_rounded,
-                  size: 20.sp,
-                  color: iconColor,
-                ),
-              PaymentMethod.applePay => AppText(
-                  LocaleKeys.store_apple_pay_mark.tr(),
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w800,
-                  color: iconColor,
-                ),
-              PaymentMethod.cashOnDelivery => Icon(
-                  Icons.payments_outlined,
-                  size: 20.sp,
-                  color: iconColor,
-                ),
-            },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 16.h),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? accent.withValues(alpha: 0.06)
+              : AppColors.white.themeColor,
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(
+            color: isSelected ? accent : AppColors.studioPanelBorder.themeColor,
           ),
-          12.width,
-          Expanded(
-            child: AppText(
-              method.labelKey.tr(),
-              fontSize: 13.5.sp,
-              fontWeight: FontWeight.w700,
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 40.w,
+              height: 40.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(11.r),
+              ),
+              child: switch (method) {
+                PaymentMethod.creditCard => Icon(
+                    Icons.credit_card_rounded,
+                    size: 20.sp,
+                    color: accent,
+                  ),
+                PaymentMethod.applePay => AppText(
+                    LocaleKeys.store_apple_pay_mark.tr(),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w800,
+                    color: accent,
+                  ),
+                PaymentMethod.cashOnDelivery => Icon(
+                    Icons.payments_outlined,
+                    size: 20.sp,
+                    color: accent,
+                  ),
+              },
             ),
-          ),
-          Container(
-            width: 22.w,
-            height: 22.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: isSelected
-                    ? accent
-                    : AppColors.borderColor.themeColor.withValues(alpha: 0.25),
-                width: 1.6,
+            12.width,
+            Expanded(
+              child: AppText(
+                method.labelKey.tr(),
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w800,
               ),
             ),
-            child: isSelected
-                ? Container(
-                    width: 11.w,
-                    height: 11.w,
-                    decoration: BoxDecoration(
-                      color: accent,
-                      shape: BoxShape.circle,
-                    ),
-                  )
-                : null,
-          ),
-        ],
+            Container(
+              width: 22.w,
+              height: 22.w,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color:
+                      isSelected ? accent : AppColors.studioStepLine.themeColor,
+                  width: 1.6,
+                ),
+              ),
+              child: isSelected
+                  ? Container(
+                      width: 11.w,
+                      height: 11.w,
+                      decoration: BoxDecoration(
+                        color: accent,
+                        shape: BoxShape.circle,
+                      ),
+                    )
+                  : null,
+            ),
+          ],
+        ),
       ),
     );
   }

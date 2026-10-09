@@ -37,7 +37,7 @@ class CustomButton extends StatelessWidget {
     double? customRadius,
     double? fontSize,
     double? height,
-    double radius = 16,
+    double radius = 12,
     bool isRounded = true,
     bool isOutlined = false,
     bool widerPadding = false,
@@ -65,7 +65,7 @@ class CustomButton extends StatelessWidget {
     double radius = _customRadius ?? _radius;
     return SizedBox(
       width: _width ?? double.infinity,
-      height: (_height ?? 46).h,
+      height: (_height ?? 47).h,
       child: CustomTapEffect(
         isClickable: !_loading,
         onTap: _loading ? null : _onTap,
@@ -74,10 +74,13 @@ class CustomButton extends StatelessWidget {
             gradient: _isOutlined
                 ? null
                 : (_color == null
-                    ? const LinearGradient(
-                        colors: [Color(0xff2C9092), Color(0xff2368E2)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
+                    ? LinearGradient(
+                        colors: [
+                          AppColors.accentTeal.themeColor,
+                          AppColors.accentBlue.themeColor,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       )
                     : null),
             borderRadius: BorderRadius.circular(radius),
@@ -112,8 +115,8 @@ class CustomButton extends StatelessWidget {
                         padding: 2.paddingBottom,
                         child: AppText(
                           _title,
-                          fontSize: _fontSize ?? 15,
-                          fontWeight: FontWeight.bold,
+                          fontSize: _fontSize ?? 13,
+                          fontWeight: FontWeight.w800,
                           color: _textColor ??
                               (_isOutlined
                                   ? AppColors.primaryColor.themeColor

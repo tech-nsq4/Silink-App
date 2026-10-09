@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 
 enum CompanyCardStatus { available, active, suspended }
@@ -20,7 +21,7 @@ class CompanyCardItem {
   final String serial;
   final CompanyCardStatus status;
 
-  String get displayLabel => labelKey.tr(args: labelArgs);
+  String get displayLabel => LocaleKeys.companyHub_cardName.tr(args: labelArgs);
 
   String get displayStatus => companyCardStatusLabel(status);
 
@@ -37,41 +38,46 @@ class CompanyCardItem {
       id: 'c1',
       labelKey: LocaleKeys.company_card_numbered,
       labelArgs: ['001'],
-      serial: 'SLK-2024-00001',
+      serial: 'NFC-CO-001',
       status: CompanyCardStatus.available,
     ),
     CompanyCardItem(
       id: 'c2',
       labelKey: LocaleKeys.company_card_numbered,
       labelArgs: ['002'],
-      serial: 'SLK-2024-00002',
+      serial: 'NFC-CO-002',
       status: CompanyCardStatus.available,
     ),
     CompanyCardItem(
       id: 'c3',
       labelKey: LocaleKeys.company_card_numbered,
       labelArgs: ['003'],
-      serial: 'SLK-2024-00003',
+      serial: 'NFC-CO-003',
       status: CompanyCardStatus.active,
     ),
     CompanyCardItem(
       id: 'c4',
       labelKey: LocaleKeys.company_card_numbered,
       labelArgs: ['004'],
-      serial: 'SLK-2024-00004',
+      serial: 'NFC-CO-004',
       status: CompanyCardStatus.suspended,
     ),
   ];
 }
 
 Color companyCardStatusColor(CompanyCardStatus status) => switch (status) {
-      CompanyCardStatus.available => const Color(0xFF0D9488),
-      CompanyCardStatus.active => const Color(0xFF0D9488),
-      CompanyCardStatus.suspended => const Color(0xFF64748B),
+      CompanyCardStatus.suspended => AppColors.textSecondaryColor.themeColor,
+      _ => AppColors.accentTeal.themeColor,
     };
 
 String companyCardStatusLabel(CompanyCardStatus status) => switch (status) {
-      CompanyCardStatus.available => LocaleKeys.company_status_available.tr(),
-      CompanyCardStatus.active => LocaleKeys.company_status_active.tr(),
-      CompanyCardStatus.suspended => LocaleKeys.company_status_disabled.tr(),
+      CompanyCardStatus.available => LocaleKeys.companyHub_statAvailable.tr(),
+      CompanyCardStatus.active => LocaleKeys.companyHub_statActive.tr(),
+      CompanyCardStatus.suspended => LocaleKeys.companyHub_statSuspended.tr(),
+    };
+
+String companyCardStatusHint(CompanyCardStatus status) => switch (status) {
+      CompanyCardStatus.available => LocaleKeys.companyHub_cardReady.tr(),
+      CompanyCardStatus.active => LocaleKeys.companyHub_cardLinked.tr(),
+      CompanyCardStatus.suspended => LocaleKeys.companyHub_cardPaused.tr(),
     };

@@ -58,6 +58,8 @@ class CatalogItemModel extends Equatable {
   final String actionType;
   final String actionUrl;
   final String? imageUrl;
+  final int sortOrder;
+  final bool isActive;
 
   const CatalogItemModel({
     required this.id,
@@ -69,7 +71,26 @@ class CatalogItemModel extends Equatable {
     required this.actionType,
     required this.actionUrl,
     this.imageUrl,
+    this.sortOrder = 1,
+    this.isActive = true,
   });
+
+  bool get isService => kind == 'service';
+
+  CatalogItemModel copyWith({int? sortOrder, bool? isActive}) =>
+      CatalogItemModel(
+        id: id,
+        kind: kind,
+        name: name,
+        description: description,
+        priceLabel: priceLabel,
+        price: price,
+        actionType: actionType,
+        actionUrl: actionUrl,
+        imageUrl: imageUrl,
+        sortOrder: sortOrder ?? this.sortOrder,
+        isActive: isActive ?? this.isActive,
+      );
 
   factory CatalogItemModel.fromJson(Map<String, dynamic> json) =>
       CatalogItemModel(
@@ -82,6 +103,8 @@ class CatalogItemModel extends Equatable {
         actionType: json['actionType'] as String? ?? '',
         actionUrl: json['actionUrl'] as String? ?? '',
         imageUrl: json['imageUrl'] as String? ?? json['image'] as String?,
+        sortOrder: (json['sortOrder'] as num?)?.toInt() ?? 1,
+        isActive: json['isActive'] as bool? ?? true,
       );
 
   @override
@@ -95,6 +118,8 @@ class CatalogItemModel extends Equatable {
         actionType,
         actionUrl,
         imageUrl,
+        sortOrder,
+        isActive,
       ];
 }
 

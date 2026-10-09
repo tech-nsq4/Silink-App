@@ -30,6 +30,8 @@ class AppConstants {
   static const double defaultShippingCost = 25.0;
   static const double defaultFreeShippingThreshold = 300.0;
   static const int maxCartItemQuantity = 99;
+  static const double doubleSidedPrintCost = 30.0;
+  static const int maxLogoBytes = 5 * 1024 * 1024;
   static const int maxDeliveryDays = 9;
   static const double defaultProductRating = 4.8;
   static const int defaultProductReviewCount = 312;

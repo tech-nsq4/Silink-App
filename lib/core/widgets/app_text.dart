@@ -1,4 +1,6 @@
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:Silink/core/utils/app_colors.dart';
+import 'package:Silink/core/widgets/app_font_scope.dart';
 import 'package:flutter/material.dart';
 
 class AppText extends StatelessWidget {
@@ -12,6 +14,7 @@ class AppText extends StatelessWidget {
   final TextOverflow? overflow;
   final TextDecoration? decoration;
   final String? fontFamily;
+  final double? letterSpacing;
 
   const AppText(
     this.text, {
@@ -25,6 +28,7 @@ class AppText extends StatelessWidget {
     this.overflow,
     this.decoration,
     this.fontFamily,
+    this.letterSpacing,
   });
 
   @override
@@ -36,8 +40,9 @@ class AppText extends StatelessWidget {
       overflow: overflow,
       style: TextStyle(
         height: height,
-        fontFamily: fontFamily ?? "Cairo",
-            // 'Tajawal',
+        letterSpacing: letterSpacing,
+        fontFamily:
+            fontFamily ?? AppFontScope.of(context) ?? AppFonts.familyFont,
         fontSize: fontSize ?? 14,
         fontWeight: fontWeight ?? FontWeight.w400,
         color: color ?? AppColors.textPrimaryColor.themeColor,

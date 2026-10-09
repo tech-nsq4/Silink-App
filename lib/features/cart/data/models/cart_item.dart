@@ -31,13 +31,14 @@ class CartItem extends Equatable {
     int quantity = 1,
     int? colorIndex,
     String summary = '',
+    double? unitPrice,
   }) {
     final index = colorIndex ?? product.defaultColorIndex;
     return CartItem(
       productId: product.id,
       name: product.name,
       image: product.image,
-      price: product.price,
+      price: unitPrice ?? product.price,
       quantity: quantity,
       colorValue: product.hasColors ? product.colorAt(index).toARGB32() : 0,
       colorLabelKey: product.colorLabelAt(index),

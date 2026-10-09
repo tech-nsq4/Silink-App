@@ -1,12 +1,22 @@
+import 'package:Silink/features/card_studio/data/models/studio_draft.dart';
+import 'package:Silink/features/card_studio/presentation/card_studio_screen.dart';
+import 'package:Silink/features/card_assistant/presentation/card_assistant_screen.dart';
+import 'package:Silink/features/auth/presentation/new_card_start_screen.dart';
 import 'package:Silink/features/account/presentation/account_edit_screen.dart';
 import 'package:Silink/features/account/presentation/account_guest_screen.dart';
 import 'package:Silink/features/account/presentation/account_screen.dart';
 import 'package:Silink/features/auth/data/models/user_model.dart';
-import 'package:Silink/features/clients/models/client_model.dart';
+import 'package:Silink/features/account/presentation/change_password_screen.dart';
+import 'package:Silink/features/clients/data/models/client_category_model.dart';
+import 'package:Silink/features/clients/data/models/client_model.dart';
 import 'package:Silink/features/clients/presentation/client_details_screen.dart';
+import 'package:Silink/features/clients/presentation/client_form_screen.dart';
 
 import 'package:Silink/features/company/catalog/presentation/catalog_item_screen.dart';
 import 'package:Silink/features/company/catalog/presentation/catalog_screen.dart';
+import 'package:Silink/features/company/catalog/presentation/catalog_item_form_screen.dart';
+import 'package:Silink/features/company/catalog/logic/company_catalog_cubit.dart';
+import 'package:Silink/features/profile_completion/data/models/catalog_model.dart';
 import 'package:Silink/features/company/data/models/company_business_type.dart';
 import 'package:Silink/features/company/data/models/company_catalog_item.dart';
 import 'package:Silink/features/company/employees/data/models/company_employee_model.dart';
@@ -22,9 +32,10 @@ import 'package:Silink/features/nfc/presentation/nfc_screen.dart';
 
 import 'package:Silink/features/help/presentation/help_screen.dart';
 import 'package:Silink/features/notifications/presentation/notifications_screen.dart';
-import 'package:Silink/features/privacy/presentation/privacy_screen.dart';
+import 'package:Silink/features/settings/data/models/static_page_content.dart';
+import 'package:Silink/features/settings/presentation/settings_screen.dart';
+import 'package:Silink/features/settings/presentation/static_page_screen.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
-import 'package:Silink/features/profile_completion/presentation/profile_completion_screen.dart';
 import 'package:Silink/features/profile_card/presentation/profile_card_screen.dart';
 import 'package:Silink/features/my_card/models/my_card_model.dart';
 import 'package:Silink/features/my_card/presentation/my_card_details_screen.dart';
@@ -34,12 +45,9 @@ import 'package:Silink/features/my_card/presentation/qr_code_screen.dart';
 import 'package:Silink/features/auth/presentation/usage_type_screen.dart';
 import 'package:Silink/features/services/presentation/service_details_screen.dart';
 import 'package:Silink/features/statistics/presentation/statistics_screen.dart';
-import 'package:Silink/features/cart/presentation/cart_screen.dart';
 import 'package:Silink/features/checkout/data/models/order_model.dart';
-import 'package:Silink/features/checkout/data/models/shipping_address.dart';
-import 'package:Silink/features/checkout/presentation/checkout_screen.dart';
 import 'package:Silink/features/checkout/presentation/order_success_screen.dart';
-import 'package:Silink/features/checkout/presentation/payment_screen.dart';
+import 'package:Silink/features/checkout/presentation/order_flow_screen.dart';
 import 'package:Silink/features/orders/data/models/my_order_model.dart';
 import 'package:Silink/features/orders/presentation/my_orders_screen.dart';
 import 'package:Silink/features/orders/presentation/order_details_screen.dart';
@@ -51,19 +59,17 @@ import 'package:Silink/features/store/presentation/store_screen.dart';
 import 'package:Silink/features/subscription/presentation/subscription_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/auth/presentation/login_screen.dart';
+import '../../features/auth/presentation/auth_screen.dart';
 import '../../features/auth/presentation/otp_screen.dart';
-import '../../features/auth/presentation/personal_register_screen.dart';
-import '../../features/auth/presentation/register_screen.dart';
 import '../../features/company/company_card/presentation/brand_screen.dart';
 import '../../features/company/company_card/presentation/cards_screen.dart';
 
 import '../../features/company/company_dashboard/presentation/dashboard_screen.dart';
-import '../../features/company/company_card/presentation/edit_screen.dart';
+import '../../features/company/company_profile_completion/presentation/company_edit_screen.dart';
 import '../../features/company/company_card/presentation/public_page_screen.dart';
 import '../../features/company/company_card/presentation/publish_screen.dart';
 import '../../features/company/company_card/presentation/qr_screen.dart';
-import '../../features/company/company_card/presentation/setup_screen.dart';
+import '../../features/company/company_profile_completion/presentation/company_workspace_screen.dart';
 import '../../features/company/company_card/presentation/success_screen.dart';
 
 import '../../features/layout/presentation/layout_screen.dart';
@@ -85,10 +91,10 @@ class RouteGenerator {
         return _pageRoute(const OnBoardingScreen());
 
       case Routes.loginScreen:
-        return _pageRoute(const LoginScreen());
+        return _pageRoute(const AuthScreen());
 
       case Routes.registerScreen:
-        return _pageRoute(const RegisterScreen());
+        return _pageRoute(const AuthScreen(startWithRegister: true));
 
       case Routes.otpScreen:
         return _pageRoute(OtpScreen(
@@ -105,14 +111,27 @@ class RouteGenerator {
 
       case Routes.usageTypeScreen:
         return _pageRoute(const UsageTypeScreen());
-      case Routes.personalRegisterScreen:
-        return _pageRoute(PersonalRegisterScreen(
+      case Routes.newCardStartScreen:
+        return _pageRoute(NewCardStartScreen(
+          usageIntent: arguments?['usageIntent'] as String? ?? 'personal',
+        ));
+      case Routes.cardAssistantScreen:
+        return _pageRoute(CardAssistantScreen(
           usageIntent: arguments?['usageIntent'] as String? ?? 'personal',
         ));
       case Routes.profileCompletionScreen:
-        return _pageRoute(const ProfileCompletionScreen());
+        return _pageRoute(const CardStudioScreen(remote: true));
+      case Routes.cardStudioScreen:
+        return _pageRoute(CardStudioScreen(
+          remote: arguments?['remote'] as bool? ?? false,
+          resume: arguments?['resume'] as bool? ?? false,
+          initialDraft: arguments?['draft'] as StudioDraft?,
+        ));
       case Routes.profileCardScreen:
-        return _pageRoute(const ProfileCardScreen());
+        return _pageRoute(ProfileCardScreen(
+          viewOnly: arguments?['viewOnly'] as bool? ?? false,
+          fromStudio: arguments?['fromStudio'] as bool? ?? false,
+        ));
       case Routes.statisticsScreen:
         return _pageRoute(const StatisticsScreen());
       case Routes.storeScreen:
@@ -148,14 +167,11 @@ class RouteGenerator {
         if (product == null) return _pageRoute(const _UndefinedScreen());
         return _pageRoute(CardCustomizationScreen(product: product));
       case Routes.cartScreen:
-        return _pageRoute(const CartScreen());
+        return _pageRoute(const OrderFlowScreen());
       case Routes.checkoutScreen:
-        return _pageRoute(const CheckoutScreen());
+        return _pageRoute(const OrderFlowScreen(initialStep: 1));
       case Routes.paymentScreen:
-        return _pageRoute(PaymentScreen(
-          address: arguments?['address'] as ShippingAddress? ??
-              const ShippingAddress(),
-        ));
+        return _pageRoute(const OrderFlowScreen(initialStep: 1));
       case Routes.orderSuccessScreen:
         final order = arguments?['order'] as OrderModel?;
         if (order == null) return _pageRoute(const _UndefinedScreen());
@@ -170,6 +186,8 @@ class RouteGenerator {
         return _pageRoute(const AccountGuestScreen());
       case Routes.accountScreen:
         return _pageRoute(const AccountScreen());
+      case Routes.changePasswordScreen:
+        return _pageRoute(const ChangePasswordScreen());
       case Routes.accountEditScreen:
         return _pageRoute(AccountEditScreen(
           user: arguments?['user'] as UserModel? ??
@@ -181,24 +199,26 @@ class RouteGenerator {
         ));
       case Routes.notificationsScreen:
         return _pageRoute(const NotificationsScreen());
-      case Routes.privacyScreen:
-        return _pageRoute(PrivacyScreen(
-          username: arguments?['username'] as String? ?? '',
+      case Routes.settingsScreen:
+        return _pageRoute(const SettingsScreen());
+      case Routes.staticPageScreen:
+        return _pageRoute(StaticPageScreen(
+          type: arguments?['type'] as StaticPageType? ??
+              StaticPageType.privacySecurity,
         ));
       case Routes.subscriptionScreen:
         return _pageRoute(const SubscriptionScreen());
       case Routes.helpScreen:
         return _pageRoute(const HelpScreen());
       case Routes.clientDetailsScreen:
-        return _pageRoute(ClientDetailsScreen(
-          client: arguments?['client'] as ClientModel? ??
-              const ClientModel(
-                id: '',
-                name: '',
-                phone: '',
-                status: ClientStatus.newClient,
-                source: ClientSource.qr,
-              ),
+        final client = arguments?['client'];
+        if (client is! ClientModel) return _pageRoute(const _UndefinedScreen());
+        return _pageRoute(ClientDetailsScreen(client: client));
+      case Routes.clientFormScreen:
+        return _pageRoute(ClientFormScreen(
+          client: arguments?['client'] as ClientModel?,
+          categories: arguments?['categories'] as List<ClientCategoryModel>? ??
+              const [],
         ));
       case Routes.myCardDetailsScreen:
         final card = arguments?['card'];
@@ -207,7 +227,7 @@ class RouteGenerator {
         }
         return _pageRoute(const _UndefinedScreen());
       case Routes.companySetup:
-        return _pageRoute(const SetupScreen());
+        return _pageRoute(const CompanyWorkspaceScreen());
       case Routes.companySuccess:
         return _pageRoute(const SuccessScreen());
       case Routes.companyDashboard:
@@ -227,6 +247,18 @@ class RouteGenerator {
             editable: arguments?['editable'] as bool? ?? true,
           ),
         );
+      case Routes.companyProducts:
+        return _pageRoute(const CatalogScreen());
+      case Routes.companyCatalogForm:
+        return _pageRoute(CatalogItemFormScreen(
+          kind: arguments?['kind'] as String? ?? CompanyCatalogCubit.itemKind,
+          item: arguments?['item'] as CatalogItemModel?,
+          actionTypes:
+              arguments?['actionTypes'] as List<CatalogActionType>? ?? const [],
+          section: arguments?['section'] as String? ?? '',
+          sectionOptions:
+              arguments?['sectionOptions'] as List<String>? ?? const [],
+        ));
       case Routes.companyCatalogItem:
         final item = arguments?['item'];
         final categories = arguments?['categories'];
@@ -287,11 +319,7 @@ class RouteGenerator {
           ),
         );
       case Routes.companyEdit:
-        return _pageRoute(
-          EditScreen(
-            initialImagePath: arguments?['imagePath'] as String?,
-          ),
-        );
+        return _pageRoute(const CompanyEditScreen());
       case Routes.companyInvite:
         return _pageRoute(const EmployeeInviteScreen());
       case Routes.companyNfc:

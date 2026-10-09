@@ -1,3 +1,4 @@
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class ProfileCardLeadConsent extends StatelessWidget {
             child: Text.rich(
               TextSpan(
                 style: TextStyle(
-                  fontFamily: 'Cairo',
+                  fontFamily: AppFonts.familyFont,
                   fontSize: 13.sp,
                   color: AppColors.textPrimaryColor.themeColor,
                 ),

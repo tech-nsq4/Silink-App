@@ -361,8 +361,7 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                     ? LocaleKeys.company_create_company
                     : LocaleKeys.company_continue,
                 onTap: _continue,
-                secondaryTitleKey:
-                    _step > 1 ? LocaleKeys.company_back : null,
+                secondaryTitleKey: _step > 1 ? LocaleKeys.company_back : null,
                 onSecondaryTap: _step > 1 ? _back : null,
                 loading: state.isSavingStep || profileState.isSavingStep,
               ),

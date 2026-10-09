@@ -7,6 +7,8 @@ class CompanyProfileModel extends Equatable {
   final String companyName;
   final String about;
   final String website;
+  final String companyEmail;
+  final String? industryId;
   final String? logoUrl;
 
   const CompanyProfileModel({
@@ -16,6 +18,8 @@ class CompanyProfileModel extends Equatable {
     required this.companyName,
     required this.about,
     required this.website,
+    this.companyEmail = '',
+    this.industryId,
     this.logoUrl,
   });
 
@@ -27,10 +31,21 @@ class CompanyProfileModel extends Equatable {
         companyName: json['companyName'] as String? ?? '',
         about: json['about'] as String? ?? '',
         website: json['website'] as String? ?? '',
+        companyEmail: json['companyEmail'] as String? ?? '',
+        industryId: json['industryId'] as String?,
         logoUrl: json['logoUrl'] as String?,
       );
 
   @override
-  List<Object?> get props =>
-      [userId, step, title, companyName, about, website, logoUrl];
+  List<Object?> get props => [
+        userId,
+        step,
+        title,
+        companyName,
+        about,
+        website,
+        companyEmail,
+        industryId,
+        logoUrl,
+      ];
 }

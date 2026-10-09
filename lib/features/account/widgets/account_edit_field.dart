@@ -12,12 +12,16 @@ class AccountEditField extends StatelessWidget {
     required this.hint,
     this.keyboardType,
     this.controller,
+    this.validator,
+    this.isPassword = false,
   });
 
   final String label;
   final String hint;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final bool isPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,8 @@ class AccountEditField extends StatelessWidget {
           hint: hint,
           keyboardType: keyboardType,
           controller: controller,
+          validator: validator,
+          isPassword: isPassword,
         ),
       ],
     );

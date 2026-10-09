@@ -3,7 +3,6 @@ import 'package:Silink/app/router/routes.dart';
 import 'package:Silink/core/di/injection.dart';
 import 'package:Silink/core/extensions/extensions.dart';
 import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/utils/app_images.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_text.dart';
@@ -141,24 +140,31 @@ class _EmployeeDetailsScreenState extends State<EmployeeDetailsScreen> {
                       8.height,
                       Container(
                         decoration: BoxDecoration(
-                          color: AppColors.cardColor.themeColor,
+                          color: AppColors.white.themeColor,
                           borderRadius: BorderRadius.circular(18.r),
                           border: Border.all(
-                            color: AppColors.borderColor.themeColor,
+                            color: AppColors.studioPanelBorder.themeColor,
                           ),
                         ),
                         clipBehavior: Clip.antiAlias,
                         child: Column(
                           children: [
                             EmployeeActionTile(
-                              iconAsset: AppImages.iconsEdit,
+                              icon: Icons.edit_outlined,
                               title: LocaleKeys.company_employee_edit_data.tr(),
                               onTap: () => _openEmployeeAction(
                                 Routes.companyEmployeeEdit,
                               ),
                             ),
                             EmployeeActionTile(
-                              iconAsset: AppImages.iconsDoc,
+                              icon: Icons.remove_rounded,
+                              title: LocaleKeys.companyHub_suspendEmployee.tr(),
+                              onTap: () => AppOverlay.showSuccess(
+                                LocaleKeys.common_comingSoon.tr(),
+                              ),
+                            ),
+                            EmployeeActionTile(
+                              icon: Icons.description_outlined,
                               title: LocaleKeys.company_employee_digital_title
                                   .tr(),
                               onTap: () => _openEmployeeAction(
@@ -166,14 +172,14 @@ class _EmployeeDetailsScreenState extends State<EmployeeDetailsScreen> {
                               ),
                             ),
                             EmployeeActionTile(
-                              iconAsset: AppImages.iconsWifi,
+                              icon: Icons.contactless_outlined,
                               title: LocaleKeys.company_employee_link_nfc.tr(),
                               onTap: () => _openEmployeeAction(
                                 Routes.companyEmployeeNfcLink,
                               ),
                             ),
                             EmployeeActionTile(
-                              iconAsset: AppImages.iconsDelete,
+                              icon: Icons.delete_outline_rounded,
                               title: LocaleKeys.company_employee_remove.tr(),
                               onTap: _removeEmployee,
                               destructive: true,

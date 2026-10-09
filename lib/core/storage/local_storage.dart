@@ -54,4 +54,19 @@ class LocalStorage {
 
   String getLang() => read<String>(_langKey) ?? 'ar';
   Future<void> setLang(String lang) => write(_langKey, lang);
+
+  static const _studioPendingKey = 'studio_pending';
+
+  bool get isStudioPending => read<bool>(_studioPendingKey) ?? false;
+  Future<void> setStudioPending(bool pending) => pending
+      ? write(_studioPendingKey, true)
+      : remove(_studioPendingKey);
+
+  static const _companySetupPendingKey = 'company_setup_pending';
+
+  bool get isCompanySetupPending =>
+      read<bool>(_companySetupPendingKey) ?? false;
+  Future<void> setCompanySetupPending(bool pending) => pending
+      ? write(_companySetupPendingKey, true)
+      : remove(_companySetupPendingKey);
 }

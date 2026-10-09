@@ -28,7 +28,6 @@ class ScreenHeaderBar extends StatelessWidget {
           start: 19.w,
           end: 19.w,
           bottom: 12.h,
-
         ),
         decoration: BoxDecoration(
           border: Border(

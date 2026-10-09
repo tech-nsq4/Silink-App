@@ -14,6 +14,7 @@ class AccountMenuTile extends StatelessWidget {
     this.isDestructive = false,
     this.showChevron = true,
     required this.icon,
+    this.value,
   });
 
   final String label;
@@ -21,6 +22,7 @@ class AccountMenuTile extends StatelessWidget {
   final bool isDestructive;
   final bool showChevron;
   final String icon;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,15 @@ class AccountMenuTile extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
           Spacer(),
+          if (value != null) ...[
+            AppText(
+              value!,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textSecondaryColor.themeColor,
+            ),
+            8.width,
+          ],
           Icon(
             Icons.arrow_forward_ios,
             size: 12.sp,

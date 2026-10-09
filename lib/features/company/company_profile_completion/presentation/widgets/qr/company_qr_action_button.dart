@@ -40,9 +40,8 @@ class CompanyQrActionButton extends StatelessWidget {
             icon,
             width: 17.w,
             height: 17.w,
-            colorFilter: filled
-                ? ColorFilter.mode(foreground, BlendMode.srcIn)
-                : null,
+            colorFilter:
+                filled ? ColorFilter.mode(foreground, BlendMode.srcIn) : null,
           ),
           8.width,
           AppText(

@@ -1,3 +1,4 @@
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -84,12 +85,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final defaultFillColor = AppColors.fieldFill;
-    const defaultBorderColor = Color(0xFFE0E0E0);
-    final defaultHintColor = AppColors.textSecondaryColor.themeColor;
-    const defaultTextColor = Color(0xFF2C3430);
+    final defaultFillColor = AppColors.white.themeColor;
+    final defaultBorderColor = AppColors.borderColor.themeColor;
+    final defaultHintColor = AppColors.fieldHint.themeColor;
+    final defaultTextColor = AppColors.textPrimaryColor.themeColor;
 
-    final borderRadius = widget.borderRadius ?? 16;
+    final borderRadius = widget.borderRadius ?? 11;
     final enabledBorder = widget.bordered
         ? OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -117,10 +118,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
       cursorHeight: widget.cursorHeight,
       strutStyle: widget.strutStyle,
       style: widget.textStyle ??
-          const TextStyle(
-            fontFamily: 'Cairo',
-            fontWeight: FontWeight.w600,
-            fontSize: 15,
+          TextStyle(
+            fontFamily: AppFonts.familyFont,
+            fontWeight: FontWeight.w500,
+            fontSize: 13,
             color: defaultTextColor,
           ),
       decoration: InputDecoration(
@@ -130,25 +131,31 @@ class _CustomTextFieldState extends State<CustomTextField> {
         isCollapsed: widget.isCollapsed,
         hintStyle: widget.hintStyle ??
             TextStyle(
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w500,
-              fontSize: 15,
+              fontFamily: AppFonts.familyFont,
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
               color: defaultHintColor,
             ),
         labelStyle: widget.labelStyle ??
             TextStyle(
-              fontFamily: 'Cairo',
+              fontFamily: AppFonts.familyFont,
               fontWeight: FontWeight.w500,
               fontSize: 15,
               color: defaultHintColor,
             ),
         prefixIcon: widget.prefixIcon,
+        prefixIconColor: AppColors.fieldIcon.themeColor,
+        suffixIconColor: AppColors.fieldIcon.themeColor,
         suffixIcon: widget.isPassword
             ? IconButton(
-          icon: Icon(
-              _obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined),
-          onPressed: () => setState(() => _obscure = !_obscure),
-        )
+                icon: Icon(
+                  _obscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  size: 18,
+                ),
+                onPressed: () => setState(() => _obscure = !_obscure),
+              )
             : widget.suffixIcon,
         filled: widget.filled,
         fillColor: widget.fillColor ?? defaultFillColor,
@@ -158,8 +165,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ? OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide: BorderSide(
-                  color:
-                      widget.focusedBorderColor ?? AppColors.mint.themeColor,
+                  color: widget.focusedBorderColor ?? AppColors.mint.themeColor,
                   width: 1.2,
                 ),
               )
@@ -171,10 +177,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(color: AppColors.errorColor.themeColor, width: 1.2),
+          borderSide:
+              BorderSide(color: AppColors.errorColor.themeColor, width: 1.2),
         ),
         contentPadding: widget.contentPadding ??
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 15),
       ),
     );
   }

@@ -30,6 +30,8 @@ class CompanyProfileCompletionRepo {
     required String companyName,
     required String about,
     required String website,
+    String? companyEmail,
+    String? industryId,
     File? logo,
   }) async {
     try {
@@ -38,6 +40,8 @@ class CompanyProfileCompletionRepo {
         'companyName': companyName,
         'about': about,
         'website': website,
+        if (companyEmail != null) 'companyEmail': companyEmail,
+        if (industryId != null) 'industryId': industryId,
         if (logo != null)
           'logo': await MultipartFile.fromFile(
             logo.path,

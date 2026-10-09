@@ -39,9 +39,8 @@ class CompanySuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = companyName.trim().isEmpty
-        ? AppConstants.appName
-        : companyName.trim();
+    final name =
+        companyName.trim().isEmpty ? AppConstants.appName : companyName.trim();
 
     return Scaffold(
       body: SafeArea(

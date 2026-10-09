@@ -1,21 +1,22 @@
 import 'dart:async';
+import 'dart:math' as math;
 
-import 'package:Silink/app/router/routes.dart';
-import 'package:Silink/core/di/injection.dart';
-import 'package:Silink/core/storage/local_storage.dart';
-import 'package:Silink/core/utils/app_colors.dart';
-import 'package:Silink/core/utils/app_constants.dart';
-import 'package:Silink/core/utils/locale_keys.dart';
-import 'package:Silink/core/widgets/app_text.dart';
-import 'package:Silink/core/widgets/custom_loading_widget.dart';
-import 'package:Silink/features/profile/logic/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gif/gif.dart';
 
-import '../../../core/utils/app_images.dart';
+import '../../../app/router/routes.dart';
+import '../../../core/di/injection.dart';
+import '../../../core/storage/local_storage.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_constants.dart';
+import '../../../core/utils/locale_keys.dart';
+import '../../../core/widgets/app_text.dart';
+import '../../../core/widgets/silink_brand.dart';
+import '../../profile/logic/profile_cubit.dart';
+import 'widgets/splash_backdrop.dart';
+import 'widgets/splash_loading_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,48 +25,45 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
-  late final GifController _gifController;
+class _SplashScreenState extends State<SplashScreen> {
+  static const Duration _minDuration = Duration(milliseconds: 2600);
+
   Timer? _minTimer;
   bool _navigated = false;
 
   @override
   void initState() {
     super.initState();
-    _gifController = GifController(vsync: this);
-    _minTimer = Timer(const Duration(seconds: 2), _navigate);
+    _minTimer = Timer(_minDuration, _navigate);
   }
 
   @override
   void dispose() {
     _minTimer?.cancel();
-    _gifController.dispose();
     super.dispose();
   }
 
-  void _navigate() async {
+  Future<void> _navigate() async {
     if (_navigated || !mounted) return;
     _navigated = true;
 
     final storage = getIt<LocalStorage>();
-
     if (storage.isLoggedIn) {
       await context.read<ProfileCubit>().getProfile();
       if (!mounted) return;
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        kHomeRoute,
-        (_) => false,
-      );
-    } else if (storage.isOnboardingSeen) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        // Routes.loginScreen,
-        // Routes.publicProfilePreviewScreen,
-        Routes.onBoardingScreen,
-        (_) => false,
-      );
+      final navigator = Navigator.of(context);
+      final isCompany = kUserModel?.usageIntent == 'company';
+      if (isCompany && storage.isCompanySetupPending) {
+        navigator.pushNamedAndRemoveUntil(Routes.companySetup, (_) => false);
+        return;
+      }
+      navigator.pushNamedAndRemoveUntil(kHomeRoute, (_) => false);
+      if (!isCompany && storage.isStudioPending) {
+        navigator.pushNamed(
+          Routes.cardStudioScreen,
+          arguments: {'remote': true, 'resume': true},
+        );
+      }
     } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -77,61 +75,63 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final white = AppColors.white.light;
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage(AppImages.splash),
-            fit: BoxFit.cover,
+      backgroundColor: AppColors.splashBackground.themeColor,
+      body: Stack(
+        children: [
+          const Positioned.fill(child: SplashBackdrop()),
+          SafeArea(
+            top: false,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                30.w,
+                math.max(55.h, MediaQuery.paddingOf(context).top + 12.h),
+                30.w,
+                40.h,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: SilinkBrand(fontSize: 52.sp, color: white),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        LocaleKeys.brand_tagline.tr(),
+                        fontSize: 8.sp,
+                        letterSpacing: 2,
+                        color: AppColors.splashEyebrow.themeColor,
+                      ),
+                      SizedBox(height: 20.h),
+                      AppText(
+                        LocaleKeys.splash_headline.tr(),
+                        fontSize: 36.sp,
+                        fontWeight: FontWeight.w800,
+                        height: 1.35,
+                        letterSpacing: -1.2,
+                        color: white,
+                      ),
+                      SizedBox(height: 20.h),
+                      AppText(
+                        LocaleKeys.splash_tagline.tr(),
+                        fontSize: 12.sp,
+                        color: AppColors.splashBody.themeColor,
+                      ),
+                    ],
+                  ),
+                  SplashLoadingIndicator(
+                    label: LocaleKeys.splash_welcome.tr(),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 200.w,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                    decoration: BoxDecoration(
-                      color: AppColors.darkSlate.themeColor,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Image.asset(AppImages.logoApp),
-                  ),
-                  16.verticalSpace,
-                  AppText(
-                    LocaleKeys.splash_subtitle.tr(),
-                    fontSize: 12.sp,
-                    color: AppColors.white.themeColor,
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 32.h,
-              left: 0,
-              right: 0,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomLoadingWidget(),
-                  8.verticalSpace,
-                  AppText(
-                    LocaleKeys.splash_loading.tr(),
-                    fontSize: 12.sp,
-                    color: AppColors.white.themeColor,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

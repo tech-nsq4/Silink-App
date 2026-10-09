@@ -23,6 +23,10 @@ class CompanyPublicPageData {
     this.about,
     this.catalogLabel,
     this.imagePath,
+    this.logoUrl,
+    this.phone = '',
+    this.email = '',
+    this.website = '',
     this.team = const <CompanyTeamMember>[],
   });
 
@@ -35,6 +39,10 @@ class CompanyPublicPageData {
   final String? about;
   final String? catalogLabel;
   final String? imagePath;
+  final String? logoUrl;
+  final String phone;
+  final String email;
+  final String website;
   final List<CompanyTeamMember> team;
 
   CompanyPublicPageData withImagePath(String? value) => CompanyPublicPageData(
@@ -47,6 +55,10 @@ class CompanyPublicPageData {
         about: about,
         catalogLabel: catalogLabel,
         imagePath: value,
+        logoUrl: logoUrl,
+        phone: phone,
+        email: email,
+        website: website,
         team: team,
       );
 

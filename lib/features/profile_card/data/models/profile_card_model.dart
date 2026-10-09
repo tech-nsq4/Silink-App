@@ -1,4 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../core/utils/convert_helper.dart';
+import '../../../../core/widgets/public_profile/public_profile_data.dart';
 
 import 'profile_card_appearance.dart';
 import 'profile_card_basic_info.dart';
@@ -110,6 +114,66 @@ class ProfileCardModel extends Equatable {
   String labelOf(ProfileCardSectionType type) {
     final matches = sections.where((s) => s.type == type);
     return matches.isEmpty ? '' : matches.first.label;
+  }
+
+  PublicProfileData toPublicProfile() {
+    final order = <PublicProfileSection>[];
+    for (final section in sections) {
+      final mapped = switch (section.type) {
+        ProfileCardSectionType.bio => PublicProfileSection.bio,
+        ProfileCardSectionType.products ||
+        ProfileCardSectionType.services =>
+          PublicProfileSection.catalog,
+        ProfileCardSectionType.links => PublicProfileSection.links,
+        ProfileCardSectionType.channels => PublicProfileSection.channels,
+        _ => null,
+      };
+      if (mapped != null && !order.contains(mapped)) order.add(mapped);
+    }
+    return PublicProfileData(
+      name: basic.fullName,
+      title: basic.jobTitle,
+      company: basic.company,
+      bio: bio,
+      phone: basic.phone,
+      email: basic.email,
+      location: basic.address,
+      photoUrl: basic.photoUrl,
+      accent: ConvertHelper.hexToColor(
+        appearance.primaryColor,
+        fallback: const Color(0xFF0D9488),
+      ),
+      template: templateSlug.isEmpty ? 'pro' : templateSlug,
+      background: appearance.background,
+      buttonShape: appearance.buttonShape,
+      fontFamily: appearance.fontFamily.isEmpty ? null : appearance.fontFamily,
+      sections: order,
+      items: [
+        for (final product in activeCatalogItems)
+          PublicProfileItem(
+            id: product.id,
+            kind: product.kind,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            priceLabel: product.priceLabel,
+            imageUrl: product.imageUrl,
+          ),
+      ],
+      channels: [
+        for (final channel in channels.where((c) => c.isShown))
+          PublicProfileContact(
+            type: channel.type,
+            label: channel.label,
+            url: channel.url,
+          ),
+      ],
+      links: [
+        for (final link in visibleLinks)
+          PublicProfileContact(
+              type: link.type, label: link.label, url: link.url),
+      ],
+    );
   }
 
   static List<Map<String, dynamic>> _items(Map<String, dynamic> data) =>

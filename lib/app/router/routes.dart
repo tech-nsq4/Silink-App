@@ -8,7 +8,9 @@ class Routes {
   static const String otpScreen = '/otp';
   static const String layoutScreen = '/layout';
   static const String usageTypeScreen = '/usage_type';
-  static const String personalRegisterScreen = '/personal_register';
+  static const String newCardStartScreen = '/new_card_start';
+  static const String cardAssistantScreen = '/card_assistant';
+  static const String cardStudioScreen = '/card_studio';
   static const String profileCompletionScreen = '/profile_completion';
   static const String profileCardScreen = '/profile_card';
   static const String statisticsScreen = '/statistics_screen';
@@ -38,6 +40,8 @@ class Routes {
   static const String companyBrand = '/company_brand';
   static const String companyCatalog = '/company_catalog';
   static const String companyCatalogItem = '/company_catalog_item';
+  static const String companyCatalogForm = '/company_catalog_form';
+  static const String companyProducts = '/company_products';
   static const String companyEmployees = '/company_employees';
   static const String companyEmployeeDetails = '/company_employee_details';
   static const String companyEmployeeEdit = '/company_employee_edit';
@@ -53,9 +57,12 @@ class Routes {
   static const String accountGuestScreen = '/account_guest_screen';
   static const String accountScreen = '/account_screen';
   static const String accountEditScreen = '/account_edit_screen';
+  static const String changePasswordScreen = '/change_password_screen';
   static const String notificationsScreen = '/notifications_screen';
-  static const String privacyScreen = '/privacy_screen';
+  static const String settingsScreen = '/settings_screen';
+  static const String staticPageScreen = '/static_page_screen';
   static const String subscriptionScreen = '/subscription_screen';
   static const String helpScreen = '/help_screen';
   static const String clientDetailsScreen = '/client_details_screen';
+  static const String clientFormScreen = '/client_form_screen';
 }
