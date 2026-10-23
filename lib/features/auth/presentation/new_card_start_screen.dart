@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/navigation_services.dart';
@@ -27,7 +28,11 @@ class _NewCardStartScreenState extends State<NewCardStartScreen> {
   bool _withAssistant = true;
 
   void _start() => NavigationService.push(
-        _withAssistant ? Routes.cardAssistantScreen : Routes.cardStudioScreen,
+        _withAssistant
+            ? Routes.cardAssistantScreen
+            : (kIsGuest
+                ? Routes.cardStudioScreen
+                : Routes.portfolioStudioScreen),
         arguments: {'usageIntent': widget.usageIntent},
       );
 

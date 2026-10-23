@@ -169,17 +169,17 @@ class _CatalogItemFormScreenState extends State<CatalogItemFormScreen> {
                   onSelected: (index) => setState(() => _kind = kinds[index]),
                 ),
                 if (!_isOffer) ...[
-                  WorkspaceFieldLabel(text: LocaleKeys.catalogHub_section.tr()),
-                  CatalogHubOptionChips(
-                    options: _sections,
-                    labelOf: (section) => section,
-                    selected: _sectionCtrl.text.trim(),
-                    onSelected: (section) =>
-                        setState(() => _sectionCtrl.text = section),
-                  ),
-                  SizedBox(height: 10.h),
+                  // WorkspaceFieldLabel(text: LocaleKeys.catalogHub_section.tr()),
+                  // CatalogHubOptionChips(
+                  //   options: _sections,
+                  //   labelOf: (section) => section,
+                  //   selected: _sectionCtrl.text.trim(),
+                  //   onSelected: (section) =>
+                  //       setState(() => _sectionCtrl.text = section),
+                  // ),
+                  // SizedBox(height: 10.h),
                   WorkspaceField(
-                    label: '',
+                    label: LocaleKeys.catalogHub_section.tr(),
                     hint: LocaleKeys.catalogHub_sectionHint.tr(),
                     controller: _sectionCtrl,
                     onChanged: (_) => setState(() {}),

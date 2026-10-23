@@ -23,6 +23,22 @@ final class CompanyTeamMemberSaved extends CompanyTeamMemberState {
   List<Object?> get props => [member];
 }
 
+final class CompanyTeamMemberStatusChanged extends CompanyTeamMemberState {
+  final CompanyEmployeeModel member;
+  const CompanyTeamMemberStatusChanged(this.member);
+
+  @override
+  List<Object?> get props => [member];
+}
+
+final class CompanyTeamMemberInvitationResent extends CompanyTeamMemberState {
+  final CompanyEmployeeModel member;
+  const CompanyTeamMemberInvitationResent(this.member);
+
+  @override
+  List<Object?> get props => [member];
+}
+
 final class CompanyTeamMemberDeleted extends CompanyTeamMemberState {
   final String id;
   const CompanyTeamMemberDeleted(this.id);

@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["6W6NTTYDG7.com.silink"],
+        "components": [
+          { "/": "/employee-invitations/*" }
+        ]
+      }
+    ]
+  }
+}

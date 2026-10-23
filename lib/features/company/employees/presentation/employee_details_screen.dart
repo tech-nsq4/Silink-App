@@ -11,8 +11,11 @@ import 'package:Silink/features/company/employees/data/models/company_employee_m
 import 'package:Silink/features/company/employees/logic/company_team_member_cubit.dart';
 import 'package:Silink/features/company/employees/presentation/widgets/employee_action_tile.dart';
 import 'package:Silink/features/company/employees/presentation/widgets/employee_info_card.dart';
+import 'package:Silink/features/company/employees/presentation/widgets/employee_invitation_sheet.dart';
 import 'package:Silink/features/company/employees/presentation/widgets/employee_profile_card.dart';
 import 'package:Silink/features/company/employees/presentation/widgets/employee_remove_sheet.dart';
+import 'package:Silink/features/company/employees/presentation/widgets/employee_resend_invite_tile.dart';
+import 'package:Silink/features/company/employees/presentation/widgets/employee_switch_tile.dart';
 import 'package:Silink/features/company/employees/presentation/widgets/employee_stats_row.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +51,8 @@ class EmployeeDetailsScreen extends StatefulWidget {
 class _EmployeeDetailsScreenState extends State<EmployeeDetailsScreen> {
   late final CompanyTeamMemberCubit _cubit = getIt<CompanyTeamMemberCubit>();
   late CompanyEmployeeModel _employee = widget.employee;
+  bool _resending = false;
+  bool _inviteSent = false;
   bool _canPop = false;
   EmployeeDetailsResult? _popResult;
 
@@ -90,7 +95,40 @@ class _EmployeeDetailsScreenState extends State<EmployeeDetailsScreen> {
     _cubit.deleteMember(_employee.id);
   }
 
+  void _resendInvitation() {
+    if (_cubit.state is CompanyTeamMemberLoading) return;
+    final invitation = _employee.invitation;
+    if (_inviteSent && invitation != null) {
+      EmployeeInvitationSheet.show(context, invitation);
+      return;
+    }
+    setState(() => _resending = true);
+    _cubit.resendInvitation(_employee);
+  }
+
+  void _toggleActive(bool active) =>
+      _cubit.setSuspended(_employee, suspended: !active);
+
   void _onMemberState(BuildContext context, CompanyTeamMemberState state) {
+    if (state is CompanyTeamMemberStatusChanged) {
+      setState(() => _employee = state.member);
+      return;
+    }
+    if (state is CompanyTeamMemberError && _resending) {
+      setState(() => _resending = false);
+      return;
+    }
+    if (state is CompanyTeamMemberInvitationResent) {
+      setState(() {
+        _employee = state.member;
+        _resending = false;
+        _inviteSent = true;
+      });
+      AppOverlay.showSuccess(LocaleKeys.company_employee_invite_resent.tr());
+      final invitation = state.member.invitation;
+      if (invitation != null) EmployeeInvitationSheet.show(context, invitation);
+      return;
+    }
     if (state is! CompanyTeamMemberDeleted) return;
     AppOverlay.showSuccess(LocaleKeys.company_employee_removed.tr());
     _popDetails(EmployeeDetailsResult.removed(employeeId: state.id));
@@ -156,11 +194,17 @@ class _EmployeeDetailsScreenState extends State<EmployeeDetailsScreen> {
                                 Routes.companyEmployeeEdit,
                               ),
                             ),
-                            EmployeeActionTile(
-                              icon: Icons.remove_rounded,
-                              title: LocaleKeys.companyHub_suspendEmployee.tr(),
-                              onTap: () => AppOverlay.showSuccess(
-                                LocaleKeys.common_comingSoon.tr(),
+                            BlocBuilder<CompanyTeamMemberCubit,
+                                CompanyTeamMemberState>(
+                              bloc: _cubit,
+                              builder: (context, state) => EmployeeSwitchTile(
+                                icon: Icons.remove_rounded,
+                                title:
+                                    LocaleKeys.company_employee_activate.tr(),
+                                value: _employee.status ==
+                                    CompanyEmployeeStatus.active,
+                                enabled: state is! CompanyTeamMemberLoading,
+                                onChanged: _toggleActive,
                               ),
                             ),
                             EmployeeActionTile(
@@ -178,6 +222,12 @@ class _EmployeeDetailsScreenState extends State<EmployeeDetailsScreen> {
                                 Routes.companyEmployeeNfcLink,
                               ),
                             ),
+                            if (_employee.canResendInvitation)
+                              EmployeeResendInviteTile(
+                                sending: _resending,
+                                sent: _inviteSent,
+                                onTap: _resendInvitation,
+                              ),
                             EmployeeActionTile(
                               icon: Icons.delete_outline_rounded,
                               title: LocaleKeys.company_employee_remove.tr(),

@@ -16,20 +16,18 @@ class CompanyTeamMemberCubit extends Cubit<CompanyTeamMemberState> {
   Future<void> createMember({
     required String name,
     required String email,
-    required String password,
     required String phone,
-    required String whatsapp,
     required String position,
+    String department = '',
   }) async {
     emit(const CompanyTeamMemberLoading());
     try {
       final member = await _repo.createMember(
         name: name,
         email: email,
-        password: password,
         phone: phone,
-        whatsapp: whatsapp,
         position: position,
+        department: department,
       );
       emit(CompanyTeamMemberSaved(member));
     } catch (e) {
@@ -75,6 +73,37 @@ class CompanyTeamMemberCubit extends Cubit<CompanyTeamMemberState> {
     try {
       await _repo.deleteMember(id);
       emit(CompanyTeamMemberDeleted(id));
+    } catch (e) {
+      _emitError(e);
+    }
+  }
+
+  Future<void> setSuspended(
+    CompanyEmployeeModel employee, {
+    required bool suspended,
+  }) async {
+    emit(const CompanyTeamMemberLoading());
+    try {
+      await _repo.updateMemberStatus(employee.id, active: !suspended);
+      emit(CompanyTeamMemberStatusChanged(
+        employee.copyWith(
+          status: suspended
+              ? CompanyEmployeeStatus.suspended
+              : CompanyEmployeeStatus.active,
+        ),
+      ));
+    } catch (e) {
+      _emitError(e);
+    }
+  }
+
+  Future<void> resendInvitation(CompanyEmployeeModel employee) async {
+    emit(const CompanyTeamMemberLoading());
+    try {
+      final invitation = await _repo.resendInvitation(employee.id);
+      emit(CompanyTeamMemberInvitationResent(
+        employee.copyWith(invitation: invitation),
+      ));
     } catch (e) {
       _emitError(e);
     }

@@ -1,4 +1,10 @@
+import 'package:Silink/core/di/injection.dart';
 import 'package:Silink/core/extensions/extensions.dart';
+import 'package:Silink/core/utils/convert_helper.dart';
+import 'package:Silink/core/widgets/custom_loading_widget.dart';
+import 'package:Silink/features/card_studio/presentation/widgets/studio_palette.dart';
+import 'package:Silink/features/company/company_card/logic/brand_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/app_overlay.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
@@ -17,36 +23,66 @@ class BrandScreen extends StatefulWidget {
 }
 
 class _BrandScreenState extends State<BrandScreen> {
-  static const _palette = [
-    Color(0xFF2563EB),
-    Color(0xFF0D9488),
-    Color(0xFF7C3AED),
-    Color(0xFFDC2626),
-    Color(0xFFEA580C),
-    Color(0xFF111827),
-  ];
-
-  static const _templates = [
-    ('simple', LocaleKeys.company_template_simple),
-    ('pro', LocaleKeys.company_template_pro),
-    ('personal', LocaleKeys.company_template_personal),
-  ];
-
-  Color _primary = _palette[0];
-  String _template = 'simple';
+  late final BrandCubit _cubit = getIt<BrandCubit>();
+  String _primaryHex = '#2563EB';
+  bool _synced = false;
+  String _templateId = '';
   bool _lockColors = true;
   final _taglineCtrl = TextEditingController();
 
+  Color get _primary => ConvertHelper.hexToColor(_primaryHex);
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit.getBrand();
+  }
+
   @override
   void dispose() {
+    _cubit.close();
     _taglineCtrl.dispose();
     super.dispose();
   }
 
-  void _save() => AppOverlay.showSuccess(LocaleKeys.company_brand_saved.tr());
+  void _save() => _cubit.save(
+        primaryColor: _primaryHex,
+        templateId: _templateId,
+        tagline: _taglineCtrl.text.trim(),
+      );
+
+  BrandData? _dataOf(BrandState state) => switch (state) {
+        BrandSuccess(:final data) => data,
+        BrandSaving(:final data) => data,
+        BrandSaved(:final data) => data,
+        _ => null,
+      };
+
+  void _onState(BuildContext context, BrandState state) {
+    if (state is BrandSuccess && !_synced) {
+      _synced = true;
+      setState(() {
+        _primaryHex = state.data.appearance.primaryColor;
+        _templateId = state.data.templates.selectedId;
+        _taglineCtrl.text = state.data.company.about;
+      });
+    }
+    if (state is BrandSaving || state is BrandSaved) setState(() {});
+    if (state is BrandSaved) {
+      AppOverlay.showSuccess(LocaleKeys.company_brand_saved.tr());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    return BlocListener<BrandCubit, BrandState>(
+      bloc: _cubit,
+      listener: _onState,
+      child: _buildScaffold(),
+    );
+  }
+
+  Widget _buildScaffold() {
     return Scaffold(
       body: Column(
         children: [
@@ -80,71 +116,75 @@ class _BrandScreenState extends State<BrandScreen> {
                   20.height,
                   _sectionLabel(LocaleKeys.company_primary_color.tr()),
                   10.height,
-                  Wrap(
-                    spacing: 10.w,
-                    runSpacing: 10.h,
-                    children: [
-                      for (final color in _palette)
-                        InkWell(
-                          onTap: () => setState(() => _primary = color),
-                          borderRadius: BorderRadius.circular(14.r),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            width: 40.w,
-                            height: 40.w,
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(14.r),
-                              border: Border.all(
-                                color: _primary == color
-                                    ? AppColors.textPrimaryColor.themeColor
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
-                            ),
+                  BlocBuilder<BrandCubit, BrandState>(
+                    bloc: _cubit,
+                    builder: (context, state) {
+                      final colors =
+                          _dataOf(state)?.appearance.colors ?? const <String>[];
+                      if (state is BrandLoading) {
+                        return Center(
+                          child: CustomLoadingWidget(
+                            color: AppColors.blue.themeColor,
+                            size: 28,
                           ),
-                        ),
-                    ],
+                        );
+                      }
+                      return StudioPalette(
+                        colors: colors,
+                        selected: _primaryHex,
+                        onSelected: (hex) => setState(() => _primaryHex = hex),
+                      );
+                    },
                   ),
                   20.height,
                   _sectionLabel(LocaleKeys.company_profile_template.tr()),
                   10.height,
-                  Row(
-                    children: [
-                      for (final (id, labelKey) in _templates) ...[
-                        Expanded(
-                          child: InkWell(
-                            onTap: () => setState(() => _template = id),
-                            borderRadius: BorderRadius.circular(12.r),
-                            child: Container(
-                              height: 40.h,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: _template == id
-                                    ? AppColors.blue.themeColor
-                                        .withValues(alpha: 0.08)
-                                    : AppColors.cardColor.themeColor,
+                  BlocBuilder<BrandCubit, BrandState>(
+                    bloc: _cubit,
+                    builder: (context, state) {
+                      final templates =
+                          _dataOf(state)?.templates.templates ?? const [];
+                      return Row(
+                        children: [
+                          for (final (index, template)
+                              in templates.indexed) ...[
+                            if (index > 0) 8.width,
+                            Expanded(
+                              child: InkWell(
+                                onTap: () =>
+                                    setState(() => _templateId = template.id),
                                 borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(
-                                  color: _template == id
-                                      ? AppColors.blue.themeColor
-                                      : AppColors.borderColor.themeColor,
+                                child: Container(
+                                  height: 40.h,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: _templateId == template.id
+                                        ? AppColors.blue.themeColor
+                                            .withValues(alpha: 0.08)
+                                        : AppColors.cardColor.themeColor,
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    border: Border.all(
+                                      color: _templateId == template.id
+                                          ? AppColors.blue.themeColor
+                                          : AppColors.borderColor.themeColor,
+                                    ),
+                                  ),
+                                  child: AppText(
+                                    template.label,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: _templateId == template.id
+                                        ? AppColors.blue.themeColor
+                                        : AppColors
+                                            .textSecondaryColor.themeColor,
+                                  ),
                                 ),
                               ),
-                              child: AppText(
-                                labelKey.tr(),
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w700,
-                                color: _template == id
-                                    ? AppColors.blue.themeColor
-                                    : AppColors.textSecondaryColor.themeColor,
-                              ),
                             ),
-                          ),
-                        ),
-                        if (id != 'personal') 8.width,
-                      ],
-                    ],
+                          ],
+                        ],
+                      );
+                    },
                   ),
                   20.height,
                   _sectionLabel(LocaleKeys.company_tagline.tr()),
@@ -223,6 +263,7 @@ class _BrandScreenState extends State<BrandScreen> {
                   24.height,
                   CustomButton(
                     onTap: _save,
+                    loading: _cubit.state is BrandSaving,
                     title: LocaleKeys.company_save.tr(),
                     height: 48,
                     radius: 16,

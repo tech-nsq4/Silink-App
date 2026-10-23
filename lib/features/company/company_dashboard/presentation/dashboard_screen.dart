@@ -175,6 +175,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               subtitle: LocaleKeys.companyHub_dataHint.tr(),
               onTap: _onEdit,
             ),
+            HubManageItem(
+              icon: Icons.settings_outlined,
+              title: LocaleKeys.companyHub_settings.tr(),
+              subtitle: LocaleKeys.companyHub_settingsHint.tr(),
+              onTap: () => NavigationService.push(Routes.settingsScreen),
+            ),
           ],
         ),
       ],

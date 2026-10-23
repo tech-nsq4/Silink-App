@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'employee_invitation_model.dart';
+
 enum CompanyEmployeeStatus {
   active,
   pending,
@@ -24,6 +26,8 @@ class CompanyEmployeeModel extends Equatable {
     this.imageUrl,
     this.companyOwnerId = '',
     this.createdAt,
+    this.invitation,
+    this.accountType = '',
     this.hasProfile = false,
     this.hasNfc = false,
     this.visits = 0,
@@ -40,6 +44,8 @@ class CompanyEmployeeModel extends Equatable {
   final CompanyEmployeeStatus status;
   final String companyOwnerId;
   final DateTime? createdAt;
+  final EmployeeInvitationModel? invitation;
+  final String accountType;
 
   final bool hasProfile;
   final bool hasNfc;
@@ -58,7 +64,18 @@ class CompanyEmployeeModel extends Equatable {
         status: CompanyEmployeeStatus.fromApi(json['status'] as String?),
         companyOwnerId: json['companyOwnerId'] as String? ?? '',
         createdAt: DateTime.tryParse(json['createdAt'] as String? ?? ''),
+        invitation: json['invitation'] is Map<String, dynamic>
+            ? EmployeeInvitationModel.fromJson(
+                json['invitation'] as Map<String, dynamic>,
+              )
+            : null,
+        accountType: json['type'] as String? ?? '',
       );
+
+  bool get canResendInvitation =>
+      status == CompanyEmployeeStatus.pending ||
+      invitation?.status == 'pending' ||
+      accountType == 'new';
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -87,6 +104,7 @@ class CompanyEmployeeModel extends Equatable {
     String? position,
     String? imageUrl,
     CompanyEmployeeStatus? status,
+    EmployeeInvitationModel? invitation,
     bool? hasProfile,
     bool? hasNfc,
     int? visits,
@@ -103,6 +121,8 @@ class CompanyEmployeeModel extends Equatable {
       status: status ?? this.status,
       companyOwnerId: companyOwnerId,
       createdAt: createdAt,
+      invitation: invitation ?? this.invitation,
+      accountType: accountType,
       hasProfile: hasProfile ?? this.hasProfile,
       hasNfc: hasNfc ?? this.hasNfc,
       visits: visits ?? this.visits,
@@ -122,6 +142,8 @@ class CompanyEmployeeModel extends Equatable {
         status,
         companyOwnerId,
         createdAt,
+        invitation,
+        accountType,
         hasProfile,
         hasNfc,
         visits,

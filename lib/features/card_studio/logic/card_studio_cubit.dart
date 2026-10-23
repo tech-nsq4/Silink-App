@@ -226,7 +226,9 @@ class CardStudioCubit extends Cubit<CardStudioState> {
     if (email.isNotEmpty && !_emailPattern.hasMatch(email)) {
       return LocaleKeys.cardStudio_errorEmail.tr();
     }
-    if (!current.isRemote && draft.password.length < minPasswordLength) {
+    if (_repo.requiresVerification &&
+        !current.isRemote &&
+        draft.password.length < minPasswordLength) {
       return LocaleKeys.cardStudio_errorPassword.tr();
     }
     return null;
@@ -253,6 +255,15 @@ class CardStudioCubit extends Cubit<CardStudioState> {
     emit(current.copyWith(saving: true, clearError: true));
     try {
       final ticket = await _repo.register(current.draft);
+      if (!_repo.requiresVerification) {
+        emit(_ready!.copyWith(
+          saving: false,
+          isRemote: true,
+          step: contactStep,
+          minStep: contactStep,
+        ));
+        return;
+      }
       emit(_ready!.copyWith(
         saving: false,
         ticket: ticket,
@@ -322,7 +333,8 @@ class CardStudioCubit extends Cubit<CardStudioState> {
 
   int _nextStep(CardStudioSuccess current) {
     final next = current.step + 1;
-    return current.isRemote && next == verifyStep ? contactStep : next;
+    final skipVerify = current.isRemote || !_repo.requiresVerification;
+    return skipVerify && next == verifyStep ? contactStep : next;
   }
 
   int? get nextStep => _ready.letValue(_nextStep);

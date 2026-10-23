@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../app/router/navigation_services.dart';
 import '../../../app/router/routes.dart';
 import '../../../core/di/injection.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/convert_helper.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/app_text.dart';
@@ -68,6 +70,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final words =
         name.trim().split(' ').where((word) => word.isNotEmpty).take(2);
     return words.map((word) => word.characters.first).join();
+  }
+
+  Future<void> _shareCardLink() async {
+    final state = context.read<ProfileCubit>().state;
+    final cardUrl = (state is ProfileSuccess ? state.user.cardUrl : null) ??
+        kUserModel?.cardUrl;
+    if (cardUrl == null || cardUrl.isEmpty) {
+      AppOverlay.showError(LocaleKeys.common_somethingWentWrong.tr());
+      return;
+    }
+    final box = context.findRenderObject() as RenderBox?;
+    final origin =
+        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    await Share.share(cardUrl, sharePositionOrigin: origin);
   }
 
   Future<void> _refresh() async {
@@ -166,17 +182,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   HomeCardActions(
                     actions: [
                       HomeCardAction(
-                        icon: Icons.qr_code_2_rounded,
+                        icon: Icons.ios_share_rounded,
                         label: LocaleKeys.homeHub_share.tr(),
-                        onTap: () => _openAndRefresh(Routes.profileCardScreen),
+                        onTap: _shareCardLink,
                       ),
                       HomeCardAction(
                         icon: Icons.edit_outlined,
                         label: LocaleKeys.homeHub_edit.tr(),
-                        onTap: () => _openAndRefresh(
-                          Routes.profileCardScreen,
-                          arguments: {'viewOnly': true},
-                        ),
+                        onTap: () => _openAndRefresh(Routes.profileCompletionScreen),
                       ),
                       HomeCardAction(
                         icon: Icons.contactless_outlined,

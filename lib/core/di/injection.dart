@@ -1,3 +1,4 @@
+import '../../features/company/company_card/logic/brand_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/account/data/account_repo.dart';
@@ -18,6 +19,15 @@ import '../../features/faq/logic/faq_cubit.dart';
 import '../../features/checkout/logic/cities_cubit.dart';
 
 import '../../features/clients/data/clients_repo.dart';
+import '../../features/settings/data/pages_repo.dart';
+import '../../features/onboarding/data/onboarding_repo.dart';
+import '../../features/onboarding/logic/onboarding_cubit.dart';
+import '../../features/help/data/contact_repo.dart';
+import '../../features/help/logic/contact_cubit.dart';
+import '../../features/portfolios/data/portfolios_repo.dart';
+import '../../features/portfolio_studio/data/portfolio_studio_repo.dart';
+import '../../features/portfolios/logic/portfolios_cubit.dart';
+import '../../features/settings/logic/static_page_cubit.dart';
 import '../../features/clients/data/client_extras_store.dart';
 import '../../features/clients/logic/client_details_cubit.dart';
 import '../../features/clients/logic/client_form_cubit.dart';
@@ -28,6 +38,8 @@ import '../../features/company/catalog/data/catalog_section_store.dart';
 import '../../features/company/catalog/data/company_catalog_repo.dart';
 import '../../features/company/catalog/logic/company_catalog_cubit.dart';
 import '../../features/company/employees/data/company_team_repo.dart';
+import '../../features/employee_invitation/data/employee_invitation_repo.dart';
+import '../../features/employee_invitation/logic/employee_invitation_cubit.dart';
 import '../../features/company/employees/logic/company_team_cubit.dart';
 import '../../features/company/employees/logic/company_team_member_cubit.dart';
 import '../../features/company/company_profile_completion/logic/company_profile_completion_cubit.dart';
@@ -63,6 +75,8 @@ Future<void> setupDi() async {
 
   // ─── Repos ────────────────────────────────────────────────────────────
   getIt.registerLazySingleton(() => AuthRepo(dio: getIt(), storage: getIt()));
+  getIt.registerLazySingleton(
+      () => EmployeeInvitationRepo(dio: getIt(), storage: getIt()));
 
   getIt.registerLazySingleton(() => ProfileCompletionRepo(dio: getIt()));
   getIt.registerLazySingleton(() => CompanyProfileCompletionRepo(dio: getIt()));
@@ -79,6 +93,24 @@ Future<void> setupDi() async {
   getIt.registerLazySingleton(() => SubscriptionRepo(dio: getIt()));
   getIt.registerLazySingleton(() => FaqRepo(dio: getIt()));
   getIt.registerLazySingleton(() => ClientsRepo(dio: getIt()));
+  getIt.registerLazySingleton(() => PagesRepo(dio: getIt()));
+  getIt.registerLazySingleton(() => OnboardingRepo(dio: getIt()));
+  getIt.registerFactory(() => OnboardingCubit(getIt()));
+  getIt.registerLazySingleton(() => ContactRepo(dio: getIt()));
+  getIt.registerFactory(() => ContactCubit(getIt()));
+  getIt.registerLazySingleton(() => PortfoliosRepo(dio: getIt()));
+  getIt.registerFactory(() => PortfoliosCubit(getIt()));
+  getIt.registerFactoryParam<PortfolioStudioRepo, String?, void>(
+    (portfolioId, _) => PortfolioStudioRepo(
+      dio: getIt(),
+      authRepo: getIt(),
+      storage: getIt(),
+      completionRepo: getIt(),
+      cardRepo: getIt(),
+      portfolioId: portfolioId,
+    ),
+  );
+  getIt.registerFactory(() => StaticPageCubit(getIt()));
   getIt.registerLazySingleton(() => ClientExtrasStore(storage: getIt()));
   getIt.registerLazySingleton(() => const AssistantDraftParser());
   getIt.registerLazySingleton(() => CardStudioRepo(
@@ -94,11 +126,13 @@ Future<void> setupDi() async {
   // ─── Cubits ────────────────────────────────────────────────────────────
   getIt.registerFactory(() => AuthCubit(getIt()));
   getIt.registerFactory(() => ProfileCubit(getIt(), getIt(), getIt()));
+  getIt.registerFactory(() => BrandCubit(getIt(), getIt()));
   getIt.registerFactory(() => ProfileCompletionCubit(getIt()));
   getIt.registerFactory(() => CompanyProfileCompletionCubit(getIt()));
   getIt.registerFactory(() => CompanyDashboardCubit(getIt(), getIt()));
   getIt.registerFactory(() => CompanyTeamCubit(getIt()));
   getIt.registerFactory(() => CompanyTeamMemberCubit(getIt()));
+  getIt.registerFactory(() => EmployeeInvitationCubit(getIt()));
   getIt.registerFactory(() => ProfileCardCubit(getIt()));
   getIt.registerFactory(() => MyFilesCubit(getIt()));
   getIt.registerFactory(() => MyFileCubit(getIt()));

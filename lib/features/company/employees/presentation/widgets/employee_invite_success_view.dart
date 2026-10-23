@@ -3,6 +3,8 @@ import 'package:Silink/core/utils/app_colors.dart';
 import 'package:Silink/core/utils/locale_keys.dart';
 import 'package:Silink/core/widgets/app_button.dart';
 import 'package:Silink/core/widgets/app_text.dart';
+import 'package:Silink/features/company/employees/data/models/employee_invitation_model.dart';
+import 'package:Silink/features/company/employees/presentation/widgets/employee_invitation_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,18 +13,21 @@ class EmployeeInviteSuccessView extends StatelessWidget {
   const EmployeeInviteSuccessView({
     super.key,
     required this.name,
+    required this.invitation,
     required this.onViewList,
     required this.onInviteAnother,
   });
 
   final String name;
+  final EmployeeInvitationModel? invitation;
   final VoidCallback onViewList;
   final VoidCallback onInviteAnother;
 
   @override
   Widget build(BuildContext context) {
+    final invitation = this.invitation;
     return Center(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: EdgeInsets.all(24.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +63,11 @@ class EmployeeInviteSuccessView extends StatelessWidget {
               textAlign: TextAlign.center,
               height: 1.5,
             ),
-            28.height,
+            24.height,
+            if (invitation != null && invitation.shareLink.isNotEmpty) ...[
+              EmployeeInvitationCard(invitation: invitation),
+              16.height,
+            ],
             CustomButton(
               onTap: onViewList,
               title: LocaleKeys.company_view_employees_list.tr(),

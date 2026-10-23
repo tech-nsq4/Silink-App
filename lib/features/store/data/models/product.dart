@@ -48,6 +48,7 @@ class Product extends Equatable {
   final double? rating;
   final int? reviewCount;
   final List<int> colorValues;
+  final List<String?> colorImages;
   final int defaultColorIndex;
   final List<String> colorLabelKeys;
   final bool customizable;
@@ -70,6 +71,7 @@ class Product extends Equatable {
     this.rating,
     this.reviewCount,
     this.colorValues = const [],
+    this.colorImages = const [],
     this.defaultColorIndex = 0,
     this.colorLabelKeys = const [],
     this.customizable = false,
@@ -83,11 +85,8 @@ class Product extends Equatable {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    final colors = (json['productColor'] as List?)
-            ?.whereType<String>()
-            .map((hex) => ConvertHelper.hexToColor(hex).toARGB32())
-            .toList(growable: false) ??
-        const <int>[];
+    final entries = parseColors(json['productColor']);
+    final colors = [for (final entry in entries) entry.$1];
 
     return Product(
       id: json['id']?.toString() ?? '',
@@ -102,8 +101,49 @@ class Product extends Equatable {
       reviewCount: int.tryParse(json['reviewCount']?.toString() ?? '') ??
           AppConstants.defaultProductReviewCount,
       colorValues: colors,
+      colorImages: [for (final entry in entries) entry.$2],
       imageGradientValues: colors,
     );
+  }
+
+  static List<(int, String?)> parseColors(Object? raw) {
+    if (raw is! List) return const [];
+    return [
+      for (final entry in raw)
+        if (entry is String)
+          (ConvertHelper.hexToColor(entry).toARGB32(), null)
+        else if (entry is Map && entry['color'] is String)
+          (
+            ConvertHelper.hexToColor(entry['color'] as String).toARGB32(),
+            (entry['image'] as String?)?.trim().isEmpty ?? true
+                ? null
+                : (entry['image'] as String).trim(),
+          ),
+    ];
+  }
+
+  List<String> get gallery => {
+        if (hasImage) image,
+        for (final colorImage in colorImages)
+          if (colorImage != null) colorImage,
+      }.toList();
+
+  String imageForColor(int index) =>
+      index >= 0 && index < colorImages.length && colorImages[index] != null
+          ? colorImages[index]!
+          : image;
+
+  int? galleryIndexOfColor(int index) {
+    final pages = gallery;
+    final position = pages.indexOf(imageForColor(index));
+    return position < 0 ? null : position;
+  }
+
+  int? colorIndexOfGallery(int page) {
+    final pages = gallery;
+    if (page < 0 || page >= pages.length) return null;
+    final position = colorImages.indexOf(pages[page]);
+    return position < 0 ? null : position;
   }
 
   Map<String, dynamic> toJson() => {
@@ -112,9 +152,13 @@ class Product extends Equatable {
         'image': image,
         'description': description,
         'price': price.toStringAsFixed(2),
-        'productColor': colorValues
-            .map((value) => ConvertHelper.colorToHex(Color(value)))
-            .toList(growable: false),
+        'productColor': [
+          for (final (index, value) in colorValues.indexed)
+            {
+              'color': ConvertHelper.colorToHex(Color(value)),
+              'image': index < colorImages.length ? colorImages[index] : null,
+            },
+        ],
       };
 
   static const List<Color> fallbackGradient = [
@@ -164,6 +208,7 @@ class Product extends Equatable {
         rating,
         reviewCount,
         colorValues,
+        colorImages,
         defaultColorIndex,
         colorLabelKeys,
         customizable,

@@ -31,11 +31,9 @@ class OrderItemModel extends Equatable {
       productId: json['productId']?.toString() ?? '',
       name: json['name'] as String? ?? '',
       image: json['image'] as String? ?? '',
-      colorValues: (json['productColor'] as List?)
-              ?.whereType<String>()
-              .map((hex) => ConvertHelper.hexToColor(hex).toARGB32())
-              .toList(growable: false) ??
-          const [],
+      colorValues: [
+        for (final entry in Product.parseColors(json['productColor'])) entry.$1,
+      ],
       quantity: quantity,
       price: price,
       lineTotal: double.tryParse(json['lineTotal']?.toString() ?? '') ??

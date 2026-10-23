@@ -38,7 +38,7 @@ class CardStudioRepo {
   static const String _lockedSection = 'basic';
   static const String _personalUsageIntent = 'personal';
   static const String _businessProfile = 'business';
-  static const String _freelancerProfile = 'freelancer';
+  static const String _freelancerProfile = 'freelance';
   static const String _quickContactSection = 'quick_contact';
 
   final DioClient _dio;
@@ -47,15 +47,20 @@ class CardStudioRepo {
   final ProfileCompletionRepo _completion;
   final ProfileCardRepo _card;
 
+  DioClient get dio => _dio;
+  ProfileCompletionRepo get completion => _completion;
+  ProfileCardRepo get cardRepo => _card;
+  bool get requiresVerification => true;
+
   Future<StudioDraft> loadRemote() async {
     final results = await Future.wait([
-      _card.getMyCard(),
-      _completion.getChannels(),
-      _completion.getLinks(),
-      _completion.getCatalog(),
-      _completion.getArrangement(),
-      _completion.getTemplates(),
-      _completion.getAppearance(),
+      cardRepo.getMyCard(),
+      completion.getChannels(),
+      completion.getLinks(),
+      completion.getCatalog(),
+      completion.getArrangement(),
+      completion.getTemplates(),
+      completion.getAppearance(),
     ]);
     final card = results[0] as ProfileCardModel;
     final channels = results[1] as List<ChannelModel>;
@@ -144,7 +149,7 @@ class CardStudioRepo {
           ),
       ];
 
-  Future<RegistrationTicket> register(StudioDraft draft) {
+  Future<RegistrationTicket?> register(StudioDraft draft) {
     final hasCompany = draft.company.trim().isNotEmpty;
     return _auth.registerPersonal(
       usageIntent: _personalUsageIntent,
@@ -202,10 +207,10 @@ class CardStudioRepo {
   }
 
   Future<void> saveContacts(StudioDraft draft) async {
-    await _completion.saveChannels([
+    await completion.saveChannels([
       for (final channel in draft.channels) _channelModel(channel),
     ]);
-    await _completion.saveLinks([
+    await completion.saveLinks([
       for (final link in draft.links) _linkModel(link),
     ]);
   }
@@ -227,9 +232,9 @@ class CardStudioRepo {
       );
 
   Future<String?> addItem(StudioItem item) async {
-    final before = await _completion.getCatalog();
+    final before = await completion.getCatalog();
     final knownIds = before.items.map((i) => i.id).toSet();
-    final catalog = await _completion.addCatalogItem(
+    final catalog = await completion.addCatalogItem(
       kind: item.kind,
       name: item.name.trim(),
       description: item.description.trim(),
@@ -246,7 +251,7 @@ class CardStudioRepo {
   Future<void> updateItem(StudioItem item) async {
     final id = item.remoteId;
     if (id == null) return;
-    await _completion.updateCatalogItem(
+    await completion.updateCatalogItem(
       id: id,
       kind: item.kind,
       name: item.name.trim(),
@@ -262,11 +267,11 @@ class CardStudioRepo {
   Future<void> deleteItem(StudioItem item) async {
     final id = item.remoteId;
     if (id == null) return;
-    await _completion.deleteCatalogItem(id: id, kind: item.kind);
+    await completion.deleteCatalogItem(id: id, kind: item.kind);
   }
 
   Future<void> saveCatalogSettings(StudioDraft draft) async {
-    await _completion.saveCatalogSettings(
+    await completion.saveCatalogSettings(
       productsEnabled: draft.productsEnabled,
       servicesEnabled: draft.servicesEnabled,
     );
@@ -274,8 +279,8 @@ class CardStudioRepo {
 
   Future<StudioDesignOptions> loadDesignOptions() async {
     final results = await Future.wait([
-      _completion.getTemplates(),
-      _completion.getAppearance(),
+      completion.getTemplates(),
+      completion.getAppearance(),
     ]);
     return StudioDesignOptions(
       templates: results[0] as TemplateSettings,
@@ -289,36 +294,44 @@ class CardStudioRepo {
   ) async {
     final template = options.templateBySlug(slug);
     if (template == null) return null;
-    return _completion.saveTemplate(template.id);
+    return completion.saveTemplate(template.id);
   }
 
   Future<AppearanceModel> saveAppearance(
     StudioDesignOptions options,
     StudioDraft draft,
-  ) =>
-      _completion.saveAppearance(
-        options.appearance.copyWith(
-          primaryColor: draft.primaryColor,
-          coverColor: draft.primaryColor,
-          background: draft.background,
-          buttonShape: draft.buttonShape,
-          fontId: options.fontByFamily(draft.fontFamily)?.id,
-        ),
-      );
+  ) async {
+    final saved = await completion.saveAppearance(
+      options.appearance.copyWith(
+        primaryColor: draft.primaryColor,
+        coverColor: draft.primaryColor,
+        background: draft.background,
+        buttonShape: draft.buttonShape,
+        fontId: options.fontByFamily(draft.fontFamily)?.id,
+      ),
+    );
+    return options.appearance.copyWith(
+      primaryColor: saved.primaryColor,
+      coverColor: saved.coverColor,
+      background: saved.background,
+      buttonShape: saved.buttonShape,
+      fontId: saved.fontId,
+    );
+  }
 
   Future<void> saveDesign(StudioDraft draft) async {
-    final templates = await _completion.getTemplates();
+    final templates = await completion.getTemplates();
     final template =
         templates.templates.where((t) => t.slug == draft.template).firstOrNull;
     if (template != null && template.id != templates.selectedId) {
-      await _completion.saveTemplate(template.id);
+      await completion.saveTemplate(template.id);
     }
 
-    final appearance = await _completion.getAppearance();
+    final appearance = await completion.getAppearance();
     final font = appearance.fonts
         .where((f) => f.family.toLowerCase() == draft.fontFamily.toLowerCase())
         .firstOrNull;
-    await _completion.saveAppearance(
+    await completion.saveAppearance(
       appearance.copyWith(
         primaryColor: draft.primaryColor,
         coverColor: draft.primaryColor,
@@ -332,10 +345,10 @@ class CardStudioRepo {
   }
 
   Future<void> saveArrangement(StudioDraft draft) async {
-    final current = await _completion.getArrangement();
+    final current = await completion.getArrangement();
     final quickContact =
         current.where((s) => s.type == _quickContactSection).firstOrNull;
-    await _completion.saveArrangement([
+    await completion.saveArrangement([
       const ArrangementSectionModel(
         type: _lockedSection,
         label: '',

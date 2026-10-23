@@ -13,16 +13,21 @@ import 'models/link_model.dart';
 import 'models/template_model.dart';
 
 class ProfileCompletionRepo {
-  ProfileCompletionRepo({required DioClient dio}) : _dio = dio;
+  ProfileCompletionRepo({required DioClient dio, String scope = 'me'})
+      : _dio = dio,
+        _scope = scope;
 
   final DioClient _dio;
+  final String _scope;
+
+  String _path(String step) => '$_scope/$step';
 
   Map<String, dynamic> _data(Response response) =>
       response.data['data'] as Map<String, dynamic>;
 
   Future<List<ChannelModel>> getChannels() async {
     try {
-      final response = await _dio.get(ApiEndpoints.meChannels);
+      final response = await _dio.get(_path('channels'));
       final channels = _data(response)['channels'] as List<dynamic>? ?? [];
       return channels
           .map((e) => ChannelModel.fromJson(e as Map<String, dynamic>))
@@ -35,7 +40,7 @@ class ProfileCompletionRepo {
   Future<List<ChannelModel>> saveChannels(List<ChannelModel> channels) async {
     try {
       final response = await _dio.put(
-        ApiEndpoints.meChannels,
+        _path('channels'),
         data: {'channels': channels.map((c) => c.toJson()).toList()},
       );
       final result = _data(response)['channels'] as List<dynamic>? ?? [];
@@ -49,7 +54,7 @@ class ProfileCompletionRepo {
 
   Future<List<LinkModel>> getLinks() async {
     try {
-      final response = await _dio.get(ApiEndpoints.meLinks);
+      final response = await _dio.get(_path('links'));
       final links = _data(response)['links'] as List<dynamic>? ?? [];
       return links
           .map((e) => LinkModel.fromJson(e as Map<String, dynamic>))
@@ -62,7 +67,7 @@ class ProfileCompletionRepo {
   Future<List<LinkModel>> saveLinks(List<LinkModel> links) async {
     try {
       final response = await _dio.put(
-        ApiEndpoints.meLinks,
+        _path('links'),
         data: {'links': links.map((l) => l.toJson()).toList()},
       );
       final result = _data(response)['links'] as List<dynamic>? ?? [];
@@ -76,7 +81,7 @@ class ProfileCompletionRepo {
 
   Future<CatalogModel> getCatalog() async {
     try {
-      final response = await _dio.get(ApiEndpoints.meCatalog);
+      final response = await _dio.get(_path('catalog'));
       return CatalogModel.fromJson(_data(response));
     } on DioException catch (e) {
       throw NetworkException.fromDioException(e);
@@ -89,7 +94,7 @@ class ProfileCompletionRepo {
   }) async {
     try {
       final response = await _dio.put(
-        ApiEndpoints.meCatalog,
+        _path('catalog'),
         data: {
           'productsEnabled': productsEnabled,
           'servicesEnabled': servicesEnabled,
@@ -197,7 +202,7 @@ class ProfileCompletionRepo {
 
   Future<List<ArrangementSectionModel>> getArrangement() async {
     try {
-      final response = await _dio.get(ApiEndpoints.meArrangement);
+      final response = await _dio.get(_path('arrangement'));
       final sections = _data(response)['sections'] as List<dynamic>? ?? [];
       return sections
           .map((e) =>
@@ -213,7 +218,7 @@ class ProfileCompletionRepo {
   ) async {
     try {
       final response = await _dio.put(
-        ApiEndpoints.meArrangement,
+        _path('arrangement'),
         data: {
           'sections': [
             for (final entry in sections.indexed)
@@ -238,7 +243,7 @@ class ProfileCompletionRepo {
 
   Future<TemplateSettings> getTemplates() async {
     try {
-      final response = await _dio.get(ApiEndpoints.meTemplate);
+      final response = await _dio.get(_path('template'));
       return TemplateSettings.fromJson(_data(response));
     } on DioException catch (e) {
       throw NetworkException.fromDioException(e);
@@ -248,7 +253,7 @@ class ProfileCompletionRepo {
   Future<TemplateSettings> saveTemplate(String templateId) async {
     try {
       final response = await _dio.put(
-        ApiEndpoints.meTemplate,
+        _path('template'),
         data: {'templateId': templateId},
       );
       return TemplateSettings.fromJson(_data(response));
@@ -259,7 +264,7 @@ class ProfileCompletionRepo {
 
   Future<AppearanceModel> getAppearance() async {
     try {
-      final response = await _dio.get(ApiEndpoints.meAppearance);
+      final response = await _dio.get(_path('appearance'));
       return AppearanceModel.fromJson(_data(response));
     } on DioException catch (e) {
       throw NetworkException.fromDioException(e);
@@ -269,7 +274,7 @@ class ProfileCompletionRepo {
   Future<AppearanceModel> saveAppearance(AppearanceModel appearance) async {
     try {
       final response = await _dio.put(
-        ApiEndpoints.meAppearance,
+        _path('appearance'),
         data: appearance.toJson(),
       );
       return AppearanceModel.fromJson(_data(response));

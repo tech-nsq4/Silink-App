@@ -38,11 +38,13 @@ class CompanyQrLinkPill extends StatelessWidget {
               height: 14.w,
             ),
             6.width,
-            AppText(
-              link,
-              fontSize: 11.5.sp,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textPrimaryColor.themeColor,
+            Expanded(
+              child: AppText(
+                link,
+                fontSize: 11.5.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimaryColor.themeColor,
+              ),
             ),
           ],
         ),

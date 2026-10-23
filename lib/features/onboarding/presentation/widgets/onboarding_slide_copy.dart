@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,15 +17,17 @@ class OnboardingSlideCopy extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (slide.tag.trim().isNotEmpty) ...[
+            AppText(
+              slide.tag,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.accentTeal.themeColor,
+            ),
+            SizedBox(height: 15.h),
+          ],
           AppText(
-            slide.tagKey.tr(),
-            fontSize: 10.sp,
-            fontWeight: FontWeight.w700,
-            color: AppColors.accentTeal.themeColor,
-          ),
-          SizedBox(height: 15.h),
-          AppText(
-            slide.titleKey.tr(),
+            slide.title,
             fontSize: 33.sp,
             fontWeight: FontWeight.w800,
             height: 1.3,
@@ -34,7 +35,7 @@ class OnboardingSlideCopy extends StatelessWidget {
           ),
           SizedBox(height: 15.h),
           AppText(
-            slide.bodyKey.tr(),
+            slide.body,
             fontSize: 11.sp,
             height: 1.9,
             color: AppColors.textSecondaryColor.themeColor,

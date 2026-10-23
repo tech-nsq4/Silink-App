@@ -24,6 +24,8 @@ import '../../profile_completion/presentation/widgets/profile_catalog_item_detai
 import '../data/models/profile_card_lead_request.dart';
 import '../data/models/profile_card_model.dart';
 import '../data/profile_card_contact_saver.dart';
+import '../../../core/network/api_endpoints.dart';
+import '../data/profile_card_repo.dart';
 import '../logic/profile_card_cubit.dart';
 import 'widgets/profile_card_share_data_dialog.dart';
 
@@ -32,17 +34,27 @@ class ProfileCardScreen extends StatefulWidget {
     super.key,
     this.viewOnly = false,
     this.fromStudio = false,
+    this.portfolioId,
   });
 
   final bool viewOnly;
   final bool fromStudio;
+  final String? portfolioId;
 
   @override
   State<ProfileCardScreen> createState() => _ProfileCardScreenState();
 }
 
 class _ProfileCardScreenState extends State<ProfileCardScreen> {
-  late final ProfileCardCubit _cubit = getIt<ProfileCardCubit>()..getMyCard();
+  static const int portfoliosTabIndex = 1;
+
+  late final ProfileCardCubit _cubit = (widget.portfolioId == null
+      ? getIt<ProfileCardCubit>()
+      : ProfileCardCubit(ProfileCardRepo(
+          dio: getIt(),
+          scope: ApiEndpoints.mePortfolio(widget.portfolioId!),
+        )))
+    ..getMyCard();
   final GlobalKey _shareKey = GlobalKey();
   bool _isSharing = false;
 
@@ -168,7 +180,14 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
   }
 
   Future<void> _editProfile() async {
-    await Navigator.pushNamed(context, Routes.profileCompletionScreen);
+    final portfolioId = widget.portfolioId;
+    await Navigator.pushNamed(
+      context,
+      portfolioId == null
+          ? Routes.profileCompletionScreen
+          : Routes.portfolioStudioScreen,
+      arguments: portfolioId == null ? null : {'portfolioId': portfolioId},
+    );
     if (mounted) _cubit.getMyCard();
   }
 
@@ -176,6 +195,9 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
         context,
         Routes.layoutScreen,
         (_) => false,
+        arguments: widget.portfolioId == null
+            ? null
+            : {'currentPage': portfoliosTabIndex},
       );
 
   @override

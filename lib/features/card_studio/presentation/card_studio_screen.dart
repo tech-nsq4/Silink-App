@@ -30,18 +30,24 @@ class CardStudioScreen extends StatefulWidget {
     this.remote = false,
     this.resume = false,
     this.initialDraft,
+    this.cubit,
+    this.portfolioMode = false,
+    this.onFinished,
   });
 
   final bool remote;
   final bool resume;
   final StudioDraft? initialDraft;
+  final CardStudioCubit? cubit;
+  final bool portfolioMode;
+  final VoidCallback? onFinished;
 
   @override
   State<CardStudioScreen> createState() => _CardStudioScreenState();
 }
 
 class _CardStudioScreenState extends State<CardStudioScreen> {
-  late final CardStudioCubit _cubit = getIt<CardStudioCubit>();
+  late final CardStudioCubit _cubit = widget.cubit ?? getIt<CardStudioCubit>();
   String _otpCode = '';
 
   List<String> get _stepLabels => [
@@ -54,7 +60,9 @@ class _CardStudioScreenState extends State<CardStudioScreen> {
 
   List<int> get _visibleSteps => [
         for (var step = 0; step < _stepLabels.length; step++)
-          if (!(widget.remote && step == CardStudioCubit.verifyStep)) step,
+          if (!((widget.remote || widget.portfolioMode) &&
+              step == CardStudioCubit.verifyStep))
+            step,
       ];
 
   int _displayIndex(int step) {
@@ -90,6 +98,11 @@ class _CardStudioScreenState extends State<CardStudioScreen> {
     }
     final result = await _cubit.next();
     if (result != StudioNextResult.finished || !mounted) return;
+    final onFinished = widget.onFinished;
+    if (onFinished != null) {
+      onFinished();
+      return;
+    }
     Navigator.pushReplacementNamed(
       context,
       Routes.profileCardScreen,
@@ -117,7 +130,7 @@ class _CardStudioScreenState extends State<CardStudioScreen> {
       CardStudioCubit.identityStep => StudioIdentityStep(
           key: ValueKey('identity-${state.isRemote}'),
           draft: draft,
-          withAccount: !state.isRemote,
+          withAccount: !state.isRemote && !widget.portfolioMode,
           onChanged: _cubit.update,
         ),
       CardStudioCubit.verifyStep => StudioVerifyStep(

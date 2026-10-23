@@ -852,6 +852,12 @@ abstract class LocaleKeys {
   static const String company_view_employees_list =
       'company.view_employees_list';
   static const String company_invite_another = 'company.invite_another';
+  static const String company_invite_share = 'company.invite_share';
+  static const String company_invite_copy = 'company.invite_copy';
+  static const String company_invite_link_label = 'company.invite_link_label';
+  static const String company_invite_link_copied = 'company.invite_link_copied';
+  static const String company_invite_expires_at = 'company.invite_expires_at';
+  static const String company_invite_share_message = 'company.invite_share_message';
   static const String company_employee_details_title =
       'company.employee_details_title';
   static const String company_employee_edit_title =
@@ -879,6 +885,10 @@ abstract class LocaleKeys {
   static const String company_employee_profile_first_desc =
       'company.employee_profile_first_desc';
   static const String company_employee_updated = 'company.employee_updated';
+  static const String company_employee_invite_sending =
+      'company.employee_invite_sending';
+  static const String company_employee_invite_view_link =
+      'company.employee_invite_view_link';
   static const String company_employee_invite_resent =
       'company.employee_invite_resent';
   static const String company_employee_profile_linked =
@@ -1905,4 +1915,102 @@ abstract class LocaleKeys {
   static const String catalogHub_delete = 'catalog_hub.delete';
   static const String catalogHub_cancel = 'catalog_hub.cancel';
   static const String companyHub_suspendEmployee = 'company_hub.suspend_employee';
+  static const String settings_accountSection = 'settings.account_section';
+  static const String settings_logoutConfirm = 'settings.logout_confirm';
+  static const String settings_deleteAccount = 'settings.delete_account';
+  static const String settings_deleteAccountConfirm = 'settings.delete_account_confirm';
+  static const String settings_confirm = 'settings.confirm';
+  static const String settings_cancel = 'settings.cancel';
+  static const String companyHub_settings = 'company_hub.settings';
+  static const String companyHub_settingsHint = 'company_hub.settings_hint';
+
+  // ─── Security Hub ───
+  static const String securityHub_password = 'security_hub.password';
+  static const String securityHub_change = 'security_hub.change';
+  static const String securityHub_twoFactor = 'security_hub.two_factor';
+  static const String securityHub_disabled = 'security_hub.disabled';
+  static const String securityHub_profilePrivacy = 'security_hub.profile_privacy';
+  static const String securityHub_publicProfile = 'security_hub.public_profile';
+  static const String securityHub_devices = 'security_hub.devices';
+  static const String securityHub_currentDevice = 'security_hub.current_device';
+  static const String securityHub_now = 'security_hub.now';
+  static const String securityHub_logoutAll = 'security_hub.logout_all';
+  static const String securityHub_dataSection = 'security_hub.data_section';
+  static const String securityHub_downloadData = 'security_hub.download_data';
+
+  // ─── Portfolios ───
+  static const String portfolios_eyebrow = 'portfolios.eyebrow';
+  static const String portfolios_title = 'portfolios.title';
+  static const String portfolios_countEyebrow = 'portfolios.count_eyebrow';
+  static const String portfolios_pageTitle = 'portfolios.page_title';
+  static const String portfolios_pageSubtitle = 'portfolios.page_subtitle';
+  static const String portfolios_search = 'portfolios.search';
+  static const String portfolios_all = 'portfolios.all';
+  static const String portfolios_active = 'portfolios.active';
+  static const String portfolios_paused = 'portfolios.paused';
+  static const String portfolios_primary = 'portfolios.primary';
+  static const String portfolios_secondary = 'portfolios.secondary';
+  static const String portfolios_edit = 'portfolios.edit';
+  static const String portfolios_share = 'portfolios.share';
+  static const String portfolios_preview = 'portfolios.preview';
+  static const String portfolios_empty = 'portfolios.empty';
+  static const String portfolios_detailsTitle = 'portfolios.details_title';
+  static const String portfolios_badgeActive = 'portfolios.badge_active';
+  static const String portfolios_badgePaused = 'portfolios.badge_paused';
+  static const String portfolios_badgeDefault = 'portfolios.badge_default';
+  static const String portfolios_typeBusiness = 'portfolios.type_business';
+  static const String portfolios_typeFreelance = 'portfolios.type_freelance';
+  static const String portfolios_qr = 'portfolios.qr';
+  static const String portfolios_publishState = 'portfolios.publish_state';
+  static const String portfolios_published = 'portfolios.published';
+  static const String portfolios_unpublished = 'portfolios.unpublished';
+  static const String portfolios_copy = 'portfolios.copy';
+  static const String portfolios_copied = 'portfolios.copied';
+  static const String portfolios_updatedAt = 'portfolios.updated_at';
+  static const String portfolios_createdAt = 'portfolios.created_at';
+  static const String portfolios_pause = 'portfolios.pause';
+  static const String portfolios_activate = 'portfolios.activate';
+  static const String portfolios_delete = 'portfolios.delete';
+  static const String portfolios_deleteConfirm = 'portfolios.delete_confirm';
+  static const String portfolios_deleted = 'portfolios.deleted';
+  static const String portfolios_copyLink = 'portfolios.copy_link';
+  static const String portfolios_scanHint = 'portfolios.scan_hint';
+  static const String portfolios_myCards = 'portfolios.my_cards';
+  static const String cardStudio_colorPickerTitle = 'card_studio.color_picker_title';
+  static const String cardStudio_colorPickerConfirm = 'card_studio.color_picker_confirm';
+  static const String cardStudio_colorPickerCancel = 'card_studio.color_picker_cancel';
+  static const String cardStudio_customColor = 'card_studio.custom_color';
+  static const String portfolios_statusTitle = 'portfolios.status_title';
+  static const String portfolios_statusOn = 'portfolios.status_on';
+  static const String portfolios_statusOff = 'portfolios.status_off';
+  static const String help_sent = 'help.sent';
+  static const String help_nameHint = 'help.name_hint';
+  static const String help_emailHint = 'help.email_hint';
+  static const String help_emailInvalid = 'help.email_invalid';
+  static const String help_sending = 'help.sending';
+  // ─── Employee Invitation ───
+  static const String invitation_title = 'invitation.title';
+  static const String invitation_heroTitle = 'invitation.hero_title';
+  static const String invitation_heroSubtitle = 'invitation.hero_subtitle';
+  static const String invitation_aboutCompany = 'invitation.about_company';
+  static const String invitation_website = 'invitation.website';
+  static const String invitation_phone = 'invitation.phone';
+  static const String invitation_email = 'invitation.email';
+  static const String invitation_yourDetails = 'invitation.your_details';
+  static const String invitation_name = 'invitation.name';
+  static const String invitation_jobTitle = 'invitation.job_title';
+  static const String invitation_password = 'invitation.password';
+  static const String invitation_passwordHint = 'invitation.password_hint';
+  static const String invitation_cancel = 'invitation.cancel';
+  static const String invitation_accept = 'invitation.accept';
+  static const String invitation_sheetTitle = 'invitation.sheet_title';
+  static const String invitation_sheetSubtitle = 'invitation.sheet_subtitle';
+  static const String invitation_confirm = 'invitation.confirm';
+  static const String invitation_welcome = 'invitation.welcome';
+  static const String invitation_backToLogin = 'invitation.back_to_login';
+  static const String invitation_retry = 'invitation.retry';
+  static const String invitation_statusAccepted = 'invitation.status_accepted';
+  static const String invitation_statusExpired = 'invitation.status_expired';
+  static const String invitation_statusUnavailable = 'invitation.status_unavailable';
+  static const String invitation_askNewLink = 'invitation.ask_new_link';
 }

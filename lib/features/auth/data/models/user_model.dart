@@ -11,6 +11,7 @@ class UserModel extends Equatable {
   final String? status;
   final String? usageIntent;
   final String? createdAt;
+  final String? cardUrl;
 
   const UserModel({
     required this.id,
@@ -23,6 +24,7 @@ class UserModel extends Equatable {
     this.status,
     this.usageIntent,
     this.createdAt,
+    this.cardUrl,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -37,6 +39,7 @@ class UserModel extends Equatable {
         usageIntent: json['usageIntent'] as String?,
         createdAt:
             json['createdAt'] as String? ?? json['created_at'] as String?,
+        cardUrl: json['cardUrl'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,6 +53,7 @@ class UserModel extends Equatable {
         'status': status,
         'usageIntent': usageIntent,
         'createdAt': createdAt,
+        'cardUrl': cardUrl,
       };
 
   @override
@@ -64,5 +68,6 @@ class UserModel extends Equatable {
         status,
         usageIntent,
         createdAt,
+        cardUrl,
       ];
 }

@@ -25,17 +25,24 @@ class QrScreen extends StatelessWidget {
 
   final CompanyPublicPageData data;
 
-  String get _url => '${AppConstants.companyPageUrl}${data.slug}';
+  String get _url {
+    final cardUrl = kUserModel?.cardUrl;
+    if (cardUrl != null && cardUrl.isNotEmpty) return cardUrl;
+    return '${AppConstants.companyPageUrl}${data.slug}';
+  }
 
-  String get _displayLink => '${AppConstants.companyPageHost}${data.slug}';
+  String get _displayLink => _url.replaceFirst(RegExp(r'^https?://'), '');
 
   void _copyLink() {
     Clipboard.setData(ClipboardData(text: _url));
     AppOverlay.showSuccess(LocaleKeys.publish_linkCopied.tr());
   }
 
-  Future<void> _shareLink() async {
-    await Share.share(_url);
+  Future<void> _shareLink(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final origin =
+        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    await Share.share(_url, sharePositionOrigin: origin);
   }
 
   void _onSimulateScan() => NavigationService.push(Routes.companyPublicPage);
@@ -68,7 +75,7 @@ class QrScreen extends StatelessWidget {
                     CompanyQrActionButton(
                       icon: AppImages.iconsShare,
                       label: LocaleKeys.company_qr_share_link.tr(),
-                      onTap: _shareLink,
+                      onTap: () => _shareLink(context),
                       filled: false,
                     ),
                     24.height,

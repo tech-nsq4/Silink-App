@@ -28,6 +28,7 @@ import 'package:Silink/features/company/employees/presentation/employee_invite_s
 import 'package:Silink/features/company/employees/presentation/employee_nfc_link_screen.dart';
 
 import 'package:Silink/features/company/employees/presentation/employees_screen.dart';
+import 'package:Silink/features/employee_invitation/presentation/employee_invitation_screen.dart';
 import 'package:Silink/features/nfc/presentation/nfc_screen.dart';
 
 import 'package:Silink/features/help/presentation/help_screen.dart';
@@ -35,6 +36,12 @@ import 'package:Silink/features/notifications/presentation/notifications_screen.
 import 'package:Silink/features/settings/data/models/static_page_content.dart';
 import 'package:Silink/features/settings/presentation/settings_screen.dart';
 import 'package:Silink/features/settings/presentation/static_page_screen.dart';
+import 'package:Silink/features/settings/presentation/privacy_security_screen.dart';
+import 'package:Silink/features/portfolios/data/models/portfolio_model.dart';
+import 'package:Silink/features/portfolios/presentation/portfolio_details_screen.dart';
+import 'package:Silink/features/portfolios/presentation/portfolios_screen.dart';
+import 'package:Silink/features/portfolio_studio/presentation/portfolio_studio_screen.dart';
+import 'package:Silink/features/portfolios/presentation/portfolio_preview_screen.dart';
 import 'package:Silink/features/profile_completion/data/models/profile_completion_data.dart';
 import 'package:Silink/features/profile_card/presentation/profile_card_screen.dart';
 import 'package:Silink/features/my_card/models/my_card_model.dart';
@@ -57,6 +64,7 @@ import 'package:Silink/features/store/presentation/category_products_screen.dart
 import 'package:Silink/features/store/presentation/product_details_screen.dart';
 import 'package:Silink/features/store/presentation/store_screen.dart';
 import 'package:Silink/features/subscription/presentation/subscription_screen.dart';
+import 'package:Silink/core/services/deep_link_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/auth_screen.dart';
@@ -131,6 +139,7 @@ class RouteGenerator {
         return _pageRoute(ProfileCardScreen(
           viewOnly: arguments?['viewOnly'] as bool? ?? false,
           fromStudio: arguments?['fromStudio'] as bool? ?? false,
+          portfolioId: arguments?['portfolioId'] as String?,
         ));
       case Routes.statisticsScreen:
         return _pageRoute(const StatisticsScreen());
@@ -203,9 +212,29 @@ class RouteGenerator {
         return _pageRoute(const SettingsScreen());
       case Routes.staticPageScreen:
         return _pageRoute(StaticPageScreen(
-          type: arguments?['type'] as StaticPageType? ??
-              StaticPageType.privacySecurity,
+          type: arguments?['type'] as StaticPageType? ?? StaticPageType.aboutUs,
         ));
+      case Routes.privacySecurityScreen:
+        return _pageRoute(const PrivacySecurityScreen());
+      case Routes.portfolioStudioScreen:
+        return _pageRoute(PortfolioStudioScreen(
+          portfolioId: arguments?['portfolioId'] as String?,
+          initialDraft: arguments?['draft'] as StudioDraft?,
+        ));
+      case Routes.portfoliosScreen:
+        return _pageRoute(const PortfoliosScreen(showBack: true));
+      case Routes.portfolioDetailsScreen:
+        final portfolio = arguments?['portfolio'];
+        if (portfolio is! PortfolioModel) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(PortfolioDetailsScreen(portfolio: portfolio));
+      case Routes.portfolioPreviewScreen:
+        final portfolio = arguments?['portfolio'];
+        if (portfolio is! PortfolioModel) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(PortfolioPreviewScreen(portfolio: portfolio));
       case Routes.subscriptionScreen:
         return _pageRoute(const SubscriptionScreen());
       case Routes.helpScreen:
@@ -322,9 +351,18 @@ class RouteGenerator {
         return _pageRoute(const CompanyEditScreen());
       case Routes.companyInvite:
         return _pageRoute(const EmployeeInviteScreen());
+      case Routes.employeeInvitation:
+        final inviteToken = arguments?['token'];
+        if (inviteToken is! String || inviteToken.isEmpty) {
+          return _pageRoute(const _UndefinedScreen());
+        }
+        return _pageRoute(EmployeeInvitationScreen(inviteToken: inviteToken));
       case Routes.companyNfc:
         return _pageRoute(const NfcScreen());
       default:
+        if (DeepLinkService.isInvitationRoute(settings.name)) {
+          return _pageRoute(const SplashScreen());
+        }
         return _pageRoute(const _UndefinedScreen());
     }
   }

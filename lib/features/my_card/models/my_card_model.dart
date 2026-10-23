@@ -192,7 +192,7 @@ extension CardCategoryX on CardCategory {
       case CardCategory.personal:
         return 'personal';
       case CardCategory.freelancer:
-        return 'freelancer';
+        return 'freelance';
     }
   }
 
@@ -200,7 +200,7 @@ extension CardCategoryX on CardCategory {
     switch (value) {
       case 'business':
         return CardCategory.business;
-      case 'freelancer':
+      case 'freelance':
         return CardCategory.freelancer;
       case 'personal':
       default:

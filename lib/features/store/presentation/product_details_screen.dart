@@ -21,7 +21,7 @@ import '../widgets/shop_cart_button.dart';
 import '../widgets/shop_color_picker.dart';
 import '../widgets/shop_identity_banner.dart';
 import '../widgets/shop_info_tabs.dart';
-import '../widgets/shop_product_visual.dart';
+import '../widgets/shop_product_gallery.dart';
 import '../widgets/shop_quantity_box.dart';
 import '../widgets/shop_section_label.dart';
 import '../widgets/shop_trust_row.dart';
@@ -38,8 +38,36 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _quantity = 1;
   late int _colorIndex = widget.product.defaultColorIndex;
+  late int _page = widget.product.galleryIndexOfColor(_colorIndex) ?? 0;
+  late final PageController _pageController =
+      PageController(initialPage: _page);
 
   Product get _product => widget.product;
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _selectColor(int index) {
+    setState(() => _colorIndex = index);
+    final page = _product.galleryIndexOfColor(index);
+    if (page == null || page == _page || !_pageController.hasClients) return;
+    _pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _onPageChanged(int page) {
+    final color = _product.colorIndexOfGallery(page);
+    setState(() {
+      _page = page;
+      if (color != null) _colorIndex = color;
+    });
+  }
 
   void _addToCart() {
     context.read<CartCubit>().addItem(
@@ -139,10 +167,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ),
                       Positioned.fill(
-                        child: ShopProductVisual(
+                        child: ShopProductGallery(
                           product: product,
-                          cardWidth: 190.w,
+                          controller: _pageController,
+                          page: _page,
                           colorIndex: _colorIndex,
+                          onPageChanged: _onPageChanged,
                         ),
                       ),
                       if (product.badge != ProductBadge.none)
@@ -217,8 +247,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ShopColorPicker(
                                     colors: product.colors,
                                     selected: _colorIndex,
-                                    onSelected: (index) =>
-                                        setState(() => _colorIndex = index),
+                                    onSelected: _selectColor,
                                   ),
                                 ],
                               ),

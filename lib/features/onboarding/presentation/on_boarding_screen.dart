@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/routes.dart';
@@ -7,8 +8,10 @@ import '../../../core/di/injection.dart';
 import '../../../core/storage/local_storage.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/locale_keys.dart';
+import '../../../core/widgets/custom_loading_widget.dart';
 import '../../../core/widgets/gradient_action_button.dart';
 import '../data/models/onboarding_slide.dart';
+import '../logic/onboarding_cubit.dart';
 import 'widgets/onboarding_art.dart';
 import 'widgets/onboarding_dots.dart';
 import 'widgets/onboarding_slide_copy.dart';
@@ -22,9 +25,16 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  static const List<OnboardingSlide> _slides = OnboardingSlide.slides;
+  late final OnboardingCubit _cubit = getIt<OnboardingCubit>()..load();
 
+  List<OnboardingSlide> _slides = const [];
   int _step = 0;
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
 
   bool get _isLast => _step == _slides.length - 1;
 
@@ -52,7 +62,27 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final slide = _slides[_step];
+    return BlocBuilder<OnboardingCubit, OnboardingState>(
+      bloc: _cubit,
+      builder: (context, state) {
+        if (state is! OnboardingReady) {
+          return Scaffold(
+            backgroundColor: AppColors.backgroundColor.themeColor,
+            body: Center(
+              child: CustomLoadingWidget(
+                color: AppColors.accentTeal.themeColor,
+              ),
+            ),
+          );
+        }
+        _slides = state.slides;
+        if (_step >= _slides.length) _step = 0;
+        return _content(_slides[_step]);
+      },
+    );
+  }
+
+  Widget _content(OnboardingSlide slide) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor.themeColor,
       body: SafeArea(
@@ -68,11 +98,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      OnboardingArt(stage: _step),
+                      OnboardingArt(
+                        stage: _step,
+                        isLast: _isLast,
+                        imageUrl: slide.imageUrl,
+                      ),
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),
-                        transitionBuilder: (child, animation) =>
-                            FadeTransition(
+                        transitionBuilder: (child, animation) => FadeTransition(
                           opacity: animation,
                           child: SlideTransition(
                             position: Tween(

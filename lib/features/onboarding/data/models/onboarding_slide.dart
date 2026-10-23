@@ -1,36 +1,48 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/utils/locale_keys.dart';
 
 class OnboardingSlide extends Equatable {
   const OnboardingSlide({
-    required this.tagKey,
-    required this.titleKey,
-    required this.bodyKey,
+    required this.title,
+    required this.body,
+    this.tag = '',
+    this.imageUrl,
   });
 
-  final String tagKey;
-  final String titleKey;
-  final String bodyKey;
+  final String tag;
+  final String title;
+  final String body;
+  final String? imageUrl;
 
-  static const List<OnboardingSlide> slides = [
-    OnboardingSlide(
-      tagKey: LocaleKeys.onboarding_identityTag,
-      titleKey: LocaleKeys.onboarding_identityTitle,
-      bodyKey: LocaleKeys.onboarding_identityBody,
-    ),
-    OnboardingSlide(
-      tagKey: LocaleKeys.onboarding_meetingsTag,
-      titleKey: LocaleKeys.onboarding_meetingsTitle,
-      bodyKey: LocaleKeys.onboarding_meetingsBody,
-    ),
-    OnboardingSlide(
-      tagKey: LocaleKeys.onboarding_chancesTag,
-      titleKey: LocaleKeys.onboarding_chancesTitle,
-      bodyKey: LocaleKeys.onboarding_chancesBody,
-    ),
-  ];
+  bool get hasImage => (imageUrl ?? '').trim().isNotEmpty;
+
+  factory OnboardingSlide.fromJson(Map<String, dynamic> json) =>
+      OnboardingSlide(
+        title: json['title'] as String? ?? '',
+        body: json['content'] as String? ?? '',
+        imageUrl: json['image'] as String?,
+      );
+
+  static List<OnboardingSlide> get local => [
+        OnboardingSlide(
+          tag: LocaleKeys.onboarding_identityTag.tr(),
+          title: LocaleKeys.onboarding_identityTitle.tr(),
+          body: LocaleKeys.onboarding_identityBody.tr(),
+        ),
+        OnboardingSlide(
+          tag: LocaleKeys.onboarding_meetingsTag.tr(),
+          title: LocaleKeys.onboarding_meetingsTitle.tr(),
+          body: LocaleKeys.onboarding_meetingsBody.tr(),
+        ),
+        OnboardingSlide(
+          tag: LocaleKeys.onboarding_chancesTag.tr(),
+          title: LocaleKeys.onboarding_chancesTitle.tr(),
+          body: LocaleKeys.onboarding_chancesBody.tr(),
+        ),
+      ];
 
   @override
-  List<Object?> get props => [tagKey, titleKey, bodyKey];
+  List<Object?> get props => [tag, title, body, imageUrl];
 }

@@ -6,7 +6,6 @@ import '../../../../core/widgets/app_options_sheet.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../../../core/widgets/custom_tap_effect.dart';
 
-
 class StudioSelectField<T> extends StatelessWidget {
   const StudioSelectField({
     super.key,

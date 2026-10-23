@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/routes.dart';
 import '../../../core/di/injection.dart';
+import '../../../core/services/deep_link_service.dart';
 import '../../../core/storage/local_storage.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_constants.dart';
@@ -46,7 +47,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigate() async {
     if (_navigated || !mounted) return;
     _navigated = true;
+    await _routeToStart();
+    DeepLinkService.markReady();
+  }
 
+  Future<void> _routeToStart() async {
     final storage = getIt<LocalStorage>();
     if (storage.isLoggedIn) {
       await context.read<ProfileCubit>().getProfile();

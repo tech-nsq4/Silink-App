@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.silink.app",
+      "sha256_cert_fingerprints": [
+        "C8:FC:4E:AB:ED:F8:5E:FC:61:6E:6E:78:0F:B9:D1:6B:96:A4:AA:46:05:3E:47:5C:C2:B5:95:E2:C4:2C:82:01",
+        "96:0A:EA:01:A1:A8:1E:AB:AA:2D:75:5F:09:01:92:1D:89:84:7F:5B:3C:B0:4B:6D:F7:CE:52:A1:30:66:4B:C4"
+      ]
+    }
+  }
+]

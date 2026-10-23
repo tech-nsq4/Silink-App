@@ -38,10 +38,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     super.dispose();
   }
 
-  String? _requiredValidator(String? value) =>
-      (value == null || value.isEmpty)
-          ? LocaleKeys.validation_required.tr()
-          : null;
+  String? _requiredValidator(String? value) => (value == null || value.isEmpty)
+      ? LocaleKeys.validation_required.tr()
+      : null;
 
   String? _newPasswordValidator(String? value) {
     final required = _requiredValidator(value);

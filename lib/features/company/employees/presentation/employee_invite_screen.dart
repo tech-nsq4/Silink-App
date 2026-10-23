@@ -28,9 +28,8 @@ class _EmployeeInviteScreenState extends State<EmployeeInviteScreen> {
   final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _phoneCtrl = TextEditingController();
-  final _whatsappCtrl = TextEditingController();
+  final _departmentCtrl = TextEditingController();
   final _positionCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
 
   bool _hasCreated = false;
 
@@ -40,9 +39,8 @@ class _EmployeeInviteScreenState extends State<EmployeeInviteScreen> {
     _nameCtrl.dispose();
     _emailCtrl.dispose();
     _phoneCtrl.dispose();
-    _whatsappCtrl.dispose();
+    _departmentCtrl.dispose();
     _positionCtrl.dispose();
-    _passwordCtrl.dispose();
     super.dispose();
   }
 
@@ -52,10 +50,9 @@ class _EmployeeInviteScreenState extends State<EmployeeInviteScreen> {
     _cubit.createMember(
       name: _nameCtrl.text.trim(),
       email: _emailCtrl.text.trim(),
-      password: _passwordCtrl.text.trim(),
       phone: _phoneCtrl.text.trim(),
-      whatsapp: _whatsappCtrl.text.trim(),
       position: _positionCtrl.text.trim(),
+      department: _departmentCtrl.text.trim(),
     );
   }
 
@@ -69,9 +66,8 @@ class _EmployeeInviteScreenState extends State<EmployeeInviteScreen> {
     _nameCtrl.clear();
     _emailCtrl.clear();
     _phoneCtrl.clear();
-    _whatsappCtrl.clear();
+    _departmentCtrl.clear();
     _positionCtrl.clear();
-    _passwordCtrl.clear();
     _cubit.reset();
   }
 
@@ -96,6 +92,7 @@ class _EmployeeInviteScreenState extends State<EmployeeInviteScreen> {
                 child: state is CompanyTeamMemberSaved
                     ? EmployeeInviteSuccessView(
                         name: state.member.name,
+                        invitation: state.member.invitation,
                         onViewList: _close,
                         onInviteAnother: _reset,
                       )
@@ -140,22 +137,15 @@ class _EmployeeInviteScreenState extends State<EmployeeInviteScreen> {
                               ),
                               14.height,
                               EmployeeFormField(
-                                label: LocaleKeys.company_whatsapp.tr(),
-                                controller: _whatsappCtrl,
-                                keyboardType: TextInputType.phone,
-                              ),
-                              14.height,
-                              EmployeeFormField(
                                 label: LocaleKeys.company_job_title_star.tr(),
                                 controller: _positionCtrl,
                                 validator: EmployeeValidators.required,
                               ),
                               14.height,
                               EmployeeFormField(
-                                label: LocaleKeys.company_password_star.tr(),
-                                controller: _passwordCtrl,
-                                isPassword: true,
-                                validator: EmployeeValidators.password,
+                                label: LocaleKeys.company_department.tr(),
+                                hint: LocaleKeys.company_department_hint.tr(),
+                                controller: _departmentCtrl,
                               ),
                             ],
                           ),

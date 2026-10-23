@@ -1,7 +1,7 @@
 class ApiEndpoints {
   ApiEndpoints._();
 
-  static const String baseUrl = 'https://silink-api.nsq4.sa/api/v1/';
+  static const String baseUrl = 'https://silink-api.nasaq4.com/api/v1/';
 
   // ─── Auth ─────────────────────────────────────────────────────────────────
   static const String login = 'auth/login';
@@ -10,6 +10,10 @@ class ApiEndpoints {
   static const String meFcmToken = 'me/fcm-token';
   static const String register = 'auth/register';
   static const String verifyOtp = 'auth/otp/verify';
+
+  // ─── Employee Invitation ──────────────────────────────────────────────────
+  static const String employeeInvitation = 'employee-invitations';
+  static const String employeeInvitationAccept = 'employee-invitations/accept';
 
   // ─── Profile Completion ───────────────────────────────────────────────────
   static const String meChannels = 'me/channels';
@@ -34,6 +38,10 @@ class ApiEndpoints {
   // ─── Company Team ─────────────────────────────────────────────────────────
   static const String meCompanyTeam = 'me/company/team';
   static String meCompanyTeamMember(String id) => 'me/company/team/$id';
+  static String meCompanyTeamMemberInvitation(String id) =>
+      'me/company/team/$id/invitation';
+  static String meCompanyTeamMemberStatus(String id) =>
+      'me/company/team/$id/status';
 
   static const String meFiles = 'me/files';
   static const String meFileCategories = 'me/file-categories';
@@ -57,4 +65,10 @@ class ApiEndpoints {
 
   // ─── FAQs ─────────────────────────────────────────────────────────────────
   static const String faqs = 'faqs';
+  static const String pages = 'pages';
+  static const String splash = 'splash';
+  static const String contactMessages = 'contact-messages';
+  static const String mePortfolios = 'me/portfolios';
+  static String mePortfolio(String id) => 'me/portfolios/$id';
+  static String mePortfolioStatus(String id) => 'me/portfolios/$id/status';
 }

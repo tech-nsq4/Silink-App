@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/di/injection.dart';
 import '../../../core/extensions/extensions.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/app_images.dart';
 import '../../../core/utils/app_overlay.dart';
 import '../../../core/utils/locale_keys.dart';
@@ -16,6 +18,8 @@ import '../../account/widgets/account_menu_tile.dart';
 import '../../account/widgets/account_section_card.dart';
 import '../../faq/logic/faq_cubit.dart';
 import '../../faq/widgets/faq_section.dart';
+import '../data/models/contact_message.dart';
+import '../logic/contact_cubit.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -28,33 +32,71 @@ class HelpScreen extends StatefulWidget {
 }
 
 class _HelpScreenState extends State<HelpScreen> {
+  static final RegExp _emailPattern = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
+
   late final TextEditingController _subjectController;
   late final TextEditingController _messageController;
+  late final TextEditingController _nameController;
+  late final TextEditingController _emailController;
   late final FaqCubit _faqCubit = getIt<FaqCubit>()..getFaqs();
+  late final ContactCubit _contactCubit = getIt<ContactCubit>();
+
+  late final bool _askName = (kUserModel?.fullName.trim() ?? '').isEmpty;
+  late final bool _askEmail = (kUserModel?.email?.trim() ?? '').isEmpty;
 
   @override
   void initState() {
     super.initState();
     _subjectController = TextEditingController()..addListener(_rebuild);
     _messageController = TextEditingController()..addListener(_rebuild);
+    _nameController = TextEditingController()..addListener(_rebuild);
+    _emailController = TextEditingController()..addListener(_rebuild);
   }
 
   void _rebuild() => setState(() {});
 
+  String get _name =>
+      _askName ? _nameController.text.trim() : kUserModel!.fullName.trim();
+
+  String get _email =>
+      _askEmail ? _emailController.text.trim() : kUserModel!.email!.trim();
+
   bool get _canSend =>
       _subjectController.text.trim().isNotEmpty &&
-      _messageController.text.trim().isNotEmpty;
+      _messageController.text.trim().isNotEmpty &&
+      _name.isNotEmpty &&
+      _email.isNotEmpty;
 
   @override
   void dispose() {
     _subjectController.dispose();
     _messageController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
     _faqCubit.close();
+    _contactCubit.close();
     super.dispose();
   }
 
-  void _showComingSoon() {
-    AppOverlay.showSuccess(LocaleKeys.common_comingSoon.tr());
+  void _send() {
+    FocusScope.of(context).unfocus();
+    if (!_emailPattern.hasMatch(_email)) {
+      AppOverlay.showError(LocaleKeys.help_emailInvalid.tr());
+      return;
+    }
+    _contactCubit.send(ContactMessage(
+      name: _name,
+      email: _email,
+      phone: kUserModel?.phone ?? '',
+      subject: _subjectController.text,
+      message: _messageController.text,
+    ));
+  }
+
+  void _onContactState(BuildContext context, ContactState state) {
+    if (state is! ContactSent) return;
+    _subjectController.clear();
+    _messageController.clear();
   }
 
   @override
@@ -86,6 +128,21 @@ class _HelpScreenState extends State<HelpScreen> {
                       children: [
                         Column(
                           children: [
+                            if (_askName) ...[
+                              CustomTextField(
+                                controller: _nameController,
+                                hint: LocaleKeys.help_nameHint.tr(),
+                              ),
+                              12.height,
+                            ],
+                            if (_askEmail) ...[
+                              CustomTextField(
+                                controller: _emailController,
+                                hint: LocaleKeys.help_emailHint.tr(),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              12.height,
+                            ],
                             CustomTextField(
                               controller: _subjectController,
                               hint: LocaleKeys.help_subjectHint.tr(),
@@ -97,14 +154,20 @@ class _HelpScreenState extends State<HelpScreen> {
                               maxLines: 5,
                             ),
                             14.height,
-                            CustomButton(
-                              onTap: _canSend ? _showComingSoon : () {},
-                              title: LocaleKeys.help_send.tr(),
-                              color: _canSend
-                                  ? null
-                                  : Color(0xFFcbd5e1).withValues(alpha: 0.5),
-                              textColor:
-                                  _canSend ? null : AppColors.white.themeColor,
+                            BlocConsumer<ContactCubit, ContactState>(
+                              bloc: _contactCubit,
+                              listener: _onContactState,
+                              builder: (context, state) => CustomButton(
+                                onTap: _canSend ? _send : () {},
+                                loading: state is ContactSending,
+                                title: LocaleKeys.help_send.tr(),
+                                color: _canSend
+                                    ? null
+                                    : AppColors.studioStepLine.themeColor,
+                                textColor: _canSend
+                                    ? null
+                                    : AppColors.white.themeColor,
+                              ),
                             ),
                           ],
                         ),

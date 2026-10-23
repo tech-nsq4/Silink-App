@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../app/router/routes.dart';
 import '../../../core/extensions/extensions.dart';
+import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/app_images.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/screen_header_bar.dart';
 import '../../account/widgets/account_menu_tile.dart';
 import '../../account/widgets/account_section_card.dart';
 import '../data/models/static_page_content.dart';
+import 'widgets/settings_account_actions.dart';
 import 'widgets/settings_group_title.dart';
 import 'widgets/settings_language_sheet.dart';
 
@@ -46,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
                       icon: AppImages.iconsPrivacy,
                       label: LocaleKeys.settings_privacySecurity.tr(),
                       onTap: () =>
-                          _openPage(context, StaticPageType.privacySecurity),
+                          context.pushNamed(Routes.privacySecurityScreen),
                     ),
                   ],
                 ),
@@ -73,6 +75,26 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                if (!kIsGuest) ...[
+                  20.height,
+                  SettingsGroupTitle(LocaleKeys.settings_accountSection.tr()),
+                  AccountSectionCard(
+                    children: [
+                      AccountMenuTile(
+                        icon: AppImages.iconsLogout,
+                        label: LocaleKeys.settings_logout.tr(),
+                        onTap: () => SettingsAccountActions.logout(context),
+                      ),
+                      AccountMenuTile(
+                        icon: AppImages.iconsDelete,
+                        label: LocaleKeys.settings_deleteAccount.tr(),
+                        isDestructive: true,
+                        onTap: () =>
+                            SettingsAccountActions.deleteAccount(context),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),

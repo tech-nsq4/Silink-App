@@ -53,11 +53,17 @@ class Routes {
   static const String companyEdit = '/company_edit';
   static const String companyInvite = '/company_invite';
   static const String companyNfc = '/company_nfc';
+  static const String employeeInvitation = '/employee_invitation';
 
   static const String accountGuestScreen = '/account_guest_screen';
   static const String accountScreen = '/account_screen';
   static const String accountEditScreen = '/account_edit_screen';
   static const String changePasswordScreen = '/change_password_screen';
+  static const String privacySecurityScreen = '/privacy_security_screen';
+  static const String portfoliosScreen = '/portfolios_screen';
+  static const String portfolioStudioScreen = '/portfolio_studio_screen';
+  static const String portfolioDetailsScreen = '/portfolio_details_screen';
+  static const String portfolioPreviewScreen = '/portfolio_preview_screen';
   static const String notificationsScreen = '/notifications_screen';
   static const String settingsScreen = '/settings_screen';
   static const String staticPageScreen = '/static_page_screen';

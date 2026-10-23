@@ -41,8 +41,7 @@ class _AccountEditScreenState extends State<AccountEditScreen> {
   final _formKey = GlobalKey<FormState>();
   late final AccountEditCubit _cubit = getIt<AccountEditCubit>();
   late final TextEditingController _nameCtrl =
-      TextEditingController(text: widget.user.fullName)
-        ..addListener(_refresh);
+      TextEditingController(text: widget.user.fullName)..addListener(_refresh);
   late final TextEditingController _phoneCtrl =
       TextEditingController(text: widget.user.phone);
   late final TextEditingController _emailCtrl =

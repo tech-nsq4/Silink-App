@@ -18,6 +18,13 @@ class DioClient {
 
   late final Dio _dio;
 
+  static const String customAuthKey = 'customAuth';
+
+  static Options bearerOptions(String token) => Options(
+        headers: {'Authorization': 'Bearer $token'},
+        extra: {customAuthKey: true},
+      );
+
   static const Duration _connectTimeout = Duration(seconds: 30);
   static const Duration _receiveTimeout = Duration(seconds: 30);
 
@@ -155,7 +162,8 @@ class _AuthInterceptor extends Interceptor {
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final token = await _storage.getToken();
-    if (token != null && token.isNotEmpty) {
+    final hasCustomAuth = options.extra[DioClient.customAuthKey] == true;
+    if (!hasCustomAuth && token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
     handler.next(options);
@@ -164,7 +172,9 @@ class _AuthInterceptor extends Interceptor {
   @override
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
+    final hasCustomAuth =
+        err.requestOptions.extra[DioClient.customAuthKey] == true;
+    if (err.response?.statusCode == 401 && !hasCustomAuth) {
       await _storage.clearAll();
       AppOverlay.showError(LocaleKeys.error_unauthorized.tr());
       NavigationService.navigationKey.currentState

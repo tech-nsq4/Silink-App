@@ -99,36 +99,38 @@ class AssistantDraft extends Equatable {
     final empty = StudioDraft.empty();
     final hasPhone = phone.trim().isNotEmpty;
     final hasWebsite = website.trim().isNotEmpty;
-    return empty.copyWith(
-      name: name,
-      title: title,
-      company: company,
-      bio: bio,
-      phone: phone,
-      email: email,
-      location: location,
-      channels: [
-        for (final channel in empty.channels)
-          channel.type == 'whatsapp' && hasPhone
-              ? channel.copyWith(value: phone, visible: true)
-              : channel,
-      ],
-      links: [
-        for (final link in empty.links)
-          link.type == 'website' && hasWebsite
-              ? link.copyWith(value: website, visible: true)
-              : link,
-      ],
-      items: [
-        for (final (index, service) in serviceList.indexed)
-          StudioItem(
-            localId: 'assistant-$index',
-            kind: 'service',
-            name: service,
-          ),
-      ],
-      servicesEnabled: serviceList.isNotEmpty,
-    ).withCatalogSections();
+    return empty
+        .copyWith(
+          name: name,
+          title: title,
+          company: company,
+          bio: bio,
+          phone: phone,
+          email: email,
+          location: location,
+          channels: [
+            for (final channel in empty.channels)
+              channel.type == 'whatsapp' && hasPhone
+                  ? channel.copyWith(value: phone, visible: true)
+                  : channel,
+          ],
+          links: [
+            for (final link in empty.links)
+              link.type == 'website' && hasWebsite
+                  ? link.copyWith(value: website, visible: true)
+                  : link,
+          ],
+          items: [
+            for (final (index, service) in serviceList.indexed)
+              StudioItem(
+                localId: 'assistant-$index',
+                kind: 'service',
+                name: service,
+              ),
+          ],
+          servicesEnabled: serviceList.isNotEmpty,
+        )
+        .withCatalogSections();
   }
 
   @override

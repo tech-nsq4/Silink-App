@@ -37,7 +37,7 @@ class CartItem extends Equatable {
     return CartItem(
       productId: product.id,
       name: product.name,
-      image: product.image,
+      image: product.imageForColor(index),
       price: unitPrice ?? product.price,
       quantity: quantity,
       colorValue: product.hasColors ? product.colorAt(index).toARGB32() : 0,

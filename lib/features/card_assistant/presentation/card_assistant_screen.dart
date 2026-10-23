@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:Silink/core/utils/app_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/router/navigation_services.dart';
@@ -81,7 +82,7 @@ class _CardAssistantScreenState extends State<CardAssistantScreen> {
       return;
     }
     NavigationService.push(
-      Routes.cardStudioScreen,
+      kIsGuest ? Routes.cardStudioScreen : Routes.portfolioStudioScreen,
       arguments: {'draft': state.draft.toStudioDraft()},
     );
   }

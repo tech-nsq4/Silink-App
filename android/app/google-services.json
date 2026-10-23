@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904656669546",
+    "project_id": "silink-app",
+    "storage_bucket": "silink-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904656669546:android:aae5aaea863eb740647313",
+        "android_client_info": {
+          "package_name": "com.silink.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF_sl_xOS1wHdIVKZ5-GlfQsVuJA2jrOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

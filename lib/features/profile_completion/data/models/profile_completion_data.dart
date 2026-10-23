@@ -15,7 +15,7 @@ extension ProfileTypeApi on ProfileType {
   String get apiValue => switch (this) {
         ProfileType.work => 'business',
         ProfileType.personal => 'personal',
-        ProfileType.freelancer => 'freelancer',
+        ProfileType.freelancer => 'freelance',
       };
 }
 

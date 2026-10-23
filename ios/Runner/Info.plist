@@ -22,18 +22,33 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.silink</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>silink</string>
+			</array>
+		</dict>
+	</array>
+	<key>FlutterDeepLinkingEnabled</key>
+	<false/>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>نحتاج الوصول إلى الكاميرا لالتقاط صورتك الشخصية</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>نحتاج الوصول إلى معرض الصور لاختيار صورتك الشخصية</string>
 	<key>NSContactsUsageDescription</key>
 	<string>نحتاج الوصول إلى جهات الاتصال لحفظ بيانات البطاقة في هاتفك</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>نحتاج الوصول إلى موقعك لتحديد عنوانك على الخريطة</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>نحتاج الوصول إلى معرض الصور لاختيار صورتك الشخصية</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -57,6 +72,11 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

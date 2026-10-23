@@ -68,6 +68,12 @@ class AccountScreen extends StatelessWidget {
                             icon: AppImages.iconsPersonal,
                           ),
                           AccountMenuTile(
+                            icon: AppImages.iconsCard,
+                            label: LocaleKeys.portfolios_myCards.tr(),
+                            onTap: () =>
+                                context.pushNamed(Routes.portfoliosScreen),
+                          ),
+                          AccountMenuTile(
                             label: LocaleKeys.orders_title.tr(),
                             onTap: () =>
                                 context.pushNamed(Routes.myOrdersScreen),

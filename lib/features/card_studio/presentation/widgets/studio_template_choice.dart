@@ -72,8 +72,7 @@ class StudioTemplateChoice extends StatelessWidget {
                 Container(
                   width: 100.w,
                   height: 65.h,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                   decoration: BoxDecoration(
                     color: artColor,
                     borderRadius: BorderRadius.circular(6.r),
@@ -96,7 +95,8 @@ class StudioTemplateChoice extends StatelessWidget {
                       ),
                       SizedBox(height: 8.h),
                       line(0.8, 3, lineColor),
-                      line(0.6, 2, AppColors.studioTemplateArtLineSoft.themeColor),
+                      line(0.6, 2,
+                          AppColors.studioTemplateArtLineSoft.themeColor),
                       line(0.6, 2,
                           AppColors.studioTemplateArtLineSoft.themeColor),
                     ],

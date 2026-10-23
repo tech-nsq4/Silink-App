@@ -49,6 +49,7 @@ class AccountMenuTile extends StatelessWidget {
             label,
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
+            color: isDestructive ? AppColors.errorColor.themeColor : null,
           ),
           Spacer(),
           if (value != null) ...[
