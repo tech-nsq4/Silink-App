@@ -65,11 +65,13 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
 
-flutter_icons:
+flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/logo2.png"
+  image_path: "assets/images/app_icon.png"
+  adaptive_icon_background: "#2D3B4A"
+  adaptive_icon_foreground: "assets/images/app_icon_foreground.png"
 
 flutter:
   uses-material-design: true

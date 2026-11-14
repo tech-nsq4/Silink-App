@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
-import '../utils/app_constants.dart';
+import '../utils/app_images.dart';
 
 class SilinkBrand extends StatelessWidget {
   const SilinkBrand({super.key, this.fontSize = 26, this.color});
@@ -11,38 +11,13 @@ class SilinkBrand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dotSize = fontSize * 0.26;
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            'silink',
-            style: TextStyle(
-              fontFamily: AppFonts.familyFont,
-              fontSize: fontSize,
-              fontWeight: FontWeight.w800,
-              letterSpacing: -fontSize * 0.058,
-              height: 1,
-              color: color ?? AppColors.textPrimaryColor.themeColor,
-            ),
-          ),
-          SizedBox(width: fontSize * 0.06),
-          Padding(
-            padding: EdgeInsets.only(bottom: fontSize * 0.2),
-            child: Container(
-              width: dotSize,
-              height: dotSize,
-              decoration: BoxDecoration(
-                color: AppColors.accentTeal.themeColor,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-        ],
-      ),
+    final tint = color ?? AppColors.textPrimaryColor.themeColor;
+    final onDark = tint.computeLuminance() > 0.5;
+    return Image.asset(
+      onDark ? AppImages.logoLight : AppImages.logoDark,
+      height: fontSize * 1.5,
+      fit: BoxFit.contain,
+      filterQuality: FilterQuality.high,
     );
   }
 }

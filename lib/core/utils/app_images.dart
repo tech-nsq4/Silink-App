@@ -72,5 +72,8 @@ class AppImages {
   static const String holder = '${_base}holder.png';
   static const String introGif = '${_base}intro.gif';
   static const String splash = '${_base}splash_image.png';
-  static const String logoApp = '${_base}logo.png';
+  static const String logoLight = '${_base}logo_light.png';
+  static const String logoDark = '${_base}logo_dark.png';
+  static const String logoMark = '${_base}logo_mark.png';
+  static const String logoApp = logoDark;
 }

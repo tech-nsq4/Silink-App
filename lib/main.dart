@@ -19,8 +19,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(firebaseBackgroundMessageHandler);
 
-  final res =await FirebaseMessaging.instance.getToken();
-  print('Firebase Token: $res');
   runApp(
     tr.EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -31,4 +29,8 @@ void main() async {
     ),
   );
   NotificationService.init();
+  FirebaseMessaging.instance
+      .getToken()
+      .then((token) => debugPrint('Firebase Token: $token'))
+      .catchError((Object e) => debugPrint('Firebase Token error: $e'));
 }
