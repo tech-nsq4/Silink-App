@@ -16,18 +16,24 @@ import 'widgets/auth_mode_tabs.dart';
 import 'widgets/auth_top_bar.dart';
 import 'widgets/login_form.dart';
 import 'widgets/register_form.dart';
+import 'widgets/social_auth_section.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key, this.startWithRegister = false});
+  const AuthScreen({
+    super.key,
+    this.startWithRegister = false,
+    this.loginOnly = false,
+  });
 
   final bool startWithRegister;
+  final bool loginOnly;
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  late bool _isRegister = widget.startWithRegister;
+  late bool _isRegister = !widget.loginOnly && widget.startWithRegister;
 
   void _setMode(bool isRegister) {
     if (_isRegister == isRegister) return;
@@ -86,12 +92,14 @@ class _AuthScreenState extends State<AuthScreen> {
                             : LocaleKeys.auth_loginIntro.tr(),
                       ),
                       24.height,
-                      AuthModeTabs(
-                        isRegister: _isRegister,
-                        onLoginTap: () => _setMode(false),
-                        onRegisterTap: () => _setMode(true),
-                      ),
-                      22.height,
+                      if (!widget.loginOnly) ...[
+                        AuthModeTabs(
+                          isRegister: _isRegister,
+                          onLoginTap: () => _setMode(false),
+                          onRegisterTap: () => _setMode(true),
+                        ),
+                        22.height,
+                      ],
                       AnimatedSwitcher(
                         duration: const Duration(milliseconds: 250),
                         switchInCurve: Curves.easeOut,
@@ -113,6 +121,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 onGuest: _continueAsGuest,
                               ),
                       ),
+                      16.height,
+                      SocialAuthSection(loading: loading),
                       const AuthAssuranceNote(),
                     ],
                   ),

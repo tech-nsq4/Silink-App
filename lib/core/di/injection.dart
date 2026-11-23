@@ -5,6 +5,7 @@ import '../../features/account/data/account_repo.dart';
 import '../../features/account/logic/account_edit_cubit.dart';
 import '../../features/account/logic/change_password_cubit.dart';
 import '../../features/auth/data/auth_repo.dart';
+import '../services/social_auth_service.dart';
 import '../../features/card_assistant/data/assistant_draft_parser.dart';
 import '../../features/card_studio/data/card_studio_repo.dart';
 import '../../features/card_studio/logic/card_studio_cubit.dart';
@@ -74,6 +75,7 @@ Future<void> setupDi() async {
   getIt.registerLazySingleton(() => PushTokenService());
 
   // ─── Repos ────────────────────────────────────────────────────────────
+  getIt.registerLazySingleton(() => SocialAuthService());
   getIt.registerLazySingleton(() => AuthRepo(dio: getIt(), storage: getIt()));
   getIt.registerLazySingleton(
       () => EmployeeInvitationRepo(dio: getIt(), storage: getIt()));
@@ -124,7 +126,7 @@ Future<void> setupDi() async {
       .registerLazySingleton(() => AccountRepo(dio: getIt(), storage: getIt()));
 
   // ─── Cubits ────────────────────────────────────────────────────────────
-  getIt.registerFactory(() => AuthCubit(getIt()));
+  getIt.registerFactory(() => AuthCubit(getIt(), getIt()));
   getIt.registerFactory(() => ProfileCubit(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => BrandCubit(getIt(), getIt()));
   getIt.registerFactory(() => ProfileCompletionCubit(getIt()));

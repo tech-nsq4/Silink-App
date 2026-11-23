@@ -105,23 +105,7 @@ class CardStudioRepo {
         StudioContact.linkTypes,
         {for (final l in links) l.type: (l.value, l.visible)},
       ),
-      items: [
-        for (final item in catalog.items)
-          StudioItem(
-            localId: item.id,
-            remoteId: item.id,
-            kind: item.kind,
-            name: item.name,
-            description: item.description,
-            price: item.price,
-            priceLabel: item.priceLabel,
-            actionType: item.actionType.isEmpty
-                ? StudioItem.defaultActionType
-                : item.actionType,
-            actionUrl: item.actionUrl,
-            imageUrl: item.imageUrl,
-          ),
-      ],
+      items: [for (final item in catalog.items) _studioItem(item)],
       servicesEnabled: catalog.servicesEnabled,
       productsEnabled: catalog.productsEnabled,
       template: StudioDraft.templates.contains(selectedTemplate)
@@ -135,6 +119,45 @@ class CardStudioRepo {
       sections: sections,
     );
   }
+
+  Future<StudioDraft> loadContent() async {
+    final results = await Future.wait([
+      completion.getChannels(),
+      completion.getLinks(),
+      completion.getCatalog(),
+    ]);
+    final channels = results[0] as List<ChannelModel>;
+    final links = results[1] as List<LinkModel>;
+    final catalog = results[2] as CatalogModel;
+    return StudioDraft.empty().copyWith(
+      channels: _contacts(
+        StudioContact.channelTypes,
+        {for (final c in channels) c.type: (c.value, c.visible)},
+      ),
+      links: _contacts(
+        StudioContact.linkTypes,
+        {for (final l in links) l.type: (l.value, l.visible)},
+      ),
+      items: [for (final item in catalog.items) _studioItem(item)],
+      servicesEnabled: catalog.servicesEnabled,
+      productsEnabled: catalog.productsEnabled,
+    );
+  }
+
+  StudioItem _studioItem(CatalogItemModel item) => StudioItem(
+        localId: item.id,
+        remoteId: item.id,
+        kind: item.kind,
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        priceLabel: item.priceLabel,
+        actionType: item.actionType.isEmpty
+            ? StudioItem.defaultActionType
+            : item.actionType,
+        actionUrl: item.actionUrl,
+        imageUrl: item.imageUrl,
+      );
 
   List<StudioContact> _contacts(
     List<String> types,

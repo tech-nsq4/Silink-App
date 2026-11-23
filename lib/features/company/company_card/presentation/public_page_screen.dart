@@ -18,6 +18,7 @@ import '../../company_profile_completion/presentation/widgets/public_page/compan
 import '../../company_profile_completion/presentation/widgets/public_page/company_public_page_cover.dart';
 import '../../company_profile_completion/presentation/widgets/public_page/company_public_page_header.dart';
 import '../../company_profile_completion/presentation/widgets/public_page/company_public_team_section.dart';
+import '../../../../core/utils/share_origin.dart';
 
 class PublicPageScreen extends StatelessWidget {
   const PublicPageScreen({
@@ -80,6 +81,7 @@ class PublicPageScreen extends StatelessWidget {
         [data.name, data.about ?? '', data.website, data.phone]
             .where((value) => value.trim().isNotEmpty)
             .join('\n'),
+        sharePositionOrigin: ShareOrigin.of(),
       );
 
   void _onSaveContact() => AppOverlay.showSuccess(

@@ -14,6 +14,7 @@ class FlowFooter extends StatelessWidget {
     this.loading = false,
     this.loadingTitle,
     this.error,
+    this.bottom,
   });
 
   final String title;
@@ -22,6 +23,7 @@ class FlowFooter extends StatelessWidget {
   final bool loading;
   final String? loadingTitle;
   final String? error;
+  final Widget? bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,10 @@ class FlowFooter extends StatelessWidget {
               textAlign: TextAlign.center,
               color: AppColors.footerNote.themeColor,
             ),
+          ],
+          if (bottom != null) ...[
+            SizedBox(height: 10.h),
+            bottom!,
           ],
         ],
       ),

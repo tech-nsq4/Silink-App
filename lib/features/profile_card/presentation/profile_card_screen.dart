@@ -11,23 +11,18 @@ import '../../../core/di/injection.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../core/utils/app_overlay.dart';
-import '../../../core/utils/helper_methods.dart';
 import '../../../core/utils/locale_keys.dart';
 import '../../../core/widgets/creation_footer.dart';
 import '../../../core/widgets/creation_header.dart';
 import '../../../core/widgets/creation_toolbar.dart';
-import '../../../core/widgets/public_profile/public_profile_data.dart';
 import '../../../core/widgets/public_profile/public_profile_view.dart';
 import '../../../core/widgets/screen_state_layout.dart';
-import '../../profile_completion/data/models/catalog_model.dart';
-import '../../profile_completion/presentation/widgets/profile_catalog_item_details.dart';
-import '../data/models/profile_card_lead_request.dart';
 import '../data/models/profile_card_model.dart';
-import '../data/profile_card_contact_saver.dart';
 import '../../../core/network/api_endpoints.dart';
 import '../data/profile_card_repo.dart';
 import '../logic/profile_card_cubit.dart';
-import 'widgets/profile_card_share_data_dialog.dart';
+import 'widgets/profile_card_contact_actions.dart';
+import '../../../core/utils/share_origin.dart';
 
 class ProfileCardScreen extends StatefulWidget {
   const ProfileCardScreen({
@@ -69,87 +64,10 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
     super.dispose();
   }
 
-  Future<void> _launch(Future<void> Function() action) async {
-    try {
-      await action();
-    } catch (_) {
-      AppOverlay.showError(LocaleKeys.common_somethingWentWrong.tr());
-    }
-  }
-
-  void _call() {
-    final phone = _card?.basic.phone.trim() ?? '';
-    if (phone.isEmpty) return;
-    _launch(() => HelperMethods.openUri(Uri(scheme: 'tel', path: phone)));
-  }
-
-  void _email() {
-    final email = _card?.basic.email.trim() ?? '';
-    if (email.isEmpty) return;
-    _launch(() => HelperMethods.openUri(Uri(scheme: 'mailto', path: email)));
-  }
-
-  void _openContact(PublicProfileContact contact) =>
-      _launch(() => HelperMethods.openLink(contact.url));
-
-  void _mainContact() {
-    final whatsapp = _card?.whatsapp;
-    if (whatsapp != null) {
-      _launch(() => HelperMethods.openLink(whatsapp.url));
-    } else if ((_card?.basic.phone.trim() ?? '').isNotEmpty) {
-      _call();
-    } else if ((_card?.basic.email.trim() ?? '').isNotEmpty) {
-      _email();
-    } else {
-      _shareData();
-    }
-  }
-
-  Future<void> _saveContact() async {
-    final card = _card;
-    if (card == null) return;
-    try {
-      final saved = await const ProfileCardContactSaver().save(card);
-      if (saved) AppOverlay.showSuccess(LocaleKeys.publish_contactSaved.tr());
-    } catch (_) {
-      AppOverlay.showError(LocaleKeys.common_somethingWentWrong.tr());
-    }
-  }
-
-  void _shareData() => ProfileCardShareDataDialog.show(
-        context,
-        ownerName: _card?.basic.fullName.trim() ?? '',
-        onSubmit: _submitLead,
-      );
-
-  Future<bool> _submitLead(ProfileCardLeadRequest lead) async {
-    AppOverlay.showSuccess(LocaleKeys.common_comingSoon.tr());
-    return false;
-  }
-
-  void _openItem(PublicProfileItem item) {
-    final product = _card?.products.where((p) => p.id == item.id).firstOrNull;
-    if (product == null) return;
-    openProfileCatalogItemDetails(
-      context,
-      CatalogItemModel(
-        id: product.id,
-        kind: product.kind,
-        name: product.name,
-        description: product.description,
-        priceLabel: product.priceLabel,
-        price: product.price,
-        actionType: product.actionType,
-        actionUrl: product.actionUrl,
-        imageUrl: product.imageUrl,
-      ),
-      visible: product.isActive,
-    );
-  }
-
   Future<void> _share() async {
     if (_isSharing) return;
     setState(() => _isSharing = true);
+    final origin = ShareOrigin.of(context);
     try {
       await WidgetsBinding.instance.endOfFrame;
       final boundary = _shareKey.currentContext?.findRenderObject()
@@ -169,6 +87,7 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
         ],
         text: name.isEmpty ? AppConstants.appName : name,
         fileNameOverrides: const ['silink-card.png'],
+        sharePositionOrigin: origin,
       );
     } catch (_) {
       if (mounted) {
@@ -238,18 +157,14 @@ class _ProfileCardScreenState extends State<ProfileCardScreen> {
                   builder: (context) => PublicProfileView(
                     data: (state as ProfileCardSuccess).card.toPublicProfile(),
                     repaintKey: _shareKey,
-                    actions: PublicProfileActions(
+                    actions: ProfileCardContactActions(
+                      context,
+                      state.card,
+                    ).build(
                       onShare: _share,
                       onClose: widget.viewOnly
                           ? () => Navigator.of(context).maybePop()
                           : null,
-                      onCall: _call,
-                      onEmail: _email,
-                      onSaveContact: _saveContact,
-                      onShareData: _shareData,
-                      onOpenContact: _openContact,
-                      onItemTap: _openItem,
-                      onMainContact: _mainContact,
                     ),
                   ),
                 ),

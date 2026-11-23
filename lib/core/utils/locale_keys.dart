@@ -60,6 +60,10 @@ abstract class LocaleKeys {
   static const String auth_termsOfService = 'auth.terms_of_service';
   static const String auth_termsAnd = 'auth.terms_and';
   static const String auth_privacyPolicy = 'auth.privacy_policy';
+  static const String auth_orContinueWith = 'auth.or_continue_with';
+  static const String auth_continueWithGoogle = 'auth.continue_with_google';
+  static const String auth_continueWithApple = 'auth.continue_with_apple';
+  static const String auth_socialSignInFailed = 'auth.social_sign_in_failed';
 
   // ─── OTP ──────────────────────────────────────────────────────────────────
   static const String otp_title = 'otp.title';
@@ -1417,6 +1421,8 @@ abstract class LocaleKeys {
   static const String newCard_assistantCta = 'new_card.assistant_cta';
   static const String newCard_manualCta = 'new_card.manual_cta';
   static const String newCard_footerNote = 'new_card.footer_note';
+  static const String newCard_haveCardQuestion = 'new_card.have_card_question';
+  static const String newCard_loginCta = 'new_card.login_cta';
 
   // ─── Card Assistant ───────────────────────────────────────────────────────
   static const String cardAssistant_headerEyebrow = 'card_assistant.header_eyebrow';
@@ -1603,6 +1609,15 @@ abstract class LocaleKeys {
   static const String cardStudio_shapeRounded = 'card_studio.shape_rounded';
   static const String cardStudio_shapeSquare = 'card_studio.shape_square';
   static const String cardStudio_socialHint = 'card_studio.social_hint';
+  static const String cardStudio_usernameHint = 'card_studio.username_hint';
+  static const String cardStudio_whatsappHint = 'card_studio.whatsapp_hint';
+  static const String cardStudio_whatsappHelp = 'card_studio.whatsapp_help';
+  static const String cardStudio_handleHelp = 'card_studio.handle_help';
+  static const String cardStudio_linkPreview = 'card_studio.link_preview';
+  static const String cardStudio_modeUsername = 'card_studio.mode_username';
+  static const String cardStudio_modeNumber = 'card_studio.mode_number';
+  static const String cardStudio_modeLink = 'card_studio.mode_link';
+  static const String cardStudio_linkHint = 'card_studio.link_hint';
   static const String cardStudio_stepContact = 'card_studio.step_contact';
   static const String cardStudio_stepContent = 'card_studio.step_content';
   static const String cardStudio_stepDesign = 'card_studio.step_design';
@@ -1672,6 +1687,14 @@ abstract class LocaleKeys {
   static const String companyWorkspace_benefitPage = 'company_workspace.benefit_page';
   static const String companyWorkspace_benefitCards = 'company_workspace.benefit_cards';
   static const String companyWorkspace_benefitStats = 'company_workspace.benefit_stats';
+  static const String companyWorkspace_reviewChannels = 'company_workspace.review_channels';
+  static const String companyWorkspace_reviewLinks = 'company_workspace.review_links';
+  static const String companyWorkspace_reviewCatalog = 'company_workspace.review_catalog';
+  static const String companyWorkspace_reviewEmptyChannels = 'company_workspace.review_empty_channels';
+  static const String companyWorkspace_reviewEmptyCatalog = 'company_workspace.review_empty_catalog';
+  static const String companyWorkspace_reviewEdit = 'company_workspace.review_edit';
+  static const String companyWorkspace_reviewMore = 'company_workspace.review_more';
+  static const String companyWorkspace_reviewPreview = 'company_workspace.review_preview';
   static const String companyWorkspace_create = 'company_workspace.create';
   static const String companyWorkspace_saving = 'company_workspace.saving';
   static const String companyWorkspace_errorName = 'company_workspace.error_name';

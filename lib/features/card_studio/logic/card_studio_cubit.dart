@@ -64,6 +64,39 @@ class CardStudioCubit extends Cubit<CardStudioState> {
     }
   }
 
+  Future<void> startContentOnly() async {
+    emit(const CardStudioLoading());
+    try {
+      final draft = await _repo.loadContent();
+      emit(CardStudioSuccess(
+        draft: draft,
+        step: contactStep,
+        minStep: contactStep,
+        isRemote: true,
+      ));
+    } catch (e) {
+      final msg = _message(e);
+      AppOverlay.showError(msg);
+      emit(CardStudioError(msg));
+    }
+  }
+
+  Future<bool> saveStepData(int step) async {
+    final current = _ready;
+    if (current == null || current.saving) return false;
+    emit(current.copyWith(step: step, saving: true, clearError: true));
+    try {
+      await _saveStep(_ready!);
+      emit(_ready!.copyWith(saving: false));
+      return true;
+    } catch (e) {
+      final msg = _message(e);
+      AppOverlay.showError(msg);
+      emit(_ready!.copyWith(saving: false, error: msg));
+      return false;
+    }
+  }
+
   void update(StudioDraft draft) =>
       _ready.let((s) => emit(s.copyWith(draft: draft, clearError: true)));
 

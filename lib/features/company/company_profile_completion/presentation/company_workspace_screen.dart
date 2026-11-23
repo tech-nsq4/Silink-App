@@ -19,9 +19,15 @@ import '../../../../core/widgets/flow_stepper.dart';
 import '../../../../core/widgets/flow_top_bar.dart';
 import '../../../../core/widgets/photo_source_sheet.dart';
 import '../../../../core/widgets/screen_state_layout.dart';
+import '../../../card_studio/data/models/studio_item.dart';
+import '../../../card_studio/logic/card_studio_cubit.dart';
+import '../../../card_studio/presentation/widgets/studio_contact_step.dart';
+import '../../../card_studio/presentation/widgets/studio_content_step.dart';
+import '../../../card_studio/presentation/widgets/studio_item_sheet.dart';
 import '../logic/company_profile_completion_cubit.dart';
 import 'widgets/workspace/workspace_company_step.dart';
 import 'widgets/workspace/workspace_review_step.dart';
+import 'widgets/workspace/workspace_studio_loader.dart';
 import 'widgets/workspace/workspace_team_step.dart';
 
 class CompanyWorkspaceScreen extends StatefulWidget {
@@ -34,11 +40,14 @@ class CompanyWorkspaceScreen extends StatefulWidget {
 class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
   static const int companyStep = 0;
   static const int teamStep = 1;
-  static const int reviewStep = 2;
+  static const int contactStep = 2;
+  static const int contentStep = 3;
+  static const int reviewStep = 4;
   static final RegExp _emailPattern = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
 
   late final CompanyProfileCompletionCubit _cubit =
       getIt<CompanyProfileCompletionCubit>();
+  late final CardStudioCubit _studio = getIt<CardStudioCubit>();
   final _nameCtrl = TextEditingController();
   final _aboutCtrl = TextEditingController();
   final _websiteCtrl = TextEditingController();
@@ -53,6 +62,8 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
   List<String> get _stepLabels => [
         LocaleKeys.companyWorkspace_stepCompany.tr(),
         LocaleKeys.companyWorkspace_stepTeam.tr(),
+        LocaleKeys.cardStudio_stepContact.tr(),
+        LocaleKeys.cardStudio_stepContent.tr(),
         LocaleKeys.companyWorkspace_stepReview.tr(),
       ];
 
@@ -60,6 +71,7 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
   void initState() {
     super.initState();
     _load();
+    _studio.startContentOnly();
   }
 
   @override
@@ -71,6 +83,7 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
     _emailCtrl.dispose();
     _scrollCtrl.dispose();
     _cubit.close();
+    _studio.close();
     super.dispose();
   }
 
@@ -85,7 +98,10 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
         _aboutCtrl.text = company.about;
         _websiteCtrl.text = company.website;
       }
-      if (details != null) _phoneCtrl.text = details.contactPhone;
+      _phoneCtrl.text = [
+        details?.contactPhone ?? '',
+        kUserModel?.phone ?? '',
+      ].firstWhere((phone) => phone.trim().isNotEmpty, orElse: () => '');
       _emailCtrl.text = [
         details?.companyEmail ?? '',
         company?.companyEmail ?? '',
@@ -160,6 +176,12 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
           contactPhone: _phoneCtrl.text.trim(),
           companyEmail: _emailCtrl.text.trim(),
         );
+      case contactStep:
+      case contentStep:
+        if (_studio.state is! CardStudioSuccess) return true;
+        return _studio.saveStepData(_step == contactStep
+            ? CardStudioCubit.contactStep
+            : CardStudioCubit.contentStep);
       default:
         return true;
     }
@@ -241,12 +263,28 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
 
   String _nextLabel() => switch (_step) {
         companyStep => LocaleKeys.companyWorkspace_nextTeam.tr(),
-        teamStep => LocaleKeys.companyWorkspace_nextReview.tr(),
+        teamStep => LocaleKeys.cardStudio_nextPrefix
+            .tr(args: [LocaleKeys.cardStudio_stepContact.tr()]),
+        contactStep => LocaleKeys.cardStudio_nextPrefix
+            .tr(args: [LocaleKeys.cardStudio_stepContent.tr()]),
+        contentStep => LocaleKeys.companyWorkspace_nextReview.tr(),
         _ => LocaleKeys.companyWorkspace_create.tr(),
       };
 
+  Future<void> _addItem() async {
+    final item = await StudioItemSheet.show(context);
+    if (item != null) _studio.addItem(item);
+  }
+
+  Future<void> _editItem(StudioItem item) async {
+    final updated = await StudioItemSheet.show(context, item: item);
+    if (updated != null) _studio.updateItem(updated);
+  }
+
   Widget _stepView(CompanyProfileCompletionState state) {
     final details = state.details;
+    final studioState = _studio.state;
+    final studio = studioState is CardStudioSuccess ? studioState : null;
     switch (_step) {
       case companyStep:
         return WorkspaceCompanyStep(
@@ -278,6 +316,31 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
           phoneCtrl: _phoneCtrl,
           emailCtrl: _emailCtrl,
         );
+      case contactStep:
+        return WorkspaceStudioLoader(
+          key: const ValueKey('contact'),
+          cubit: _studio,
+          builder: (studio) => StudioContactStep(
+            draft: studio.draft,
+            onChanged: _studio.update,
+          ),
+        );
+      case contentStep:
+        return WorkspaceStudioLoader(
+          key: const ValueKey('content'),
+          cubit: _studio,
+          builder: (studio) => StudioContentStep(
+            items: studio.draft.items,
+            servicesEnabled: studio.draft.servicesEnabled,
+            productsEnabled: studio.draft.productsEnabled,
+            onToggleCatalog: _studio.toggleCatalog,
+            busyItemId: studio.busyItemId,
+            onAdd: _addItem,
+            onEdit: _editItem,
+            onDelete: _studio.removeItem,
+            onReorder: _studio.reorderItems,
+          ),
+        );
       default:
         final city = details?.cities
                 .where((c) => c.id == details.cityId)
@@ -292,6 +355,11 @@ class _CompanyWorkspaceScreenState extends State<CompanyWorkspaceScreen> {
           size: details?.companySize ?? '',
           phone: _phoneCtrl.text.trim(),
           email: _emailCtrl.text.trim(),
+          channels: studio?.draft.channels ?? const [],
+          links: studio?.draft.links ?? const [],
+          items: studio?.draft.items ?? const [],
+          onEditContact: () => _goTo(contactStep),
+          onEditContent: () => _goTo(contentStep),
           logoUrl: state.company?.logoUrl,
           logoFile: state.companyLogoFile,
         );

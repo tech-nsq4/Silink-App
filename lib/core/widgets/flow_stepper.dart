@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../extensions/extensions.dart';
 import '../utils/app_colors.dart';
 import 'app_text.dart';
+import 'flow_stepper_dot.dart';
+import 'flow_stepper_line.dart';
 
 class FlowStepper extends StatelessWidget {
   const FlowStepper({
@@ -20,77 +21,58 @@ class FlowStepper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accent = AppColors.accentTeal.themeColor;
-    final white = AppColors.white.light;
+    final last = labels.length - 1;
     return Padding(
       padding: EdgeInsets.only(top: 6.h, bottom: 26.h),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (final (index, label) in labels.indexed) ...[
-            if (index > 0) 8.width,
+          for (final (index, label) in labels.indexed)
             Expanded(
               child: GestureDetector(
                 onTap: index < current ? () => onTap(index) : null,
                 behavior: HitTestBehavior.opaque,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          width: 20.w,
-                          height: 20.w,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: index <= current
-                                ? accent
-                                : AppColors.studioStepIdleBadge.themeColor,
-                          ),
-                          child: index < current
-                              ? Icon(Icons.check_rounded,
-                                  size: 12.sp, color: white)
-                              : AppText(
-                                  '${index + 1}',
-                                  fontSize: 9.sp,
-                                  color: index == current
-                                      ? white
-                                      : AppColors.studioStepIdle.themeColor,
-                                ),
+                        FlowStepperLine(
+                          visible: index > 0,
+                          filled: index <= current,
                         ),
-                        6.width,
-                        Flexible(
-                          child: AppText(
-                            label,
-                            fontSize: 10.sp,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: index == current
-                                ? FontWeight.w800
-                                : FontWeight.w500,
-                            color: index == current
-                                ? accent
-                                : AppColors.studioStepIdle.themeColor,
-                          ),
+                        FlowStepperDot(
+                          number: index + 1,
+                          done: index < current,
+                          active: index == current,
+                        ),
+                        FlowStepperLine(
+                          visible: index < last,
+                          filled: index < current,
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.h),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      height: 2.h,
-                      decoration: BoxDecoration(
-                        color: index <= current
+                    SizedBox(height: 8.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 2.w),
+                      child: AppText(
+                        label,
+                        fontSize: 9.5.sp,
+                        height: 1.3,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        fontWeight: index == current
+                            ? FontWeight.w800
+                            : FontWeight.w600,
+                        color: index == current
                             ? accent
-                            : AppColors.studioStepLine.themeColor,
-                        borderRadius: BorderRadius.circular(2.r),
+                            : AppColors.studioStepIdle.themeColor,
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-          ],
         ],
       ),
     );

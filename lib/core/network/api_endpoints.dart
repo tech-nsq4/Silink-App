@@ -10,6 +10,8 @@ class ApiEndpoints {
   static const String meFcmToken = 'me/fcm-token';
   static const String register = 'auth/register';
   static const String verifyOtp = 'auth/otp/verify';
+  static const String loginGoogle = 'auth/google';
+  static const String loginApple = 'auth/apple';
 
   // ─── Employee Invitation ──────────────────────────────────────────────────
   static const String employeeInvitation = 'employee-invitations';

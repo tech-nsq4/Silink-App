@@ -61,21 +61,21 @@ class _StudioBioFieldState extends State<StudioBioField> {
                 fontSize: 11.sp,
                 fontWeight: FontWeight.w700,
               ),
-              GestureDetector(
-                onTap: () => setState(() => _showSuggestion = !_showSuggestion),
-                child: Row(
-                  children: [
-                    Icon(Icons.auto_awesome_outlined,
-                        size: 13.sp, color: accent),
-                    4.width,
-                    AppText(
-                      LocaleKeys.cardStudio_bioHelp.tr(),
-                      fontSize: 10.sp,
-                      color: accent,
-                    ),
-                  ],
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () => setState(() => _showSuggestion = !_showSuggestion),
+              //   child: Row(
+              //     children: [
+              //       Icon(Icons.auto_awesome_outlined,
+              //           size: 13.sp, color: accent),
+              //       4.width,
+              //       AppText(
+              //         LocaleKeys.cardStudio_bioHelp.tr(),
+              //         fontSize: 10.sp,
+              //         color: accent,
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

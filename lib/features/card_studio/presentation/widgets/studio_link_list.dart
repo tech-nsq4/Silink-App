@@ -6,6 +6,7 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../data/models/studio_contact.dart';
 import 'studio_input.dart';
+import 'studio_toggle.dart';
 
 class StudioLinkList extends StatelessWidget {
   const StudioLinkList({
@@ -25,7 +26,6 @@ class StudioLinkList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = AppColors.accentTeal.themeColor;
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -62,33 +62,30 @@ class StudioLinkList extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      SizedBox(
-                        width: 20.w,
-                        height: 20.w,
-                        child: Checkbox(
-                          value: link.visible,
-                          activeColor: accent,
-                          side: BorderSide(
-                              color: AppColors.studioFieldBorder.themeColor),
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          visualDensity: VisualDensity.compact,
-                          onChanged: (value) =>
-                              onToggle(link.type, value ?? false),
-                        ),
+                      StudioToggle(
+                        value: link.visible,
+                        onChanged: (value) => onToggle(link.type, value),
                       ),
                     ],
                   ),
-                  if (link.visible) ...[
-                    SizedBox(height: 10.h),
-                    StudioInput(
-                      controller: controllers[link.type]!,
-                      hint: 'https://…',
-                      ltr: true,
-                      keyboardType: TextInputType.url,
-                      onChanged: (value) => onChanged(link.type, value),
-                    ),
-                  ],
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 240),
+                    curve: Curves.easeOutCubic,
+                    alignment: Alignment.topCenter,
+                    child: link.visible
+                        ? Padding(
+                            padding: EdgeInsets.only(top: 10.h),
+                            child: StudioInput(
+                              controller: controllers[link.type]!,
+                              hint: 'https://…',
+                              ltr: true,
+                              keyboardType: TextInputType.url,
+                              onChanged: (value) =>
+                                  onChanged(link.type, value),
+                            ),
+                          )
+                        : const SizedBox(width: double.infinity),
+                  ),
                 ],
               ),
             ),

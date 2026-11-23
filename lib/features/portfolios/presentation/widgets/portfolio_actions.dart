@@ -9,13 +9,17 @@ import '../../../../core/utils/app_overlay.dart';
 import '../../../../core/utils/locale_keys.dart';
 import '../../data/models/portfolio_model.dart';
 import 'portfolio_qr_sheet.dart';
+import '../../../../core/utils/share_origin.dart';
 
 class PortfolioActions {
   PortfolioActions._();
 
   static void share(PortfolioModel portfolio) {
     if (portfolio.shareUrl.isEmpty) return;
-    Share.share('${portfolio.displayName}\n${portfolio.shareUrl}');
+    Share.share(
+      '${portfolio.displayName}\n${portfolio.shareUrl}',
+      sharePositionOrigin: ShareOrigin.of(),
+    );
   }
 
   static Future<void> copyLink(PortfolioModel portfolio) async {

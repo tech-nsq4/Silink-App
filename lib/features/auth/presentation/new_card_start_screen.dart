@@ -13,6 +13,7 @@ import '../../../core/widgets/flow_page_title.dart';
 import '../../../core/widgets/flow_top_bar.dart';
 import 'widgets/new_card_art.dart';
 import 'widgets/new_card_explainer.dart';
+import 'widgets/new_card_login_prompt.dart';
 import 'widgets/new_card_method_card.dart';
 
 class NewCardStartScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class NewCardStartScreen extends StatefulWidget {
 }
 
 class _NewCardStartScreenState extends State<NewCardStartScreen> {
-  bool _withAssistant = true;
+  bool _withAssistant = false;
 
   void _start() => NavigationService.push(
         _withAssistant
@@ -63,16 +64,16 @@ class _NewCardStartScreenState extends State<NewCardStartScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Expanded(
-                        child: NewCardMethodCard(
-                          icon: Icons.auto_awesome_outlined,
-                          title: LocaleKeys.newCard_assistantTitle.tr(),
-                          subtitle: LocaleKeys.newCard_assistantSubtitle.tr(),
-                          selected: _withAssistant,
-                          onTap: () => setState(() => _withAssistant = true),
-                        ),
-                      ),
-                      10.width,
+                      // Expanded(
+                      //   child: NewCardMethodCard(
+                      //     icon: Icons.auto_awesome_outlined,
+                      //     title: LocaleKeys.newCard_assistantTitle.tr(),
+                      //     subtitle: LocaleKeys.newCard_assistantSubtitle.tr(),
+                      //     selected: _withAssistant,
+                      //     onTap: () => setState(() => _withAssistant = true),
+                      //   ),
+                      // ),
+                      // 10.width,
                       Expanded(
                         child: NewCardMethodCard(
                           icon: Icons.space_dashboard_outlined,
@@ -112,8 +113,13 @@ class _NewCardStartScreenState extends State<NewCardStartScreen> {
             title: _withAssistant
                 ? LocaleKeys.newCard_assistantCta.tr()
                 : LocaleKeys.newCard_manualCta.tr(),
-            note: LocaleKeys.newCard_footerNote.tr(),
             onTap: _start,
+            bottom: NewCardLoginPrompt(
+              onLoginTap: () => NavigationService.push(
+                Routes.loginScreen,
+                arguments: {'loginOnly': true},
+              ),
+            ),
           ),
         ],
       ),

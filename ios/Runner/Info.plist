@@ -34,7 +34,19 @@
 				<string>silink</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.904656669546-06uci88g35l6lpnakac28562e9mhbnf0</string>
+			</array>
+		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>904656669546-06uci88g35l6lpnakac28562e9mhbnf0.apps.googleusercontent.com</string>
+	<key>GIDServerClientID</key>
+	<string>904656669546-7401j75rabpqedqrkfhutkjpa44he0a5.apps.googleusercontent.com</string>
 	<key>FlutterDeepLinkingEnabled</key>
 	<false/>
 	<key>CFBundleVersion</key>

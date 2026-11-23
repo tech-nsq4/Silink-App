@@ -27,6 +27,7 @@ void main() async {
       startLocale: const Locale('ar'),
       child: const SafeArea(top: false, child: MyApp()),
     ),
+    
   );
   NotificationService.init();
   FirebaseMessaging.instance

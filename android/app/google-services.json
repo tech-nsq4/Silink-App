@@ -12,7 +12,28 @@
           "package_name": "com.silink.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "904656669546-ckcntquo55nhqp11ulrb8ssasda44s3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.silink.app",
+            "certificate_hash": "a30d91904dc228a92c9b40f5f13d6a8304beff75"
+          }
+        },
+        {
+          "client_id": "904656669546-s7hhuil4tum6da6up45gj913duh44e0s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.silink.app",
+            "certificate_hash": "cdbdb2d4c2832a676155182f5e8ff3c8a3b21a6e"
+          }
+        },
+        {
+          "client_id": "904656669546-7401j75rabpqedqrkfhutkjpa44he0a5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDF_sl_xOS1wHdIVKZ5-GlfQsVuJA2jrOU"
@@ -20,7 +41,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904656669546-7401j75rabpqedqrkfhutkjpa44he0a5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "904656669546-06uci88g35l6lpnakac28562e9mhbnf0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.silink"
+              }
+            }
+          ]
         }
       }
     }

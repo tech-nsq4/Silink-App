@@ -1,20 +1,47 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/network/network_exceptions.dart';
 import '../../../core/utils/app_constants.dart';
+import '../../../core/services/social_auth_service.dart';
 import '../../../core/utils/app_overlay.dart';
+import '../../../core/utils/locale_keys.dart';
 import '../data/auth_repo.dart';
+import '../data/models/social_credential.dart';
 import '../data/models/user_model.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._repo) : super(const AuthInitial());
+  AuthCubit(this._repo, this._social) : super(const AuthInitial());
 
   final AuthRepo _repo;
+  final SocialAuthService _social;
+
+  Future<void> socialLogin(SocialProvider provider) async {
+    emit(const AuthLoading());
+    try {
+      final credential = provider == SocialProvider.google
+          ? await _social.signInWithGoogle()
+          : await _social.signInWithApple();
+      if (credential == null) {
+        emit(const AuthInitial());
+        return;
+      }
+      final user = await _repo.socialLogin(credential);
+      kUserModel = user;
+      emit(AuthSuccess(user));
+    } catch (e) {
+      final msg = e is NetworkException
+          ? e.message
+          : LocaleKeys.auth_socialSignInFailed.tr();
+      AppOverlay.showError(msg);
+      emit(AuthError(msg));
+    }
+  }
 
   Future<void> login({
     required String phone,

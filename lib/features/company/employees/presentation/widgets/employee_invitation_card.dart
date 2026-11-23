@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../../../core/utils/share_origin.dart';
 
 class EmployeeInvitationCard extends StatelessWidget {
   const EmployeeInvitationCard({super.key, required this.invitation});
@@ -20,9 +21,7 @@ class EmployeeInvitationCard extends StatelessWidget {
   final EmployeeInvitationModel invitation;
 
   Future<void> _share(BuildContext context) {
-    final box = context.findRenderObject() as RenderBox?;
-    final origin =
-        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    final origin = ShareOrigin.of(context);
     return Share.share(
       LocaleKeys.company_invite_share_message.tr(
         namedArgs: {'link': invitation.shareLink},

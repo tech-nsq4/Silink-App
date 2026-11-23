@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/public_profile/public_profile_data.dart';
 import '../../../core/widgets/public_profile/public_profile_view.dart';
+import '../../profile_card/presentation/widgets/profile_card_contact_actions.dart';
 import '../data/models/portfolio_model.dart';
 import 'widgets/portfolio_actions.dart';
 
@@ -29,7 +30,7 @@ class PortfolioPreviewScreen extends StatelessWidget {
           Expanded(
             child: PublicProfileView(
               data: data,
-              actions: PublicProfileActions(
+              actions: ProfileCardContactActions(context, card).build(
                 onClose: () => Navigator.of(context).maybePop(),
                 onShare: () => PortfolioActions.share(portfolio),
               ),

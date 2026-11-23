@@ -99,7 +99,9 @@ class RouteGenerator {
         return _pageRoute(const OnBoardingScreen());
 
       case Routes.loginScreen:
-        return _pageRoute(const AuthScreen());
+        return _pageRoute(AuthScreen(
+          loginOnly: arguments?['loginOnly'] as bool? ?? false,
+        ));
 
       case Routes.registerScreen:
         return _pageRoute(const AuthScreen(startWithRegister: true));
@@ -304,6 +306,7 @@ class RouteGenerator {
             providerType: arguments?['providerType'] as String?,
             providerCity: arguments?['providerCity'] as String?,
             editable: arguments?['editable'] as bool? ?? true,
+            isOwner: arguments?['isOwner'] as bool? ?? true,
           ),
         );
       case Routes.companyEmployees:

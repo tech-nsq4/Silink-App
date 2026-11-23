@@ -16,6 +16,7 @@ import 'package:Silink/features/company/data/models/company_public_page_data.dar
 
 import '../../company_profile_completion/presentation/widgets/qr/company_qr_action_button.dart';
 import '../../company_profile_completion/presentation/widgets/qr/company_qr_card.dart';
+import '../../../../core/utils/share_origin.dart';
 
 class QrScreen extends StatelessWidget {
   const QrScreen({
@@ -39,9 +40,7 @@ class QrScreen extends StatelessWidget {
   }
 
   Future<void> _shareLink(BuildContext context) async {
-    final box = context.findRenderObject() as RenderBox?;
-    final origin =
-        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    final origin = ShareOrigin.of(context);
     await Share.share(_url, sharePositionOrigin: origin);
   }
 

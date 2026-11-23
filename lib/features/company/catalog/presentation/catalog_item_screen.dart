@@ -37,6 +37,7 @@ class CatalogItemScreen extends StatefulWidget {
     this.providerType,
     this.providerCity,
     this.editable = true,
+    this.isOwner = true,
   });
 
   final CompanyCatalogItem item;
@@ -46,6 +47,7 @@ class CatalogItemScreen extends StatefulWidget {
   final String? providerType;
   final String? providerCity;
   final bool editable;
+  final bool isOwner;
 
   @override
   State<CatalogItemScreen> createState() => _CatalogItemScreenState();
@@ -152,10 +154,12 @@ class _CatalogItemScreenState extends State<CatalogItemScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: CatalogItemActionBar(
-        label: LocaleKeys.company_order_now.tr(),
-        onPressed: _order,
-      ),
+      bottomNavigationBar: widget.isOwner
+          ? null
+          : CatalogItemActionBar(
+              label: LocaleKeys.company_order_now.tr(),
+              onPressed: _order,
+            ),
     );
   }
 

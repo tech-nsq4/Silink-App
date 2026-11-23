@@ -6,9 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/utils/locale_keys.dart';
 import '../../../../../../core/widgets/flow_page_title.dart';
+import '../../../../../card_studio/data/models/studio_contact.dart';
+import '../../../../../card_studio/data/models/studio_item.dart';
 import 'workspace_benefits.dart';
 import 'workspace_contact_expander.dart';
 import 'workspace_review_card.dart';
+import 'workspace_review_catalog.dart';
+import 'workspace_review_channels.dart';
 
 class WorkspaceReviewStep extends StatelessWidget {
   const WorkspaceReviewStep({
@@ -19,6 +23,11 @@ class WorkspaceReviewStep extends StatelessWidget {
     required this.size,
     required this.phone,
     required this.email,
+    required this.channels,
+    required this.links,
+    required this.items,
+    required this.onEditContact,
+    required this.onEditContent,
     this.logoUrl,
     this.logoFile,
   });
@@ -29,6 +38,11 @@ class WorkspaceReviewStep extends StatelessWidget {
   final String size;
   final String phone;
   final String email;
+  final List<StudioContact> channels;
+  final List<StudioContact> links;
+  final List<StudioItem> items;
+  final VoidCallback onEditContact;
+  final VoidCallback onEditContent;
   final String? logoUrl;
   final File? logoFile;
 
@@ -61,6 +75,12 @@ class WorkspaceReviewStep extends StatelessWidget {
           phone: phone,
           email: email,
         ),
+        WorkspaceReviewChannels(
+          channels: channels,
+          links: links,
+          onEdit: onEditContact,
+        ),
+        WorkspaceReviewCatalog(items: items, onEdit: onEditContent),
         WorkspaceBenefits(
           items: [
             LocaleKeys.companyWorkspace_benefitPage.tr(),

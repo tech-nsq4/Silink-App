@@ -27,6 +27,7 @@ import 'widgets/home_section_header.dart';
 import 'widgets/home_status_badge.dart';
 import 'widgets/home_top_bar.dart';
 import 'widgets/store_banner.dart';
+import '../../../core/utils/share_origin.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.onOpenClients});
@@ -80,9 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       AppOverlay.showError(LocaleKeys.common_somethingWentWrong.tr());
       return;
     }
-    final box = context.findRenderObject() as RenderBox?;
-    final origin =
-        box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+    final origin = ShareOrigin.of(context);
     await Share.share(cardUrl, sharePositionOrigin: origin);
   }
 

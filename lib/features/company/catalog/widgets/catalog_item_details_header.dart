@@ -81,39 +81,39 @@ class CatalogItemDetailsHeader extends StatelessWidget {
                       action!,
                       6.width,
                     ],
-                    Semantics(
-                      button: true,
-                      label: LocaleKeys.company_close.tr(),
-                      child: InkWell(
-                        onTap: onClose,
-                        borderRadius: BorderRadius.circular(20.r),
-                        child: Container(
-                          height: 30.h,
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          decoration: BoxDecoration(
-                            color: AppColors.dropdownSurface.themeColor,
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.close_rounded,
-                                size: 15.sp,
-                                color: AppColors.overlayOnDark.themeColor,
-                              ),
-                              3.width,
-                              AppText(
-                                LocaleKeys.publish_exitPreview.tr(),
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.overlayOnDark.themeColor,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Semantics(
+                    //   button: true,
+                    //   label: LocaleKeys.company_close.tr(),
+                    //   child: InkWell(
+                    //     onTap: onClose,
+                    //     borderRadius: BorderRadius.circular(20.r),
+                    //     child: Container(
+                    //       height: 30.h,
+                    //       padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    //       decoration: BoxDecoration(
+                    //         color: AppColors.dropdownSurface.themeColor,
+                    //         borderRadius: BorderRadius.circular(20.r),
+                    //       ),
+                    //       child: Row(
+                    //         mainAxisSize: MainAxisSize.min,
+                    //         children: [
+                    //           Icon(
+                    //             Icons.close_rounded,
+                    //             size: 15.sp,
+                    //             color: AppColors.overlayOnDark.themeColor,
+                    //           ),
+                    //           3.width,
+                    //           AppText(
+                    //             LocaleKeys.publish_exitPreview.tr(),
+                    //             fontSize: 12.sp,
+                    //             fontWeight: FontWeight.w700,
+                    //             color: AppColors.overlayOnDark.themeColor,
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

@@ -43,6 +43,7 @@ Future<dynamic> openProfileCatalogItemDetails(
   BuildContext context,
   CatalogItemModel item, {
   required bool visible,
+  bool isOwner = true,
 }) {
   return NavigationService.push(
     Routes.companyCatalogItem,
@@ -53,6 +54,7 @@ Future<dynamic> openProfileCatalogItemDetails(
           : LocaleKeys.company_products_section.tr(),
       'categories': profileCatalogDetailsCategories,
       'editable': false,
+      'isOwner': isOwner,
     },
   );
 }

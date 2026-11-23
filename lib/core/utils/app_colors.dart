@@ -88,6 +88,18 @@ class AppColors {
     darkColor: Color(0xffFFFFFF),
   );
   static const Color fieldFill = Color(0xFFF1F5F9);
+  static const Color googleButtonBackground = Color(0xFFFFFFFF);
+  static const Color googleButtonBorder = Color(0xFF747775);
+  static const Color googleButtonText = Color(0xFF1F1F1F);
+  static const Color appleButtonBackground = Color(0xFF000000);
+  static const Color appleButtonText = Color(0xFFFFFFFF);
+  static const Color whatsappBrand = Color(0xFF25D366);
+  static const Color linkedinBrand = Color(0xFF0A66C2);
+  static const Color instagramBrand = Color(0xFFC13584);
+  static const Color xBrand = Color(0xFF111111);
+  static const Color snapchatBrand = Color(0xFFFFFC00);
+  static const Color tiktokBrand = Color(0xFF111111);
+  static const Color accentTealBrand = Color(0xFF0D9488);
 
   /// Golden accent — used for the final onboarding CTA button.
   static const ColorModel accentGold = ColorModel(

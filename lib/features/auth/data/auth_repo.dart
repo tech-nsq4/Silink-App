@@ -7,6 +7,7 @@ import '../../../core/network/dio_client.dart';
 import '../../../core/network/network_exceptions.dart';
 import '../../../core/storage/local_storage.dart';
 import 'models/registration_ticket.dart';
+import 'models/social_credential.dart';
 import 'models/user_model.dart';
 
 class AuthRepo {
@@ -29,6 +30,26 @@ class AuthRepo {
           'password': password,
         },
       );
+      final responseData = response.data['data'] as Map<String, dynamic>;
+      final user =
+          UserModel.fromJson(responseData['user'] as Map<String, dynamic>);
+      final token = responseData['token'] as String?;
+      if (token != null) {
+        await _storage.setToken(token);
+        await _storage.setUser(user.toJson());
+      }
+      return user;
+    } on DioException catch (e) {
+      throw NetworkException.fromDioException(e);
+    }
+  }
+
+  Future<UserModel> socialLogin(SocialCredential credential) async {
+    try {
+      final endpoint = credential.provider == SocialProvider.google
+          ? ApiEndpoints.loginGoogle
+          : ApiEndpoints.loginApple;
+      final response = await _dio.post(endpoint, data: credential.toJson());
       final responseData = response.data['data'] as Map<String, dynamic>;
       final user =
           UserModel.fromJson(responseData['user'] as Map<String, dynamic>);
